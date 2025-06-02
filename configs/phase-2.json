@@ -51,10 +51,103 @@
     }
   ],
   "promptTemplate": "**ROLE**\n\nYou are a strategy consultant creating a competitive threat matrix.\n\n**CONTEXT**\n\nUsing the attached Market_Competitors.pdf, create a quantitative competitor matrix for {{phase1.company_name}} in the {{phase1.sector}} market.\n\nOur ambition: {{company_ambition}}\n\n**TASK**\n\nCreate a CSV-formatted competitive matrix with these columns:\n1. Brand Name\n2. Market Share Score (1-5, where 5 = dominant player)\n3. Innovation Score (1-5, where 5 = cutting-edge technology leader)\n4. Channel Power Score (1-5, where 5 = strongest sales/distribution)\n5. Brand Score (1-5, where 5 = strongest reputation/loyalty)\n6. Weighted Threat Score (calculated using weights: Market Share {{market_share_weight}}, Innovation {{innovation_weight}}, Channel Power {{channel_power_weight}}, Brand {{brand_weight}})\n7. Core USP (one sentence)\n8. Notable Strength (key advantage)\n9. Key Vulnerability (potential weakness to exploit)\n\n**SCORING GUIDELINES**\n- Use the competitor information from the PDF to justify each 1-5 score\n- Include the top 5 competitors identified in the market research\n- Calculate weighted scores as: (Market Share × {{market_share_weight}}) + (Innovation × {{innovation_weight}}) + (Channel Power × {{channel_power_weight}}) + (Brand × {{brand_weight}})\n\n**OUTPUT FORMAT**\n\nReturn the matrix in CSV format, followed by a brief analysis of the \"Boss Rival\" (highest weighted threat score) and top 2 strategic opportunities based on competitor vulnerabilities.",
-  "instructions": [
-    "Upload your Market_Competitors.pdf to ChatGPT",
-    "Copy and paste the generated prompt",
-    "Download the resulting CSV file for strategic analysis",
-    "Review the \"Boss Rival\" and strategic opportunities identified"
-  ]
+  "decisionBoxContent": {
+    "title": "Define Your Competitive Analysis Focus",
+    "subtitle": "Before your team writes the Phase 2 prompt for ChatGPT, you need to make two key decisions. These choices will shape the AI's research and analysis. Record your final choices to easily insert them into the prompt.",
+    "sections": [
+      {
+        "number": "1",
+        "title": "Define Your Company's Market Ambition",
+        "items": [
+          {
+            "label": "Your Task",
+            "content": "Write a single, clear sentence stating your company's specific goal and target market. Think about what you want to achieve and who you want to serve."
+          },
+          {
+            "label": "Why This Matters", 
+            "content": "A precise ambition helps the AI focus its analysis on the competitors and market segments that are most relevant to your potential new company."
+          },
+          {
+            "label": "Example",
+            "content": "{{company_name}}_AMBITION = \"Targeting mid-market B2B SaaS customers in North America with a focus on ease-of-use and integration.\""
+          }
+        ]
+      },
+      {
+        "number": "2",
+        "title": "Set Your Threat-Scoring Weights",
+        "items": [
+          {
+            "label": "Your Task",
+            "content": "Decide how important each of the following four factors is when evaluating how much of a threat a competitor poses in your specific market: **Market Share**, **Innovation**, **Channel Power** (i.e., their sales and distribution strength), **Brand** (i.e., their reputation and customer loyalty). Assign a numerical weight to each factor."
+          },
+          {
+            "label": "How to Think About Weights",
+            "content": "These weights reflect relative importance. A higher number means that factor will have a bigger influence on a competitor's overall \"Threat Score.\" Ask yourselves: In our chosen market, what makes a competitor particularly challenging for a new entrant like us? Is it their existing customer base (Market Share), their cutting-edge technology (Innovation), their sales reach (Channel Power), or their strong name (Brand)?"
+          },
+          {
+            "label": "Default Suggestion",
+            "content": "You can start with equal weights (e.g., assign 0.25 to each, or simply 1 to each – the AI will use these as relative values)."
+          },
+          {
+            "label": "Custom Example",
+            "content": "If you believe strong sales channels are twice as critical as brand recognition in your market, you might assign weights like: Market Share: 3, Innovation: 2.5, Channel Power: 3, Brand: 1.5. (Or, using decimals that sum to 1: Market Share: 0.30, Innovation: 0.25, Channel Power: 0.30, Brand: 0.15). The key is the ratio between the numbers."
+          },
+          {
+            "label": "Why This Matters",
+            "content": "The AI will use these weights to calculate a \"Weighted Threat Score\" for each competitor, helping you identify who to watch out for and where opportunities might lie."
+          }
+        ]
+      }
+    ],
+    "action": {
+      "title": "Action",
+      "items": [
+        "Your final {{company_name}}_AMBITION statement.",
+        "Your chosen {{WEIGHTS}} for Market Share, Innovation, Channel Power, and Brand (e.g., Market Share: 0.3, Innovation: 0.3, Channel Power: 0.2, Brand: 0.2)."
+      ]
+    }
+  },
+  "stepByStepFlow": [
+    {
+      "step": 1,
+      "action": "**Open** a fresh ChatGPT chat → **select** *GPT o3*.",
+      "time": "15 s"
+    },
+    {
+      "step": 2,
+      "action": "**Click** *Upload* → **attach** *Market_Competitors.pdf*.",
+      "time": "30 s"
+    },
+    {
+      "step": 3,
+      "action": "**Copy** the full Phase 2 Prompt (below); **replace** placeholders with your weighting percentages and data gap rule. **Press** Enter.",
+      "time": "1 min"
+    },
+    {
+      "step": 4,
+      "action": "While ChatGPT crunches (≈1–2 min): the rest of the team **reviews** Gemini's *Macro Trends* section and **marks** the one trend they believe will have *least impact*—this dissent note may spark later debate.",
+      "time": "1–2 min offline"
+    },
+    {
+      "step": 5,
+      "action": "When ChatGPT returns, **skim** the markdown table. **Spot-check** at least one competitor's numbers for plausibility.",
+      "time": "1 min"
+    },
+    {
+      "step": 6,
+      "action": "**Click** the paper-clip icon in ChatGPT's reply → **download** *competitor_matrix.csv* to your project folder.",
+      "time": "15 s"
+    },
+    {
+      "step": 7,
+      "action": "**Team Review & Key Insights from the Matrix**: As a team, **open** the downloaded *competitor_matrix.csv* file. **Identify** Your *\"Boss Rival\"*: Look at the Weighted Threat Score column. Which competitor has the highest score? **Scan Strategic Data**: Quickly review the Core USP, Notable Strength, and Key Vulnerability columns. **Check Plausibility & Surprises**: Do the scores seem reasonable? **First Strategic Thoughts**: What initial ideas does this matrix spark?",
+      "time": "3-5 min"
+    }
+  ],
+  "expectedOutput": {
+    "fileCreated": "competitor_matrix.csv",
+    "whyItMatters": "This quantified competitive landscape will directly inform your product ideation in Phase 4. Understanding your \"Boss Rival\" and competitor vulnerabilities is crucial for strategic positioning.",
+    "nextSteps": "With your competitive matrix complete and key insights identified, you're ready to proceed to Phase 3 – Market Positioning Strategy."
+  }
 }

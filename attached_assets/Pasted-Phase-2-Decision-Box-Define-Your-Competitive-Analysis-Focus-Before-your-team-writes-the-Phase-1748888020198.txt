@@ -1,0 +1,21 @@
+Phase 2 Decision Box 🗳️: Define Your Competitive Analysis Focus 
+Before your team writes the Phase 2 prompt for ChatGPT, you need to make two key decisions. These choices will shape the AI's research and analysis. Record your final choices to easily insert them into the prompt. 
+1.	Define Your Company's Market Ambition:
+o	Your Task: Write a single, clear sentence stating your company’s specific goal and target market. Think about what you want to achieve and who you want to serve. 
+o	Why This Matters: A precise ambition helps the AI focus its analysis on the competitors and market segments that are most relevant to your potential new company. 
+o	Example: {{COMPANY_NAME}}_AMBITION = "Targeting mid-market B2B SaaS customers in North America with a focus on ease-of-use and integration."
+2.	Set Your Threat-Scoring Weights:
+o	Your Task: Decide how important each of the following four factors is when evaluating how much of a threat a competitor poses in your specific market:
+	Market Share
+	Innovation
+	Channel Power (i.e., their sales and distribution strength)
+	Brand (i.e., their reputation and customer loyalty) Assign a numerical weight to each factor. 
+o	How to Think About Weights:
+	These weights reflect relative importance. A higher number means that factor will have a bigger influence on a competitor's overall "Threat Score."
+	Ask yourselves: In our chosen market, what makes a competitor particularly challenging for a new entrant like us? Is it their existing customer base (Market Share), their cutting-edge technology (Innovation), their sales reach (Channel Power), or their strong name (Brand)? 
+	Default Suggestion: You can start with equal weights (e.g., assign 0.25 to each, or simply 1 to each – the AI will use these as relative values). 
+	Custom Example: If you believe strong sales channels are twice as critical as brand recognition in your market, you might assign weights like: Market Share: 3, Innovation: 2.5, Channel Power: 3, Brand: 1.5. (Or, using decimals that sum to 1: Market Share: 0.30, Innovation: 0.25, Channel Power: 0.30, Brand: 0.15). The key is the ratio between the numbers.
+o	Why This Matters: The AI will use these weights to calculate a "Weighted Threat Score" for each competitor, helping you identify who to watch out for and where opportunities might lie. (Note: The sum of your weights doesn't strictly have to be 1; the AI performs a simple weighted average regardless). 
+➡️ Action: Once decided, write down:
+•	Your final {{COMPANY_NAME}}_AMBITION statement.
+•	Your chosen {{WEIGHTS}} for Market Share, Innovation, Channel Power, and Brand (e.g., Market Share: 0.3, Innovation: 0.3, Channel Power: 0.2, Brand: 0.2). 

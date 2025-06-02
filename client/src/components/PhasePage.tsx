@@ -30,9 +30,26 @@ interface PhaseConfig {
   fields: FieldConfig[];
   promptTemplate: string;
   instructions?: string[];
+  decisionBoxContent?: {
+    title: string;
+    subtitle: string;
+    sections: Array<{
+      number: string;
+      title: string;
+      items: Array<{
+        label: string;
+        content: string;
+      }>;
+    }>;
+    action: {
+      title: string;
+      items: string[];
+    };
+  };
   stepByStepFlow?: Array<{
     step: number;
     action: string;
+    time?: string;
   }>;
   expectedOutput?: {
     fileCreated?: string;
@@ -246,6 +263,58 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
         </CardHeader>
       </Card>
 
+      {/* Decision Box Content */}
+      {config.decisionBoxContent && (
+        <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200 card-premium">
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2 text-blue-800 section-header">
+              <Vote className="w-5 h-5 text-primary" />
+              <span>Phase {config.phase} Decision Box: {config.decisionBoxContent.title}</span>
+            </CardTitle>
+            <p className="text-blue-700 mt-2 ui-label">
+              {config.decisionBoxContent.subtitle}
+            </p>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {config.decisionBoxContent.sections.map((section, index) => (
+              <div key={index} className="bg-white rounded-lg p-6 card-premium">
+                <h3 className="text-xl font-semibold text-neutral-800 mb-4 flex items-center space-x-3">
+                  <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-bold">
+                    {section.number}
+                  </div>
+                  <span>{section.title}</span>
+                </h3>
+                <div className="space-y-4">
+                  {section.items.map((item, itemIndex) => (
+                    <div key={itemIndex} className="border-l-4 border-primary/20 pl-4">
+                      <h4 className="font-semibold text-neutral-700 mb-2">{item.label}:</h4>
+                      <p className="text-neutral-600 leading-relaxed ui-label" dangerouslySetInnerHTML={{ __html: item.content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>') }} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+            
+            {/* Action Section */}
+            <div className="bg-primary/5 rounded-lg p-6 border border-primary/20">
+              <h3 className="text-lg font-semibold text-primary mb-3 flex items-center space-x-2">
+                <ArrowRight className="w-5 h-5" />
+                <span>{config.decisionBoxContent.action.title}</span>
+              </h3>
+              <p className="text-neutral-700 mb-3 ui-label">Once decided, write down:</p>
+              <ul className="space-y-2">
+                {config.decisionBoxContent.action.items.map((item, index) => (
+                  <li key={index} className="flex items-start space-x-2">
+                    <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                    <span className="text-neutral-700 ui-label" dangerouslySetInnerHTML={{ __html: item.replace(/\{\{(.*?)\}\}/g, '<strong>$1</strong>') }} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Step-by-Step Flow - Full Width */}
       {config.stepByStepFlow && (
         <Card className="bg-gradient-to-r from-neutral-50 to-neutral-100 border-neutral-300 card-premium">
@@ -256,9 +325,9 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="space-y-4">
               {config.stepByStepFlow.map((step) => (
-                <div key={step.step} className="bg-white rounded-lg p-5 card-premium group cursor-pointer">
+                <div key={step.step} className="bg-white rounded-lg p-6 card-premium group border border-neutral-200 hover:border-primary/30 transition-all duration-200">
                   <div className="flex items-start space-x-4">
                     <div className="flex-shrink-0">
                       <div className="step-number w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg text-white">
@@ -276,6 +345,12 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                         }}
                       />
                     </div>
+                    {step.time && (
+                      <div className="flex-shrink-0 flex items-center space-x-1 text-sm text-neutral-500">
+                        <Clock className="w-4 h-4" />
+                        <span className="font-medium">{step.time}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}

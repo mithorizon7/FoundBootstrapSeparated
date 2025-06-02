@@ -1,0 +1,17 @@
+Step-by-Step Flow
+#	Action	Time
+1	Open a fresh ChatGPT chat → select GPT o3.	15 s
+2	Click Upload → attach Market_Competitors.pdf.	30 s
+3	Copy the full Phase 2 Prompt (below); replace placeholders with your weighting percentages and data gap rule. Press Enter.	1 min
+4	While ChatGPT crunches (≈1–2 min): the rest of the team reviews Gemini’s Macro Trends section and marks the one trend they believe will have least impact—this dissent note may spark later debate.	1–2 min offline
+5	When ChatGPT returns, skim the markdown table. Spot-check at least one competitor’s numbers for plausibility.	1 min
+6	Click the paper-clip icon in ChatGPT’s reply → download competitor_matrix.csv to your project folder.	15 s
+	Open and review the file and the key insights from the matrix. 	
+
+7. Team Review & Key Insights from the Matrix 
+Action: As a team, open the downloaded competitor_matrix.csv file. 
+Identify Your "Boss Rival": Look at the Weighted Threat Score column. Which competitor has the highest score? This is likely your "Boss Rival." Discuss briefly as a team if this makes sense and why they are the primary competitor to benchmark against. 
+Scan Strategic Data: Quickly review the Core USP (Unique Selling Proposition), Notable Strength, and Key Vulnerability columns for all the competitors listed. Do these points align with your earlier discussions or the findings from your Phase 1 market research?
+Check Plausibility & Surprises: Do the individual scores (Market Share, Innovation, etc.) for each competitor seem generally reasonable based on what you know or what the AI reported in Phase 1? Are there any surprising scores or vulnerabilities highlighted that could be particularly interesting?
+First Strategic Thoughts: What initial ideas does this matrix spark? Considering the vulnerabilities of strong competitors or the USPs of weaker ones, where might there be an opening for your new company?
+Goal: The aim is for everyone to have a shared understanding of the competitive landscape as quantified in the matrix. These insights are crucial as they will directly inform your product ideation in Phase 4.
