@@ -273,37 +273,6 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
         </Card>
       )}
 
-      {/* Expected Output - Full Width */}
-      {config.expectedOutput && (
-        <Alert className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
-          <AlertDescription className="text-green-800">
-            <div className="font-semibold mb-4 text-lg text-green-900">Expected Output & What Happens Next</div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              {config.expectedOutput.fileCreated && (
-                <div className="bg-white rounded-lg p-4 border border-green-200">
-                  <div className="font-medium text-green-900 mb-2">File Created:</div>
-                  <span className="font-mono bg-green-100 px-3 py-2 rounded text-sm block text-center">
-                    {config.expectedOutput.fileCreated}
-                  </span>
-                </div>
-              )}
-              {config.expectedOutput.whyItMatters && (
-                <div className="bg-white rounded-lg p-4 border border-green-200">
-                  <div className="font-medium text-green-900 mb-2">Why it matters:</div>
-                  <p className="text-sm text-green-800">{config.expectedOutput.whyItMatters}</p>
-                </div>
-              )}
-              {config.expectedOutput.nextSteps && (
-                <div className="bg-white rounded-lg p-4 border border-green-200">
-                  <div className="font-medium text-green-900 mb-2">Next Steps:</div>
-                  <p className="text-sm text-green-800">{config.expectedOutput.nextSteps}</p>
-                </div>
-              )}
-            </div>
-          </AlertDescription>
-        </Alert>
-      )}
-
       {/* Two Column Layout: Decision Box and Prompt */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Left Column: Decision Box Form */}
@@ -365,6 +334,37 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
           <PromptPreview template={config.promptTemplate} data={templateData} />
         </div>
       </div>
+
+      {/* Expected Output - Full Width */}
+      {config.expectedOutput && (
+        <Alert className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
+          <AlertDescription className="text-green-800">
+            <div className="font-semibold mb-4 text-lg text-green-900">Expected Output & What Happens Next</div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {config.expectedOutput.fileCreated && (
+                <div className="bg-white rounded-lg p-4 border border-green-200">
+                  <div className="font-medium text-green-900 mb-2">File Created:</div>
+                  <span className="font-mono bg-green-100 px-3 py-2 rounded text-sm block text-center">
+                    {config.expectedOutput.fileCreated}
+                  </span>
+                </div>
+              )}
+              {config.expectedOutput.whyItMatters && (
+                <div className="bg-white rounded-lg p-4 border border-green-200">
+                  <div className="font-medium text-green-900 mb-2">Why it matters:</div>
+                  <p className="text-sm text-green-800">{config.expectedOutput.whyItMatters}</p>
+                </div>
+              )}
+              {config.expectedOutput.nextSteps && (
+                <div className="bg-white rounded-lg p-4 border border-green-200">
+                  <div className="font-medium text-green-900 mb-2">Next Steps:</div>
+                  <p className="text-sm text-green-800">{config.expectedOutput.nextSteps}</p>
+                </div>
+              )}
+            </div>
+          </AlertDescription>
+        </Alert>
+      )}
 
       {/* Legacy Instructions (fallback) */}
       {config.instructions && !config.stepByStepFlow && (
