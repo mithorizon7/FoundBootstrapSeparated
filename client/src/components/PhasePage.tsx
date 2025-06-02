@@ -229,22 +229,20 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
   // Prepare data for template compilation
   const templateData = {
     ...formData,
-    ...allPhaseData,
   };
 
   // Organize phase data by phase number for template variables like {{phase1.field}}
   if (Array.isArray(allPhaseData)) {
+    // Database format: array of phase data objects
     allPhaseData.forEach(phaseDataItem => {
       const phaseKey = `phase${phaseDataItem.phaseNumber}`;
       templateData[phaseKey] = { ...templateData[phaseKey], ...phaseDataItem.data };
     });
   } else {
-    // Handle localStorage format where data is organized by phase keys
-    Object.keys(allPhaseData).forEach(key => {
-      if (key.startsWith('phase-')) {
-        const phaseNumber = key.split('-')[1];
-        const phaseKey = `phase${phaseNumber}`;
-        templateData[phaseKey] = { ...templateData[phaseKey], ...allPhaseData[key] };
+    // localStorage format: already organized by phase keys (phase1, phase2, etc.)
+    Object.keys(allPhaseData).forEach(phaseKey => {
+      if (phaseKey.startsWith('phase') && allPhaseData[phaseKey]) {
+        templateData[phaseKey] = { ...templateData[phaseKey], ...allPhaseData[phaseKey] };
       }
     });
   }
