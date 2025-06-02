@@ -1,69 +1,140 @@
 {
   "phase": 3,
-  "title": "Market Positioning & Value Proposition",
-  "intro": "With competitor weaknesses mapped, now you'll craft your differentiated market position. This phase transforms your competitive intelligence into a compelling value proposition that customers will choose over established alternatives.",
+  "title": "Background Research: OpenAI Deep-Research",
+  "intro": "Compelling strategy needs credible proof. Investors & customers will ask \"Why should customers believe your claim?\" In this phase you'll commission OpenAI's Deep-Research engine to compile a tightly-sourced dossier of peer-reviewed findings that validate your core benefit (e.g., play-driven learning, AI-assisted wellness). The resulting PDF will: • Fuel the authority of your marketing copy, podcast, and voice agent • Supply headline statistics and inform the creation of other communications assets • Provide citations savvy stakeholders can audit",
   "estimatedTime": "15 minutes",
   "fields": [
     {
-      "id": "target_customer",
-      "label": "Primary Target Customer",
-      "type": "textarea",
-      "placeholder": "e.g., Small business owners with 10-50 employees who struggle with manual inventory tracking",
+      "id": "evidence_horizon",
+      "label": "Evidence Horizon",
+      "type": "select",
+      "options": [
+        { "value": "5", "label": "Last 5 years (fast-moving tech sectors)" },
+        { "value": "10", "label": "Last 10 years (default)" },
+        { "value": "15", "label": "Last 15 years (broader historical context)" }
+      ],
       "required": true,
       "persist": true,
-      "help": "Specific customer segment you'll serve first"
+      "help": "How recent must studies be for your research?"
     },
     {
-      "id": "core_problem",
-      "label": "Core Problem Statement",
-      "type": "textarea",
-      "placeholder": "e.g., Current solutions are too expensive and complex for small businesses",
+      "id": "tone_preference",
+      "label": "Tone for Pull-Quotes",
+      "type": "select",
+      "options": [
+        { "value": "academic", "label": "Academic gravitas" },
+        { "value": "practitioner", "label": "Relatable practitioner" }
+      ],
       "required": true,
       "persist": true,
-      "help": "The main pain point your solution addresses"
+      "help": "Choose the tone style for research citations"
     },
     {
-      "id": "unique_approach",
-      "label": "Your Unique Approach",
-      "type": "textarea",
-      "placeholder": "e.g., AI-powered automation with small business pricing",
+      "id": "statistic_style",
+      "label": "Preferred Statistic Style",
+      "type": "select",
+      "options": [
+        { "value": "percentages", "label": "Percentages (e.g., 85% improvement)" },
+        { "value": "absolute", "label": "Absolute gains (e.g., 3x faster results)" }
+      ],
       "required": true,
       "persist": true,
-      "help": "How your solution differs from competitors"
+      "help": "Format preference for statistics in your research"
     },
     {
-      "id": "key_benefit_1",
-      "label": "Key Benefit #1",
+      "id": "benefit_keyword",
+      "label": "Core Benefit Keyword",
       "type": "text",
-      "placeholder": "e.g., 80% time savings",
+      "placeholder": "e.g., play-driven learning, AI-assisted wellness",
       "required": true,
       "persist": true,
-      "help": "Primary quantifiable benefit"
+      "help": "Primary benefit or approach to validate with research"
     },
     {
-      "id": "key_benefit_2",
-      "label": "Key Benefit #2", 
-      "type": "text",
-      "placeholder": "e.g., 50% cost reduction",
-      "required": true,
-      "persist": true,
-      "help": "Secondary quantifiable benefit"
-    },
-    {
-      "id": "positioning_statement",
-      "label": "One-Line Positioning Statement",
+      "id": "research_focus",
+      "label": "Additional Research Focus Areas",
       "type": "textarea",
-      "placeholder": "For [target], who [problem], our [solution] provides [benefit] unlike [competition]",
-      "required": true,
+      "placeholder": "e.g., cognitive benefits, user engagement metrics, cost-effectiveness studies",
+      "required": false,
       "persist": true,
-      "help": "Concise positioning statement following the template"
+      "help": "Optional: specific areas or angles to emphasize in the research"
     }
   ],
-  "promptTemplate": "**ROLE**\n\nYou are a brand strategist developing market positioning for a new company.\n\n**CONTEXT**\n\nCompany: {{phase1.company_name}}\nMarket: {{phase1.sector}} in {{phase1.target_region}}\nAmbition: {{phase2.company_ambition}}\n\nTarget Customer: {{target_customer}}\nCore Problem: {{core_problem}}\nUnique Approach: {{unique_approach}}\n\n**TASK**\n\nDevelop a comprehensive positioning strategy with:\n\n1. **Competitive Differentiation Matrix**\n   - Compare {{phase1.company_name}} vs top 3 competitors on 5 key dimensions\n   - Show clear areas where we win, lose, or tie\n   - Highlight our sustainable competitive advantages\n\n2. **Value Proposition Canvas**\n   - Customer jobs to be done\n   - Pain points we address\n   - Gain creators we provide\n   - Product/service features that deliver value\n\n3. **Messaging Framework**\n   - Primary value proposition: {{key_benefit_1}} and {{key_benefit_2}}\n   - Supporting proof points and credibility indicators\n   - Objection handling for top 3 customer concerns\n   - Call-to-action recommendations\n\n4. **Go-to-Market Positioning**\n   - Market category we're creating/competing in\n   - Pricing position relative to alternatives\n   - Channel strategy recommendations\n   - Partnership opportunities\n\n**POSITIONING STATEMENT**\n{{positioning_statement}}\n\n**OUTPUT FORMAT**\n\nStructured markdown document with clear sections, tables for comparisons, and actionable recommendations for marketing and sales teams.",
+  "promptTemplate": "**ROLE**\n\nYou are a research specialist conducting deep academic research to validate business claims.\n\n**CONTEXT**\n\nCompany: {{phase1.company_name}}\nSector: {{phase1.sector}}\nTarget Region: {{phase1.target_region}}\nCore Benefit: {{benefit_keyword}}\n\n**RESEARCH PARAMETERS**\n\nEvidence Horizon: Studies from the last {{evidence_horizon}} years\nTone Preference: {{tone_preference}}\nStatistic Style: {{statistic_style}}\nAdditional Focus: {{research_focus}}\n\n**TASK**\n\nConduct comprehensive deep research to compile a tightly-sourced dossier of peer-reviewed findings that validate our core benefit: {{benefit_keyword}}.\n\n**RESEARCH REQUIREMENTS**\n\n1. **Key Findings Section**\n   - Find 5-7 peer-reviewed studies that support {{benefit_keyword}}\n   - Focus on studies from the last {{evidence_horizon}} years\n   - Include methodology and sample sizes where relevant\n   - Prioritize studies with strong statistical significance\n\n2. **Marketing Statistics**\n   - Extract headline-worthy statistics in {{statistic_style}} format\n   - Focus on quantifiable benefits and outcomes\n   - Include confidence intervals where available\n   - Provide context for each statistic\n\n3. **Pull-Quotes for Authority**\n   - Select compelling quotes from researchers in {{tone_preference}} tone\n   - Choose quotes that directly support {{benefit_keyword}}\n   - Include author credentials and institutional affiliations\n   - Ensure quotes are impactful for marketing use\n\n4. **Complete References**\n   - Full APA citations for all sources\n   - Include DOI numbers where available\n   - Verify all sources are from reputable journals or institutions\n   - Organize references alphabetically\n\n**OUTPUT FORMAT**\n\nStructured PDF-ready document with clear sections, proper citations, and executive summary suitable for investor presentations and marketing materials.",
+  "decisionBoxContent": {
+    "title": "Pre-prompt Choices",
+    "subtitle": "Before commissioning your deep research, make these three strategic decisions that will shape the quality and usefulness of your evidence.",
+    "sections": [
+      {
+        "number": "1",
+        "title": "Evidence Horizon",
+        "items": [
+          {
+            "label": "Decision",
+            "content": "How recent must studies be? **Default: last 10 years.** You may tighten to 5 years for fast-moving tech sectors."
+          }
+        ]
+      },
+      {
+        "number": "2", 
+        "title": "Tone for Pull-Quotes",
+        "items": [
+          {
+            "label": "Decision",
+            "content": "Choose either **academic gravitas** or **relatable practitioner** tone for your research citations and quotes."
+          }
+        ]
+      },
+      {
+        "number": "3",
+        "title": "Preferred Statistic Style",
+        "items": [
+          {
+            "label": "Decision",
+            "content": "**Percentages** vs. **absolute gains** (helps later headline selection). This will determine how impact is presented in your marketing materials."
+          }
+        ]
+      }
+    ],
+    "action": {
+      "title": "Action",
+      "items": [
+        "Write your three choices; you will paste them into the prompt.",
+        "Record especially {{benefit_keyword}}, {{sector}}, and {{target_region}} for the research focus."
+      ]
+    }
+  },
+  "stepByStepFlow": [
+    {
+      "step": 1,
+      "action": "**Open** ChatGPT → within *\"Tools\"* **select** *Run Deep Research*.",
+      "time": "15 s"
+    },
+    {
+      "step": 2,
+      "action": "**Customize** and adapt the Phase 3 Prompt (below) for your company. **Replace** placeholders with your horizon, tone, stat style; **insert** variables.",
+      "time": "1 min"
+    },
+    {
+      "step": 3,
+      "action": "**Submit**. Deep-Research will consider your request for a few seconds. As a team **determine** your answers to these questions and **submit** them and then Deep Research get started. Typical run ≈ 7–8 min.",
+      "time": "Model run"
+    },
+    {
+      "step": 4,
+      "action": "Now that the research is running you can **move on to Phase 4**. Once it is done, **press** the share icon and then **download** it as a pdf, then **change** the name to *Science_Evidence.pdf*.",
+      "time": "5 min"
+    }
+  ],
+  "expectedOutput": {
+    "fileCreated": "Science_Evidence.pdf",
+    "whyItMatters": "This research dossier will provide the credible foundation for all your marketing claims, investor presentations, and customer communications. The peer-reviewed evidence will differentiate your startup from competitors making unsupported claims.",
+    "nextSteps": "With Science_Evidence.pdf complete, you're ready to turn your research into creativity and development in Phase 4: Hero Offer Ideation."
+  },
   "instructions": [
-    "Use insights from your competitor matrix to identify positioning gaps",
-    "Develop messaging that directly addresses competitor vulnerabilities",
-    "Create materials for your marketing and sales teams",
-    "Test your positioning statement with potential customers"
+    "Enable Deep-Research feature in ChatGPT Enterprise",
+    "Customize the research prompt with your specific parameters",
+    "Allow sufficient time for the AI research process to complete",
+    "Download and properly name your research PDF for future phases"
   ]
 }

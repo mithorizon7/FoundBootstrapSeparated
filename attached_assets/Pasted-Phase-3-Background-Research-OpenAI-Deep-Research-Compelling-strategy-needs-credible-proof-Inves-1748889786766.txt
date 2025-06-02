@@ -1,0 +1,36 @@
+Phase 3 – Background Research: OpenAI Deep-Research
+Compelling strategy needs credible proof. Investors & customers will ask “Why should customers believe your claim?”
+In this phase you’ll commission OpenAI’s Deep-Research engine to compile a tightly-sourced dossier of peer-reviewed findings that validate your core benefit (e.g., play-driven learning, AI-assisted wellness). The resulting PDF will:
+•	Fuel the authority of your marketing copy, podcast, and voice agent
+•	Supply headline statistics and inform the creation of other communications assets
+•	Provide citations savvy stakeholders can audit
+ 
+ 
+Decision Box 🗳️ – Pre-prompt Choices
+1.	Evidence horizon – How recent must studies be?
+Default: last 10 years. (You may tighten to 5 years for fast-moving tech sectors.)
+2.	Tone for pull-quotes – Choose either academic gravitas or relatable practitioner.
+3.	Preferred statistic style – Percentages vs. absolute gains (helps later headline selection).
+Write your three choices; you will paste them into the prompt.
+Resources You Need
+Item	Where to get it
+ChatGPT Enterprise with Deep-Research feature enabled	Open new chat, click tools in the chat and then toggle on “Run Deep Research.”  
+Record	Especially {{BENEFIT_KEYWORD}}, {{SECTOR}}, {{TARGET_REGION}}
+
+ 
+Step-by-Step Flow
+#	Action	Time
+1	Open ChatGPT → within “Tools” select Run Deep Research.	15 s
+2	Customize and adapt the Phase 3 Prompt (below) for your company. Replace placeholders with your horizon, tone, stat style; insert variables.	1 min
+3	Submit. Deep-Research will consider your request for a few seconds. As a team determine your answers to these questions and submit them and then Deep Research get started. typical run ≈ 7–8 min.	Model run
+4	Now that the research is running you can move on to Phase 4. Once it is done, press the share icon and then download it as a pdf, then change the name to Science_Evidence.pdf.	5 min
+
+
+Expected Output & How You Will Use It
+Section	Future Use
+Key Findings	Anchor “Science” section on website; bolster investor FAQ answers.
+Marketing Stats	Feed directly into hero image captions, explainer video storyboard, and tag-lines you drafted.
+Pull-quotes	Perfect for social-proof blurb or LinkedIn thought-leadership posts.
+References	Provide auditors and regulators with transparent sourcing; will be embedded as footnotes in Notebook LM and will be the basis of knowledge for future chatbots, etc.
+Now that you have Science_Evidence.pdf you’re ready to turn your research into creativity and development in Phase 4: Hero Offer Ideation.
+
