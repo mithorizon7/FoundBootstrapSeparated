@@ -231,21 +231,33 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
     ...formData,
   };
 
+  // Debug logging to understand data structure
+  console.log('allPhaseData:', allPhaseData);
+  console.log('Array.isArray(allPhaseData):', Array.isArray(allPhaseData));
+
   // Organize phase data by phase number for template variables like {{phase1.field}}
   if (Array.isArray(allPhaseData)) {
     // Database format: array of phase data objects
-    allPhaseData.forEach(phaseDataItem => {
+    allPhaseData.forEach((phaseDataItem: any) => {
       const phaseKey = `phase${phaseDataItem.phaseNumber}`;
-      templateData[phaseKey] = { ...templateData[phaseKey], ...phaseDataItem.data };
+      templateData[phaseKey] = { 
+        ...(templateData[phaseKey] as object || {}), 
+        ...(phaseDataItem.data as object || {}) 
+      };
     });
-  } else {
+  } else if (allPhaseData && typeof allPhaseData === 'object') {
     // localStorage format: already organized by phase keys (phase1, phase2, etc.)
     Object.keys(allPhaseData).forEach(phaseKey => {
-      if (phaseKey.startsWith('phase') && allPhaseData[phaseKey]) {
-        templateData[phaseKey] = { ...templateData[phaseKey], ...allPhaseData[phaseKey] };
+      if (phaseKey.startsWith('phase') && (allPhaseData as any)[phaseKey]) {
+        templateData[phaseKey] = { 
+          ...(templateData[phaseKey] as object || {}), 
+          ...((allPhaseData as any)[phaseKey] as object || {}) 
+        };
       }
     });
   }
+
+  console.log('Final templateData:', templateData);
 
   const progressPercentage = (config.phase / 7) * 100;
   
