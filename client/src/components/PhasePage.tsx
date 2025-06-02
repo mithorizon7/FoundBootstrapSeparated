@@ -228,8 +228,8 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
               <span className="text-white font-bold text-lg">{config.phase}</span>
             </div>
             <div>
-              <CardTitle className="text-2xl">{config.title}</CardTitle>
-              <p className="text-sm text-gray-600">
+              <CardTitle className="text-2xl page-title">{config.title}</CardTitle>
+              <p className="text-sm text-gray-600 ui-label">
                 Phase {config.phase} of 7
                 {config.estimatedTime && ` • ${config.estimatedTime}`}
               </p>
@@ -239,7 +239,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
           <Progress value={progressPercentage} className="mb-4" />
           
           <div className="prose prose-sm text-gray-700">
-            <p>{config.intro}</p>
+            <p className="body-text">{config.intro}</p>
           </div>
         </CardHeader>
       </Card>
@@ -248,7 +248,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
       {config.stepByStepFlow && (
         <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200 card-premium">
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-blue-900 heading-premium">
+            <CardTitle className="flex items-center space-x-2 text-blue-900 section-header">
               <ArrowRight className="w-5 h-5 text-blue-600" />
               <span>Step-by-Step Workflow</span>
             </CardTitle>
@@ -291,7 +291,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                 <div className="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center transition-all duration-200 hover:bg-yellow-200">
                   <Vote className="w-4 h-4 text-yellow-600" />
                 </div>
-                <CardTitle className="text-lg heading-premium">Decision Box</CardTitle>
+                <CardTitle className="text-lg section-header">Decision Box</CardTitle>
                 <div className="flex-1"></div>
                 <div className="flex items-center space-x-2 text-sm text-gray-500">
                   <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
@@ -349,7 +349,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
           <AlertDescription className="text-green-800">
             <div className="flex items-center space-x-2 mb-4">
               <Target className="w-5 h-5 text-green-600" />
-              <span className="font-semibold text-lg text-green-900 heading-premium">Expected Output & What Happens Next</span>
+              <span className="font-semibold text-lg text-green-900 section-header">Expected Output & What Happens Next</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {config.expectedOutput.fileCreated && (
