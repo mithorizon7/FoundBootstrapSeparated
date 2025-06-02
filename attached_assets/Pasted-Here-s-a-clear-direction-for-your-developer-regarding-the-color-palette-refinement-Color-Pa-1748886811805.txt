@@ -1,0 +1,147 @@
+Here's a clear direction for your developer regarding the color palette refinement:
+
+---
+
+**Color Palette Implementation: Professional Business Theme**
+
+**Vision:**
+While our logo uses vibrant cyan and coral colors for brand recognition, we're implementing a more sophisticated, muted palette throughout the UI. This creates a professional, tech-forward experience that won't fatigue users during extended sessions. Think "Fortune 500 SaaS product" rather than "startup landing page."
+
+**Core Principle:** The logo keeps its vibrancy, but the UI uses refined, desaturated versions.
+
+**1. Color System:**
+
+```css
+:root {
+  /* Primary Colors - Muted versions of logo colors */
+  --primary-500: #4A90A4;    /* Muted teal - primary actions */
+  --primary-600: #3D7A8C;    /* Darker teal - hover states */
+  --primary-400: #5FA3B5;    /* Lighter teal - secondary actions */
+  --primary-100: #E8F4F7;    /* Very light teal - backgrounds */
+  
+  /* Accent Colors - Used sparingly */
+  --accent-500: #E57373;     /* Muted coral - alerts only */
+  --accent-600: #D32F2F;     /* Darker red - error states */
+  --accent-100: #FFE5E5;     /* Light red - alert backgrounds */
+  
+  /* Neutral Palette - Main UI colors */
+  --neutral-50:  #FAFAFA;    /* Primary background */
+  --neutral-100: #F5F5F5;    /* Section backgrounds */
+  --neutral-200: #EEEEEE;    /* Disabled states */
+  --neutral-300: #E0E0E0;    /* Borders */
+  --neutral-400: #BDBDBD;    /* Icons */
+  --neutral-500: #9E9E9E;    /* Secondary text */
+  --neutral-600: #757575;    /* Labels */
+  --neutral-700: #616161;    /* Primary text */
+  --neutral-800: #424242;    /* Headers */
+  --neutral-900: #1A1A1A;    /* Darkest text (not pure black) */
+}
+```
+
+**2. Usage Guidelines:**
+
+**Primary Actions:**
+- Buttons: `background: var(--primary-500)`
+- Hover: `background: var(--primary-600)`
+- Focus rings: `border: 2px solid var(--primary-400)`
+
+**Text Hierarchy:**
+- Headers: `color: var(--neutral-800)`
+- Body text: `color: var(--neutral-700)`
+- Secondary text: `color: var(--neutral-500)`
+- Placeholder text: `color: var(--neutral-500)`
+
+**Backgrounds:**
+- Page background: `var(--neutral-50)`
+- Card backgrounds: `#FFFFFF`
+- Section dividers: `var(--neutral-100)`
+
+**3. Specific Applications in Found-in-Two:**
+
+```css
+/* Header/Navigation */
+.main-header {
+  background: #FFFFFF;
+  border-bottom: 1px solid var(--neutral-300);
+  /* Logo remains vibrant as-is */
+}
+
+/* Progress Bar */
+.progress-bar {
+  background: var(--neutral-200);
+}
+.progress-fill {
+  background: var(--primary-500);
+}
+
+/* Step Numbers */
+.step-number {
+  background: var(--primary-100);
+  color: var(--primary-600);
+  border: 1px solid var(--primary-400);
+}
+
+/* Buttons */
+.button-primary {
+  background: var(--primary-500);
+  color: white;
+}
+.button-primary:hover {
+  background: var(--primary-600);
+}
+
+/* Decision Box & AI Preview Cards */
+.card {
+  background: #FFFFFF;
+  border: 1px solid var(--neutral-300);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+}
+
+/* Input Fields */
+input, textarea {
+  border: 1px solid var(--neutral-300);
+  background: #FFFFFF;
+}
+input:focus, textarea:focus {
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px var(--primary-100);
+}
+```
+
+**4. Red Accent Usage (Minimal):**
+- Error states only
+- Important alerts
+- Never for decoration
+- Never in headers or primary UI
+
+**5. Shadows & Depth:**
+```css
+--shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+--shadow-md: 0 2px 4px rgba(0,0,0,0.06);
+--shadow-lg: 0 4px 12px rgba(0,0,0,0.08);
+```
+
+**6. Do's and Don'ts:**
+
+✅ **Do:**
+- Use the muted teal for all interactive elements
+- Keep most of the UI in neutral tones
+- Use white space generously
+- Apply shadows subtly for depth
+
+❌ **Don't:**
+- Use the bright logo colors in the UI
+- Apply red for anything except errors/warnings
+- Use pure black (#000000) for text
+- Create rainbow or multicolored interfaces
+
+**Testing Checklist:**
+- [ ] Ensure 4.5:1 contrast ratio for all text
+- [ ] Verify the UI feels calm during extended use
+- [ ] Check that the logo stands out appropriately
+- [ ] Confirm red is only used for errors/alerts
+- [ ] Test in both light and dark environments
+
+**Result:** A sophisticated, professional interface where the brand colors support rather than dominate the user experience.
+
+---

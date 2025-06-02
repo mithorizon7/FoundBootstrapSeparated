@@ -80,8 +80,8 @@ export default function Phase() {
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Card className="max-w-md mx-auto">
             <CardContent className="pt-6 text-center">
-              <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">Phase Not Found</h1>
+              <AlertTriangle className="w-12 h-12 text-accent-600 mx-auto mb-4" />
+              <h1 className="text-2xl font-bold text-neutral-800 mb-2">Phase Not Found</h1>
               <p className="text-gray-600">
                 Please select a valid phase between 1 and 7.
               </p>
@@ -112,8 +112,8 @@ export default function Phase() {
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Card className="max-w-md mx-auto">
             <CardContent className="pt-6 text-center">
-              <AlertTriangle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-              <h1 className="text-2xl font-bold text-gray-900 mb-2">Configuration Error</h1>
+              <AlertTriangle className="w-12 h-12 text-accent-600 mx-auto mb-4" />
+              <h1 className="text-2xl font-bold text-neutral-800 mb-2">Configuration Error</h1>
               <p className="text-gray-600">
                 Unable to load phase configuration. Please try again later.
               </p>

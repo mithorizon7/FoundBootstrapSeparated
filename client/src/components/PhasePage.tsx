@@ -290,13 +290,13 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
           <Card className="card-premium">
             <CardHeader>
               <div className="flex items-center space-x-3">
-                <div className="w-8 h-8 bg-yellow-100 rounded-lg flex items-center justify-center transition-all duration-200 hover:bg-yellow-200">
-                  <Vote className="w-4 h-4 text-yellow-600" />
+                <div className="w-8 h-8 bg-accent-100 rounded-lg flex items-center justify-center transition-all duration-200 hover:bg-accent-200">
+                  <Vote className="w-4 h-4 text-accent-600" />
                 </div>
                 <CardTitle className="text-lg section-header">Decision Box</CardTitle>
                 <div className="flex-1"></div>
-                <div className="flex items-center space-x-2 text-sm text-gray-500">
-                  <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <div className="flex items-center space-x-2 text-sm text-neutral-500">
+                  <div className="w-2 h-2 bg-accent-500 rounded-full animate-pulse"></div>
                   <span className="text-premium">Auto-saving</span>
                 </div>
               </div>
@@ -315,8 +315,8 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
               </div>
 
               {hasErrors && (
-                <Alert className="mt-4 border-red-200 bg-red-50">
-                  <AlertDescription className="text-red-700">
+                <Alert className="mt-4 border-accent-200 bg-accent-100">
+                  <AlertDescription className="text-accent-700">
                     Please complete all required fields to continue.
                   </AlertDescription>
                 </Alert>

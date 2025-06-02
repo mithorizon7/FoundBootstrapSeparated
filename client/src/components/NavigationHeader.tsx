@@ -82,10 +82,10 @@ export function NavigationHeader({ team, isAdmin }: NavigationHeaderProps) {
                     isActive
                       ? 'bg-white bg-opacity-20'
                       : isCompleted
-                      ? 'bg-green-100 text-green-600'
+                      ? 'bg-accent-100 text-accent-600'
                       : isAvailable
-                      ? 'bg-gray-200'
-                      : 'bg-gray-100'
+                      ? 'bg-neutral-200'
+                      : 'bg-neutral-100'
                   }`}>
                     {phase.number}
                   </span>
