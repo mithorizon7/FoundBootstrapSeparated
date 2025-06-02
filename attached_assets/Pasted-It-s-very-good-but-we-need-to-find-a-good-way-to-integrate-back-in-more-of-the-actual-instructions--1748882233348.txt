@@ -1,0 +1,21 @@
+It's very good, but we need to find a good way to integrate back in more of the actual instructions into each phase. For example, in Phase one the current site does a good job of introducing "why we're doing this" and then the decisions they need to make and then the prompt. However, it almost entirely leaves out the Step by Step Flow
+
+Step-by-Step Flow
+#	Action	Tips & Time
+1	Open Gemini (https://gemini.google.com)→ in a fresh browser tab and in the chat box select the “Deep Research” option.
+ 	10 sec
+2	Copy the Phase 1 Prompt (below) into Gemini. Fill in the missing elements and make any changes or adjustments to the prompt that you want. This is your market research, make sure you’re getting what you want from it. 	1 min
+3	Submit. It will take Gemini a few seconds to develop a plan of attack for your request. It will then show it to you. You have the ability to edit this, but for now press “Start Research.” 
+Gemini will now begin searching, analyzing, and syntheziing information to answer your request. This will from 4-9 minutes. You will now do the exact same thing as a group.	Model run time
+4	While Gemini works you need to do your own exploratory analysis: 
+Where do you suspect opportunity lies? Which competitor scares you most?. What are the biggest rivals etc? You can use the internet (e.g. Google, Crunchbase, etc) to answer the questions, but not AI. Do your own research and fill in all aspects of the form. You will have to be faster than you would like. Do the best you can. 	10 min
+5	When Gemini finishes the report, click “Create” and then select Infographic. Let it get to work. Review the report. This will be far too much information for you to go over in detail at this time, but spend at least 5 minutes as a team going through it and as soon as the infographic is created, go through that carefully. Analyze what you both came up with and what is in Gemini’s report. Get a good overview of the Market situation. Click	5 min
+6	Open the Report in Google Drive by clicking “Export” and then “Export to Docs,” rename the file “Market_Competitors” and download it as a PDF. 	30 sec
+
+And the: 
+Expected Output & What Happens Next
+•	File created: Market_Competitors.pdf
+•	Why it matters: Many future projects will pull data directly from this report. This will be our base truth.
+When you’ve come up with your own answers, spent a little time with the report & infographic, and your PDF is saved you are ready to proceed to Phase 2 – Competitor Matrix Construction.
+
+You can leave off how much time (how many minutes) each step takes, but we do need to find a good way to incorporate those instructions into each phase. So let's work on getting it right nor phase 1 and once I'm satsified we'll reference the original document and do the same thing for all of the phases. 

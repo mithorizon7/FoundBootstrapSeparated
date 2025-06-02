@@ -29,6 +29,15 @@ interface PhaseConfig {
   fields: FieldConfig[];
   promptTemplate: string;
   instructions?: string[];
+  stepByStepFlow?: Array<{
+    step: number;
+    action: string;
+  }>;
+  expectedOutput?: {
+    fileCreated?: string;
+    whyItMatters?: string;
+    nextSteps?: string;
+  };
 }
 
 interface PhasePageProps {
@@ -274,8 +283,66 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
           </CardContent>
         </Card>
 
-        {/* Instructions Panel */}
-        {config.instructions && (
+        {/* Step-by-Step Flow */}
+        {config.stepByStepFlow && (
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center space-x-2">
+                <Info className="w-5 h-5 text-blue-600" />
+                <span>Step-by-Step Flow</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {config.stepByStepFlow.map((step) => (
+                  <div key={step.step} className="flex space-x-4">
+                    <div className="flex-shrink-0">
+                      <div className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center font-semibold text-sm">
+                        {step.step}
+                      </div>
+                    </div>
+                    <div className="flex-1 pt-1">
+                      <p className="text-gray-700 leading-relaxed">{step.action}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Expected Output */}
+        {config.expectedOutput && (
+          <Alert className="bg-green-50 border-green-200">
+            <AlertDescription className="text-green-800">
+              <div className="font-semibold mb-3">Expected Output & What Happens Next</div>
+              <div className="space-y-2">
+                {config.expectedOutput.fileCreated && (
+                  <div className="flex items-center space-x-2">
+                    <span className="font-medium">File created:</span>
+                    <span className="font-mono bg-green-100 px-2 py-1 rounded text-sm">
+                      {config.expectedOutput.fileCreated}
+                    </span>
+                  </div>
+                )}
+                {config.expectedOutput.whyItMatters && (
+                  <div>
+                    <span className="font-medium">Why it matters:</span>
+                    <span className="ml-2">{config.expectedOutput.whyItMatters}</span>
+                  </div>
+                )}
+                {config.expectedOutput.nextSteps && (
+                  <div className="pt-2 border-t border-green-200">
+                    <p>{config.expectedOutput.nextSteps}</p>
+                  </div>
+                )}
+              </div>
+            </AlertDescription>
+          </Alert>
+        )}
+
+        {/* Legacy Instructions (fallback) */}
+        {config.instructions && !config.stepByStepFlow && (
           <Alert className="bg-blue-50 border-blue-200">
             <Info className="w-4 h-4 text-blue-600" />
             <AlertDescription className="text-blue-800">
