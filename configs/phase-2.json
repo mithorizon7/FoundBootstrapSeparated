@@ -111,38 +111,185 @@
   "stepByStepFlow": [
     {
       "step": 1,
-      "action": "**Open** a fresh ChatGPT chat → **select** *GPT o3*.",
-      "time": "15 s"
+      "action": "**Setup ChatGPT Analysis** - Access AI strategy consultant",
+      "time": "15 seconds",
+      "details": {
+        "title": "Initialize Competitive Analysis Engine",
+        "steps": [
+          {
+            "number": "1",
+            "action": "**Open a fresh ChatGPT chat** in a new browser tab"
+          },
+          {
+            "number": "2",
+            "action": "**Select GPT o3** from the model toggle for advanced analysis capabilities"
+          },
+          {
+            "number": "3",
+            "action": "Ensure you have your Market_Competitors.pdf file ready for upload"
+          }
+        ]
+      }
     },
     {
       "step": 2,
-      "action": "**Click** *Upload* → **attach** *Market_Competitors.pdf*.",
-      "time": "30 s"
+      "action": "**Upload Market Research** - Provide your Gemini report for analysis",
+      "time": "30 seconds",
+      "details": {
+        "title": "Attach Market Intelligence Data",
+        "steps": [
+          {
+            "number": "1",
+            "action": "**Click Upload** in the ChatGPT interface"
+          },
+          {
+            "number": "2",
+            "action": "**Attach Market_Competitors.pdf** from Phase 1"
+          },
+          {
+            "number": "3",
+            "action": "**Wait for upload confirmation** before proceeding"
+          }
+        ]
+      }
     },
     {
       "step": 3,
-      "action": "**Copy** the full Phase 2 Prompt (below); **replace** placeholders with your weighting percentages and data gap rule. **Press** Enter.",
-      "time": "1 min"
+      "action": "**Configure & Submit Matrix Prompt** - Set competitive analysis parameters",
+      "time": "1 minute",
+      "details": {
+        "title": "Customize Competitive Matrix Generation",
+        "steps": [
+          {
+            "number": "1",
+            "action": "**Copy the Phase 2 Prompt** from the Prompt Preview section below"
+          },
+          {
+            "number": "2",
+            "action": "**Replace placeholders** with your weighting percentages and company ambition"
+          },
+          {
+            "number": "3",
+            "action": "**Review the data gap rule** and ensure it matches your needs"
+          },
+          {
+            "number": "4",
+            "action": "**Submit the prompt** to ChatGPT"
+          }
+        ]
+      }
     },
     {
       "step": 4,
-      "action": "While ChatGPT crunches (≈1–2 min): the rest of the team **reviews** Gemini's *Macro Trends* section and **marks** the one trend they believe will have *least impact*—this dissent note may spark later debate.",
-      "time": "1–2 min offline"
+      "action": "**Productive Waiting Period** - Team trend analysis while AI processes",
+      "time": "1-2 minutes",
+      "details": {
+        "title": "Strategic Trend Review",
+        "steps": [
+          {
+            "number": "1",
+            "action": "While ChatGPT processes (≈1–2 min), **divide team responsibilities**"
+          },
+          {
+            "number": "2",
+            "action": "**Review Gemini's Macro Trends section** from Phase 1 report"
+          },
+          {
+            "number": "3",
+            "action": "**Mark the one trend** you believe will have least impact on your market"
+          },
+          {
+            "number": "4",
+            "action": "**Document this dissent note** - it may spark important debate later"
+          },
+          {
+            "number": "5",
+            "action": "**Prepare questions** about competitor scoring methodology"
+          }
+        ]
+      }
     },
     {
       "step": 5,
-      "action": "When ChatGPT returns, **skim** the markdown table. **Spot-check** at least one competitor's numbers for plausibility.",
-      "time": "1 min"
+      "action": "**Review Matrix Results** - Validate AI competitive analysis",
+      "time": "1 minute",
+      "details": {
+        "title": "Competitive Matrix Quality Check",
+        "steps": [
+          {
+            "number": "1",
+            "action": "When ChatGPT returns results, **skim the markdown table** first"
+          },
+          {
+            "number": "2",
+            "action": "**Spot-check at least one competitor's numbers** for plausibility"
+          },
+          {
+            "number": "3",
+            "action": "**Verify the scoring rubrics** align with your market understanding"
+          },
+          {
+            "number": "4",
+            "action": "**Check that weighted calculations** appear reasonable"
+          }
+        ]
+      }
     },
     {
       "step": 6,
-      "action": "**Click** the paper-clip icon in ChatGPT's reply → **download** *competitor_matrix.csv* to your project folder.",
-      "time": "15 s"
+      "action": "**Export Competition Data** - Download analysis for future use",
+      "time": "15 seconds",
+      "details": {
+        "title": "Save Competitive Intelligence",
+        "steps": [
+          {
+            "number": "1",
+            "action": "**Click the paper-clip icon** in ChatGPT's reply"
+          },
+          {
+            "number": "2",
+            "action": "**Download competitor_matrix.csv** to your project folder"
+          },
+          {
+            "number": "3",
+            "action": "**Verify the file** saved correctly and can be opened"
+          }
+        ]
+      }
     },
     {
       "step": 7,
-      "action": "**Team Review & Key Insights from the Matrix**: As a team, **open** the downloaded *competitor_matrix.csv* file. **Identify** Your *\"Boss Rival\"*: Look at the Weighted Threat Score column. Which competitor has the highest score? **Scan Strategic Data**: Quickly review the Core USP, Notable Strength, and Key Vulnerability columns. **Check Plausibility & Surprises**: Do the scores seem reasonable? **First Strategic Thoughts**: What initial ideas does this matrix spark?",
-      "time": "3-5 min"
+      "action": "**Strategic Team Analysis** - Extract key competitive insights",
+      "time": "3-5 minutes",
+      "details": {
+        "title": "Team Review & Key Insights from the Matrix",
+        "steps": [
+          {
+            "number": "1",
+            "action": "**Open the downloaded competitor_matrix.csv** file as a team"
+          },
+          {
+            "number": "2",
+            "action": "**Identify Your \"Boss Rival\"**: Look at the Weighted Threat Score column. Which competitor has the highest score? Discuss if this makes sense."
+          },
+          {
+            "number": "3",
+            "action": "**Scan Strategic Data**: Quickly review the Core USP, Notable Strength, and Key Vulnerability columns for all competitors"
+          },
+          {
+            "number": "4",
+            "action": "**Check Plausibility & Surprises**: Do the individual scores seem reasonable? Are there surprising vulnerabilities highlighted?"
+          },
+          {
+            "number": "5",
+            "action": "**First Strategic Thoughts**: What initial ideas does this matrix spark? Where might there be openings for your new company?"
+          },
+          {
+            "number": "6",
+            "action": "**Document insights** that will inform Phase 4 product ideation"
+          }
+        ]
+      }
     }
   ],
   "expectedOutput": {

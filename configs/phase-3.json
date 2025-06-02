@@ -96,19 +96,115 @@
   "stepByStepFlow": [
     {
       "step": 1,
-      "action": "**Open** ChatGPT → within *\"Tools\"* **select** *Run Deep Research*."
+      "action": "**Setup ChatGPT Deep Research** - Access advanced research capabilities",
+      "time": "15 seconds",
+      "details": {
+        "title": "Initialize AI Research Engine",
+        "steps": [
+          {
+            "number": "1",
+            "action": "**Open ChatGPT** in a new browser tab"
+          },
+          {
+            "number": "2",
+            "action": "Within **\"Tools\"** section, **select \"Run Deep Research\"** to enable advanced research mode"
+          },
+          {
+            "number": "3",
+            "action": "Ensure you have your research parameters ready (evidence horizon, tone, statistic style)"
+          }
+        ]
+      }
     },
     {
       "step": 2,
-      "action": "**Customize** and adapt the Phase 3 Prompt (below) for your company. **Replace** placeholders with your horizon, tone, stat style; **insert** variables."
+      "action": "**Customize Research Prompt** - Configure your evidence gathering parameters",
+      "time": "1 minute",
+      "details": {
+        "title": "Tailor Research Requirements",
+        "steps": [
+          {
+            "number": "1",
+            "action": "**Copy the Phase 3 Prompt** from the Prompt Preview section below"
+          },
+          {
+            "number": "2",
+            "action": "**Replace placeholders** with your evidence horizon, tone preference, and statistic style"
+          },
+          {
+            "number": "3",
+            "action": "**Insert your variables**: company name, sector, target region, and benefit keyword"
+          },
+          {
+            "number": "4",
+            "action": "**Review the prompt** to ensure it captures your research needs accurately"
+          }
+        ]
+      }
     },
     {
       "step": 3,
-      "action": "**Submit**. Deep-Research will consider your request for a few seconds. As a team **determine** your answers to these questions and **submit** them and then Deep Research get started. Typical run ≈ 7–8 min."
+      "action": "**Launch Deep Research** - Initiate comprehensive evidence gathering",
+      "time": "7-8 minutes AI processing",
+      "details": {
+        "title": "Commission AI Research Analysis",
+        "steps": [
+          {
+            "number": "1",
+            "action": "**Submit the customized prompt** to ChatGPT Deep Research"
+          },
+          {
+            "number": "2",
+            "action": "Deep-Research will **consider your request for a few seconds** and develop a research plan"
+          },
+          {
+            "number": "3",
+            "action": "As a team, **review the research plan** and confirm it covers your needs"
+          },
+          {
+            "number": "4",
+            "action": "**Approve and start** the research process - typical run takes 7–8 minutes"
+          },
+          {
+            "number": "5",
+            "action": "**Use this time** to begin Phase 4 preparation or review previous phase insights"
+          }
+        ]
+      }
     },
     {
       "step": 4,
-      "action": "Now that the research is running you can **move on to Phase 4**. Once it is done, **press** the share icon and then **download** it as a pdf, then **change** the name to *Science_Evidence.pdf*."
+      "action": "**Review & Export Evidence** - Validate and save research findings",
+      "time": "5 minutes",
+      "details": {
+        "title": "Process Research Results",
+        "steps": [
+          {
+            "number": "1",
+            "action": "When research completes, **review Key Findings and Marketing Stats** for clarity and relevance"
+          },
+          {
+            "number": "2",
+            "action": "**Skim the Expert Pull-quotes** to ensure they match your tone preference"
+          },
+          {
+            "number": "3",
+            "action": "**Check the Reference List** for source quality and credibility"
+          },
+          {
+            "number": "4",
+            "action": "**Press the share icon** and then **\"Export\" → \"PDF\"**"
+          },
+          {
+            "number": "5",
+            "action": "**Save as Science_Evidence.pdf** for use in future phases"
+          },
+          {
+            "number": "6",
+            "action": "**Highlight the most jaw-dropping statistic** in the PDF - star it for later media use"
+          }
+        ]
+      }
     }
   ],
   "expectedOutput": {

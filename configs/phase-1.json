@@ -65,30 +65,217 @@
     }
   ],
   "promptTemplate": "**ROLE**\n\nYou are a senior market-intelligence analyst at a global consulting firm.\n\n**CONTEXT**\n\nWe are evaluating the {{sector}} market in {{target_region}} for a new entrant called {{company_name}}.\n\n**TASK**\n\nProduce a structured report with five numbered sections:\n\n1. **Market Sizing & Growth**\n   * Current‐year (e.g., Projected 2025) TAM and SAM in USD.\n   * Recent or Projected Market CAGR (specify timeframe, e.g., 2023-2028).\n   * Minimum one, preferably two, independent sources per figure (link or full citation). Prioritize reputable sources (market research firms, government data, industry associations).\n   * Briefly outline key factors or common methodologies used to estimate potential SOM in this sector (a specific sourced SOM figure is not required).\n\n2. **Top 5 Competitors**\n   * Identify the Top 5 competitors based on perceived market influence or relevance to {{company_name}}'s likely offering.\n   * Table: Brand | Core Offer | One-sentence USP | Market Positioning/Tier (e.g., Leader, Major Player, Niche) | Evidence of Scale (e.g., Revenue/funding if public, employee range) | Key Strengths (1-2 bullets)\n   * Mention any significant funding, patent, or M&A event involving these competitors in the last 18-24 months.\n\n3. **Potential Unmet Needs**\n   * Minimum three potential unmet needs within the market, supported by cited evidence.\n   * ≤ 30 words each. Include a parent quote, data point, or reference to analysis from a reputable source illustrating customer pain or market gap.\n   * Briefly note the potential implication of addressing this need for {{company_name}}.\n\n4. **Macro & Regulatory Trends**\n   * Three trends (e.g., Technological, Regulatory, Economic, Social) most likely to significantly reshape this category within the next 3 years.\n   * Pair each with a referenced statistic or forecast.\n   * For each trend, briefly state its potential impact (opportunity or threat) on {{company_name}}.\n\n5. **Key Assumptions and Limitations**\n   * Briefly outline key assumptions made during the analysis and any significant limitations encountered (e.g., data availability, reliance on public sources).\n\n**FORMAT**\n\nReturn the content in GitHub-flavored Markdown with clear H2 headers for the numbered sections.\n\nStructure the output cleanly (especially tables and lists) to allow for easy copying and pasting into a final document (e.g., Word or PowerPoint) for executive presentation.\n\nFinish with a consolidated APA reference list for all cited sources.",
+  "decisionBoxContent": {
+    "title": "Market Research Foundation",
+    "subtitle": "Mapping the Battlefield - Understanding your market landscape before designing anything",
+    "sections": [
+      {
+        "number": "1",
+        "title": "Core Business Identity",
+        "items": [
+          {
+            "label": "Company Name",
+            "content": "Choose a short, memorable brand name that will represent your startup throughout the entire bootcamp process."
+          },
+          {
+            "label": "Sector Definition",
+            "content": "Define the specific slice of the market you will attack - be precise about your product domain and target demographics."
+          },
+          {
+            "label": "Benefit Keyword",
+            "content": "Identify the core human outcome your offer will improve - this becomes the foundation for all future research and development."
+          }
+        ]
+      },
+      {
+        "number": "2",
+        "title": "Geographic & Brand Strategy",
+        "items": [
+          {
+            "label": "Target Region",
+            "content": "Select your primary geography for launch - this will focus your market research and competitive analysis on the most relevant data."
+          },
+          {
+            "label": "Brand Colors",
+            "content": "Choose primary and secondary brand colors early - these will be used consistently across all materials and phases."
+          }
+        ]
+      }
+    ],
+    "action": {
+      "title": "Research Preparation",
+      "items": [
+        "Define your company name, sector, and core benefit keyword",
+        "Select target region and brand colors",
+        "Prepare to conduct parallel research while AI runs analysis",
+        "Set up for 12 minutes of intensive market intelligence gathering"
+      ]
+    }
+  },
   "stepByStepFlow": [
     {
       "step": 1,
-      "action": "**Open** Gemini (https://gemini.google.com) in a fresh browser tab and in the chat box **select** the *\"Deep Research\"* option."
+      "action": "**Setup Gemini Deep Research** - Access Google's AI market analyst",
+      "time": "10 seconds",
+      "details": {
+        "title": "Initialize AI Market Research",
+        "steps": [
+          {
+            "number": "1",
+            "action": "**Open Gemini** (https://gemini.google.com) in a fresh browser tab"
+          },
+          {
+            "number": "2",
+            "action": "In the chat box, **select the \"Deep Research\" option** - this activates Gemini's advanced research mode"
+          },
+          {
+            "number": "3",
+            "action": "Ensure you're ready to provide your company details for the market analysis"
+          }
+        ]
+      }
     },
     {
       "step": 2,
-      "action": "**Copy** the Phase 1 Prompt (below) into Gemini. **Fill in** the missing elements and make any changes or adjustments to the prompt that you want. This is *your market research*, make sure you're getting what you want from it."
+      "action": "**Customize & Submit Research Prompt** - Configure your market intelligence request",
+      "time": "1 minute",
+      "details": {
+        "title": "Configure Market Research Parameters",
+        "steps": [
+          {
+            "number": "1",
+            "action": "**Copy the Phase 1 Prompt** from the Prompt Preview section below"
+          },
+          {
+            "number": "2",
+            "action": "**Fill in the missing elements** with your company name, sector, benefit keyword, and target region"
+          },
+          {
+            "number": "3",
+            "action": "**Make any adjustments** to the prompt that you want - this is your market research, ensure you're getting what you need"
+          },
+          {
+            "number": "4",
+            "action": "**Submit the prompt** to Gemini"
+          }
+        ]
+      }
     },
     {
       "step": 3,
-      "action": "**Submit.** It will take Gemini a few seconds to develop a plan of attack for your request. It will then show it to you. You have the ability to edit this, but for now **press** *\"Start Research.\"* Gemini will now begin **searching**, **analyzing**, and **synthesizing** information to answer your request. This will take *4-9 minutes*. You will now do the exact same thing as a group."
+      "action": "**Initiate AI Research** - Start Gemini's market analysis engine",
+      "time": "4-9 minutes AI processing",
+      "details": {
+        "title": "Launch Deep Market Analysis",
+        "steps": [
+          {
+            "number": "1",
+            "action": "Gemini will take **a few seconds to develop a plan** of attack for your request and show it to you"
+          },
+          {
+            "number": "2",
+            "action": "You have the ability to **edit this plan**, but for now **press \"Start Research\"**"
+          },
+          {
+            "number": "3",
+            "action": "Gemini will now begin **searching, analyzing, and synthesizing** information across multiple sources"
+          },
+          {
+            "number": "4",
+            "action": "This process will take **4-9 minutes** - use this time productively for parallel research"
+          }
+        ]
+      }
     },
     {
       "step": 4,
-      "action": "While Gemini works you need to do your own exploratory analysis: Where do you suspect opportunity lies? Which competitor scares you most? What are the biggest rivals etc? You can use the internet (e.g. *Google*, *Crunchbase*, etc) to answer the questions, but **not AI**. **Do your own research** and **fill in** all aspects of the form. You will have to be faster than you would like. Do the best you can."
+      "action": "**Conduct Parallel Team Research** - Manual market exploration while AI works",
+      "time": "10 minutes",
+      "details": {
+        "title": "Human Intelligence Gathering",
+        "steps": [
+          {
+            "number": "1",
+            "action": "**Divide research tasks** among team members while Gemini works"
+          },
+          {
+            "number": "2",
+            "action": "**Explore key questions:** Where do you suspect opportunity lies? Which competitor scares you most? What are the biggest rivals?"
+          },
+          {
+            "number": "3",
+            "action": "**Use traditional research tools** (Google, Crunchbase, company websites, news) but **not AI tools**"
+          },
+          {
+            "number": "4",
+            "action": "**Fill in all form fields** based on your findings - work faster than you'd like, do your best"
+          },
+          {
+            "number": "5",
+            "action": "**Document initial hypotheses** about market gaps and competitive threats"
+          }
+        ]
+      }
     },
     {
       "step": 5,
-      "action": "When Gemini finishes the report, **click** *\"Create\"* and then **select** *Infographic*. Let it get to work. **Review** the report. This will be far too much information for you to go over in detail at this time, but **spend at least 5 minutes** as a team going through it and as soon as the infographic is created, go through that carefully. **Analyze** what you both came up with and what is in Gemini's report. Get a good overview of the Market situation."
+      "action": "**Review & Analyze Results** - Compare AI insights with team findings",
+      "time": "5 minutes",
+      "details": {
+        "title": "Synthesize Market Intelligence",
+        "steps": [
+          {
+            "number": "1",
+            "action": "When Gemini finishes, **click \"Create\"** and then **select \"Infographic\"**"
+          },
+          {
+            "number": "2",
+            "action": "**Review the full report** - this will be extensive, focus on key sections first"
+          },
+          {
+            "number": "3",
+            "action": "**Spend at least 5 minutes as a team** going through the report systematically"
+          },
+          {
+            "number": "4",
+            "action": "**Carefully examine the infographic** once created - this provides visual market overview"
+          },
+          {
+            "number": "5",
+            "action": "**Compare and analyze** what your team discovered versus Gemini's findings"
+          },
+          {
+            "number": "6",
+            "action": "**Get a comprehensive overview** of the market situation before proceeding"
+          }
+        ]
+      }
     },
     {
       "step": 6,
-      "action": "**Open** the Report in Google Drive by **clicking** *\"Export\"* and then *\"Export to Docs,\"* **rename** the file *\"Market_Competitors\"* and **download** it as a PDF."
+      "action": "**Export Market Intelligence** - Save research for future phases",
+      "time": "30 seconds",
+      "details": {
+        "title": "Preserve Market Research Assets",
+        "steps": [
+          {
+            "number": "1",
+            "action": "**Click \"Export\"** in the Gemini interface"
+          },
+          {
+            "number": "2",
+            "action": "**Select \"Export to Docs\"** to save to Google Drive"
+          },
+          {
+            "number": "3",
+            "action": "**Rename the file** to \"Market_Competitors\" for easy identification"
+          },
+          {
+            "number": "4",
+            "action": "**Download as PDF** - this becomes your base truth document for all future phases"
+          }
+        ]
+      }
     }
   ],
   "expectedOutput": {
