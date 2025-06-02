@@ -233,7 +233,12 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
   };
 
   const progressPercentage = (config.phase / 7) * 100;
-  const hasErrors = Object.keys(errors).length > 0;
+  
+  // Check for actual missing required fields, not just validation errors
+  const hasRequiredFieldsEmpty = config.fields.some(field => 
+    field.required && !formData[field.id]?.trim()
+  );
+  const hasErrors = Object.keys(errors).length > 0 || hasRequiredFieldsEmpty;
 
   return (
     <div className="space-y-8">
