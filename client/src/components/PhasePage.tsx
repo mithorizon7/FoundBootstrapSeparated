@@ -485,7 +485,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
           variant="outline"
           onClick={handlePreviousPhase}
           disabled={config.phase === 1}
-          className={cn("flex items-center space-x-2 btn-premium", 
+          className={cn("flex items-center space-x-2 border border-neutral-300 text-neutral-600 hover:bg-neutral-50 hover:border-neutral-400 transition-colors duration-200", 
             config.phase === 1 && "opacity-50 cursor-not-allowed"
           )}
         >
