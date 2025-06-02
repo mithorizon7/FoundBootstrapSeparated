@@ -1,6 +1,6 @@
 import { teams, phaseData, users, type Team, type InsertTeam, type PhaseData, type InsertPhaseData, type User, type InsertUser } from "@shared/schema";
 import { db } from "./db";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 
 export interface IStorage {
   // Team operations
@@ -101,8 +101,7 @@ export class DatabaseStorage implements IStorage {
     const data = await db
       .select()
       .from(phaseData)
-      .where(eq(phaseData.teamId, teamId))
-      .where(eq(phaseData.phaseNumber, phaseNumber));
+      .where(and(eq(phaseData.teamId, teamId), eq(phaseData.phaseNumber, phaseNumber)));
     return data[0] || undefined;
   }
 

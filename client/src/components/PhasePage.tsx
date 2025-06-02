@@ -282,9 +282,18 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
           <Progress value={progressPercentage} className="mb-4" />
           
           <div className="mt-4">
-            <p className="text-lg text-gray-700 leading-relaxed ui-label max-w-4xl">
-              {config.intro}
-            </p>
+            <div className="text-lg text-gray-700 leading-relaxed ui-label max-w-4xl">
+              <div dangerouslySetInnerHTML={{ 
+                __html: config.intro
+                  .replace(/\n\n/g, '</p><p class="mt-4">')
+                  .replace(/^(.*)$/gm, '<p>$1</p>')
+                  .replace(/• /g, '<li>')
+                  .replace(/<p><li>/g, '<ul class="list-disc list-inside mt-2 space-y-1"><li>')
+                  .replace(/<\/p>\s*<p><li>/g, '</li><li>')
+                  .replace(/<li>([^<]*)<\/p>/g, '<li>$1</li></ul>')
+                  .replace(/<p><\/p>/g, '')
+              }} />
+            </div>
           </div>
         </CardHeader>
       </Card>
