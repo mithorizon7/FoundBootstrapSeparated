@@ -248,10 +248,10 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
 
       {/* Step-by-Step Flow - Full Width */}
       {config.stepByStepFlow && (
-        <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200 card-premium">
+        <Card className="bg-gradient-to-r from-neutral-50 to-neutral-100 border-neutral-300 card-premium">
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-blue-900 section-header">
-              <ArrowRight className="w-5 h-5 text-blue-600" />
+            <CardTitle className="flex items-center space-x-2 text-neutral-800 section-header">
+              <ArrowRight className="w-5 h-5 text-primary" />
               <span>Step-by-Step Workflow</span>
             </CardTitle>
           </CardHeader>
@@ -267,11 +267,11 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                     </div>
                     <div className="flex-1">
                       <div 
-                        className="text-gray-800 text-premium leading-relaxed group-hover:text-gray-900 transition-colors duration-200"
+                        className="text-neutral-700 text-premium leading-relaxed group-hover:text-neutral-800 transition-colors duration-200"
                         dangerouslySetInnerHTML={{
                           __html: step.action
-                            .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-gray-900">$1</strong>')
-                            .replace(/\*([^*]+)\*/g, '<em class="italic text-blue-700 font-medium">$1</em>')
+                            .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-neutral-800">$1</strong>')
+                            .replace(/\*([^*]+)\*/g, '<em class="italic text-primary font-medium">$1</em>')
                         }}
                       />
                     </div>
