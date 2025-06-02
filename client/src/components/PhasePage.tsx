@@ -272,6 +272,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                           __html: step.action
                             .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-neutral-800">$1</strong>')
                             .replace(/\*([^*]+)\*/g, '<em class="italic text-primary font-medium">$1</em>')
+                            .replace(/(https?:\/\/[^\s\)]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary-600 underline font-medium">$1</a>')
                         }}
                       />
                     </div>
