@@ -1,4 +1,6 @@
-import { teams, phaseData, type Team, type InsertTeam, type PhaseData, type InsertPhaseData, type User, type InsertUser } from "@shared/schema";
+import { teams, phaseData, users, type Team, type InsertTeam, type PhaseData, type InsertPhaseData, type User, type InsertUser } from "@shared/schema";
+import { db } from "./db";
+import { eq } from "drizzle-orm";
 
 export interface IStorage {
   // Team operations
@@ -20,125 +22,113 @@ export interface IStorage {
   createUser(user: InsertUser): Promise<User>;
 }
 
-export class MemStorage implements IStorage {
-  private teams: Map<number, Team>;
-  private phaseDataMap: Map<string, PhaseData>;
-  private users: Map<number, User>;
-  private currentTeamId: number;
-  private currentPhaseDataId: number;
-  private currentUserId: number;
+export class DatabaseStorage implements IStorage {
+  async getUser(id: number): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
+  }
 
-  constructor() {
-    this.teams = new Map();
-    this.phaseDataMap = new Map();
-    this.users = new Map();
-    this.currentTeamId = 1;
-    this.currentPhaseDataId = 1;
-    this.currentUserId = 1;
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user || undefined;
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const [user] = await db
+      .insert(users)
+      .values(insertUser)
+      .returning();
+    return user;
   }
 
   async createTeam(insertTeam: InsertTeam): Promise<Team> {
-    const id = this.currentTeamId++;
-    const team: Team = {
-      ...insertTeam,
-      id,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    };
-    this.teams.set(id, team);
+    const [team] = await db
+      .insert(teams)
+      .values(insertTeam)
+      .returning();
     return team;
   }
 
   async getTeamByCode(code: string): Promise<Team | undefined> {
-    return Array.from(this.teams.values()).find(team => team.code === code);
+    const [team] = await db.select().from(teams).where(eq(teams.code, code));
+    return team || undefined;
   }
 
   async getTeamById(id: number): Promise<Team | undefined> {
-    return this.teams.get(id);
+    const [team] = await db.select().from(teams).where(eq(teams.id, id));
+    return team || undefined;
   }
 
   async updateTeamPhase(id: number, currentPhase: number): Promise<Team> {
-    const team = this.teams.get(id);
-    if (!team) {
-      throw new Error('Team not found');
-    }
-    const updatedTeam: Team = {
-      ...team,
-      currentPhase,
-      updatedAt: new Date(),
-    };
-    this.teams.set(id, updatedTeam);
-    return updatedTeam;
+    const [team] = await db
+      .update(teams)
+      .set({ 
+        currentPhase,
+        updatedAt: new Date()
+      })
+      .where(eq(teams.id, id))
+      .returning();
+    return team;
   }
 
   async getAllTeams(): Promise<Team[]> {
-    return Array.from(this.teams.values());
+    return await db.select().from(teams);
   }
 
   async savePhaseData(insertData: InsertPhaseData): Promise<PhaseData> {
-    const key = `${insertData.teamId}-${insertData.phaseNumber}`;
-    const existing = this.phaseDataMap.get(key);
+    const existing = await this.getPhaseData(insertData.teamId, insertData.phaseNumber);
     
     if (existing) {
-      const updated: PhaseData = {
-        ...existing,
-        data: insertData.data,
-        updatedAt: new Date(),
-      };
-      this.phaseDataMap.set(key, updated);
+      const [updated] = await db
+        .update(phaseData)
+        .set({
+          data: insertData.data,
+          updatedAt: new Date()
+        })
+        .where(eq(phaseData.id, existing.id))
+        .returning();
       return updated;
     } else {
-      const id = this.currentPhaseDataId++;
-      const data: PhaseData = {
-        ...insertData,
-        id,
-        completedAt: null,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      };
-      this.phaseDataMap.set(key, data);
-      return data;
+      const [created] = await db
+        .insert(phaseData)
+        .values(insertData)
+        .returning();
+      return created;
     }
   }
 
   async getPhaseData(teamId: number, phaseNumber: number): Promise<PhaseData | undefined> {
-    const key = `${teamId}-${phaseNumber}`;
-    return this.phaseDataMap.get(key);
+    const data = await db
+      .select()
+      .from(phaseData)
+      .where(eq(phaseData.teamId, teamId))
+      .where(eq(phaseData.phaseNumber, phaseNumber));
+    return data[0] || undefined;
   }
 
   async getAllPhaseDataForTeam(teamId: number): Promise<PhaseData[]> {
-    return Array.from(this.phaseDataMap.values()).filter(data => data.teamId === teamId);
+    return await db
+      .select()
+      .from(phaseData)
+      .where(eq(phaseData.teamId, teamId));
   }
 
   async markPhaseComplete(teamId: number, phaseNumber: number): Promise<PhaseData> {
-    const key = `${teamId}-${phaseNumber}`;
-    const data = this.phaseDataMap.get(key);
-    if (!data) {
+    const existing = await this.getPhaseData(teamId, phaseNumber);
+    if (!existing) {
       throw new Error('Phase data not found');
     }
-    const updated: PhaseData = {
-      ...data,
-      completedAt: new Date(),
-      updatedAt: new Date(),
-    };
-    this.phaseDataMap.set(key, updated);
+
+    const [updated] = await db
+      .update(phaseData)
+      .set({
+        completedAt: new Date(),
+        updatedAt: new Date()
+      })
+      .where(eq(phaseData.id, existing.id))
+      .returning();
     return updated;
-  }
-
-  async getUser(id: number): Promise<User | undefined> {
-    return this.users.get(id);
-  }
-
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(user => user.username === username);
-  }
-
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const id = this.currentUserId++;
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
