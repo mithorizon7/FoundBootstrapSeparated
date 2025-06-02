@@ -253,7 +253,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
     });
   }
 
-  const progressPercentage = (config.phase / 7) * 100;
+  const progressPercentage = (config.phase / 8) * 100;
   
   // Check for actual missing required fields, not just validation errors
   const hasRequiredFieldsEmpty = config.fields.some(field => 

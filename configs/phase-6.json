@@ -1,90 +1,85 @@
 {
-  "phase": 6,
-  "title": "Website & Digital Presence",
-  "intro": "Build your digital foundation with a professional website that converts visitors into customers. Create an online presence that showcases your product, communicates your value proposition, and drives business results.",
-  "estimatedTime": "30 minutes",
+  "phase": 5,
+  "title": "Product Design & Feature Definition - Part 2",
+  "intro": "Transform your selected hero concept into a detailed product specification. Define your Minimum Viable Product (MVP), core features, and user experience that delivers on your value proposition while staying focused on your target customer's most critical needs.",
+  "estimatedTime": "20 minutes",
   "fields": [
     {
-      "id": "website_primary_goal",
-      "label": "Primary Website Goal",
+      "id": "product_type",
+      "label": "Product Type",
       "type": "select",
       "required": true,
       "persist": true,
-      "help": "Main purpose of your website",
+      "help": "Primary product format",
       "options": [
-        { "value": "Lead Generation", "label": "Generate leads/inquiries" },
-        { "value": "Direct Sales", "label": "Sell products directly" },
-        { "value": "User Signups", "label": "Drive app/service signups" },
-        { "value": "Brand Awareness", "label": "Build brand awareness" },
-        { "value": "Education", "label": "Educate market about solution" }
+        { "value": "Software/App", "label": "Software/App" },
+        { "value": "Physical Product", "label": "Physical Product" },
+        { "value": "Service", "label": "Service" },
+        { "value": "Platform", "label": "Platform" },
+        { "value": "Hardware + Software", "label": "Hardware + Software" }
       ]
     },
     {
-      "id": "homepage_headline",
-      "label": "Homepage Headline",
+      "id": "core_user_story",
+      "label": "Core User Story",
+      "type": "textarea",
+      "placeholder": "As a [user type], I want to [accomplish goal] so that [benefit achieved]",
+      "required": true,
+      "persist": true,
+      "help": "Primary user story your product solves"
+    },
+    {
+      "id": "mvp_feature_1",
+      "label": "MVP Feature #1",
       "type": "text",
-      "placeholder": "e.g., The Inventory Management Solution Built for Small Business",
+      "placeholder": "e.g., Automated inventory tracking",
       "required": true,
       "persist": true,
-      "help": "Main headline that captures your value proposition"
+      "help": "Most critical feature for launch"
     },
     {
-      "id": "homepage_subheadline",
-      "label": "Homepage Subheadline",
-      "type": "textarea",
-      "placeholder": "e.g., Save 10 hours per week with automated tracking that's simple enough for any team member to use",
-      "required": true,
-      "persist": true,
-      "help": "Supporting text that explains the benefit"
-    },
-    {
-      "id": "call_to_action",
-      "label": "Primary Call-to-Action",
+      "id": "mvp_feature_2",
+      "label": "MVP Feature #2",
       "type": "text",
-      "placeholder": "e.g., Start Free Trial, Get Demo, Learn More",
+      "placeholder": "e.g., Real-time analytics dashboard",
       "required": true,
       "persist": true,
-      "help": "Main action you want visitors to take"
+      "help": "Second most important feature"
     },
     {
-      "id": "key_pages",
-      "label": "Essential Website Pages",
+      "id": "mvp_feature_3",
+      "label": "MVP Feature #3",
+      "type": "text",
+      "placeholder": "e.g., Mobile notifications",
+      "required": true,
+      "persist": true,
+      "help": "Third essential feature"
+    },
+    {
+      "id": "user_journey",
+      "label": "User Journey Overview",
       "type": "textarea",
-      "placeholder": "e.g., Home, Features, Pricing, About, Contact, Blog",
+      "placeholder": "Describe the step-by-step experience from discovery to ongoing use",
       "required": true,
       "persist": true,
-      "help": "List of pages your website needs (comma-separated)"
+      "help": "How users discover, onboard, and engage with your product"
     },
     {
-      "id": "social_proof_type",
-      "label": "Social Proof Strategy",
-      "type": "select",
-      "required": true,
-      "persist": true,
-      "help": "How you'll build credibility",
-      "options": [
-        { "value": "Customer Testimonials", "label": "Customer testimonials" },
-        { "value": "Usage Statistics", "label": "Usage statistics" },
-        { "value": "Expert Endorsements", "label": "Expert endorsements" },
-        { "value": "Media Mentions", "label": "Media mentions" },
-        { "value": "Certifications", "label": "Certifications/awards" }
-      ]
-    },
-    {
-      "id": "conversion_strategy",
-      "label": "Lead Conversion Strategy",
+      "id": "success_metrics",
+      "label": "Success Metrics",
       "type": "textarea",
-      "placeholder": "e.g., Free trial → onboarding email sequence → sales call",
+      "placeholder": "e.g., Daily active users, retention rate, customer satisfaction score",
       "required": true,
       "persist": true,
-      "help": "How you'll convert website visitors to customers"
+      "help": "Key performance indicators to measure product success"
     }
   ],
-  "promptTemplate": "**ROLE**\n\nYou are a digital marketing strategist and web designer creating a comprehensive website strategy.\n\n**CONTEXT**\n\nCompany: {{phase1.company_name}}\nTagline: {{phase5.tagline}}\nTarget Customer: {{phase3.target_customer}}\nProduct Type: {{phase4.product_type}}\nKey Features: {{phase4.mvp_feature_1}}, {{phase4.mvp_feature_2}}, {{phase4.mvp_feature_3}}\nBrand Colors: {{phase1.primary_color}}, {{phase1.secondary_color}}\nBrand Personality: {{phase5.brand_personality}}\n\nWebsite Goal: {{website_primary_goal}}\nHomepage Headline: {{homepage_headline}}\nSubheadline: {{homepage_subheadline}}\nCall-to-Action: {{call_to_action}}\n\n**TASK**\n\nCreate a comprehensive website strategy and content plan:\n\n1. **Website Architecture & User Experience**\n   - Site map for pages: {{key_pages}}\n   - User journey from homepage to conversion\n   - Mobile-first responsive design principles\n   - Page load optimization strategy\n\n2. **Homepage Design & Content**\n   - Above-the-fold layout with {{homepage_headline}} and {{homepage_subheadline}}\n   - Value proposition section highlighting {{phase3.key_benefit_1}} and {{phase3.key_benefit_2}}\n   - Feature showcase for {{phase4.mvp_feature_1}}, {{phase4.mvp_feature_2}}, {{phase4.mvp_feature_3}}\n   - Social proof section using {{social_proof_type}}\n   - Clear call-to-action: {{call_to_action}}\n\n3. **Content Strategy for Key Pages**\n   - Features page: detailed descriptions with benefits\n   - About page: company story and team credibility\n   - Pricing page: clear value-based pricing structure\n   - Contact page: multiple touchpoints and response expectations\n   - Blog strategy: content topics for {{phase1.sector}} audience\n\n4. **Conversion Optimization**\n   - Landing page variants for different traffic sources\n   - Lead capture forms and opt-in strategies\n   - Email marketing integration\n   - Conversion strategy: {{conversion_strategy}}\n   - A/B testing plan for key elements\n\n5. **Technical Implementation**\n   - Platform recommendation (WordPress, Webflow, custom)\n   - Essential plugins/tools for {{website_primary_goal}}\n   - Analytics and tracking setup\n   - SEO optimization checklist\n   - Security and performance requirements\n\n6. **Digital Marketing Integration**\n   - Social media integration strategy\n   - Google Ads landing page requirements\n   - Email marketing automation flows\n   - Content marketing distribution plan\n   - Link building and SEO strategy\n\n**BRAND GUIDELINES**\n- Use {{phase1.primary_color}} for primary buttons and accents\n- Use {{phase1.secondary_color}} for secondary elements\n- Maintain {{phase5.brand_personality}} tone throughout\n- Ensure accessibility and inclusive design\n\n**OUTPUT FORMAT**\n\nDetailed website specification document with wireframes descriptions, content outlines, and technical requirements ready for development team or website builder implementation.",
+  "promptTemplate": "**PRODUCT SPECIFICATION REQUEST**\n\nBased on the hero concept selected in Phase 4 Part 1, create a detailed product specification for {{phase1.company_name}}.\n\n**HERO CONCEPT FOUNDATION:**\n- Company: {{phase1.company_name}}\n- Sector: {{phase1.sector}}\n- Benefit Keyword: {{phase1.benefit_keyword}}\n- Selected Concept: {{phase4.winning_concept}}\n- Brand Adjectives: {{phase4.brand_adj_1}}, {{phase4.brand_adj_2}}, {{phase4.brand_adj_3}}\n\n**PRODUCT DETAILS:**\n- Product Type: {{product_type}}\n- Core User Story: {{core_user_story}}\n\n**MVP FEATURES:**\n1. {{mvp_feature_1}}\n2. {{mvp_feature_2}}\n3. {{mvp_feature_3}}\n\n**USER EXPERIENCE:**\n{{user_journey}}\n\n**SUCCESS CRITERIA:**\n{{success_metrics}}\n\n**REQUEST:**\nCreate a comprehensive product specification document that includes:\n1. Executive Summary\n2. Technical Requirements\n3. User Experience Flow\n4. Development Roadmap\n5. Risk Assessment\n6. Go-to-Market Considerations\n\nEnsure alignment with the Phase 4 concept selection and brand positioning established in earlier phases.",
   "instructions": [
-    "Focus on conversion optimization for your primary goal",
-    "Ensure mobile-first design for optimal user experience",
-    "Create content that addresses customer objections and concerns",
-    "Plan for measurement and continuous optimization"
+    "Review your selected hero concept from Phase 4 Part 1",
+    "Define the core user story that your product solves",
+    "Identify the 3 most critical MVP features",
+    "Map out the complete user journey",
+    "Establish measurable success metrics"
   ]
 }

@@ -1,89 +1,85 @@
 {
-  "phase": 7,
-  "title": "Launch Strategy & Go-to-Market",
-  "intro": "Orchestrate your market entry with a comprehensive launch plan. Define your go-to-market strategy, launch timeline, success metrics, and growth tactics that will transform your startup from concept to market reality.",
-  "estimatedTime": "35 minutes",
+  "phase": 5,
+  "title": "Product Design & Feature Definition - Part 2",
+  "intro": "Transform your selected hero concept into a detailed product specification. Define your Minimum Viable Product (MVP), core features, and user experience that delivers on your value proposition while staying focused on your target customer's most critical needs.",
+  "estimatedTime": "20 minutes",
   "fields": [
     {
-      "id": "launch_type",
-      "label": "Launch Approach",
+      "id": "product_type",
+      "label": "Product Type",
       "type": "select",
       "required": true,
       "persist": true,
-      "help": "How you'll introduce your product to market",
+      "help": "Primary product format",
       "options": [
-        { "value": "Soft Launch", "label": "Soft launch (limited audience)" },
-        { "value": "Public Launch", "label": "Public launch (full market)" },
-        { "value": "Beta Launch", "label": "Beta launch (test users)" },
-        { "value": "Stealth Launch", "label": "Stealth launch (invite-only)" },
-        { "value": "Regional Launch", "label": "Regional launch (specific geography)" }
+        { "value": "Software/App", "label": "Software/App" },
+        { "value": "Physical Product", "label": "Physical Product" },
+        { "value": "Service", "label": "Service" },
+        { "value": "Platform", "label": "Platform" },
+        { "value": "Hardware + Software", "label": "Hardware + Software" }
       ]
     },
     {
-      "id": "launch_timeline",
-      "label": "Launch Timeline",
-      "type": "select",
+      "id": "core_user_story",
+      "label": "Core User Story",
+      "type": "textarea",
+      "placeholder": "As a [user type], I want to [accomplish goal] so that [benefit achieved]",
       "required": true,
       "persist": true,
-      "help": "When you plan to launch",
-      "options": [
-        { "value": "Next 30 days", "label": "Next 30 days" },
-        { "value": "2-3 months", "label": "2-3 months" },
-        { "value": "4-6 months", "label": "4-6 months" },
-        { "value": "6+ months", "label": "6+ months" }
-      ]
+      "help": "Primary user story your product solves"
     },
     {
-      "id": "initial_customers",
-      "label": "First Customer Acquisition Strategy",
-      "type": "textarea",
-      "placeholder": "e.g., Personal network, industry contacts, online communities, cold outreach",
+      "id": "mvp_feature_1",
+      "label": "MVP Feature #1",
+      "type": "text",
+      "placeholder": "e.g., Automated inventory tracking",
       "required": true,
       "persist": true,
-      "help": "How you'll get your first 10-100 customers"
+      "help": "Most critical feature for launch"
     },
     {
-      "id": "marketing_channels",
-      "label": "Primary Marketing Channels",
-      "type": "textarea",
-      "placeholder": "e.g., Content marketing, LinkedIn ads, industry publications, partnerships",
+      "id": "mvp_feature_2",
+      "label": "MVP Feature #2",
+      "type": "text",
+      "placeholder": "e.g., Real-time analytics dashboard",
       "required": true,
       "persist": true,
-      "help": "Top 3-5 channels for reaching your target market"
+      "help": "Second most important feature"
+    },
+    {
+      "id": "mvp_feature_3",
+      "label": "MVP Feature #3",
+      "type": "text",
+      "placeholder": "e.g., Mobile notifications",
+      "required": true,
+      "persist": true,
+      "help": "Third essential feature"
+    },
+    {
+      "id": "user_journey",
+      "label": "User Journey Overview",
+      "type": "textarea",
+      "placeholder": "Describe the step-by-step experience from discovery to ongoing use",
+      "required": true,
+      "persist": true,
+      "help": "How users discover, onboard, and engage with your product"
     },
     {
       "id": "success_metrics",
-      "label": "Launch Success Metrics",
+      "label": "Success Metrics",
       "type": "textarea",
-      "placeholder": "e.g., 100 signups in first month, $10K MRR in 90 days, 20% conversion rate",
+      "placeholder": "e.g., Daily active users, retention rate, customer satisfaction score",
       "required": true,
       "persist": true,
-      "help": "Specific measurable goals for launch success"
-    },
-    {
-      "id": "budget_allocation",
-      "label": "Marketing Budget Allocation",
-      "type": "textarea",
-      "placeholder": "e.g., $5K total: $2K ads, $1K content, $1K tools, $1K events/networking",
-      "required": true,
-      "persist": true,
-      "help": "How you'll allocate marketing budget across channels"
-    },
-    {
-      "id": "risk_mitigation",
-      "label": "Key Risks & Mitigation",
-      "type": "textarea",
-      "placeholder": "e.g., Risk: Low initial demand. Mitigation: Pre-launch waitlist, beta feedback",
-      "required": true,
-      "persist": true,
-      "help": "Top 3 launch risks and how you'll address them"
+      "help": "Key performance indicators to measure product success"
     }
   ],
-  "promptTemplate": "**ROLE**\n\nYou are a go-to-market strategist developing a comprehensive launch plan for a new company.\n\n**CONTEXT**\n\nCompany: {{phase1.company_name}}\nSector: {{phase1.sector}} in {{phase1.target_region}}\nTarget Customer: {{phase3.target_customer}}\nProduct: {{phase4.product_type}} with features: {{phase4.mvp_feature_1}}, {{phase4.mvp_feature_2}}, {{phase4.mvp_feature_3}}\nPositioning: {{phase3.positioning_statement}}\nWebsite Goal: {{phase6.website_primary_goal}}\nKey Messages: {{phase5.key_message_1}}, {{phase5.key_message_2}}, {{phase5.key_message_3}}\n\nLaunch Details:\n- Approach: {{launch_type}}\n- Timeline: {{launch_timeline}}\n- Success Metrics: {{success_metrics}}\n- Budget: {{budget_allocation}}\n\n**TASK**\n\nDevelop a comprehensive go-to-market strategy:\n\n1. **Pre-Launch Strategy (Weeks -8 to -1)**\n   - Product development completion checklist\n   - Beta testing program with {{initial_customers}} approach\n   - Content creation and asset preparation\n   - Website optimization for {{phase6.website_primary_goal}}\n   - Team preparation and role assignments\n\n2. **Launch Week Strategy**\n   - Day-by-day launch sequence\n   - Marketing channel activation: {{marketing_channels}}\n   - PR and media outreach plan\n   - Customer onboarding process\n   - Crisis management and support protocols\n\n3. **Customer Acquisition Strategy**\n   - Initial customers: {{initial_customers}}\n   - Channel strategy breakdown for {{marketing_channels}}\n   - Sales process and conversion funnel\n   - Pricing strategy and promotional offers\n   - Partnership and referral programs\n\n4. **Marketing Execution Plan**\n   - Budget allocation: {{budget_allocation}}\n   - Content calendar for first 90 days\n   - Social media strategy across platforms\n   - Email marketing automation sequences\n   - Performance tracking and optimization\n\n5. **Success Measurement Framework**\n   - Key metrics: {{success_metrics}}\n   - Weekly, monthly, and quarterly review schedule\n   - Dashboard and reporting structure\n   - Iteration and optimization protocols\n   - Customer feedback collection and analysis\n\n6. **Risk Management & Contingency Planning**\n   - Risk assessment: {{risk_mitigation}}\n   - Scenario planning (best case, worst case, most likely)\n   - Pivot strategies if initial approach fails\n   - Cash flow management and runway extension\n   - Team scaling and resource allocation\n\n7. **Post-Launch Growth Strategy**\n   - Month 2-6 expansion plan\n   - Feature development roadmap\n   - Market expansion opportunities\n   - Funding and investment strategy\n   - Long-term vision and milestones\n\n**COMPETITIVE CONTEXT**\nConsider insights from previous phases about market positioning versus competitors and leverage our unique advantages in {{phase1.benefit_keyword}} for {{phase1.sector}}.\n\n**OUTPUT FORMAT**\n\nDetailed go-to-market playbook with timelines, budgets, responsibilities, and success criteria. Include week-by-week action items for the first 90 days post-launch.",
+  "promptTemplate": "**PRODUCT SPECIFICATION REQUEST**\n\nBased on the hero concept selected in Phase 4 Part 1, create a detailed product specification for {{phase1.company_name}}.\n\n**HERO CONCEPT FOUNDATION:**\n- Company: {{phase1.company_name}}\n- Sector: {{phase1.sector}}\n- Benefit Keyword: {{phase1.benefit_keyword}}\n- Selected Concept: {{phase4.winning_concept}}\n- Brand Adjectives: {{phase4.brand_adj_1}}, {{phase4.brand_adj_2}}, {{phase4.brand_adj_3}}\n\n**PRODUCT DETAILS:**\n- Product Type: {{product_type}}\n- Core User Story: {{core_user_story}}\n\n**MVP FEATURES:**\n1. {{mvp_feature_1}}\n2. {{mvp_feature_2}}\n3. {{mvp_feature_3}}\n\n**USER EXPERIENCE:**\n{{user_journey}}\n\n**SUCCESS CRITERIA:**\n{{success_metrics}}\n\n**REQUEST:**\nCreate a comprehensive product specification document that includes:\n1. Executive Summary\n2. Technical Requirements\n3. User Experience Flow\n4. Development Roadmap\n5. Risk Assessment\n6. Go-to-Market Considerations\n\nEnsure alignment with the Phase 4 concept selection and brand positioning established in earlier phases.",
   "instructions": [
-    "Create detailed timelines with specific deadlines and responsibilities",
-    "Focus on metrics that matter for your business model and goals",
-    "Prepare contingency plans for different scenarios",
-    "Plan for scaling based on early traction and feedback"
+    "Review your selected hero concept from Phase 4 Part 1",
+    "Define the core user story that your product solves",
+    "Identify the 3 most critical MVP features",
+    "Map out the complete user journey",
+    "Establish measurable success metrics"
   ]
 }

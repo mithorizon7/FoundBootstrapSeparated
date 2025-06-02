@@ -100,7 +100,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/configs/phase-:id", async (req, res) => {
     try {
       const phaseId = parseInt(req.params.id);
-      if (phaseId < 1 || phaseId > 7) {
+      if (phaseId < 1 || phaseId > 8) {
         return res.status(404).json({ message: "Phase not found" });
       }
       
