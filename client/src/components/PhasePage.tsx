@@ -347,40 +347,40 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
 
       {/* Expected Output - Full Width */}
       {config.expectedOutput && (
-        <Alert className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200 card-premium">
-          <AlertDescription className="text-green-800">
+        <Alert className="bg-gradient-to-r from-primary-50 to-accent-50 border-primary-200 card-premium">
+          <AlertDescription className="text-neutral-700">
             <div className="flex items-center space-x-2 mb-4">
-              <Target className="w-5 h-5 text-green-600" />
-              <span className="font-semibold text-lg text-green-900 section-header">Expected Output & What Happens Next</span>
+              <Target className="w-5 h-5 text-primary-600" />
+              <span className="font-semibold text-lg text-neutral-800 section-header">Expected Output & What Happens Next</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {config.expectedOutput.fileCreated && (
-                <div className="bg-white rounded-lg p-4 border border-green-200 card-premium group">
-                  <div className="font-medium text-green-900 mb-2 flex items-center space-x-1">
-                    <FileText className="w-4 h-4" />
+                <div className="bg-white rounded-lg p-4 border border-primary-200 card-premium group">
+                  <div className="font-medium text-neutral-800 mb-2 flex items-center space-x-1">
+                    <FileText className="w-4 h-4 text-primary-600" />
                     <span>File Created:</span>
                   </div>
-                  <span className="font-mono bg-green-100 px-3 py-2 rounded text-sm block text-center transition-all duration-200 group-hover:bg-green-200">
+                  <span className="font-mono bg-primary-50 px-3 py-2 rounded text-sm block text-center transition-all duration-200 group-hover:bg-primary-100 text-primary-700">
                     {config.expectedOutput.fileCreated}
                   </span>
                 </div>
               )}
               {config.expectedOutput.whyItMatters && (
-                <div className="bg-white rounded-lg p-4 border border-green-200 card-premium">
-                  <div className="font-medium text-green-900 mb-2 flex items-center space-x-1">
-                    <CheckCircle className="w-4 h-4" />
+                <div className="bg-white rounded-lg p-4 border border-primary-200 card-premium">
+                  <div className="font-medium text-neutral-800 mb-2 flex items-center space-x-1">
+                    <CheckCircle className="w-4 h-4 text-accent-600" />
                     <span>Why it matters:</span>
                   </div>
-                  <p className="text-sm text-green-800 text-premium">{config.expectedOutput.whyItMatters}</p>
+                  <p className="text-sm text-neutral-700 text-premium">{config.expectedOutput.whyItMatters}</p>
                 </div>
               )}
               {config.expectedOutput.nextSteps && (
-                <div className="bg-white rounded-lg p-4 border border-green-200 card-premium">
-                  <div className="font-medium text-green-900 mb-2 flex items-center space-x-1">
-                    <ArrowRight className="w-4 h-4" />
+                <div className="bg-white rounded-lg p-4 border border-primary-200 card-premium">
+                  <div className="font-medium text-neutral-800 mb-2 flex items-center space-x-1">
+                    <ArrowRight className="w-4 h-4 text-primary-600" />
                     <span>Next Steps:</span>
                   </div>
-                  <p className="text-sm text-green-800 text-premium">{config.expectedOutput.nextSteps}</p>
+                  <p className="text-sm text-neutral-700 text-premium">{config.expectedOutput.nextSteps}</p>
                 </div>
               )}
             </div>
@@ -390,9 +390,9 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
 
       {/* Legacy Instructions (fallback) */}
       {config.instructions && !config.stepByStepFlow && (
-        <Alert className="bg-blue-50 border-blue-200">
-          <Info className="w-4 h-4 text-blue-600" />
-          <AlertDescription className="text-blue-800">
+        <Alert className="bg-primary-50 border-primary-200">
+          <Info className="w-4 h-4 text-primary-600" />
+          <AlertDescription className="text-neutral-700">
             <div className="font-semibold mb-2">Next Steps:</div>
             <ol className="list-decimal list-inside space-y-1">
               {config.instructions.map((instruction, index) => (

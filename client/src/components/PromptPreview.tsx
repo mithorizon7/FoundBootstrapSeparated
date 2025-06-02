@@ -20,12 +20,12 @@ export function PromptPreview({ template, data }: PromptPreviewProps) {
   const formatPromptForDisplay = (text: string) => {
     return text
       // Bold headers and important terms
-      .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-gray-900">$1</strong>')
+      .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-neutral-800">$1</strong>')
       // Highlight template variables that are still unfilled
-      .replace(/\{\{([^}]+)\}\}/g, '<span class="variable-highlight bg-yellow-100 text-yellow-800 font-medium px-1 rounded">{{$1}}</span>')
+      .replace(/\{\{([^}]+)\}\}/g, '<span class="variable-highlight bg-accent-100 text-accent-700 font-medium px-1 rounded">{{$1}}</span>')
       // Emphasize section numbers and bullets
-      .replace(/^(\d+\.\s)/gm, '<strong class="text-blue-700 font-semibold">$1</strong>')
-      .replace(/^\s*\*\s/gm, '<span class="text-blue-600 font-medium">• </span>')
+      .replace(/^(\d+\.\s)/gm, '<strong class="text-primary-600 font-semibold">$1</strong>')
+      .replace(/^\s*\*\s/gm, '<span class="text-primary-500 font-medium">• </span>')
       // Preserve line breaks
       .replace(/\n/g, '<br>');
   };
@@ -67,19 +67,19 @@ export function PromptPreview({ template, data }: PromptPreviewProps) {
     <div className="bg-white rounded-xl card-premium p-6 sticky top-24">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center transition-all duration-200 hover:bg-green-200">
-            <Copy className="w-4 h-4 text-green-600" />
+          <div className="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center transition-all duration-200 hover:bg-primary-200">
+            <Copy className="w-4 h-4 text-primary-600" />
           </div>
-          <h2 className="text-lg font-semibold text-gray-900 heading-premium">AI Prompt Preview</h2>
+          <h2 className="text-lg font-semibold text-neutral-800 heading-premium">AI Prompt Preview</h2>
         </div>
         <div className="flex items-center space-x-2">
-          <div className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded content-fade">Live Preview</div>
+          <div className="text-xs text-neutral-500 bg-neutral-100 px-2 py-1 rounded content-fade">Live Preview</div>
         </div>
       </div>
 
-      <div className="bg-gray-50 rounded-lg p-4 mb-4 max-h-96 overflow-y-auto border border-gray-200">
+      <div className="bg-neutral-50 rounded-lg p-4 mb-4 max-h-96 overflow-y-auto border border-neutral-200">
         <div 
-          className="text-sm text-gray-800 text-premium leading-relaxed"
+          className="text-sm text-neutral-700 text-premium leading-relaxed"
           dangerouslySetInnerHTML={{
             __html: formatPromptForDisplay(compiledPrompt)
           }}
@@ -89,8 +89,8 @@ export function PromptPreview({ template, data }: PromptPreviewProps) {
       <div className="flex items-center space-x-3">
         <Button
           onClick={handleCopy}
-          className={cn("flex-1 btn-premium bg-primary text-white hover:bg-blue-700 transition-colors duration-200 flex items-center justify-center space-x-2",
-            copied && "bg-green-600 hover:bg-green-700"
+          className={cn("flex-1 btn-premium bg-primary text-white hover:bg-primary/90 transition-colors duration-200 flex items-center justify-center space-x-2",
+            copied && "bg-accent-600 hover:bg-accent-700"
           )}
         >
           {copied ? <Check className="w-4 h-4" /> : <Copy className="w-4 h-4" />}
@@ -99,7 +99,7 @@ export function PromptPreview({ template, data }: PromptPreviewProps) {
         <Button
           onClick={handleDownload}
           variant="outline"
-          className="btn-premium px-4 py-3 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 transition-colors duration-200"
+          className="btn-premium px-4 py-3 border border-neutral-300 rounded-lg text-neutral-600 hover:bg-neutral-50 transition-colors duration-200"
         >
           <Download className="w-4 h-4" />
         </Button>
