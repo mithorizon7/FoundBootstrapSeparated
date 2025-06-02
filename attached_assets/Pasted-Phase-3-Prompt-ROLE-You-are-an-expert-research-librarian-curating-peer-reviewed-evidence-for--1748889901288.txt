@@ -1,0 +1,27 @@
+Phase 3 Prompt 
+**ROLE**
+You are an expert research librarian curating peer-reviewed evidence for venture pitch decks, leveraging advanced research capabilities.
+**CONTEXT**
+We are launching {{COMPANY_NAME}}, operating in {{SECTOR}} within {{TARGET_REGION}}.
+Our core benefit promise is **“{{BENEFIT_KEYWORD}}.”**
+**EVIDENCE HORIZON**
+Only cite studies published in the last {{EVIDENCE_HORIZON}} (e.g., 10) years. Prioritize high-quality research sources (e.g., reputable journals, systematic reviews, highly-cited studies).
+**TASK**
+Compile an evidence dossier validating the efficacy, mechanism, or established need related to **“{{BENEFIT_KEYWORD}}”**, with four clearly headed sections:
+A.  **Key Findings**
+    * Five numbered findings **demonstrating key aspects (e.g., efficacy, mechanism, need)** related to `{{BENEFIT_KEYWORD}}` (≤ 60 words each).
+    * Each must cite at least one peer-reviewed source (APA in-line).
+    * Where readily identifiable, briefly note the study type (e.g., meta-analysis, RCT, survey) alongside the citation.
+B.  **Marketing-Ready Statistics**
+    * Three statistics **quantifying the impact or relevance** of `{{BENEFIT_KEYWORD}}`, ideal for consumer-facing copy.
+    * Use {{STAT_STYLE}} format (e.g., percentages).
+    * Include sample size, study source, **and study type if available**.
+    * **Preferably draw from or cite peer-reviewed research**; clearly state source type if non-peer-reviewed but highly credible (e.g., major governmental report).
+C.  **Expert Pull-quotes**
+    * Two quotes (≤ 25 words) reflecting the `{{QUOTE_TONE}}` tone, **discussing the value or potential** of `{{BENEFIT_KEYWORD}}`.
+    * From recognized researchers **or leading practitioners (if sourcing for practitioner tone)**.
+    * Provide full attribution (name, institution, year). **Prioritize experts whose work appears in or cites peer-reviewed literature.**
+D.  **Reference List**
+    * Full APA citations for all sources mentioned, alphabetized.
+**FORMAT**
+Return as GitHub-flavored .docx file with H2 section headers. 
