@@ -1,85 +1,223 @@
 {
   "phase": 6,
-  "title": "Media Kit & Brand Assets",
-  "intro": "Transform your selected hero concept into a detailed product specification. Define your Minimum Viable Product (MVP), core features, and user experience that delivers on your value proposition while staying focused on your target customer's most critical needs.",
-  "estimatedTime": "20 minutes",
+  "title": "Media Factory: Media Generation (Image, Video, Music, Narration)",
+  "intro": "Your hero concept is only as convincing as the sensory experience around it. In this phase you'll manufacture a mini media kit—hero image, brand jingle, and narrated voice-over—that will power your explainer video, website, investor teaser, and social posts. By running the three generation tracks in parallel you can operate like an in-house creative agency, compressing days of design into minutes.",
+  "estimatedTime": "20 minutes (18 min online creation running in parallel, ~2 min coordination)",
   "fields": [
     {
-      "id": "product_type",
-      "label": "Product Type",
+      "id": "visual_style",
+      "label": "Visual Style",
       "type": "select",
       "required": true,
       "persist": true,
-      "help": "Primary product format",
+      "help": "Choose the overall visual approach for your hero image",
       "options": [
-        { "value": "Software/App", "label": "Software/App" },
-        { "value": "Physical Product", "label": "Physical Product" },
-        { "value": "Service", "label": "Service" },
-        { "value": "Platform", "label": "Platform" },
-        { "value": "Hardware + Software", "label": "Hardware + Software" }
+        { "value": "Photoreal", "label": "Photoreal" },
+        { "value": "Stylized illustration", "label": "Stylized illustration" },
+        { "value": "Minimalist", "label": "Minimalist" },
+        { "value": "Bold/Dramatic", "label": "Bold/Dramatic" }
       ]
     },
     {
-      "id": "core_user_story",
-      "label": "Core User Story",
-      "type": "textarea",
-      "placeholder": "As a [user type], I want to [accomplish goal] so that [benefit achieved]",
+      "id": "perspective",
+      "label": "Perspective",
+      "type": "select",
       "required": true,
       "persist": true,
-      "help": "Primary user story your product solves"
+      "help": "Choose the perspective for your hero image",
+      "options": [
+        { "value": "Close-up product glamour shot", "label": "Close-up product glamour shot" },
+        { "value": "Interaction scene", "label": "Interaction scene" },
+        { "value": "Lifestyle context", "label": "Lifestyle context" },
+        { "value": "Abstract/Conceptual", "label": "Abstract/Conceptual" }
+      ]
     },
     {
-      "id": "mvp_feature_1",
-      "label": "MVP Feature #1",
+      "id": "music_genre",
+      "label": "Music Genre",
       "type": "text",
-      "placeholder": "e.g., Automated inventory tracking",
+      "placeholder": "e.g., Upbeat electronic, Warm acoustic, Corporate cinematic",
       "required": true,
       "persist": true,
-      "help": "Most critical feature for launch"
+      "help": "Describe the musical style that matches your brand"
     },
     {
-      "id": "mvp_feature_2",
-      "label": "MVP Feature #2",
-      "type": "text",
-      "placeholder": "e.g., Real-time analytics dashboard",
+      "id": "voice_persona",
+      "label": "Voice Persona",
+      "type": "select",
       "required": true,
       "persist": true,
-      "help": "Second most important feature"
+      "help": "Choose the voice character for your narration",
+      "options": [
+        { "value": "Friendly parent", "label": "Friendly parent" },
+        { "value": "Energetic coach", "label": "Energetic coach" },
+        { "value": "Trusted expert", "label": "Trusted expert" },
+        { "value": "Professional advisor", "label": "Professional advisor" }
+      ]
     },
     {
-      "id": "mvp_feature_3",
-      "label": "MVP Feature #3",
-      "type": "text",
-      "placeholder": "e.g., Mobile notifications",
-      "required": true,
-      "persist": true,
-      "help": "Third essential feature"
-    },
-    {
-      "id": "user_journey",
-      "label": "User Journey Overview",
+      "id": "selected_statistic",
+      "label": "Featured Statistic",
       "type": "textarea",
-      "placeholder": "Describe the step-by-step experience from discovery to ongoing use",
+      "placeholder": "Select one jaw-dropping statistic from Section B of Science_Evidence.pdf",
       "required": true,
       "persist": true,
-      "help": "How users discover, onboard, and engage with your product"
-    },
-    {
-      "id": "success_metrics",
-      "label": "Success Metrics",
-      "type": "textarea",
-      "placeholder": "e.g., Daily active users, retention rate, customer satisfaction score",
-      "required": true,
-      "persist": true,
-      "help": "Key performance indicators to measure product success"
+      "help": "Choose the most compelling statistic to feature in your narration"
     }
   ],
-  "promptTemplate": "**PRODUCT SPECIFICATION REQUEST**\n\nBased on the hero concept selected in Phase 4 Part 1, create a detailed product specification for {{phase1.company_name}}.\n\n**HERO CONCEPT FOUNDATION:**\n- Company: {{phase1.company_name}}\n- Sector: {{phase1.sector}}\n- Benefit Keyword: {{phase1.benefit_keyword}}\n- Selected Concept: {{phase4.winning_concept}}\n- Brand Adjectives: {{phase4.brand_adj_1}}, {{phase4.brand_adj_2}}, {{phase4.brand_adj_3}}\n\n**PRODUCT DETAILS:**\n- Product Type: {{product_type}}\n- Core User Story: {{core_user_story}}\n\n**MVP FEATURES:**\n1. {{mvp_feature_1}}\n2. {{mvp_feature_2}}\n3. {{mvp_feature_3}}\n\n**USER EXPERIENCE:**\n{{user_journey}}\n\n**SUCCESS CRITERIA:**\n{{success_metrics}}\n\n**REQUEST:**\nCreate a comprehensive product specification document that includes:\n1. Executive Summary\n2. Technical Requirements\n3. User Experience Flow\n4. Development Roadmap\n5. Risk Assessment\n6. Go-to-Market Considerations\n\nEnsure alignment with the Phase 4 concept selection and brand positioning established in earlier phases.",
-  "instructions": [
-    "Review your selected hero concept from Phase 4 Part 1",
-    "Define the core user story that your product solves",
-    "Identify the 3 most critical MVP features",
-    "Map out the complete user journey",
-    "Establish measurable success metrics"
-  ]
+  "promptTemplate": "**PURPOSE**: Create an engaging 60-second voiceover script that introduces our company's solution in a way that builds trust, demonstrates value, and motivates action. This script should work as background narration on our website, over promotional videos, or as standalone audio content.\n\n**SCRIPT REQUIREMENTS:**\n\nWrite a 60-second narration introducing **{{phase5.chosen_concept_code_name}}**, our new {{phase1.sector}} solution.\n\n• Hook potential customers in the first line using this statistic: \"{{selected_statistic}}\".\n• Weave in this expert pull-quote for credibility: \"[Pull-quote from Science_Evidence.pdf]\".\n• Describe one key interactive feature and expected benefit in ≤ 25 words.\n• End with a rousing call to action (<15 words).\n\nTone: {{voice_persona}} (warm, encouraging, trustworthy).\n\nOutput plain text only.",
+  "decisionBoxContent": {
+    "title": "Creative Choices",
+    "subtitle": "5 shared decisions - Agree on these before splitting into parallel tracks",
+    "sections": [
+      {
+        "number": "Setup",
+        "title": "Team Organization",
+        "items": [
+          {
+            "label": "Resource Requirements",
+            "content": "**Tools Needed:**\n• **Track 6A** (Hero Image): Sora\n• **Track 6B** (Music): Suno.ai\n• **Track 6C** (Narration): ChatGPT + ElevenLabs\n• **Track 6D** (Website Copy): Claude\n• **Track 6E** (Podcast): NotebookLM\n\n**Team Assignment:** Multiple team laptops should be logged into the respective services; different groups of teammates can \"own\" each track."
+          },
+          {
+            "label": "Parallel Execution Strategy",
+            "content": "**Tip:** Assign one teammate to each track (A, B, C, D, E) so the outputs finish roughly together. Total time: ≈ 20 minutes (18 min online creation running in parallel, ~2 min coordination)"
+          }
+        ]
+      }
+    ],
+    "action": {
+      "title": "Make Creative Decisions",
+      "items": [
+        "Visual style (e.g., Photoreal vs. stylized illustration)",
+        "Perspective (e.g., Close-up product glamour shot vs. interaction scene)",
+        "Music genre (whatever matches your brand)",
+        "Voice persona (e.g., Friendly parent, energetic coach, or trusted expert)",
+        "Featured statistic (select one jaw-dropping stat from Science_Evidence.pdf)"
+      ]
+    }
+  },
+  "stepByStepFlow": [
+    {
+      "step": "6A",
+      "action": "**Hero Image (Sora)** – ≈ 3 min online",
+      "details": {
+        "title": "Generate Hero Image with Sora",
+        "steps": [
+          {
+            "number": "1",
+            "action": "Open Sora, select image → prompt (select aspect ratio and do 4v for 4 versions at once)"
+          },
+          {
+            "number": "2", 
+            "action": "Prompt for a hero image of your top product or service. Send it a few times for lots of options, change and refine your prompt until you get what you want"
+          },
+          {
+            "number": "3",
+            "action": "Generate many variations → pick best, download"
+          },
+          {
+            "number": "4",
+            "action": "Rename to **hero.png** and save to project folder"
+          },
+          {
+            "number": "5",
+            "action": "**Bonus:** Switch to video and prompt videos you might want to use somewhere in your website. Sora's videos are better right now for conceptual video and less for pure realism"
+          }
+        ]
+      }
+    },
+    {
+      "step": "6B",
+      "action": "**Music Bed (Suno.ai)** – ≈ 4 min online",
+      "details": {
+        "title": "Create Brand Jingle with Suno.ai",
+        "steps": [
+          {
+            "number": "1",
+            "action": "Open Suno → \"Create\" in the sidebar. If you click \"Simple\" you can just describe the style you want and what you want it to be about. Experiment a bit (you don't have unlimited tries for free). Try for 10 different prompts. You can also click \"custom\" and have it make a song to your own lyrics"
+          },
+          {
+            "number": "2",
+            "action": "Make a Music Prompt that matches your company's brand adjectives and chosen genre"
+          },
+          {
+            "number": "3",
+            "action": "Generate (≈ 2 min)"
+          },
+          {
+            "number": "4",
+            "action": "Choose best version → download and rename as **jingle.mp3**"
+          }
+        ]
+      }
+    },
+    {
+      "step": "6C",
+      "action": "**Narration Script & Voice (ChatGPT → ElevenLabs)** – ≈ 6 min online",
+      "details": {
+        "title": "Create Voiceover Script and Audio",
+        "steps": [
+          {
+            "number": "Script",
+            "action": "Open ChatGPT. Use the script prompt template (available in Prompt Preview below) with your selected statistic and pull-quote. Copy output text"
+          },
+          {
+            "number": "Voice",
+            "action": "ElevenLabs → \"Go to App\" (top right) → \"Instant Speech\" → Select your voice persona. Explore the voice library, then paste script. Generate Speech → download and rename to **voiceover.mp3**"
+          }
+        ]
+      }
+    },
+    {
+      "step": "6D",
+      "action": "**Website Copy (Claude)** – ≈ 6 min online",
+      "details": {
+        "title": "Generate Website Copy with Claude",
+        "steps": [
+          {
+            "number": "Plan",
+            "action": "**Team Discussion:** Briefly discuss your main goals for the website copy. Think about: Who is your precise target audience? What's the #1 thing they should learn or feel? What action do you want them to take?"
+          },
+          {
+            "number": "Create Prompt",
+            "action": "Write a detailed prompt for Claude. Instruct it to:\n• Act as an expert copywriter specializing in your company's sector\n• Use uploaded documents as sole source of truth: **Hero_Concept_Detailed_Brief.docx** and **Science_Evidence.pdf**\n• Generate specific labeled copy elements: \"Main Headline,\" \"Engaging Sub-headline,\" \"Introductory Body Copy,\" \"3-5 Benefit-Oriented Bullet Points,\" and \"Persuasive Call to Action\"\n• Match your brand's tone using your three brand adjectives"
+          },
+          {
+            "number": "Generate",
+            "action": "Open Claude → Upload **Hero_Concept_Detailed_Brief.docx** AND **Science_Evidence.pdf** → Paste your prompt → Generate → Save as **copy.txt**"
+          }
+        ]
+      }
+    },
+    {
+      "step": "6E",
+      "action": "**Downloadable Podcast (NotebookLM)** – ≈ 6 min online",
+      "details": {
+        "title": "Create Podcast with NotebookLM",
+        "steps": [
+          {
+            "number": "1",
+            "action": "**Setup Notebook:** Open notebooklm.google.com → Click + New Notebook. Rename it"
+          },
+          {
+            "number": "2",
+            "action": "**Add Key Sources:** Click + Sources → Upload your **Science_Evidence.pdf** file. If you have other relevant text documents (like an explainer video script), upload those too. Let NotebookLM process them"
+          },
+          {
+            "number": "3",
+            "action": "**Generate Podcast:** Click \"Audio Overview.\" This will take a couple of minutes to complete and be available"
+          },
+          {
+            "number": "4",
+            "action": "**Download Audio:** When complete, find the Download option → Download → Rename to **podcast.mp3** and save to project folder"
+          }
+        ]
+      }
+    }
+  ],
+  "expectedOutput": {
+    "fileCreated": "hero.png, jingle.mp3, voiceover.mp3, copy.txt, podcast.mp3",
+    "whyItMatters": "hero.png powers your website hero section & video first frame. voiceover.mp3 provides narration track for videos. jingle.mp3 serves as background layer in video, plus 'Play Jingle' button on site. copy.txt becomes the main source for website copy when building the website.",
+    "nextSteps": "Success criteria: each file exists, matches brand adjectives & colors. You now have a complete media kit ready for Phase 7's website and video creation."
+  }
 }
