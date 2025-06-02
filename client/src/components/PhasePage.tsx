@@ -238,8 +238,10 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
           
           <Progress value={progressPercentage} className="mb-4" />
           
-          <div className="prose prose-sm text-gray-700">
-            <p className="body-text">{config.intro}</p>
+          <div className="mt-4">
+            <p className="text-lg text-gray-700 leading-relaxed ui-label max-w-4xl">
+              {config.intro}
+            </p>
           </div>
         </CardHeader>
       </Card>
