@@ -1,85 +1,97 @@
 {
   "phase": 5,
-  "title": "Product Design & Feature Definition - Part 2",
-  "intro": "Transform your selected hero concept into a detailed product specification. Define your Minimum Viable Product (MVP), core features, and user experience that delivers on your value proposition while staying focused on your target customer's most critical needs.",
-  "estimatedTime": "20 minutes",
+  "title": "Finalizing Your Hero Concept & AI-Assisted Brief Generation",
+  "intro": "You have now received the AI's initial output as a downloadable file named Phase_4_Offer_Concepts.docx. This file contains three potential product concepts. Your next steps are to:\n\n1. Review this file and select your team's \"Hero Concept.\"\n2. Define a few key strategic inputs related to your chosen concept.\n3. Instruct ChatGPT to read Phase_4_Offer_Concepts.docx, plus your other foundational documents, and use your strategic inputs to create a comprehensive 'Hero Concept Detailed Brief'.",
+  "estimatedTime": "15 minutes",
   "fields": [
     {
-      "id": "product_type",
-      "label": "Product Type",
-      "type": "select",
-      "required": true,
-      "persist": true,
-      "help": "Primary product format",
-      "options": [
-        { "value": "Software/App", "label": "Software/App" },
-        { "value": "Physical Product", "label": "Physical Product" },
-        { "value": "Service", "label": "Service" },
-        { "value": "Platform", "label": "Platform" },
-        { "value": "Hardware + Software", "label": "Hardware + Software" }
-      ]
-    },
-    {
-      "id": "core_user_story",
-      "label": "Core User Story",
-      "type": "textarea",
-      "placeholder": "As a [user type], I want to [accomplish goal] so that [benefit achieved]",
-      "required": true,
-      "persist": true,
-      "help": "Primary user story your product solves"
-    },
-    {
-      "id": "mvp_feature_1",
-      "label": "MVP Feature #1",
+      "id": "chosen_concept_code_name",
+      "label": "Your Chosen Hero Concept Code-Name",
       "type": "text",
-      "placeholder": "e.g., Automated inventory tracking",
+      "placeholder": "e.g., SMART PLAY BLOCKS",
       "required": true,
       "persist": true,
-      "help": "Most critical feature for launch"
+      "help": "Write down the exact code-name for the concept you selected from Phase_4_Offer_Concepts.docx"
     },
     {
-      "id": "mvp_feature_2",
-      "label": "MVP Feature #2",
-      "type": "text",
-      "placeholder": "e.g., Real-time analytics dashboard",
-      "required": true,
-      "persist": true,
-      "help": "Second most important feature"
-    },
-    {
-      "id": "mvp_feature_3",
-      "label": "MVP Feature #3",
-      "type": "text",
-      "placeholder": "e.g., Mobile notifications",
-      "required": true,
-      "persist": true,
-      "help": "Third essential feature"
-    },
-    {
-      "id": "user_journey",
-      "label": "User Journey Overview",
+      "id": "chosen_concept_unmet_need",
+      "label": "Primary Unmet Need it Addresses",
       "type": "textarea",
-      "placeholder": "Describe the step-by-step experience from discovery to ongoing use",
+      "placeholder": "The specific unmet need statement that your chosen Hero Concept most effectively solves",
       "required": true,
       "persist": true,
-      "help": "How users discover, onboard, and engage with your product"
+      "help": "Refer to your original list of three unmet needs and the AI's selection rationale"
     },
     {
-      "id": "success_metrics",
-      "label": "Success Metrics",
+      "id": "concept_target_audience",
+      "label": "Specific Target Audience Description",
       "type": "textarea",
-      "placeholder": "e.g., Daily active users, retention rate, customer satisfaction score",
+      "placeholder": "Parents of children aged 4-6 who prioritize screen-free, collaborative play and are looking to build their child's creative problem-solving skills.",
       "required": true,
       "persist": true,
-      "help": "Key performance indicators to measure product success"
+      "help": "1-2 sentence description of the specific target audience for your chosen Hero Concept (make it so specific you could easily cast them in a movie)"
+    },
+    {
+      "id": "brand_adjectives_list",
+      "label": "Your Brand Adjectives",
+      "type": "text",
+      "placeholder": "e.g., Engaging, Intuitive, Trustworthy",
+      "required": true,
+      "persist": true,
+      "help": "List your team's three chosen brand adjectives from Phase 4 Part 1"
+    },
+    {
+      "id": "concept_price_tier",
+      "label": "Price Tier for this Concept",
+      "type": "text",
+      "placeholder": "e.g., Mid-priced tier: (20–50 USD retail)",
+      "required": true,
+      "persist": true,
+      "help": "State the price tier for this concept"
     }
   ],
-  "promptTemplate": "**PRODUCT SPECIFICATION REQUEST**\n\nBased on the hero concept selected in Phase 4 Part 1, create a detailed product specification for {{phase1.company_name}}.\n\n**HERO CONCEPT FOUNDATION:**\n- Company: {{phase1.company_name}}\n- Sector: {{phase1.sector}}\n- Benefit Keyword: {{phase1.benefit_keyword}}\n- Selected Concept: {{phase4.winning_concept}}\n- Brand Adjectives: {{phase4.brand_adj_1}}, {{phase4.brand_adj_2}}, {{phase4.brand_adj_3}}\n\n**PRODUCT DETAILS:**\n- Product Type: {{product_type}}\n- Core User Story: {{core_user_story}}\n\n**MVP FEATURES:**\n1. {{mvp_feature_1}}\n2. {{mvp_feature_2}}\n3. {{mvp_feature_3}}\n\n**USER EXPERIENCE:**\n{{user_journey}}\n\n**SUCCESS CRITERIA:**\n{{success_metrics}}\n\n**REQUEST:**\nCreate a comprehensive product specification document that includes:\n1. Executive Summary\n2. Technical Requirements\n3. User Experience Flow\n4. Development Roadmap\n5. Risk Assessment\n6. Go-to-Market Considerations\n\nEnsure alignment with the Phase 4 concept selection and brand positioning established in earlier phases.",
-  "instructions": [
-    "Review your selected hero concept from Phase 4 Part 1",
-    "Define the core user story that your product solves",
-    "Identify the 3 most critical MVP features",
-    "Map out the complete user journey",
-    "Establish measurable success metrics"
-  ]
+  "promptTemplate": "Our team has analyzed the initial product concepts (detailed in the uploaded Phase_4_Offer_Concepts.docx) and has made the critical decision on which Hero Offer to advance. To ensure strategic alignment and gather all necessary context, we have also uploaded Market_Competitors.pdf (our foundational market research which includes our Company Name and Sector) and competitor_matrix.csv (our competitor analysis overview for background context).\n\n**Your Role & Mission: Lead Product & Marketing Strategist**\n\nWe need you to step into the role of our Lead Product & Marketing Strategist. Your mission is to synthesize our team's core strategic decisions for our chosen Hero Concept with information from the provided documents to create a comprehensive and highly actionable 'Hero Concept Detailed Brief'.\n\n**The Critical Importance of This Brief:**\n\nThis brief is not just a summary; it's a foundational blueprint. The insights, messaging, and creative starters you generate will directly fuel and shape all our subsequent development and marketing efforts, including:\n• Phase 6: Creative asset production (hero images, audio jingles, website copy, narration scripts).\n• Phase 7: Content for our knowledge hub and shareable media like podcasts.\n• Phase 8: Scripting and knowledge for our interactive voice agent.\n• Phase 9: All core website copy, product positioning, and go-to-market messaging.\n\nTherefore, we are relying on your expertise to make this brief exceptionally insightful, strategically aligned with our brand, and packed with practical, concrete ideas and content starters that will be immediately usable by our team. Every section of your output should be crafted with these critical downstream applications in mind, maximizing its utility and impact.\n\n**Our Team's Key Strategic Decisions for the Chosen Hero Concept:**\n\n1. Our Chosen Hero Concept Code-Name is: {{chosen_concept_code_name}}\n2. The Primary Unmet Need this Concept Addresses is: {{chosen_concept_unmet_need}}\n3. Our Specific Target Audience for this Concept is: {{concept_target_audience}}\n4. Our Company's Brand Adjectives are: {{brand_adjectives_list}}\n5. The Price Tier for this Concept is: {{concept_price_tier}}\n\n**Your Detailed Task:**\n\nNow, using our team's decisions above as primary inputs:\n• Identify our Company Name and Company Sector by reading the uploaded Market_Competitors.pdf.\n• Carefully locate our {{chosen_concept_code_name}} within the uploaded Phase_4_Offer_Concepts.docx.\n• From Phase_4_Offer_Concepts.docx, extract the following details specifically for the {{chosen_concept_code_name}} concept:\n  - Value Proposition\n  - Key Features / Attributes\n  - Primary Materials / Components (if listed by the AI, otherwise state \"Not Specified\")\n  - Estimated BOM (USD) (if listed by the AI, otherwise state \"Not Specified\")\n  - Competitive Advantage statement (if listed by the AI, otherwise state \"Not Specified\")\n\nThen, using the extracted information and our team's strategic inputs, construct the 'Hero Concept Detailed Brief' Document with the following clearly headed sections:\n\n**1. Hero Concept Deep Dive** (for {{chosen_concept_code_name}}):\n• Code-name: (Confirm as {{chosen_concept_code_name}})\n• Value Proposition: (Extracted from Phase_4_Offer_Concepts.docx)\n• Detailed Description: Based on the extracted 'Key Features / Attributes' (and materials/BOM if relevant and extracted), expand this into a compelling paragraph (approx. 75-100 words). Describe the concept, how it works/is experienced, and primary user benefits for the {{concept_target_audience}}.\n\n**2. Problem-Solution Fit & Target Impact:**\n• Our Company: (Extracted Company Name from Market_Competitors.pdf)\n• Our Market Focus (Sector): (Extracted Company Sector from Market_Competitors.pdf)\n• Unmet Need Addressed: (Use team input: {{chosen_concept_unmet_need}})\n• Our Solution Explained: In 2-3 sentences, articulate how {{chosen_concept_code_name}} (using its extracted features) effectively solves the {{chosen_concept_unmet_need}} for the {{concept_target_audience}}.\n\n**3. Brand Identity & Desired User Perception:**\n• Embodying Our Brand ({{brand_adjectives_list}}): Explain (1-2 sentences) how {{chosen_concept_code_name}} reflects our brand adjectives.\n• Core Customer Feeling/Takeaway: What single most important feeling or key takeaway should the {{concept_target_audience}} have from {{chosen_concept_code_name}}?\n\n**4. Creative Inspiration for Media Production:**\n• Visual Identity Keywords & Concepts: Suggest 3-5 keywords and 1-2 core visual concepts for {{chosen_concept_code_name}} aligning with {{brand_adjectives_list}} and the {{concept_target_audience}}.\n• Audio/Music Mood & Style: Describe an ideal mood and 1-2 musical styles for {{chosen_concept_code_name}}, reflecting {{brand_adjectives_list}}.\n• Key Message for a Brief Explainer: What is the single most compelling message about {{chosen_concept_code_name}} that should be communicated in a 30-second explainer?\n\n**5. Core Content Elements for Website & Marketing:**\n• Compelling Product/Service Page Headline: Propose a headline for {{chosen_concept_code_name}}.\n• Engaging Elevator Pitch (2-3 sentences): Craft a pitch for {{chosen_concept_code_name}} based on its extracted value proposition.\n• Benefit-Driven Feature List (3-5 Bullets): Using the extracted features of {{chosen_concept_code_name}}, articulate the primary benefits for the {{concept_target_audience}}.\n\n**6. Anticipated Customer Questions & Talking Points:**\n• Based on {{chosen_concept_code_name}}, {{chosen_concept_unmet_need}}, {{concept_target_audience}}, and {{concept_price_tier}}, generate 3-4 insightful FAQs.\n• For each FAQ, provide key talking points or a concise answer (1-2 sentences) aligned with {{brand_adjectives_list}}.\n\n**OUTPUT FORMAT:**\nDocument (.docx) with all sections clearly headed and formatted for easy reference.\nTitle the document: \"Hero_Concept_Detailed_Brief.docx\"",
+  "stepByStepFlow": [
+    {
+      "step": 1,
+      "action": "Save Initial AI Output & Choose Your Hero Concept: Locate and open the Phase_4_Offer_Concepts.docx file generated in Phase 4 Part 1"
+    },
+    {
+      "step": 2,
+      "action": "As a team, thoroughly review the three concepts and select ONE to be your \"Hero Concept\""
+    },
+    {
+      "step": 3,
+      "action": "Note the exact Code-Name precisely as it appears in Phase_4_Offer_Concepts.docx"
+    },
+    {
+      "step": 4,
+      "action": "Define your key strategic inputs in the form fields above"
+    },
+    {
+      "step": 5,
+      "action": "Open a new ChatGPT chat and select the o3 model"
+    },
+    {
+      "step": 6,
+      "action": "Upload three documents: Phase_4_Offer_Concepts.docx, Market_Competitors.pdf, and competitor_matrix.csv"
+    },
+    {
+      "step": 7,
+      "action": "Copy the Phase 4 Part 2 prompt and replace the placeholders with your strategic inputs"
+    },
+    {
+      "step": 8,
+      "action": "Submit the completed prompt to ChatGPT and review the Hero Concept Detailed Brief"
+    },
+    {
+      "step": 9,
+      "action": "Save the output as Hero_Concept_Detailed_Brief.docx"
+    }
+  ],
+  "expectedOutput": {
+    "fileCreated": "Hero_Concept_Detailed_Brief.docx",
+    "whyItMatters": "This brief is a foundational blueprint that will directly fuel all subsequent development and marketing efforts, including creative asset production, content creation, and go-to-market messaging.",
+    "nextSteps": "With your Hero Concept detailed brief complete, you're ready to move into media production and brand asset creation in the following phases."
+  }
 }
