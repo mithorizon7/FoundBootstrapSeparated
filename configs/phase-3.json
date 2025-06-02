@@ -1,0 +1,69 @@
+{
+  "phase": 3,
+  "title": "Market Positioning & Value Proposition",
+  "intro": "With competitor weaknesses mapped, now you'll craft your differentiated market position. This phase transforms your competitive intelligence into a compelling value proposition that customers will choose over established alternatives.",
+  "estimatedTime": "15 minutes",
+  "fields": [
+    {
+      "id": "target_customer",
+      "label": "Primary Target Customer",
+      "type": "textarea",
+      "placeholder": "e.g., Small business owners with 10-50 employees who struggle with manual inventory tracking",
+      "required": true,
+      "persist": true,
+      "help": "Specific customer segment you'll serve first"
+    },
+    {
+      "id": "core_problem",
+      "label": "Core Problem Statement",
+      "type": "textarea",
+      "placeholder": "e.g., Current solutions are too expensive and complex for small businesses",
+      "required": true,
+      "persist": true,
+      "help": "The main pain point your solution addresses"
+    },
+    {
+      "id": "unique_approach",
+      "label": "Your Unique Approach",
+      "type": "textarea",
+      "placeholder": "e.g., AI-powered automation with small business pricing",
+      "required": true,
+      "persist": true,
+      "help": "How your solution differs from competitors"
+    },
+    {
+      "id": "key_benefit_1",
+      "label": "Key Benefit #1",
+      "type": "text",
+      "placeholder": "e.g., 80% time savings",
+      "required": true,
+      "persist": true,
+      "help": "Primary quantifiable benefit"
+    },
+    {
+      "id": "key_benefit_2",
+      "label": "Key Benefit #2", 
+      "type": "text",
+      "placeholder": "e.g., 50% cost reduction",
+      "required": true,
+      "persist": true,
+      "help": "Secondary quantifiable benefit"
+    },
+    {
+      "id": "positioning_statement",
+      "label": "One-Line Positioning Statement",
+      "type": "textarea",
+      "placeholder": "For [target], who [problem], our [solution] provides [benefit] unlike [competition]",
+      "required": true,
+      "persist": true,
+      "help": "Concise positioning statement following the template"
+    }
+  ],
+  "promptTemplate": "**ROLE**\n\nYou are a brand strategist developing market positioning for a new company.\n\n**CONTEXT**\n\nCompany: {{phase1.company_name}}\nMarket: {{phase1.sector}} in {{phase1.target_region}}\nAmbition: {{phase2.company_ambition}}\n\nTarget Customer: {{target_customer}}\nCore Problem: {{core_problem}}\nUnique Approach: {{unique_approach}}\n\n**TASK**\n\nDevelop a comprehensive positioning strategy with:\n\n1. **Competitive Differentiation Matrix**\n   - Compare {{phase1.company_name}} vs top 3 competitors on 5 key dimensions\n   - Show clear areas where we win, lose, or tie\n   - Highlight our sustainable competitive advantages\n\n2. **Value Proposition Canvas**\n   - Customer jobs to be done\n   - Pain points we address\n   - Gain creators we provide\n   - Product/service features that deliver value\n\n3. **Messaging Framework**\n   - Primary value proposition: {{key_benefit_1}} and {{key_benefit_2}}\n   - Supporting proof points and credibility indicators\n   - Objection handling for top 3 customer concerns\n   - Call-to-action recommendations\n\n4. **Go-to-Market Positioning**\n   - Market category we're creating/competing in\n   - Pricing position relative to alternatives\n   - Channel strategy recommendations\n   - Partnership opportunities\n\n**POSITIONING STATEMENT**\n{{positioning_statement}}\n\n**OUTPUT FORMAT**\n\nStructured markdown document with clear sections, tables for comparisons, and actionable recommendations for marketing and sales teams.",
+  "instructions": [
+    "Use insights from your competitor matrix to identify positioning gaps",
+    "Develop messaging that directly addresses competitor vulnerabilities",
+    "Create materials for your marketing and sales teams",
+    "Test your positioning statement with potential customers"
+  ]
+}

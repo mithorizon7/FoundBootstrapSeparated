@@ -1,0 +1,84 @@
+{
+  "phase": 4,
+  "title": "Product Design & Feature Definition",
+  "intro": "Transform your market positioning into a tangible product concept. Define your Minimum Viable Product (MVP), core features, and user experience that delivers on your value proposition while staying focused on your target customer's most critical needs.",
+  "estimatedTime": "20 minutes",
+  "fields": [
+    {
+      "id": "product_type",
+      "label": "Product Type",
+      "type": "select",
+      "required": true,
+      "persist": true,
+      "help": "Primary product format",
+      "options": [
+        { "value": "Software/App", "label": "Software/App" },
+        { "value": "Physical Product", "label": "Physical Product" },
+        { "value": "Service", "label": "Service" },
+        { "value": "Platform", "label": "Platform" },
+        { "value": "Hardware + Software", "label": "Hardware + Software" }
+      ]
+    },
+    {
+      "id": "core_user_story",
+      "label": "Core User Story",
+      "type": "textarea",
+      "placeholder": "As a [user type], I want to [accomplish goal] so that [benefit achieved]",
+      "required": true,
+      "persist": true,
+      "help": "Primary user story your product solves"
+    },
+    {
+      "id": "mvp_feature_1",
+      "label": "MVP Feature #1",
+      "type": "text",
+      "placeholder": "e.g., Automated inventory tracking",
+      "required": true,
+      "persist": true,
+      "help": "Most critical feature for launch"
+    },
+    {
+      "id": "mvp_feature_2",
+      "label": "MVP Feature #2",
+      "type": "text", 
+      "placeholder": "e.g., Real-time alerts",
+      "required": true,
+      "persist": true,
+      "help": "Second most critical feature"
+    },
+    {
+      "id": "mvp_feature_3",
+      "label": "MVP Feature #3",
+      "type": "text",
+      "placeholder": "e.g., Simple dashboard",
+      "required": true,
+      "persist": true,
+      "help": "Third most critical feature"
+    },
+    {
+      "id": "user_journey",
+      "label": "Key User Journey",
+      "type": "textarea",
+      "placeholder": "1. User signs up 2. Completes onboarding 3. Sets up first project...",
+      "required": true,
+      "persist": true,
+      "help": "Step-by-step user experience from first use to value realization"
+    },
+    {
+      "id": "success_metrics",
+      "label": "Success Metrics",
+      "type": "textarea",
+      "placeholder": "e.g., User completes setup in <5 minutes, 80% feature adoption in first week",
+      "required": true,
+      "persist": true,
+      "help": "How you'll measure product success"
+    }
+  ],
+  "promptTemplate": "**ROLE**\n\nYou are a product designer and strategist creating a comprehensive product specification.\n\n**CONTEXT**\n\nCompany: {{phase1.company_name}}\nTarget Customer: {{phase3.target_customer}}\nCore Problem: {{phase3.core_problem}}\nUnique Approach: {{phase3.unique_approach}}\nPositioning: {{phase3.positioning_statement}}\n\nProduct Type: {{product_type}}\nCore User Story: {{core_user_story}}\n\n**TASK**\n\nCreate a comprehensive product design document including:\n\n1. **Product Overview**\n   - Product vision and mission\n   - How it delivers on our value proposition: {{phase3.key_benefit_1}} and {{phase3.key_benefit_2}}\n   - Target user personas and use cases\n\n2. **MVP Feature Specification**\n   - {{mvp_feature_1}}: Detailed description, user stories, acceptance criteria\n   - {{mvp_feature_2}}: Detailed description, user stories, acceptance criteria  \n   - {{mvp_feature_3}}: Detailed description, user stories, acceptance criteria\n   - Feature prioritization rationale\n\n3. **User Experience Design**\n   - User journey map: {{user_journey}}\n   - Key user flows and wireframe descriptions\n   - Information architecture\n   - UI/UX principles aligned with {{phase1.primary_color}} and {{phase1.secondary_color}} brand colors\n\n4. **Technical Architecture**\n   - High-level system architecture\n   - Technology stack recommendations\n   - Integration requirements\n   - Scalability considerations\n\n5. **Success Criteria & Metrics**\n   - {{success_metrics}}\n   - Key Performance Indicators (KPIs)\n   - User feedback collection methods\n   - Iteration and improvement plan\n\n6. **Development Roadmap**\n   - MVP development timeline (8-12 weeks)\n   - Resource requirements\n   - Risk mitigation strategies\n   - Post-MVP feature pipeline\n\n**OUTPUT FORMAT**\n\nDetailed product specification document in markdown format, suitable for development teams and stakeholders.",
+  "instructions": [
+    "Focus on solving the core problem identified in your positioning",
+    "Keep MVP features minimal but complete for your key user story",
+    "Design user experience that delivers your promised benefits",
+    "Create development-ready specifications for your technical team"
+  ]
+}

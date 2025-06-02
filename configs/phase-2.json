@@ -1,0 +1,60 @@
+{
+  "phase": 2,
+  "title": "Competitor Matrix Construction",
+  "intro": "Your Gemini report is a rich narrative, probably about 20 pages long. However it is often helpful for decision making to have concise, quantitative snapshots. In Phase 2 you'll transform that long PDF into a CSV/Excel matrix that scores each major rival on a 1-to-5 'threat scale,' exposing exactly where you must out-maneuver and where gaps invite innovation.",
+  "estimatedTime": "10-12 minutes",
+  "fields": [
+    {
+      "id": "company_ambition",
+      "label": "Company's Market Ambition",
+      "type": "textarea",
+      "placeholder": "e.g., Targeting mid-market B2B SaaS customers in North America with a focus on ease-of-use and integration",
+      "required": true,
+      "persist": true,
+      "help": "Write a single, clear sentence stating your company's specific goal and target market"
+    },
+    {
+      "id": "market_share_weight",
+      "label": "Market Share Weight",
+      "type": "text",
+      "placeholder": "0.25",
+      "required": true,
+      "persist": true,
+      "help": "Importance of market share in threat assessment (0-1)"
+    },
+    {
+      "id": "innovation_weight",
+      "label": "Innovation Weight", 
+      "type": "text",
+      "placeholder": "0.25",
+      "required": true,
+      "persist": true,
+      "help": "Importance of innovation capability in threat assessment (0-1)"
+    },
+    {
+      "id": "channel_power_weight",
+      "label": "Channel Power Weight",
+      "type": "text",
+      "placeholder": "0.25", 
+      "required": true,
+      "persist": true,
+      "help": "Importance of sales/distribution strength in threat assessment (0-1)"
+    },
+    {
+      "id": "brand_weight",
+      "label": "Brand Weight",
+      "type": "text",
+      "placeholder": "0.25",
+      "required": true,
+      "persist": true,
+      "help": "Importance of brand reputation in threat assessment (0-1)"
+    }
+  ],
+  "promptTemplate": "**ROLE**\n\nYou are a strategy consultant creating a competitive threat matrix.\n\n**CONTEXT**\n\nUsing the attached Market_Competitors.pdf, create a quantitative competitor matrix for {{phase1.company_name}} in the {{phase1.sector}} market.\n\nOur ambition: {{company_ambition}}\n\n**TASK**\n\nCreate a CSV-formatted competitive matrix with these columns:\n1. Brand Name\n2. Market Share Score (1-5, where 5 = dominant player)\n3. Innovation Score (1-5, where 5 = cutting-edge technology leader)\n4. Channel Power Score (1-5, where 5 = strongest sales/distribution)\n5. Brand Score (1-5, where 5 = strongest reputation/loyalty)\n6. Weighted Threat Score (calculated using weights: Market Share {{market_share_weight}}, Innovation {{innovation_weight}}, Channel Power {{channel_power_weight}}, Brand {{brand_weight}})\n7. Core USP (one sentence)\n8. Notable Strength (key advantage)\n9. Key Vulnerability (potential weakness to exploit)\n\n**SCORING GUIDELINES**\n- Use the competitor information from the PDF to justify each 1-5 score\n- Include the top 5 competitors identified in the market research\n- Calculate weighted scores as: (Market Share × {{market_share_weight}}) + (Innovation × {{innovation_weight}}) + (Channel Power × {{channel_power_weight}}) + (Brand × {{brand_weight}})\n\n**OUTPUT FORMAT**\n\nReturn the matrix in CSV format, followed by a brief analysis of the \"Boss Rival\" (highest weighted threat score) and top 2 strategic opportunities based on competitor vulnerabilities.",
+  "instructions": [
+    "Upload your Market_Competitors.pdf to ChatGPT",
+    "Copy and paste the generated prompt",
+    "Download the resulting CSV file for strategic analysis",
+    "Review the \"Boss Rival\" and strategic opportunities identified"
+  ]
+}

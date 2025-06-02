@@ -1,0 +1,84 @@
+{
+  "phase": 5,
+  "title": "Media Kit & Brand Assets",
+  "intro": "Transform your positioning and product concept into professional marketing materials. Create a comprehensive media kit with messaging, visuals, and assets that communicate your value proposition consistently across all channels.",
+  "estimatedTime": "25 minutes",
+  "fields": [
+    {
+      "id": "elevator_pitch",
+      "label": "30-Second Elevator Pitch",
+      "type": "textarea",
+      "placeholder": "We help [target] achieve [benefit] through [unique approach]...",
+      "required": true,
+      "persist": true,
+      "help": "Concise pitch for networking and introductions"
+    },
+    {
+      "id": "tagline",
+      "label": "Company Tagline",
+      "type": "text",
+      "placeholder": "e.g., Simplifying business for everyone",
+      "required": true,
+      "persist": true,
+      "help": "Memorable phrase that captures your essence"
+    },
+    {
+      "id": "key_message_1",
+      "label": "Key Message #1",
+      "type": "text",
+      "placeholder": "e.g., Save 10 hours per week on inventory management",
+      "required": true,
+      "persist": true,
+      "help": "Primary benefit-focused message"
+    },
+    {
+      "id": "key_message_2",
+      "label": "Key Message #2",
+      "type": "text",
+      "placeholder": "e.g., Get started in under 5 minutes",
+      "required": true,
+      "persist": true,
+      "help": "Secondary differentiator message"
+    },
+    {
+      "id": "key_message_3",
+      "label": "Key Message #3",
+      "type": "text",
+      "placeholder": "e.g., Purpose-built for small businesses",
+      "required": true,
+      "persist": true,
+      "help": "Positioning/audience message"
+    },
+    {
+      "id": "brand_personality",
+      "label": "Brand Personality",
+      "type": "select",
+      "required": true,
+      "persist": true,
+      "help": "Overall brand tone and character",
+      "options": [
+        { "value": "Professional & Trustworthy", "label": "Professional & Trustworthy" },
+        { "value": "Innovative & Bold", "label": "Innovative & Bold" },
+        { "value": "Friendly & Approachable", "label": "Friendly & Approachable" },
+        { "value": "Expert & Authoritative", "label": "Expert & Authoritative" },
+        { "value": "Creative & Inspiring", "label": "Creative & Inspiring" }
+      ]
+    },
+    {
+      "id": "target_publications",
+      "label": "Target Publications/Media",
+      "type": "textarea",
+      "placeholder": "e.g., TechCrunch, Forbes Small Business, Industry Weekly",
+      "required": false,
+      "persist": true,
+      "help": "Publications where you want coverage"
+    }
+  ],
+  "promptTemplate": "**ROLE**\n\nYou are a marketing communications specialist creating a comprehensive media kit and brand asset library.\n\n**CONTEXT**\n\nCompany: {{phase1.company_name}}\nSector: {{phase1.sector}}\nTarget Customer: {{phase3.target_customer}}\nPositioning: {{phase3.positioning_statement}}\nProduct: {{phase4.product_type}}\nCore Features: {{phase4.mvp_feature_1}}, {{phase4.mvp_feature_2}}, {{phase4.mvp_feature_3}}\n\nBrand Colors: {{phase1.primary_color}} (primary), {{phase1.secondary_color}} (secondary)\nTagline: {{tagline}}\nBrand Personality: {{brand_personality}}\nElevator Pitch: {{elevator_pitch}}\n\n**TASK**\n\nCreate a comprehensive media kit including:\n\n1. **Brand Messaging Framework**\n   - Company description (50, 100, 200 word versions)\n   - Key messages: {{key_message_1}}, {{key_message_2}}, {{key_message_3}}\n   - Boilerplate text for press releases\n   - FAQ responses for common questions\n\n2. **Content Templates**\n   - Social media post templates (LinkedIn, Twitter, Facebook)\n   - Email signature blocks\n   - Website copy structure (homepage, about, features)\n   - Blog post outlines (3-5 topics relevant to {{phase1.sector}})\n\n3. **Visual Brand Guidelines**\n   - Logo usage guidelines and variations\n   - Color palette with hex codes: {{phase1.primary_color}}, {{phase1.secondary_color}}\n   - Typography recommendations\n   - Image style and photography direction\n   - Brand do's and don'ts\n\n4. **Marketing Materials Specifications**\n   - Business card design brief\n   - One-page product sheet layout\n   - Presentation template structure (10-slide pitch deck)\n   - Trade show booth/banner messaging\n\n5. **Press & Media Assets**\n   - Press release template\n   - Media contact information format\n   - Company fact sheet\n   - Executive bio templates\n   - Awards and recognition tracking\n\n6. **Digital Marketing Assets**\n   - Website metadata and SEO keywords\n   - Google Ads copy variations\n   - LinkedIn company page content\n   - YouTube channel description\n\n**TARGET PUBLICATIONS**\n{{target_publications}}\n\n**OUTPUT FORMAT**\n\nComprehensive media kit document with ready-to-use templates, copy, and implementation guidelines. Include specific recommendations for {{target_publications}} outreach.",
+  "instructions": [
+    "Ensure all messaging aligns with your positioning strategy",
+    "Create templates that maintain consistency across channels",
+    "Develop materials suitable for both digital and print use",
+    "Include measurement strategies for marketing effectiveness"
+  ]
+}
