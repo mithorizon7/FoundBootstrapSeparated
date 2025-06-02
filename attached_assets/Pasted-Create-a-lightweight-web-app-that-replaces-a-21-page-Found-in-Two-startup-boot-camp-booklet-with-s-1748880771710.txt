@@ -1,0 +1,100 @@
+Create a lightweight web app that replaces a 21-page “Found-in-Two” startup-boot-camp booklet with seven self-contained online activities. Each activity lives at /phase/1 … /phase/7, shows its instructions, lets students type a few answers, and instantly generates a ready-to-copy AI prompt using Handlebars templating. Answers must persist (in Replit’s built-in database when a team_id query-param is present, or in localStorage when anonymous) so later phases can reuse them with placeholders like {{phase1.company_name}}. The site never handles file uploads or calls external AI APIs; its entire job is templating, answer carry-forward, and giving instructors a simple /admin progress dashboard. The text of the instructions should be basically identical to what is currently contained in the document I am uploading, for each phase, as this is meant to be primarily a digitization of those instructions along with additional functionality. 
+ 
+1 · What the printed booklet does today
+Booklet element	Student action	Pain-point
+Phase intro blurb	Reads 2–3 paragraphs	Must scroll a long PDF
+Decision-Box questions	Writes on paper	Answers never reused
+Pre-written AI prompt	Hand-fills variables	Error-prone
+Checklists / timers	Teacher shouts reminders	No digital aid
+“Insert output from Gemini here”	Saves / downloads files	Easy to mis-place
+ 
+2 · Web-app replacement — guiding principles
+1.	Atomic phases → One URL each /phase/1 … /phase/7.
+2.	Decision Box = Form inputs text, textarea, select, etc.
+3.	Live Prompt Preview Handlebars template; Copy Prompt button.
+4.	Persistence & Re-use Fields flagged "persist": true are stored in Replit Database (@replit/database) when a team_id is present, or in localStorage when anonymous. Later phases pull them with placeholders such as {{phase1.company_name}}.
+5.	No file handling inside the app When the booklet says “Upload Market_Competitors.pdf to ChatGPT,” the site simply reminds the student; all file moves stay between the student’s computer and the external AI tool.
+6.	Instructor-only dashboard /admin shows team → latest phase → timestamp and allows CSV export.
+
+Net effect: students focus on thinking; the site handles templating and answer carry-forward.
+ 
+3 · Encoding a booklet page in JSON
+
+/configs/phase-2.json (example):
+{
+  "phase": 2,
+  "title": "Customer Pain Calibration",
+  "intro": "You will refine your problem statement…",
+  "fields": [
+    { "id": "persona",  "label": "Target Persona",         "type": "text",     "persist": true },
+    { "id": "top_pain", "label": "Main Pain (1 sentence)", "type": "textarea", "persist": true }
+  ],
+  "promptTemplate": "Act as {{persona}}. The biggest pain is {{top_pain}}. Generate a 5-question interview guide…"
+}
+The Agent can parse these static JSON files, auto-build the React form, and reuse one generic PhasePage component for all phases.
+ 
+4 · Data-flow diagram (no uploads)
+            Student types           ┌──────────────┐
+┌───────┐  persona = “Nurse”        │  PhasePage   │
+│ FORM  │ ────────────────▶        │  Component   │
+└───────┘                          ├──────────────┤
+                                   │ Handlebars   │──▶ Copy-to-clipboard
+            auto-save (if team)    ├──────────────┤
+                                   │ Replit DB    │──▶ persists answers
+                                   └──────────────┘
+ 
+5 · Steps the Replit Agent should take — 
+build the entire site, all seven phases
+1.	Scaffold a Next.js 14 project with Tailwind, shadcn/ui, TypeScript, and @replit/database.
+2.	Create a generic PhasePage component that
+• imports its JSON config,
+• renders form fields with validation,
+• streams state into a Handlebars preview,
+• exposes a Copy Prompt button.
+3.	Create /configs/phase-1.json … phase-7.json by copying the instructions, field names, and prompt templates verbatim from Detailed Instructions_YPO Activity_updated.docx.
+4.	Wire persistence – save "persist": true fields to Replit DB when team_id is present, otherwise to localStorage; expose a helper in /lib/db.ts.
+5.	Build all route files /app/phase/[id]/page.tsx that load the correct JSON and render via PhasePage.
+6.	Add an /admin route (read-only) that lists every team_id, latest phase reached, and updated-at timestamp; include a Download CSV button powered by papaparse.
+7.	Global navigation – header with Phase links and a “Dashboard” link visible only to ?admin=true.
+8.	Styling & accessibility – ensure Tailwind classes, focus states, and responsive layout; target Lighthouse ≥ 85 on desktop.
+9.	Commit after each major milestone with clear messages; once all seven phases work, push and stop to await further human instructions.
+ 
+6 · Folder structure target
+/app
+  /phase
+    [id]
+      page.tsx        ← generic wrapper
+/configs
+  phase-1.json
+  phase-2.json
+  …
+/lib
+  db.ts               ← thin wrapper around @replit/database
+  handlebars.ts
+/components
+  Field.tsx
+  PromptPreview.tsx
+(No FileUpload component required.)
+ 
+7 · Replit-specific tips
+Task	Replit trick
+Database client	Run npm i @replit/database — Replit auto-injects the DB URL via env var REPLIT_DB_URL.
+Dev server	Agent auto-runs npm run dev; the webview appears on the right.
+CSV download	Write a small API route (/api/admin/export) that streams CSV via papaparse.
+Hot-reload glitches	Click Restart at top of the Repl if the preview stalls.
+ 
+8 · Success criteria
+•	All seven phases work end-to-end: form → live prompt → copy → answers persist → reload shows saved values (team or anon).
+•	Directly visiting any phase URL for the first time shows an empty form (stand-alone mode).
+•	Instructor opens /admin, sees every team’s status, and downloads a CSV that correctly reflects phase progress timestamps.
+•	No prompt text or instructional copy is hard-coded in React files; everything lives in /configs.
+•	README in the repo explains how to edit JSON configs, run locally (npm run dev), and redeploy.
+ 
+Persistent Team Workspace & Resume Logic
+•	Students should always press “Create Team” initially (or “Join Team” with a shared code thereafter) the first time they open the site.
+o	The app generates a short invite URL like https://foundintwo.repl.co/phase/1?team=ZX1Q that every teammate can bookmark.
+o	All persisted answers for that team are keyed by team_id; when they return days or weeks later, everything re-populates automatically.
+ 
+Edge cases & tips
+1.	Team link lost? Add a lightweight “Find my team” screen that asks for email and looks up the last team the address used where they just need the team name and the simple code. They should always be able to get back to their team by searching for the team name and then putting in the code. 
+2.	Browser crashes mid-phase? Autosave fires on every keystroke, so even a hard refresh restores the latest input.
