@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TeamModal } from "@/components/TeamModal";
 import { NavigationHeader } from "@/components/NavigationHeader";
-import { Rocket, ArrowRight, Users, Clock, Target } from "lucide-react";
+import { ArrowRight, Users, Clock, Target } from "lucide-react";
+import logoSrc from "@/assets/logo.png";
 
 export default function Home() {
   const [teamModalOpen, setTeamModalOpen] = useState(false);
@@ -57,8 +58,12 @@ export default function Home() {
         {/* Hero Section */}
         <div className="text-center mb-16">
           <div className="flex justify-center mb-6">
-            <div className="w-20 h-20 bg-primary rounded-2xl flex items-center justify-center">
-              <Rocket className="w-10 h-10 text-white" />
+            <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center shadow-lg">
+              <img 
+                src={logoSrc} 
+                alt="Found-in-Two Logo" 
+                className="w-16 h-16 object-contain"
+              />
             </div>
           </div>
           

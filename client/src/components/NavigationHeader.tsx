@@ -1,7 +1,8 @@
 import { Link, useLocation } from "wouter";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, Rocket, Users, ChartLine, UserCircle, ChevronDown } from "lucide-react";
+import { Menu, Users, ChartLine, UserCircle, ChevronDown } from "lucide-react";
+import logoSrc from "@/assets/logo.png";
 
 interface Team {
   id: number;
@@ -38,11 +39,13 @@ export function NavigationHeader({ team, isAdmin }: NavigationHeaderProps) {
         <div className="flex justify-between items-center h-16">
           {/* Logo and Brand */}
           <div className="flex items-center space-x-4">
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <Rocket className="w-4 h-4 text-white" />
-              </div>
-              <span className="text-xl font-bold text-gray-900">Found-in-Two</span>
+            <Link href="/" className="flex items-center space-x-3">
+              <img 
+                src={logoSrc} 
+                alt="Found-in-Two Logo" 
+                className="w-10 h-10 object-contain"
+              />
+              <span className="text-xl font-bold text-neutral-800 page-title">Found-in-Two</span>
             </Link>
             
             {/* Team Info */}
