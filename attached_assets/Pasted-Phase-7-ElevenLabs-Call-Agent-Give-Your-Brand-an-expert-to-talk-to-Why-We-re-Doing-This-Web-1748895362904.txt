@@ -1,0 +1,55 @@
+Phase 7 – ElevenLabs Call-Agent: Give Your Brand an expert to talk to.
+ 
+Why We’re Doing This
+Websites and videos inform, but a live voice interaction builds trust.
+In this phase you’ll launch a phone concierge powered by ElevenLabs’ Call-API that can answer parents’ questions using only the vetted sources stored in your Notebook LM evidence hub. Within minutes you could dial a real number (or in this case talk over the website) and ask “Is this toy safe for five-year-olds?” and hear an on-brand, fact-backed reply.
+Generative AI and low-latency voice synthesis can extend customer service without adding headcount—yet remain controllable and source-grounded.
+ 
+Resources You Need
+Item	File / Data	Source
+The Science Report	Science_Evidence.pdf	Provides verified knowledge base
+Hero_Concept_Detailed_Brief.docx 		Can be offered as a “want to learn more?” option
+ElevenLabs account with Calling & Agent feature	Pre-created by facilitator	Generates phone number
+ 
+Instructions: Crafting Your Optimal ElevenLabs Voice Agent Prompt
+Goal: Your aim is to configure the ElevenLabs Conversational AI via its prompt to act as a trustworthy, helpful, and on-brand voice concierge for {{COMPANY_NAME}}. It must accurately answer user questions about {{CONCEPT_CODE}} based only on your vetted evidence hub (Notebook LM), demonstrating controlled, source-grounded AI assistance.
+Approach: Focus on defining the core elements within the text prompt you provide to ElevenLabs. While many settings exist, getting these prompt components right has the most significant impact on performance and alignment. Use defaults for other settings (like voice stability, similarity, timeouts - unless testing reveals a specific need to adjust them). Leverage work from previous phases (Concept Code-name, Brand Adjectives, Notebook LM sources).
+Key Prompt Components to Define:
+1.	Define the AI's Persona & Role:
+o	Be Specific: Clearly state who the AI is, its name (optional but recommended, e.g., "Alex"), its function, and its key characteristics relevant to the interaction. Connect traits to the role.
+o	Example Prompt Text: "You are 'Alex', a friendly, knowledgeable, and patient product concierge for {{COMPANY_NAME}}. Your specialty is providing clear information about our new {{CONCEPT_CODE}}offering."
+2.	Set the Environment & Context:
+o	Inform the AI: Briefly tell the AI about the communication channel and the likely user context. This helps it adjust style and empathy.
+o	Example Prompt Text: "You are interacting with users over the phone or on the website. The user is typically a parent interested in {{CONCEPT_CODE}}. They may be curious, potentially cautious, or sometimes multitasking. Adapt your responses to be clear, concise, and reassuring in this context."
+3.	Establish the Conversational Style & Tone:
+o	Use Brand Adjectives: Explicitly incorporate the {{ADJ1}}, {{ADJ2}}, {{ADJ3}} adjectives to define the core personality.
+o	Add Naturalness (Optional but Recommended): Instruct the AI to use subtle conversational elements to sound less robotic.
+o	Example Prompt Text: "Your tone must always be {{ADJ1}}, {{ADJ2}}, and {{ADJ3}} (e.g., 'Curious, Lively, and Trustworthy'). To sound natural and engaging, occasionally use brief, appropriate affirmations like 'Okay,' 'Got it,' or 'I understand'. Use natural pauses for clarity, especially when explaining steps if necessary. Speak clearly and avoid overly technical jargon."
+4.	State the Core Goal & Objective:
+o	Define the Primary Task: Clearly outline what the AI should achieve, framing it around helping the user.
+o	Example Prompt Text: "Your primary goal is to help users by accurately and concisely answering their questions about {{CONCEPT_CODE}}'s features, benefits, usage, and safety, based primarily on the provided information sources, ensuring they feel informed and confident."
+5.	Define Knowledge Source Handling (CRITICAL CHOICE):
+o	This determines how strictly the AI uses only your Notebook LM data versus its general knowledge. Choose the option that fits your control needs and user experience goals:
+o	Option A: Strict Control (Maximum Message Consistency & Safety)
+	Best for: Ensuring only approved information is shared, preventing speculation, high-stakes accuracy needs.
+	Trade-off: AI cannot answer questions outside the provided sources, potentially frustrating users seeking broader info.
+	➡️ If you choose this, use phrasing like this in your prompt to ElevenLabs:
+"You MUST base all your answers strictly and solely on the information provided in the connected knowledge base (from Notebook LM). Do not use any external websites, general knowledge, or make assumptions beyond the provided text. If the answer to a user's question is not found in the provided knowledge base, clearly state that you do not have that specific information available and cannot answer."
+o	Option B: Prioritized Flexibility (Broader Helpfulness with Guardrails)
+	Best for: Allowing the AI to answer a wider range of questions when vetted info is unavailable, potentially improving user satisfaction.
+	Trade-off: Requires trusting the AI's judgment; necessitates clear instruction on how to use external knowledge and when to declare it. Less message control.
+	➡️ If you choose this, use phrasing like this in your prompt to ElevenLabs:
+"Strongly prioritize using ONLY the information within the connected knowledge base (from Notebook LM) for your answers. If, and only if, the provided knowledge base does not contain the information needed to answer a direct user question about {{CONCEPT_CODE}} or closely related context, you may carefully supplement with your broader knowledge. When doing so, you must explicitly state you are using general information (e.g., 'Based on general knowledge outside the provided documents...'). Always strive for factual accuracy, remain truthful, stay focused on {{CONCEPT_CODE}}, and never speculate or invent details."
+6.	Establish Boundaries & Rules (Safety Net):
+o	Define "Don'ts": Clearly list prohibited actions to reinforce constraints. Tailor slightly based on your choice in Step 5.
+o	Example Prompt Text: "Regardless of knowledge source handling: Never speculate or invent answers or details not present in your sources. Do not provide medical, legal, financial, or any other form of professional advice. Avoid discussing competitors or topics unrelated to {{COMPANY_NAME}} and {{CONCEPT_CODE}}. If a question is outside your scope or knowledge base (per your rules in Step 5), politely state you cannot help with that specific query."
+7.	Conciseness & Testing:
+o	Keep it Clear: While detailed, ensure the overall prompt flows logically and is unambiguous.
+o	Iterate: Test the voice agent with key anticipated questions (like the safety example: "Is {{CONCEPT_CODE}}safe for five-year-olds?") and listen carefully to the responses. Refine the prompt text based on performance, adjusting wording in the sections above until the agent behaves as desired.
+Create the Voice Agent
+Step	Action
+1	In ElevenLabs go to “Conversational AI” and select “New Agent.” Pick an agent name and Select Blank Template. 
+2	Fill in the blanks that are most important, namely, First Message and System Prompt. 
+3	Near the bottom there is a place to upload your two documents as the “Knowledge Base.”
+4	Test the AI agent (this is fun). See what it does and if you want to make any changes to it.
+5	At the top click “Widget” and copy the embed code somewhere handy. 

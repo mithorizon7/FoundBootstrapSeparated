@@ -3,10 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useToast } from "@/hooks/use-toast";
 import { Field } from "./Field";
 import { PromptPreview } from "./PromptPreview";
-import { ChevronLeft, ChevronRight, Info, Vote, Save, Copy, CheckCircle, Clock, FileText, Target, ArrowRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ChevronDown, Info, Vote, Save, Copy, CheckCircle, Clock, FileText, Target, ArrowRight } from "lucide-react";
 import { savePhaseData, getPhaseData, saveToLocalStorage, getFromLocalStorage, getAllLocalStorageData, getAllPhaseDataForTeam, updateTeamPhase } from "@/lib/db";
 import { useLocation } from "wouter";
 import { cn } from "@/lib/utils";
@@ -47,9 +48,16 @@ interface PhaseConfig {
     };
   };
   stepByStepFlow?: Array<{
-    step: number;
+    step: number | string;
     action: string;
     time?: string;
+    details?: {
+      title: string;
+      steps: Array<{
+        number: string;
+        action: string;
+      }>;
+    };
   }>;
   expectedOutput?: {
     fileCreated?: string;
@@ -361,34 +369,98 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {config.stepByStepFlow.map((step) => (
-                <div key={step.step} className="bg-white rounded-lg p-6 card-premium group border border-neutral-200 hover:border-primary/30 transition-all duration-200">
-                  <div className="flex items-start space-x-4">
-                    <div className="flex-shrink-0">
-                      <div className="step-number w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg text-white">
-                        {step.step}
-                      </div>
-                    </div>
-                    <div className="flex-1">
-                      <div 
-                        className="text-neutral-700 text-premium leading-relaxed group-hover:text-neutral-800 transition-colors duration-200"
-                        dangerouslySetInnerHTML={{
-                          __html: step.action
-                            .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-neutral-800">$1</strong>')
-                            .replace(/\*([^*]+)\*/g, '<em class="italic text-primary font-medium">$1</em>')
-                            .replace(/(https?:\/\/[^\s\)]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary-600 underline font-medium">$1</a>')
-                        }}
-                      />
-                    </div>
-                    {step.time && (
-                      <div className="flex-shrink-0 flex items-center space-x-1 text-sm text-neutral-500">
-                        <Clock className="w-4 h-4" />
-                        <span className="font-medium">{step.time}</span>
+              {config.stepByStepFlow.map((step) => {
+                // Check if this is an expandable step (has details property)
+                const hasDetails = step.details && step.details.steps;
+                
+                return (
+                  <div key={step.step} className={`bg-white rounded-lg card-premium group border border-neutral-200 transition-all duration-200 ${hasDetails ? 'hover:border-primary/30' : 'hover:border-primary/30'}`}>
+                    {hasDetails ? (
+                      // Expandable accordion format for complex steps
+                      <Collapsible>
+                        <CollapsibleTrigger className="w-full p-6 text-left hover:bg-neutral-50 transition-colors duration-200">
+                          <div className="flex items-start space-x-4">
+                            <div className="flex-shrink-0">
+                              <div className="step-number w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg text-white">
+                                {step.step}
+                              </div>
+                            </div>
+                            <div className="flex-1">
+                              <div 
+                                className="text-neutral-700 text-premium leading-relaxed group-hover:text-neutral-800 transition-colors duration-200"
+                                dangerouslySetInnerHTML={{
+                                  __html: step.action
+                                    .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-neutral-800">$1</strong>')
+                                    .replace(/\*([^*]+)\*/g, '<em class="italic text-primary font-medium">$1</em>')
+                                }}
+                              />
+                            </div>
+                            <div className="flex-shrink-0">
+                              <ChevronDown className="w-5 h-5 text-neutral-400 group-hover:text-primary transition-colors duration-200" />
+                            </div>
+                          </div>
+                        </CollapsibleTrigger>
+                        <CollapsibleContent>
+                          <div className="px-6 pb-6 border-t border-neutral-100">
+                            <div className="pt-4 space-y-4">
+                              <h4 className="font-semibold text-neutral-800 text-lg">{step.details.title}</h4>
+                              {step.details.steps.map((detailStep, index) => (
+                                <div key={index} className="flex items-start space-x-3 bg-neutral-50 rounded-lg p-4">
+                                  <div className="flex-shrink-0">
+                                    <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center text-xs font-semibold text-primary">
+                                      {detailStep.number}
+                                    </div>
+                                  </div>
+                                  <div className="flex-1">
+                                    <div 
+                                      className="text-sm text-neutral-700 leading-relaxed"
+                                      dangerouslySetInnerHTML={{
+                                        __html: detailStep.action
+                                          .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-neutral-800">$1</strong>')
+                                          .replace(/\*([^*]+)\*/g, '<em class="italic text-primary font-medium">$1</em>')
+                                          .replace(/•\s/g, '<br/>• ')
+                                          .replace(/\n/g, '<br/>')
+                                      }}
+                                    />
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        </CollapsibleContent>
+                      </Collapsible>
+                    ) : (
+                      // Simple format for regular steps
+                      <div className="p-6">
+                        <div className="flex items-start space-x-4">
+                          <div className="flex-shrink-0">
+                            <div className="step-number w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg text-white">
+                              {step.step}
+                            </div>
+                          </div>
+                          <div className="flex-1">
+                            <div 
+                              className="text-neutral-700 text-premium leading-relaxed group-hover:text-neutral-800 transition-colors duration-200"
+                              dangerouslySetInnerHTML={{
+                                __html: step.action
+                                  .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-neutral-800">$1</strong>')
+                                  .replace(/\*([^*]+)\*/g, '<em class="italic text-primary font-medium">$1</em>')
+                                  .replace(/(https?:\/\/[^\s\)]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary-600 underline font-medium">$1</a>')
+                              }}
+                            />
+                          </div>
+                          {step.time && (
+                            <div className="flex-shrink-0 flex items-center space-x-1 text-sm text-neutral-500">
+                              <Clock className="w-4 h-4" />
+                              <span className="font-medium">{step.time}</span>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     )}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </CardContent>
         </Card>
