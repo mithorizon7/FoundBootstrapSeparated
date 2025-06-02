@@ -1,85 +1,247 @@
 {
   "phase": 8,
-  "title": "Launch Strategy & Go-to-Market",
-  "intro": "Transform your selected hero concept into a detailed product specification. Define your Minimum Viable Product (MVP), core features, and user experience that delivers on your value proposition while staying focused on your target customer's most critical needs.",
-  "estimatedTime": "20 minutes",
+  "title": "Replit AI Builder: Launch a Live, Fully-Loaded Website",
+  "intro": "You're ready to build the website! Consolidate all your project assets (research, media, voice agent) into a single, public-facing website for your company, built rapidly using Replit's AI Website Builder. This site will serve as the central hub for investors and early customers.",
+  "estimatedTime": "15 minutes (plus ~10 minutes AI build time)",
   "fields": [
     {
-      "id": "product_type",
-      "label": "Product Type",
+      "id": "website_brief_approach",
+      "label": "Website Brief Approach",
       "type": "select",
       "required": true,
       "persist": true,
-      "help": "Primary product format",
+      "help": "Choose how detailed you want to be with Replit AI instructions",
       "options": [
-        { "value": "Software/App", "label": "Software/App" },
-        { "value": "Physical Product", "label": "Physical Product" },
-        { "value": "Service", "label": "Service" },
-        { "value": "Platform", "label": "Platform" },
-        { "value": "Hardware + Software", "label": "Hardware + Software" }
+        { "value": "detailed", "label": "Detailed - Specify exact sections and layout" },
+        { "value": "vibey", "label": "Vibey - Describe feeling and purpose, let AI interpret" }
       ]
     },
     {
-      "id": "core_user_story",
-      "label": "Core User Story",
+      "id": "website_brief",
+      "label": "Website Brief for Replit AI",
       "type": "textarea",
-      "placeholder": "As a [user type], I want to [accomplish goal] so that [benefit achieved]",
+      "placeholder": "Detailed: Briefly describe the desired sections (e.g., 'Hero section with image and value prop, podcast player section, section to embed voice agent, simple footer')\n\nVibey: Describe the feeling using your brand adjectives (e.g., 'Create a [Adj1], [Adj2], [Adj3] website for [Company] introducing [Concept]. Focus on [core value proposition]')",
       "required": true,
       "persist": true,
-      "help": "Primary user story your product solves"
+      "help": "Instructions for Replit AI on how to build your website"
     },
     {
-      "id": "mvp_feature_1",
-      "label": "MVP Feature #1",
-      "type": "text",
-      "placeholder": "e.g., Automated inventory tracking",
+      "id": "productive_task_choice",
+      "label": "Productive Task During Build Time",
+      "type": "select",
       "required": true,
       "persist": true,
-      "help": "Most critical feature for launch"
+      "help": "Choose what to work on while Replit builds your website (~10 minutes)",
+      "options": [
+        { "value": "launch_announcement", "label": "Draft Launch Announcement for social media" },
+        { "value": "key_faqs", "label": "Outline Key FAQs for website visitors" },
+        { "value": "elevator_pitch", "label": "Refine Your Elevator Pitch summary" }
+      ]
     },
     {
-      "id": "mvp_feature_2",
-      "label": "MVP Feature #2",
-      "type": "text",
-      "placeholder": "e.g., Real-time analytics dashboard",
-      "required": true,
-      "persist": true,
-      "help": "Second most important feature"
-    },
-    {
-      "id": "mvp_feature_3",
-      "label": "MVP Feature #3",
-      "type": "text",
-      "placeholder": "e.g., Mobile notifications",
-      "required": true,
-      "persist": true,
-      "help": "Third essential feature"
-    },
-    {
-      "id": "user_journey",
-      "label": "User Journey Overview",
+      "id": "launch_announcement",
+      "label": "Launch Announcement Draft",
       "type": "textarea",
-      "placeholder": "Describe the step-by-step experience from discovery to ongoing use",
-      "required": true,
+      "placeholder": "Write a short (3-4 sentence) social media post announcing the launch of your website, highlighting the core benefit and mentioning one key feature",
+      "required": false,
       "persist": true,
-      "help": "How users discover, onboard, and engage with your product"
+      "help": "Social media post for LinkedIn or Twitter/X"
     },
     {
-      "id": "success_metrics",
-      "label": "Success Metrics",
+      "id": "key_faqs",
+      "label": "Key FAQs",
       "type": "textarea",
-      "placeholder": "e.g., Daily active users, retention rate, customer satisfaction score",
-      "required": true,
+      "placeholder": "List the top 3-5 questions you anticipate visitors asking (safety, usage, price, etc.) with concise, factual answers",
+      "required": false,
       "persist": true,
-      "help": "Key performance indicators to measure product success"
+      "help": "Frequently asked questions and answers for your concept"
+    },
+    {
+      "id": "elevator_pitch",
+      "label": "Refined Elevator Pitch",
+      "type": "textarea",
+      "placeholder": "Condense the core message into a compelling 15-20 second verbal pitch summary",
+      "required": false,
+      "persist": true,
+      "help": "Practice-ready elevator pitch for your concept"
     }
   ],
-  "promptTemplate": "**PRODUCT SPECIFICATION REQUEST**\n\nBased on the hero concept selected in Phase 4 Part 1, create a detailed product specification for {{phase1.company_name}}.\n\n**HERO CONCEPT FOUNDATION:**\n- Company: {{phase1.company_name}}\n- Sector: {{phase1.sector}}\n- Benefit Keyword: {{phase1.benefit_keyword}}\n- Selected Concept: {{phase4.winning_concept}}\n- Brand Adjectives: {{phase4.brand_adj_1}}, {{phase4.brand_adj_2}}, {{phase4.brand_adj_3}}\n\n**PRODUCT DETAILS:**\n- Product Type: {{product_type}}\n- Core User Story: {{core_user_story}}\n\n**MVP FEATURES:**\n1. {{mvp_feature_1}}\n2. {{mvp_feature_2}}\n3. {{mvp_feature_3}}\n\n**USER EXPERIENCE:**\n{{user_journey}}\n\n**SUCCESS CRITERIA:**\n{{success_metrics}}\n\n**REQUEST:**\nCreate a comprehensive product specification document that includes:\n1. Executive Summary\n2. Technical Requirements\n3. User Experience Flow\n4. Development Roadmap\n5. Risk Assessment\n6. Go-to-Market Considerations\n\nEnsure alignment with the Phase 4 concept selection and brand positioning established in earlier phases.",
-  "instructions": [
-    "Review your selected hero concept from Phase 4 Part 1",
-    "Define the core user story that your product solves",
-    "Identify the 3 most critical MVP features",
-    "Map out the complete user journey",
-    "Establish measurable success metrics"
-  ]
+  "promptTemplate": "**REPLIT AI WEBSITE BUILDER BRIEF**\n\n{{#if website_brief_approach == 'detailed'}}\n**DETAILED APPROACH:**\n{{website_brief}}\n\n**REQUIRED SECTIONS:**\n- Hero section featuring {{phase5.chosen_concept_code_name}} with hero image and value proposition\n- About/Concept section with key features and benefits\n- Media section with podcast player and background music\n- \"Talk to an Expert\" section with voice agent integration\n- Simple, clean footer\n{{else}}\n**VIBEY APPROACH:**\n{{website_brief}}\n\nCreate a {{phase4.brand_adj_1}}, {{phase4.brand_adj_2}}, and {{phase4.brand_adj_3}} website for {{phase1.company_name}} introducing {{phase5.chosen_concept_code_name}}. Feature the hero image prominently, include podcast audio, and integrate the voice agent. Focus on {{phase5.chosen_concept_unmet_need}}.\n{{/if}}\n\n**BRAND IDENTITY:**\n- Company: {{phase1.company_name}}\n- Concept: {{phase5.chosen_concept_code_name}}\n- Brand Adjectives: {{phase4.brand_adj_1}}, {{phase4.brand_adj_2}}, {{phase4.brand_adj_3}}\n- Target Audience: {{phase5.concept_target_audience}}\n\n**ASSETS TO INTEGRATE:**\n- Hero Image: hero.png\n- Website Copy: copy.txt\n- Background Music: jingle.mp3\n- Narration: voiceover.mp3\n- Podcast: podcast.mp3\n- Voice Agent: ElevenLabs embed code\n\n**CORE MESSAGE:**\nTrust the AI to interpret this brief and use the uploaded assets creatively to create a professional, engaging website that serves as the central hub for investors and early customers.",
+  "decisionBoxContent": {
+    "title": "Asset Preparation Checklist",
+    "subtitle": "Gather all your project assets before heading to Replit AI Website Builder",
+    "sections": [
+      {
+        "number": "✓",
+        "title": "Required Assets Checklist",
+        "items": [
+          {
+            "label": "Hero Image",
+            "content": "The main visual for your concept: **hero.png** (from Phase 6)"
+          },
+          {
+            "label": "Website Copy",
+            "content": "Your website text content: **copy.txt** (from Phase 6)"
+          },
+          {
+            "label": "Audio Assets",
+            "content": "• Background music/jingle: **jingle.mp3**\n• Narrative voice over: **voiceover.mp3**\n• Podcast episode: **podcast.mp3**"
+          },
+          {
+            "label": "Voice Agent Integration",
+            "content": "The embed code or link for your ElevenLabs voice concierge (from Phase 7)"
+          },
+          {
+            "label": "Key Text Elements",
+            "content": "• Your winning concept's **Value Proposition** (from Phase 4)\n• **Key Features/Attributes** (from Phase 4)\n• **Brand Adjectives** (from Phase 4)"
+          }
+        ]
+      }
+    ],
+    "action": {
+      "title": "Pre-Build Preparation",
+      "items": [
+        "Verify all assets from previous phases are ready",
+        "Choose your website brief approach (detailed vs. vibey)",
+        "Select productive task for build time",
+        "Have ElevenLabs voice agent embed code ready"
+      ]
+    }
+  },
+  "stepByStepFlow": [
+    {
+      "step": 1,
+      "action": "**Navigate to Replit AI Website Builder** - Open the tool and prepare for upload",
+      "details": {
+        "title": "Access Replit AI Website Builder",
+        "steps": [
+          {
+            "number": "1",
+            "action": "Open the **Replit AI Website Builder** tool in a new tab"
+          },
+          {
+            "number": "2",
+            "action": "Familiarize yourself with the interface and upload areas"
+          },
+          {
+            "number": "3",
+            "action": "Have all your assets organized and ready for upload"
+          }
+        ]
+      }
+    },
+    {
+      "step": 2,
+      "action": "**Upload Assets & Provide Brief** - Add all media files and give Replit AI instructions",
+      "details": {
+        "title": "Provide Assets & Instructions to Replit AI",
+        "steps": [
+          {
+            "number": "1",
+            "action": "**Upload Your Assets:** Follow Replit's instructions to upload your **Hero Image** (hero.png), **Audio files** (jingle.mp3, voiceover.mp3, podcast.mp3), and any other media"
+          },
+          {
+            "number": "2",
+            "action": "**Provide Voice Agent Info:** Supply the embed code/link for the ElevenLabs voice agent when prompted"
+          },
+          {
+            "number": "3",
+            "action": "**Give Replit AI Instructions:** Use the website brief from your form field above. Be flexible - you don't need lengthy, complex instructions unless you want to be very specific about layout"
+          },
+          {
+            "number": "4",
+            "action": "**Trust the AI:** Allow Replit AI to interpret your brief and use the uploaded assets creatively"
+          },
+          {
+            "number": "5",
+            "action": "**Attach all assets** and have it start working"
+          }
+        ]
+      }
+    },
+    {
+      "step": 3,
+      "action": "**Initiate Build & Use Wait Time Productively** - Start generation and work on your chosen task",
+      "details": {
+        "title": "Productive Tasks During 10-Minute Build Time",
+        "steps": [
+          {
+            "number": "1",
+            "action": "**Start the website generation process** in Replit (typically takes around 10 minutes)"
+          },
+          {
+            "number": "2",
+            "action": "**Don't just wait!** Use this time effectively by working on your chosen productive task"
+          },
+          {
+            "number": "A",
+            "action": "**Draft Launch Announcement:** Write a short (3-4 sentence) social media post for LinkedIn or Twitter/X announcing the launch of {{phase1.company_name}} website, highlighting the core benefit of {{phase5.chosen_concept_code_name}} and mentioning one key feature"
+          },
+          {
+            "number": "B",
+            "action": "**Outline Key FAQs:** List the top 3-5 questions you anticipate visitors asking about {{phase5.chosen_concept_code_name}} (safety, usage, price, etc.). Draft concise, factual answers based on your research"
+          },
+          {
+            "number": "C",
+            "action": "**Refine Elevator Pitch:** Review your value proposition and key evidence. Condense the core message for {{phase5.chosen_concept_code_name}} into a compelling 15-20 second verbal pitch. Practice saying it aloud"
+          }
+        ]
+      }
+    },
+    {
+      "step": 4,
+      "action": "**Review & Iterate** - Check the first draft and make refinements",
+      "details": {
+        "title": "Review and Refine Your Website",
+        "steps": [
+          {
+            "number": "1",
+            "action": "**Take a comprehensive look** at the first draft once Replit presents your site"
+          },
+          {
+            "number": "2",
+            "action": "**Check Core Elements:** Does the hero image look good? Does the video play? Does the audio player work? Is the voice agent embedded correctly? Does the overall feel match your brand adjectives?"
+          },
+          {
+            "number": "3",
+            "action": "**Refine as Needed:** Use Replit's editing tools or provide clarifying feedback to the AI to make adjustments"
+          },
+          {
+            "number": "4",
+            "action": "**Iterate:** You'll likely have a few rounds of iteration to get it just right"
+          }
+        ]
+      }
+    },
+    {
+      "step": 5,
+      "action": "**Deploy & Share** - Launch your live website for the world to see",
+      "details": {
+        "title": "Launch Your Website",
+        "steps": [
+          {
+            "number": "1",
+            "action": "**Final Review:** Ensure all elements are working correctly and the site represents your brand well"
+          },
+          {
+            "number": "2",
+            "action": "**Deploy!** Use Replit's deployment tools to make your website live"
+          },
+          {
+            "number": "3",
+            "action": "**Share the Website:** Get your live URL and share it for internal review, investor pitches, or initial customer feedback"
+          },
+          {
+            "number": "4",
+            "action": "**Celebrate!** You've successfully created a complete startup concept with a live website"
+          }
+        ]
+      }
+    }
+  ],
+  "expectedOutput": {
+    "fileCreated": "Live, responsive website hosted on Replit",
+    "whyItMatters": "A professional website serves as the central hub for investors and early customers, showcasing your concept and media assets in a cohesive, engaging experience that builds credibility and trust.",
+    "nextSteps": "Your website is live and ready for internal review, investor pitches, or initial customer feedback. Use it to validate your concept and gather real-world responses to refine your go-to-market strategy."
+  }
 }
