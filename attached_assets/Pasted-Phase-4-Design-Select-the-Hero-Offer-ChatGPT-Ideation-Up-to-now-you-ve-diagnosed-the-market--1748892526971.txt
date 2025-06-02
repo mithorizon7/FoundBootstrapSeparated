@@ -1,0 +1,131 @@
+Phase 4 –Design & Select the Hero Offer: ChatGPT Ideation: 
+Up to now, you’ve diagnosed the market (Phase 1), quantified the competition (Phase 2), and armed yourself with science based evidence (Phase 3). Phase 4 is where insight becomes invention: you will generate three concrete product or service concepts, score them across business criteria, and crown a single “hero offer” that your company will take to market.
+The chosen concept—its code-name, feature set, and cost assumptions—feeds every downstream media-creation step, so precision here saves pain later.
+ 
+Resources You Need
+Item	Source	Purpose
+competitor_matrix.csv	Downloaded in Phase 2	Supplies Threat Scores, USPs, vulnerabilities.
+“Unmet Needs” bullets	Unmet needs Section  of Market_Competitors.pdf	Defines the customer pains you’ll solve.
+Company name, sector, benefit keyword, etc.	
+ 
+Phase 4 PART 1 Decision Box 🗳️ – Choices Before Running Phase 4 Part 1 Prompt
+1. Select and Prepare Your Top 3 Unmet Needs:
+1.	Your Goal: From your Phase 1 Market_Competitors.pdf, pinpoint three specific customer frustrations, market gaps, or unfulfilled desires that your new company, {{COMPANY_NAME}}, could realistically address with an innovative product.
+2.	Look in Your Phase 1 Report “Unmet Needs” Section.
+3.	How to Choose Your Top 3 Unmet Needs:
+o	As a team, review the identified gaps, frustrations, or needs.
+o	Discuss and select the three that offer the most strategic opportunity for your company. Consider:
+1.	Alignment: Which needs best match your company's desired Kor Benefit/Value Add (your {{BENEFIT_KEYWORD}}) and overall vision?
+2.	Impact: Which needs, if solved, would provide significant value to your target audience?
+3.	Innovation Space: Which needs allow for a truly differentiated and innovative solution from your company?
+4.	Action: Prepare the Unmet Needs Text for the Prompt:
+o	The Phase 4 prompt will require you to paste in your three chosen unmet needs as concise points. You can copy, summarize, or adapt from your report. 
+1.	For example: 
+UNMET_NEEDS
+* Parental Confidence Gap with Tech Toys
+* Concerns about "STEM-washing" / Desire for Authentic Learning
+2.	* High Cost vs. Play Longevity/Value
+
+OR
+
+UNMET_NEEDS
+* Parents struggle with complex tech toys and need simpler, more supportive solutions.
+* Desire for toys that genuinely deliver on educational promises without "STEM-washing."
+* Need for durable toys that offer long-lasting play value relative to their cost.
+o	Have the exact text for your three chosen unmet needs (preferably as bullet points) ready to paste into the {{UNMET_NEEDS}} section of the Phase 4 prompt.
+Set Your Concept Scoring Weights:
+•	Your Goal: To decide how the AI should prioritize three critical factors when it evaluates the new product/service concepts it generates. These factors are:
+o	Feasibility: How easy or complex will it be to realistically develop and launch this concept? (Considers technology, resources, supply chain.)
+o	Differentiation: How unique or distinct is this concept compared to what's already on the market? Does it offer a clear, novel advantage?
+o	Margin Potential: How strong is the potential for this concept to be profitable? (Considers perceived value, pricing, and estimated cost of goods.) 
+•	 Your Task: Decide on a percentage weight for each of these three factors. The three percentages must add up to 100%.
+o	Deciding Your Weights – Key Questions: What's your venture's top priority right now?
+o	Quickly launching a viable product? (Consider higher % for Feasibility)
+o	Standing out with a truly novel offering? (Consider higher % for Differentiation)
+o	Ensuring strong profitability early on? (Consider higher % for Margin Potential)
+•	How AI Uses These Weights: The AI will calculate a weighted score for each concept based on your percentages, helping you pick the most strategically aligned idea.
+•	Action: Record your team's chosen percentages for {{F%}} (Feasibility), {{D%}} (Differentiation), and {{M%}} (Margin Potential) for the Phase 4 prompt. (remember, they should equal 100%).
+5.	Choose Brand Adjectives:
+o	Select three (3) adjectives that best capture the desired tone and feel for the new product/service concepts. These will help guide creative aspects like code-names and value propositions.
+o	Examples: Curious, Lively, Trustworthy; Bold, Simple, Efficient; Playful, Educational, Safe; Premium, Discreet, Effective.
+o	(Action: Choose the three specific adjectives you want to use for {{ADJ1}}, {{ADJ2}}, and {{ADJ3}} in the prompt.)
+6.	Prepare for Prompt:
+o	Gather your selected Unmet Needs text, the decided Scoring Weight percentages, and your chosen Brand Adjectives. You will insert these directly into the corresponding {{PLACEHOLDERS}} in the Phase 4 prompt template before submitting it to the AI.
+ 
+Step-by-Step Flow
+#	Action	Time
+1	Open a new ChatGPT chat (standard GPT-4o will work fine).	15 s
+2	Click Upload (+)→ attach competitor_matrix.csv.	15 s
+3	Copy the three circled unmet-needs bullets. Paste them at the very top of the chat.	30 s
+4	Copy the Phase 4 Prompt (next section) and replace placeholders: unmet-need shortlist, scoring weights, brand adjectives, price tier (“Mid 20-50 USD retail”), etc. Then send.	1 min
+5	Offline while ChatGPT thinks (~3 min): the team sketches logo doodles or packaging ideas inspired by the brand adjectives—these visuals help later when selecting DALL-E prompts.	3 min
+6	When ChatGPT returns, review the information. Check BOM estimates for plausibility.	2 min
+7	Debate the recommendation paragraph; if you disagree, adjust scoring weights and ask ChatGPT to recalc.	3 min
+8	Copy the winning concept block (code-name, spec, scores) into a new text file concept.txt. Save to project folder.	30 s
+Total ≈ 11 min online + 4 min productive offline discussion.
+ 
+Phase 4 Prompt 1
+**ROLE**
+You are the lead innovation architect for {{COMPANY_NAME}}, tasked with designing a breakout offering.
+
+**INPUT FILES**
+* CSV/Excel: `competitor_matrix.csv`
+* Text block: UNMET_NEEDS
+
+UNMET_NEEDS
+{{Paste the 3 circled unmet-need bullets here}}
+
+**SCORING WEIGHTS**
+Feasibility {{F%}}, Differentiation {{D%}}, Margin Potential {{M%}} (total 100%).
+
+**CONSTRAINTS**
+* Price Tier: Mid (20–50 USD retail).
+* Must undercut or neutralize the key vulnerability of the **highest-scoring threat competitor(s)** identified in the Excel/CSV matrix.
+* Align concepts with these brand adjectives: **{{ADJ1}}, {{ADJ2}}, {{ADJ3}}**. (This should influence code-names, value proposition language, and feature descriptions where applicable).
+* Acceptable BOM cost ≤ 50 % of retail price (i.e., ≤ $10 - $25 based on target retail).
+
+---
+
+**TASK**
+
+1.  **Need Selection**
+    * From the three `UNMET_NEEDS` provided, pick *one* that offers the highest strategic upside for {{COMPANY_NAME}}. Explain the choice in ≤ 50 words, citing relevant competitor matrix data and one key macro trend (from Phase 1 context).
+
+2.  **Generate Three Concepts**
+    * **Based on the need selected above, generate three distinct concepts.** For *each* concept, output in a table:
+        * Code-name (≤ 4 words, all caps)
+        * One-sentence value prop (start with a power verb)
+        * Key Features / Attributes (≤ 25 words)
+        * Primary materials/components
+        * Estimated BOM cost (USD, round to nearest dollar, respecting constraint)
+        * Competitive Advantage vs. highest-threat competitor(s) (≤ 15 words)
+
+3.  **Define Scoring Rubrics**
+    * Define and state clearly a 1-5 scoring rubric for Feasibility, Differentiation, and Margin Potential. Base definitions on standard business considerations and the context provided (e.g., Feasibility: 5=Uses existing tech/easy supply chain, 1=Requires new R&D/complex sourcing; Differentiation: 5=Highly unique/protected, 1=Me-too/easily copied; Margin Potential: 5=High perceived value/low BOM relative to price, 1=Price sensitive/high BOM relative to price).
+
+4.  **Score & Visualize** 
+    * Using the rubrics above, score each concept (1-5) on Feasibility, Differentiation, and Margin Potential.
+    * Apply the `SCORING WEIGHTS` to calculate a final weighted score for each concept.
+    * Present results in two parts: a) Summary Rankings - List concepts in order by weighted score with brief rationale b) Detailed Scoring Matrix - Full breakdown table showing all scores and calculations.*
+
+5.  **Recommendation** 
+    * Recommend ONE concept to advance based on the scoring and strategic fit. Justify in ≤ 60 words.
+    * List three on-brand hashtags for the winning concept.
+    * End with a blank line, then output the winning concept's row from the table in Step 2 again for easy copy/paste.
+
+---
+
+## OUTPUT FORMAT
+Document (.docx) in this order:
+1️⃣ Need Selection paragraph → 2️⃣ Table of three concepts → 3️⃣ Scoring Rubrics paragraph → 4️⃣ **Rankings & Scoring** → 5️⃣ Recommendation paragraph
+
+Also give me the entire output as a downloadable .docx file titled: “Phase_4_Offer_Concepts.docx”
+ 
+Expected Output & Downstream Use
+•	concept.txt — contains code-name, value prop, features, BOM, hashtags.
+•	Why it matters:
+o	The code-name becomes the file prefix for all media assets ({{CODE}}_hero.png, etc.).
+o	Value prop & features feed directly into your storyboard text and website copy.
+o	BOM and Mid-tier price anchor future investor and FAQ answers.
+•	Quality check: Ensure BOM ≤ 50 % of retail tier; adjust if ChatGPT overshoots.
+With the hero concept locked, color palette set, and adjectives defined, you’re primed to create visuals, audio, and video in Phase 5’s Media Factory.

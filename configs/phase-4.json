@@ -1,84 +1,180 @@
 {
   "phase": 4,
-  "title": "Product Design & Feature Definition",
-  "intro": "Transform your market positioning into a tangible product concept. Define your Minimum Viable Product (MVP), core features, and user experience that delivers on your value proposition while staying focused on your target customer's most critical needs.",
-  "estimatedTime": "20 minutes",
+  "title": "Design & Select the Hero Offer: ChatGPT Ideation",
+  "intro": "Up to now, you've diagnosed the market (Phase 1), quantified the competition (Phase 2), and armed yourself with science based evidence (Phase 3). Phase 4 is where insight becomes invention: you will generate three concrete product or service concepts, score them across business criteria, and crown a single \"hero offer\" that your company will take to market.\n\nThe chosen concept—its code-name, feature set, and cost assumptions—feeds every downstream media-creation step, so precision here saves pain later.",
+  "estimatedTime": "15 minutes",
   "fields": [
     {
-      "id": "product_type",
-      "label": "Product Type",
-      "type": "select",
-      "required": true,
-      "persist": true,
-      "help": "Primary product format",
-      "options": [
-        { "value": "Software/App", "label": "Software/App" },
-        { "value": "Physical Product", "label": "Physical Product" },
-        { "value": "Service", "label": "Service" },
-        { "value": "Platform", "label": "Platform" },
-        { "value": "Hardware + Software", "label": "Hardware + Software" }
-      ]
-    },
-    {
-      "id": "core_user_story",
-      "label": "Core User Story",
+      "id": "unmet_needs",
+      "label": "Top 3 Unmet Needs",
       "type": "textarea",
-      "placeholder": "As a [user type], I want to [accomplish goal] so that [benefit achieved]",
+      "placeholder": "• Unmet need 1\n• Unmet need 2\n• Unmet need 3",
       "required": true,
       "persist": true,
-      "help": "Primary user story your product solves"
+      "help": "From your Phase 1 report, list three specific customer frustrations or market gaps"
     },
     {
-      "id": "mvp_feature_1",
-      "label": "MVP Feature #1",
+      "id": "feasibility_weight",
+      "label": "Feasibility Weight (%)",
       "type": "text",
-      "placeholder": "e.g., Automated inventory tracking",
+      "placeholder": "e.g., 40",
       "required": true,
       "persist": true,
-      "help": "Most critical feature for launch"
+      "help": "How easy/complex will it be to develop and launch? (must total 100% with other weights)"
     },
     {
-      "id": "mvp_feature_2",
-      "label": "MVP Feature #2",
-      "type": "text", 
-      "placeholder": "e.g., Real-time alerts",
-      "required": true,
-      "persist": true,
-      "help": "Second most critical feature"
-    },
-    {
-      "id": "mvp_feature_3",
-      "label": "MVP Feature #3",
+      "id": "differentiation_weight",
+      "label": "Differentiation Weight (%)",
       "type": "text",
-      "placeholder": "e.g., Simple dashboard",
+      "placeholder": "e.g., 35",
       "required": true,
       "persist": true,
-      "help": "Third most critical feature"
+      "help": "How unique compared to existing market offerings?"
     },
     {
-      "id": "user_journey",
-      "label": "Key User Journey",
-      "type": "textarea",
-      "placeholder": "1. User signs up 2. Completes onboarding 3. Sets up first project...",
+      "id": "margin_weight",
+      "label": "Margin Potential Weight (%)",
+      "type": "text",
+      "placeholder": "e.g., 25",
       "required": true,
       "persist": true,
-      "help": "Step-by-step user experience from first use to value realization"
+      "help": "How strong is the profit potential? (total must equal 100%)"
     },
     {
-      "id": "success_metrics",
-      "label": "Success Metrics",
-      "type": "textarea",
-      "placeholder": "e.g., User completes setup in <5 minutes, 80% feature adoption in first week",
+      "id": "brand_adj_1",
+      "label": "Brand Adjective 1",
+      "type": "text",
+      "placeholder": "e.g., Curious",
       "required": true,
       "persist": true,
-      "help": "How you'll measure product success"
+      "help": "First adjective to guide concept tone and feel"
+    },
+    {
+      "id": "brand_adj_2",
+      "label": "Brand Adjective 2",
+      "type": "text",
+      "placeholder": "e.g., Trustworthy",
+      "required": true,
+      "persist": true,
+      "help": "Second adjective to guide concept tone and feel"
+    },
+    {
+      "id": "brand_adj_3",
+      "label": "Brand Adjective 3",
+      "type": "text",
+      "placeholder": "e.g., Playful",
+      "required": true,
+      "persist": true,
+      "help": "Third adjective to guide concept tone and feel"
     }
   ],
-  "promptTemplate": "**ROLE**\n\nYou are a product designer and strategist creating a comprehensive product specification.\n\n**CONTEXT**\n\nCompany: {{phase1.company_name}}\nTarget Customer: {{phase3.target_customer}}\nCore Problem: {{phase3.core_problem}}\nUnique Approach: {{phase3.unique_approach}}\nPositioning: {{phase3.positioning_statement}}\n\nProduct Type: {{product_type}}\nCore User Story: {{core_user_story}}\n\n**TASK**\n\nCreate a comprehensive product design document including:\n\n1. **Product Overview**\n   - Product vision and mission\n   - How it delivers on our value proposition: {{phase3.key_benefit_1}} and {{phase3.key_benefit_2}}\n   - Target user personas and use cases\n\n2. **MVP Feature Specification**\n   - {{mvp_feature_1}}: Detailed description, user stories, acceptance criteria\n   - {{mvp_feature_2}}: Detailed description, user stories, acceptance criteria  \n   - {{mvp_feature_3}}: Detailed description, user stories, acceptance criteria\n   - Feature prioritization rationale\n\n3. **User Experience Design**\n   - User journey map: {{user_journey}}\n   - Key user flows and wireframe descriptions\n   - Information architecture\n   - UI/UX principles aligned with {{phase1.primary_color}} and {{phase1.secondary_color}} brand colors\n\n4. **Technical Architecture**\n   - High-level system architecture\n   - Technology stack recommendations\n   - Integration requirements\n   - Scalability considerations\n\n5. **Success Criteria & Metrics**\n   - {{success_metrics}}\n   - Key Performance Indicators (KPIs)\n   - User feedback collection methods\n   - Iteration and improvement plan\n\n6. **Development Roadmap**\n   - MVP development timeline (8-12 weeks)\n   - Resource requirements\n   - Risk mitigation strategies\n   - Post-MVP feature pipeline\n\n**OUTPUT FORMAT**\n\nDetailed product specification document in markdown format, suitable for development teams and stakeholders.",
-  "instructions": [
-    "Focus on solving the core problem identified in your positioning",
-    "Keep MVP features minimal but complete for your key user story",
-    "Design user experience that delivers your promised benefits",
-    "Create development-ready specifications for your technical team"
-  ]
+  "promptTemplate": "**ROLE**\nYou are the lead innovation architect for {{phase1.company_name}}, tasked with designing a breakout offering.\n\n**INPUT FILES**\n* CSV/Excel: `competitor_matrix.csv`\n* Text block: UNMET_NEEDS\n\nUNMET_NEEDS\n{{unmet_needs}}\n\n**SCORING WEIGHTS**\nFeasibility {{feasibility_weight}}%, Differentiation {{differentiation_weight}}%, Margin Potential {{margin_weight}}% (total 100%).\n\n**CONSTRAINTS**\n* Price Tier: Mid (20–50 USD retail).\n* Must undercut or neutralize the key vulnerability of the **highest-scoring threat competitor(s)** identified in the Excel/CSV matrix.\n* Align concepts with these brand adjectives: **{{brand_adj_1}}, {{brand_adj_2}}, {{brand_adj_3}}**. (This should influence code-names, value proposition language, and feature descriptions where applicable).\n* Acceptable BOM cost ≤ 50 % of retail price (i.e., ≤ $10 - $25 based on target retail).\n\n---\n\n**TASK**\n\n1.  **Need Selection**\n    * From the three `UNMET_NEEDS` provided, pick *one* that offers the highest strategic upside for {{phase1.company_name}}. Explain the choice in ≤ 50 words, citing relevant competitor matrix data and one key macro trend (from Phase 1 context).\n\n2.  **Generate Three Concepts**\n    * **Based on the need selected above, generate three distinct concepts.** For *each* concept, output in a table:\n        * Code-name (≤ 4 words, all caps)\n        * One-sentence value prop (start with a power verb)\n        * Key Features / Attributes (≤ 25 words)\n        * Primary materials/components\n        * Estimated BOM cost (USD, round to nearest dollar, respecting constraint)\n        * Competitive Advantage vs. highest-threat competitor(s) (≤ 15 words)\n\n3.  **Define Scoring Rubrics**\n    * Define and state clearly a 1-5 scoring rubric for Feasibility, Differentiation, and Margin Potential. Base definitions on standard business considerations and the context provided (e.g., Feasibility: 5=Uses existing tech/easy supply chain, 1=Requires new R&D/complex sourcing; Differentiation: 5=Highly unique/protected, 1=Me-too/easily copied; Margin Potential: 5=High perceived value/low BOM relative to price, 1=Price sensitive/high BOM relative to price).\n\n4.  **Score & Visualize** \n    * Using the rubrics above, score each concept (1-5) on Feasibility, Differentiation, and Margin Potential.\n    * Apply the `SCORING WEIGHTS` to calculate a final weighted score for each concept.\n    * Present results in two parts: a) Summary Rankings - List concepts in order by weighted score with brief rationale b) Detailed Scoring Matrix - Full breakdown table showing all scores and calculations.*\n\n5.  **Recommendation** \n    * Recommend ONE concept to advance based on the scoring and strategic fit. Justify in ≤ 60 words.\n    * List three on-brand hashtags for the winning concept.\n    * End with a blank line, then output the winning concept's row from the table in Step 2 again for easy copy/paste.\n\n---\n\n## OUTPUT FORMAT\nDocument (.docx) in this order:\n1️⃣ Need Selection paragraph → 2️⃣ Table of three concepts → 3️⃣ Scoring Rubrics paragraph → 4️⃣ **Rankings & Scoring** → 5️⃣ Recommendation paragraph\n\nAlso give me the entire output as a downloadable .docx file titled: \"Phase_4_Offer_Concepts.docx\"",
+  "decisionBoxContent": {
+    "title": "Choices Before Running Phase 4 Part 1 Prompt",
+    "subtitle": "Make strategic decisions to guide your concept generation process",
+    "sections": [
+      {
+        "number": "1",
+        "title": "Select and Prepare Your Top 3 Unmet Needs",
+        "items": [
+          {
+            "label": "Your Goal",
+            "content": "From your Phase 1 Market_Competitors.pdf, pinpoint three specific customer frustrations, market gaps, or unfulfilled desires that your new company could realistically address with an innovative product."
+          },
+          {
+            "label": "Look in Your Phase 1 Report",
+            "content": "Find the \"Unmet Needs\" Section and review the identified gaps, frustrations, or needs."
+          },
+          {
+            "label": "How to Choose Your Top 3",
+            "content": "Consider: **Alignment** - Which needs best match your benefit keyword and vision? **Impact** - Which needs, if solved, would provide significant value? **Innovation Space** - Which needs allow for truly differentiated solutions?"
+          },
+          {
+            "label": "Action",
+            "content": "Prepare the Unmet Needs text as concise bullet points ready to paste into the prompt field above."
+          }
+        ]
+      },
+      {
+        "number": "2",
+        "title": "Set Your Concept Scoring Weights",
+        "items": [
+          {
+            "label": "Your Goal",
+            "content": "Decide how the AI should prioritize three critical factors: **Feasibility** (development complexity), **Differentiation** (market uniqueness), **Margin Potential** (profitability)."
+          },
+          {
+            "label": "Your Task",
+            "content": "Decide on percentage weights for each factor. The three percentages must add up to 100%."
+          },
+          {
+            "label": "Key Questions",
+            "content": "What's your venture's top priority? Quickly launching viable product? (Higher Feasibility %) Standing out with novel offering? (Higher Differentiation %) Ensuring strong profitability? (Higher Margin %)"
+          }
+        ]
+      },
+      {
+        "number": "3",
+        "title": "Choose Brand Adjectives",
+        "items": [
+          {
+            "label": "Purpose",
+            "content": "Select three adjectives that capture the desired tone and feel for new product concepts. These guide creative aspects like code-names and value propositions."
+          },
+          {
+            "label": "Examples",
+            "content": "Curious, Lively, Trustworthy; Bold, Simple, Efficient; Playful, Educational, Safe; Premium, Discreet, Effective"
+          }
+        ]
+      }
+    ],
+    "action": {
+      "title": "Prepare for Prompt",
+      "items": [
+        "Gather your selected Unmet Needs text",
+        "Record your Scoring Weight percentages (must total 100%)",
+        "Choose your three Brand Adjectives",
+        "Insert these into the corresponding fields above"
+      ]
+    }
+  },
+  "stepByStepFlow": [
+    {
+      "step": 1,
+      "action": "Open a new ChatGPT chat (standard GPT-4o will work fine)"
+    },
+    {
+      "step": 2,
+      "action": "Click Upload (+) → attach competitor_matrix.csv"
+    },
+    {
+      "step": 3,
+      "action": "Copy the three circled unmet-needs bullets. Paste them at the very top of the chat"
+    },
+    {
+      "step": 4,
+      "action": "Copy the Phase 4 Prompt and replace placeholders, then send"
+    },
+    {
+      "step": 5,
+      "action": "Offline while ChatGPT thinks: sketch logo doodles or packaging ideas inspired by brand adjectives"
+    },
+    {
+      "step": 6,
+      "action": "When ChatGPT returns, review the information. Check BOM estimates for plausibility"
+    },
+    {
+      "step": 7,
+      "action": "Debate the recommendation; if you disagree, adjust scoring weights and ask ChatGPT to recalc"
+    },
+    {
+      "step": 8,
+      "action": "Copy winning concept block into new text file concept.txt. Save to project folder"
+    }
+  ],
+  "expectedOutput": {
+    "fileCreated": "Phase_4_Offer_Concepts.docx and concept.txt",
+    "whyItMatters": "The code-name becomes the file prefix for all media assets. Value prop & features feed directly into storyboard text and website copy. BOM and Mid-tier price anchor future investor and FAQ answers.",
+    "nextSteps": "With the hero concept locked, color palette set, and adjectives defined, you're primed to create visuals, audio, and video in Phase 5's Media Factory."
+  }
 }
