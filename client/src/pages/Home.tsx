@@ -105,15 +105,14 @@ export default function Home() {
             <CardTitle className="text-2xl text-center">The 7-Phase Journey</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 { phase: 1, title: "Market & Competitor Research", description: "Panoramic, data-backed view of market size, competitors, and customer pain points using AI analysis" },
                 { phase: 2, title: "Competitor Matrix Construction", description: "Transform research into quantitative competitor matrix with threat scoring and strategic gaps" },
                 { phase: 3, title: "Market Positioning & Value Proposition", description: "Craft differentiated market position and compelling value proposition for target customers" },
                 { phase: 4, title: "Product Design & Feature Definition", description: "Define MVP features, user experience, and technical architecture for your core offering" },
                 { phase: 5, title: "Media Kit & Brand Assets", description: "Create comprehensive brand messaging, visual guidelines, and marketing materials" },
-                { phase: 6, title: "Website & Digital Presence", description: "Build conversion-optimized website with clear value proposition and lead generation" },
-                { phase: 7, title: "Launch Strategy & Go-to-Market", description: "Comprehensive launch plan with customer acquisition, marketing channels, and success metrics" }
+                { phase: 6, title: "Website & Digital Presence", description: "Build conversion-optimized website with clear value proposition and lead generation" }
               ].map((phase) => (
                 <div key={phase.phase} className="text-center">
                   <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center mx-auto mb-3">
@@ -123,6 +122,17 @@ export default function Home() {
                   <p className="text-sm text-gray-600">{phase.description}</p>
                 </div>
               ))}
+            </div>
+            
+            {/* Phase 7 centered separately */}
+            <div className="flex justify-center mt-6">
+              <div className="text-center max-w-sm">
+                <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center mx-auto mb-3">
+                  <span className="text-white font-semibold">7</span>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-2">Launch Strategy & Go-to-Market</h3>
+                <p className="text-sm text-gray-600">Comprehensive launch plan with customer acquisition, marketing channels, and success metrics</p>
+              </div>
             </div>
           </CardContent>
         </Card>
