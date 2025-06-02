@@ -1,18 +1,14 @@
 {
   "phase": 3,
   "title": "Background Research: OpenAI Deep-Research",
-  "intro": "Compelling strategy needs credible proof. Investors & customers will ask \"Why should customers believe your claim?\" In this phase you'll commission OpenAI's Deep-Research engine to compile a tightly-sourced dossier of peer-reviewed findings that validate your core benefit (e.g., play-driven learning, AI-assisted wellness). The resulting PDF will: • Fuel the authority of your marketing copy, podcast, and voice agent • Supply headline statistics and inform the creation of other communications assets • Provide citations savvy stakeholders can audit",
+  "intro": "Compelling strategy needs credible proof. Investors & customers will ask \"Why should customers believe your claim?\" In this phase you'll commission OpenAI's Deep-Research engine to compile a tightly-sourced dossier of peer-reviewed findings that validate your core benefit (e.g., play-driven learning, AI-assisted wellness). The resulting PDF will:\n\n• Fuel the authority of your marketing copy, podcast, and voice agent\n• Supply headline statistics and inform the creation of other communications assets\n• Provide citations savvy stakeholders can audit",
   "estimatedTime": "15 minutes",
   "fields": [
     {
       "id": "evidence_horizon",
       "label": "Evidence Horizon",
-      "type": "select",
-      "options": [
-        { "value": "5", "label": "Last 5 years (fast-moving tech sectors)" },
-        { "value": "10", "label": "Last 10 years (default)" },
-        { "value": "15", "label": "Last 15 years (broader historical context)" }
-      ],
+      "type": "text",
+      "placeholder": "e.g., 10 years",
       "required": true,
       "persist": true,
       "help": "How recent must studies be for your research?"
@@ -20,26 +16,20 @@
     {
       "id": "tone_preference",
       "label": "Tone for Pull-Quotes",
-      "type": "select",
-      "options": [
-        { "value": "academic", "label": "Academic gravitas" },
-        { "value": "practitioner", "label": "Relatable practitioner" }
-      ],
+      "type": "text",
+      "placeholder": "e.g., academic gravitas, relatable practitioner",
       "required": true,
       "persist": true,
-      "help": "Choose the tone style for research citations"
+      "help": "What tone will resonate with your audience?"
     },
     {
       "id": "statistic_style",
       "label": "Preferred Statistic Style",
-      "type": "select",
-      "options": [
-        { "value": "percentages", "label": "Percentages (e.g., 85% improvement)" },
-        { "value": "absolute", "label": "Absolute gains (e.g., 3x faster results)" }
-      ],
+      "type": "text",
+      "placeholder": "e.g., percentages, absolute gains",
       "required": true,
       "persist": true,
-      "help": "Format preference for statistics in your research"
+      "help": "How should impact be presented in your marketing materials?"
     },
     {
       "id": "benefit_keyword",
@@ -71,7 +61,7 @@
         "items": [
           {
             "label": "Decision",
-            "content": "How recent must studies be? **Default: last 10 years.** You may tighten to 5 years for fast-moving tech sectors."
+            "content": "How recent must studies be? Default: last 10 years. You could, for instance, tighten it to 5 years for fast-moving tech sectors."
           }
         ]
       },
@@ -81,7 +71,7 @@
         "items": [
           {
             "label": "Decision",
-            "content": "Choose either **academic gravitas** or **relatable practitioner** tone for your research citations and quotes."
+            "content": "Who is your audience? Come up with a tone that will resonate with them, like \"academic gravitas\" or \"relatable practitioner\" for your research citations and quotes."
           }
         ]
       },
@@ -91,7 +81,7 @@
         "items": [
           {
             "label": "Decision",
-            "content": "**Percentages** vs. **absolute gains** (helps later headline selection). This will determine how impact is presented in your marketing materials."
+            "content": "Percentages vs. absolute gains (helps later headline selection). This will determine how impact is presented in your marketing materials."
           }
         ]
       }
@@ -99,31 +89,26 @@
     "action": {
       "title": "Action",
       "items": [
-        "Write your three choices; you will paste them into the prompt.",
-        "Record especially {{benefit_keyword}}, {{sector}}, and {{target_region}} for the research focus."
+        "Input your descriptions in the corresponding fields below."
       ]
     }
   },
   "stepByStepFlow": [
     {
       "step": 1,
-      "action": "**Open** ChatGPT → within *\"Tools\"* **select** *Run Deep Research*.",
-      "time": "15 s"
+      "action": "**Open** ChatGPT → within *\"Tools\"* **select** *Run Deep Research*."
     },
     {
       "step": 2,
-      "action": "**Customize** and adapt the Phase 3 Prompt (below) for your company. **Replace** placeholders with your horizon, tone, stat style; **insert** variables.",
-      "time": "1 min"
+      "action": "**Customize** and adapt the Phase 3 Prompt (below) for your company. **Replace** placeholders with your horizon, tone, stat style; **insert** variables."
     },
     {
       "step": 3,
-      "action": "**Submit**. Deep-Research will consider your request for a few seconds. As a team **determine** your answers to these questions and **submit** them and then Deep Research get started. Typical run ≈ 7–8 min.",
-      "time": "Model run"
+      "action": "**Submit**. Deep-Research will consider your request for a few seconds. As a team **determine** your answers to these questions and **submit** them and then Deep Research get started. Typical run ≈ 7–8 min."
     },
     {
       "step": 4,
-      "action": "Now that the research is running you can **move on to Phase 4**. Once it is done, **press** the share icon and then **download** it as a pdf, then **change** the name to *Science_Evidence.pdf*.",
-      "time": "5 min"
+      "action": "Now that the research is running you can **move on to Phase 4**. Once it is done, **press** the share icon and then **download** it as a pdf, then **change** the name to *Science_Evidence.pdf*."
     }
   ],
   "expectedOutput": {

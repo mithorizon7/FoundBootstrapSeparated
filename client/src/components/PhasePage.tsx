@@ -232,6 +232,23 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
     ...allPhaseData,
   };
 
+  // Organize phase data by phase number for template variables like {{phase1.field}}
+  if (Array.isArray(allPhaseData)) {
+    allPhaseData.forEach(phaseDataItem => {
+      const phaseKey = `phase${phaseDataItem.phaseNumber}`;
+      templateData[phaseKey] = { ...templateData[phaseKey], ...phaseDataItem.data };
+    });
+  } else {
+    // Handle localStorage format where data is organized by phase keys
+    Object.keys(allPhaseData).forEach(key => {
+      if (key.startsWith('phase-')) {
+        const phaseNumber = key.split('-')[1];
+        const phaseKey = `phase${phaseNumber}`;
+        templateData[phaseKey] = { ...templateData[phaseKey], ...allPhaseData[key] };
+      }
+    });
+  }
+
   const progressPercentage = (config.phase / 7) * 100;
   
   // Check for actual missing required fields, not just validation errors
