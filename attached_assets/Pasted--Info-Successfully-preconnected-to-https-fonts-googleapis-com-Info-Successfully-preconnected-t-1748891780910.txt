@@ -1,0 +1,64 @@
+[Info] Successfully preconnected to https://fonts.googleapis.com/
+[Info] Successfully preconnected to https://fonts.gstatic.com/
+[Debug] [vite] connecting... (client, line 495)
+[Debug] [vite] connected. (client, line 618)
+[Log] allPhaseData: (PhasePage.tsx, line 167)
+Object
+No Properties
+
+Object Prototype
+[Log] Array.isArray(allPhaseData): – false (PhasePage.tsx, line 168)
+[Log] Final templateData: (PhasePage.tsx, line 187)
+Object
+No Properties
+
+Object Prototype
+[Log] allPhaseData: (PhasePage.tsx, line 167)
+Object
+No Properties
+
+Object Prototype
+[Log] Array.isArray(allPhaseData): – false (PhasePage.tsx, line 168)
+[Log] Final templateData: (PhasePage.tsx, line 187)
+Object
+No Properties
+
+Object Prototype
+[Log] allPhaseData: (PhasePage.tsx, line 167)
+Object
+No Properties
+
+Object Prototype
+[Log] Array.isArray(allPhaseData): – false (PhasePage.tsx, line 168)
+[Log] Final templateData: – Object (PhasePage.tsx, line 187)
+Object
+[Log] allPhaseData: – Object (PhasePage.tsx, line 167)
+Object
+[Log] Array.isArray(allPhaseData): – false (PhasePage.tsx, line 168)
+[Log] Final templateData: – Object (PhasePage.tsx, line 187)
+Object
+[Log] allPhaseData: – Object (PhasePage.tsx, line 167)
+Object
+[Log] Array.isArray(allPhaseData): – false (PhasePage.tsx, line 168)
+[Log] Final templateData: – Object (PhasePage.tsx, line 187)
+Object
+[Log] allPhaseData: – Object (PhasePage.tsx, line 167)
+Object
+[Log] Array.isArray(allPhaseData): – false (PhasePage.tsx, line 168)
+[Log] Final templateData: – Object (PhasePage.tsx, line 187)
+Object
+[Log] allPhaseData: – Object (PhasePage.tsx, line 167)
+Object
+[Log] Array.isArray(allPhaseData): – false (PhasePage.tsx, line 168)
+[Log] Final templateData: – Object (PhasePage.tsx, line 187)
+Object
+[Log] allPhaseData: – Object (PhasePage.tsx, line 167)
+Object
+[Log] Array.isArray(allPhaseData): – false (PhasePage.tsx, line 168)
+[Log] Final templateData: – Object (PhasePage.tsx, line 187)
+Object
+[Log] allPhaseData: – Object (PhasePage.tsx, line 167)
+Object
+[Log] Array.isArray(allPhaseData): – false (PhasePage.tsx, line 168)
+[Log] Final templateData: – Object (PhasePage.tsx, line 187)
+Object

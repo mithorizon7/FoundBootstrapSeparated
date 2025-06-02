@@ -87,10 +87,12 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
           
           // Load all phase data for cross-phase templating
           const allData = await getAllPhaseDataForTeam(teamId);
+          console.log('Raw allData from API:', allData);
           const processedData: Record<string, any> = {};
           allData.forEach(data => {
             processedData[`phase${data.phaseNumber}`] = data.data;
           });
+          console.log('Processed data for template:', processedData);
           setAllPhaseData(processedData);
         } catch (error) {
           console.error('Error loading team data:', error);
