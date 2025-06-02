@@ -39,7 +39,7 @@ export default function Phase() {
   // Fetch phase configuration
   const { data: phaseConfig, isLoading: configLoading, error: configError } = useQuery<PhaseConfig>({
     queryKey: [`/api/configs/phase-${phaseId}`],
-    enabled: phaseId >= 1 && phaseId <= 7,
+    enabled: phaseId >= 1 && phaseId <= 8,
   });
 
   // Fetch team data if team code is provided

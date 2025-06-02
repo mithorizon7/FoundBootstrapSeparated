@@ -273,7 +273,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
             <div>
               <CardTitle className="text-2xl page-title">{config.title}</CardTitle>
               <p className="text-sm text-gray-600 ui-label">
-                Phase {config.phase} of 7
+                Phase {config.phase} of 8
                 {config.estimatedTime && ` • ${config.estimatedTime}`}
               </p>
             </div>

@@ -102,17 +102,17 @@ export default function Home() {
         {/* Process Overview */}
         <Card className="bg-white">
           <CardHeader>
-            <CardTitle className="text-2xl text-center">The 7-Phase Journey</CardTitle>
+            <CardTitle className="text-2xl text-center">The 8-Phase Journey</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {[
                 { phase: 1, title: "Market & Competitor Research", description: "Panoramic, data-backed view of market size, competitors, and customer pain points using AI analysis" },
                 { phase: 2, title: "Competitor Matrix Construction", description: "Transform research into quantitative competitor matrix with threat scoring and strategic gaps" },
-                { phase: 3, title: "Market Positioning & Value Proposition", description: "Craft differentiated market position and compelling value proposition for target customers" },
-                { phase: 4, title: "Product Design & Feature Definition", description: "Define MVP features, user experience, and technical architecture for your core offering" },
-                { phase: 5, title: "Media Kit & Brand Assets", description: "Create comprehensive brand messaging, visual guidelines, and marketing materials" },
-                { phase: 6, title: "Website & Digital Presence", description: "Build conversion-optimized website with clear value proposition and lead generation" }
+                { phase: 3, title: "Background Research: OpenAI Deep-Research", description: "Commission AI-powered research to compile peer-reviewed evidence validating your core benefit" },
+                { phase: 4, title: "Design & Select the Hero Offer: Part 1", description: "Generate and score three product concepts to crown your single 'hero offer' for market" },
+                { phase: 5, title: "Product Design & Feature Definition: Part 2", description: "Transform hero concept into detailed MVP specification with features and user experience" },
+                { phase: 6, title: "Media Kit & Brand Assets", description: "Create comprehensive brand messaging, visual guidelines, and marketing materials" }
               ].map((phase) => (
                 <div key={phase.phase} className="text-center">
                   <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center mx-auto mb-3">
@@ -124,11 +124,18 @@ export default function Home() {
               ))}
             </div>
             
-            {/* Phase 7 centered separately */}
-            <div className="flex justify-center mt-6">
+            {/* Phases 7 and 8 centered separately */}
+            <div className="flex justify-center mt-6 gap-8">
               <div className="text-center max-w-sm">
                 <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center mx-auto mb-3">
                   <span className="text-white font-semibold">7</span>
+                </div>
+                <h3 className="font-semibold text-gray-900 mb-2">Website & Digital Presence</h3>
+                <p className="text-sm text-gray-600">Build conversion-optimized website with clear value proposition and lead generation</p>
+              </div>
+              <div className="text-center max-w-sm">
+                <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center mx-auto mb-3">
+                  <span className="text-white font-semibold">8</span>
                 </div>
                 <h3 className="font-semibold text-gray-900 mb-2">Launch Strategy & Go-to-Market</h3>
                 <p className="text-sm text-gray-600">Comprehensive launch plan with customer acquisition, marketing channels, and success metrics</p>
