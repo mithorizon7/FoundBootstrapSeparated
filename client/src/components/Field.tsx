@@ -2,6 +2,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { cn } from "@/lib/utils";
 
 interface FieldConfig {
   id: string;
@@ -33,7 +34,7 @@ export function Field({ config, value, onChange, error }: FieldProps) {
             placeholder={placeholder}
             value={value}
             onChange={(e) => onChange(e.target.value)}
-            className={`transition-all duration-200 ${error ? 'border-red-300' : ''}`}
+            className={cn("input-premium", error && 'border-red-300 focus:border-red-400')}
             required={required}
           />
         );
@@ -41,7 +42,7 @@ export function Field({ config, value, onChange, error }: FieldProps) {
       case "select":
         return (
           <Select value={value} onValueChange={onChange} required={required}>
-            <SelectTrigger className={`transition-all duration-200 ${error ? 'border-red-300' : ''}`}>
+            <SelectTrigger className={cn("input-premium", error && 'border-red-300 focus:border-red-400')}>
               <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent>
@@ -82,7 +83,7 @@ export function Field({ config, value, onChange, error }: FieldProps) {
             placeholder={placeholder}
             value={value}
             onChange={(e) => onChange(e.target.value)}
-            className={`transition-all duration-200 ${error ? 'border-red-300' : ''}`}
+            className={cn("input-premium", error && 'border-red-300 focus:border-red-400')}
             required={required}
           />
         );
