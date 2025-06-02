@@ -403,28 +403,32 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                         <CollapsibleContent>
                           <div className="px-6 pb-6 border-t border-neutral-100">
                             <div className="pt-4 space-y-4">
-                              <h4 className="font-semibold text-neutral-800 text-lg">{step.details.title}</h4>
-                              {step.details.steps.map((detailStep, index) => (
-                                <div key={index} className="flex items-start space-x-3 bg-neutral-50 rounded-lg p-4">
-                                  <div className="flex-shrink-0">
-                                    <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center text-xs font-semibold text-primary">
-                                      {detailStep.number}
+                              {step.details && (
+                                <>
+                                  <h4 className="font-semibold text-neutral-800 text-lg">{step.details.title}</h4>
+                                  {step.details.steps.map((detailStep, index) => (
+                                    <div key={index} className="flex items-start space-x-3 bg-neutral-50 rounded-lg p-4">
+                                      <div className="flex-shrink-0">
+                                        <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center text-xs font-semibold text-primary">
+                                          {detailStep.number}
+                                        </div>
+                                      </div>
+                                      <div className="flex-1">
+                                        <div 
+                                          className="text-sm text-neutral-700 leading-relaxed"
+                                          dangerouslySetInnerHTML={{
+                                            __html: detailStep.action
+                                              .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-neutral-800">$1</strong>')
+                                              .replace(/\*([^*]+)\*/g, '<em class="italic text-primary font-medium">$1</em>')
+                                              .replace(/•\s/g, '<br/>• ')
+                                              .replace(/\n/g, '<br/>')
+                                          }}
+                                        />
+                                      </div>
                                     </div>
-                                  </div>
-                                  <div className="flex-1">
-                                    <div 
-                                      className="text-sm text-neutral-700 leading-relaxed"
-                                      dangerouslySetInnerHTML={{
-                                        __html: detailStep.action
-                                          .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-neutral-800">$1</strong>')
-                                          .replace(/\*([^*]+)\*/g, '<em class="italic text-primary font-medium">$1</em>')
-                                          .replace(/•\s/g, '<br/>• ')
-                                          .replace(/\n/g, '<br/>')
-                                      }}
-                                    />
-                                  </div>
-                                </div>
-                              ))}
+                                  ))}
+                                </>
+                              )}
                             </div>
                           </div>
                         </CollapsibleContent>
