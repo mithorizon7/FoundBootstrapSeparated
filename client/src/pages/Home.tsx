@@ -51,7 +51,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-accent-50">
       <NavigationHeader />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
@@ -67,11 +67,11 @@ export default function Home() {
             </div>
           </div>
           
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">
+          <h1 className="text-5xl font-bold text-neutral-800 mb-6 page-title">
             Found a Company in <span className="text-primary">Two Hours</span>
           </h1>
           
-          <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
+          <p className="text-xl text-neutral-600 mb-8 max-w-3xl mx-auto ui-label">
             A sprint that shows how a small team armed with today's generative-AI tools can do—in a single workshop—what once took weeks: scout a market, design a differentiated offer, create a full media kit, and launch a live, interactive, AI-powered website.
           </p>
           
@@ -101,13 +101,13 @@ export default function Home() {
           {features.map((feature, index) => (
             <Card key={index} className="text-center">
               <CardHeader>
-                <div className="w-12 h-12 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
                   <feature.icon className="w-6 h-6 text-primary" />
                 </div>
-                <CardTitle className="text-xl">{feature.title}</CardTitle>
+                <CardTitle className="text-xl section-header">{feature.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-gray-600">{feature.description}</p>
+                <p className="text-neutral-600 ui-label">{feature.description}</p>
               </CardContent>
             </Card>
           ))}
