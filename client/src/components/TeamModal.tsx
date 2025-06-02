@@ -111,7 +111,7 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
             <img 
               src={logoSrc} 
               alt="Found-in-Two Logo" 
-              className="w-12 h-12 object-contain"
+              className="w-10 h-10 object-contain"
             />
           </div>
           <DialogTitle className="text-2xl font-bold page-title">Welcome to Found-in-Two</DialogTitle>
