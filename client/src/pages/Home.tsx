@@ -11,14 +11,7 @@ export default function Home() {
   const [teamModalOpen, setTeamModalOpen] = useState(false);
   const [, setLocation] = useLocation();
 
-  useEffect(() => {
-    // Check if user has any saved progress
-    const hasLocalData = localStorage.getItem('phase1_data');
-    if (!hasLocalData) {
-      // Show team modal for new users
-      setTeamModalOpen(true);
-    }
-  }, []);
+  // Removed automatic modal popup - now only opens when user clicks "Get Started"
 
   const handleGetStarted = () => {
     setTeamModalOpen(true);
@@ -85,14 +78,7 @@ export default function Home() {
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
             
-            <Button
-              onClick={handleContinue}
-              variant="outline"
-              size="lg"
-              className="px-8 py-4 text-lg"
-            >
-              Continue Alone
-            </Button>
+
           </div>
         </div>
 

@@ -4,10 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Users, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { generateTeamCode } from "@/lib/utils";
 import { createTeam, getTeamByCode } from "@/lib/db";
 import { useLocation } from "wouter";
+import logoSrc from "@/assets/logo.png";
 
 interface TeamModalProps {
   isOpen: boolean;
@@ -106,10 +107,14 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-md">
         <DialogHeader className="text-center">
-          <div className="w-16 h-16 bg-primary bg-opacity-10 rounded-full flex items-center justify-center mx-auto mb-4">
-            <Users className="w-8 h-8 text-primary" />
+          <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg border border-neutral-200">
+            <img 
+              src={logoSrc} 
+              alt="Found-in-Two Logo" 
+              className="w-12 h-12 object-contain"
+            />
           </div>
-          <DialogTitle className="text-2xl font-bold">Welcome to Found-in-Two</DialogTitle>
+          <DialogTitle className="text-2xl font-bold page-title">Welcome to Found-in-Two</DialogTitle>
           <DialogDescription>
             Create or join a team to get started with your startup journey
           </DialogDescription>
@@ -129,7 +134,7 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
             <Button
               onClick={handleCreateTeam}
               disabled={loading}
-              className="w-full bg-primary text-white hover:bg-blue-700 flex items-center justify-center space-x-2"
+              className="w-full bg-primary text-white hover:bg-primary/90 flex items-center justify-center space-x-2"
             >
               <Plus className="w-4 h-4" />
               <span>Create New Team</span>
