@@ -87,12 +87,10 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
           
           // Load all phase data for cross-phase templating
           const allData = await getAllPhaseDataForTeam(teamId);
-          console.log('Raw allData from API:', allData);
           const processedData: Record<string, any> = {};
           allData.forEach(data => {
             processedData[`phase${data.phaseNumber}`] = data.data;
           });
-          console.log('Processed data for template:', processedData);
           setAllPhaseData(processedData);
         } catch (error) {
           console.error('Error loading team data:', error);
@@ -233,18 +231,14 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
     ...formData,
   };
 
-  // Debug logging to understand data structure
-  console.log('allPhaseData:', allPhaseData);
-  console.log('Array.isArray(allPhaseData):', Array.isArray(allPhaseData));
-
   // Organize phase data by phase number for template variables like {{phase1.field}}
   if (Array.isArray(allPhaseData)) {
     // Database format: array of phase data objects
     allPhaseData.forEach((phaseDataItem: any) => {
       const phaseKey = `phase${phaseDataItem.phaseNumber}`;
       templateData[phaseKey] = { 
-        ...(templateData[phaseKey] as object || {}), 
-        ...(phaseDataItem.data as object || {}) 
+        ...(typeof templateData[phaseKey] === 'object' ? templateData[phaseKey] : {}), 
+        ...(typeof phaseDataItem.data === 'object' ? phaseDataItem.data : {}) 
       };
     });
   } else if (allPhaseData && typeof allPhaseData === 'object') {
@@ -252,14 +246,12 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
     Object.keys(allPhaseData).forEach(phaseKey => {
       if (phaseKey.startsWith('phase') && (allPhaseData as any)[phaseKey]) {
         templateData[phaseKey] = { 
-          ...(templateData[phaseKey] as object || {}), 
-          ...((allPhaseData as any)[phaseKey] as object || {}) 
+          ...(typeof templateData[phaseKey] === 'object' ? templateData[phaseKey] : {}), 
+          ...(typeof (allPhaseData as any)[phaseKey] === 'object' ? (allPhaseData as any)[phaseKey] : {}) 
         };
       }
     });
   }
-
-  console.log('Final templateData:', templateData);
 
   const progressPercentage = (config.phase / 7) * 100;
   

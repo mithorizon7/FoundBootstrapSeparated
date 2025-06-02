@@ -1,0 +1,171 @@
+[Log] allPhaseData: (PhasePage.tsx, line 169)
+Object
+No Properties
+
+Object Prototype
+
+__defineGetter__(propertyName, getterFunction)
+
+__defineSetter__(propertyName, setterFunction)
+
+__lookupGetter__(propertyName)
+
+__lookupSetter__(propertyName)
+
+constructor: function()
+
+arguments: TypeError: 'arguments', 'callee', and 'caller' cannot be accessed in this context.
+
+assign(target, ...sources)
+
+caller: TypeError: 'arguments', 'callee', and 'caller' cannot be accessed in this context.
+
+create(prototype, [propertiesObject])
+
+defineProperties(object, properties)
+
+defineProperty(object, propertyName, descriptor)
+
+entries()
+
+freeze(object)
+
+fromEntries()
+
+getOwnPropertyDescriptor(object, propertyName)
+
+getOwnPropertyDescriptors()
+
+getOwnPropertyNames(object)
+
+getOwnPropertySymbols(object)
+
+getPrototypeOf(object)
+
+groupBy()
+
+hasOwn()
+
+is(value1, value2)
+
+isExtensible(object)
+
+isFrozen(object)
+
+isSealed(object)
+
+keys(object)
+
+length: 1
+
+name: "Object"
+
+preventExtensions(object)
+
+prototype: {}
+
+seal(object)
+
+setPrototypeOf(object, prototype)
+
+values()
+
+Function Prototype
+
+hasOwnProperty(propertyName)
+
+isPrototypeOf(property)
+
+propertyIsEnumerable(propertyName)
+
+toLocaleString()
+
+toString()
+
+valueOf()
+[Log] Array.isArray(allPhaseData): – false (PhasePage.tsx, line 170)
+[Log] Final templateData: (PhasePage.tsx, line 189)
+Object
+No Properties
+
+Object Prototype
+
+__defineGetter__(propertyName, getterFunction)
+
+__defineSetter__(propertyName, setterFunction)
+
+__lookupGetter__(propertyName)
+
+__lookupSetter__(propertyName)
+
+constructor: function()
+
+arguments: TypeError: 'arguments', 'callee', and 'caller' cannot be accessed in this context.
+
+assign(target, ...sources)
+
+caller: TypeError: 'arguments', 'callee', and 'caller' cannot be accessed in this context.
+
+create(prototype, [propertiesObject])
+
+defineProperties(object, properties)
+
+defineProperty(object, propertyName, descriptor)
+
+entries()
+
+freeze(object)
+
+fromEntries()
+
+getOwnPropertyDescriptor(object, propertyName)
+
+getOwnPropertyDescriptors()
+
+getOwnPropertyNames(object)
+
+getOwnPropertySymbols(object)
+
+getPrototypeOf(object)
+
+groupBy()
+
+hasOwn()
+
+is(value1, value2)
+
+isExtensible(object)
+
+isFrozen(object)
+
+isSealed(object)
+
+keys(object)
+
+length: 1
+
+name: "Object"
+
+preventExtensions(object)
+
+prototype: {}
+
+seal(object)
+
+setPrototypeOf(object, prototype)
+
+values()
+
+Function Prototype
+
+hasOwnProperty(propertyName)
+
+isPrototypeOf(property)
+
+propertyIsEnumerable(propertyName)
+
+toLocaleString()
+
+toString()
+
+valueOf()
