@@ -264,9 +264,14 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                       </div>
                     </div>
                     <div className="flex-1">
-                      <p className="text-gray-800 text-premium leading-relaxed group-hover:text-gray-900 transition-colors duration-200">
-                        {step.action}
-                      </p>
+                      <div 
+                        className="text-gray-800 text-premium leading-relaxed group-hover:text-gray-900 transition-colors duration-200"
+                        dangerouslySetInnerHTML={{
+                          __html: step.action
+                            .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-gray-900">$1</strong>')
+                            .replace(/\*([^*]+)\*/g, '<em class="italic text-blue-700 font-medium">$1</em>')
+                        }}
+                      />
                     </div>
                   </div>
                 </div>

@@ -1,0 +1,25 @@
+I'm looking to improve the readability and engagement of the text blocks within [mention the specific section, e.g., "the Step-by-Step Workflow" or "the AI Prompt Preview text"]. Right now, they're a bit dense, and I think some strategic typographic emphasis could really help guide the user's eye and highlight crucial information.
+
+Here are some ideas on what we could emphasize and how:
+
+Highlighting Key Actions/Verbs:
+
+For instance, in the workflow steps, words like "Open," "Copy," "Submit," "Select," "Press," "Rename," "Download" could be bolded to make the primary action of each step immediately clear.
+Emphasizing Specific Terms/Options/Inputs:
+
+Names of tools, options, or specific text the user needs to interact with, like "Deep Research" option, "Market_Competitors" (for the filename), or placeholders like {{company_name}} in the AI prompt preview could be styled. Perhaps bold or a subtle accent color (ensuring good contrast).
+For example, in Step 1: "Open Gemini (...) and in the chat box select the “Deep Research” option."
+In Step 6: "...rename the file "Market_Competitors" and download it as a PDF."
+Drawing Attention to Important Notes or Values:
+
+Things like time estimates (e.g., "4-9 minutes") or crucial instructions could stand out. Maybe this is where a different color (again, high contrast and not the sole indicator) or italics could be used judiciously.
+Improving Scannability of Lists or Sequential Actions within a Block:
+
+If a single step involves multiple sub-actions (like in Step 3: "...begin searching, analyzing, and synthesizing information..."), bolding these key processes might help.
+Things to Consider:
+
+Consistency: Let's aim for a consistent approach across all similar text blocks.
+Balance: We want to avoid overdoing it. The goal is clarity, not a visual cacophony.
+Accessibility: Please ensure any color usage is accessible (good contrast ratios) and not the only means of conveying information.
+Could you propose a few ways we could implement this, perhaps starting with one or two of the workflow steps as an example? I'm open to your suggestions on whether bold, italics, color, or a combination works best within our existing design language.
+
