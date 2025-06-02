@@ -265,13 +265,13 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
 
       {/* Decision Box Content */}
       {config.decisionBoxContent && (
-        <Card className="bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200 card-premium">
+        <Card className="bg-gradient-to-r from-primary-100 to-neutral-100 border-primary-400/30 card-premium">
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-blue-800 section-header">
+            <CardTitle className="flex items-center space-x-2 text-neutral-800 section-header">
               <Vote className="w-5 h-5 text-primary" />
               <span>Phase {config.phase} Decision Box: {config.decisionBoxContent.title}</span>
             </CardTitle>
-            <p className="text-blue-700 mt-2 ui-label">
+            <p className="text-neutral-600 mt-2 ui-label">
               {config.decisionBoxContent.subtitle}
             </p>
           </CardHeader>
@@ -286,9 +286,9 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                 </h3>
                 <div className="space-y-4">
                   {section.items.map((item, itemIndex) => (
-                    <div key={itemIndex} className="border-l-4 border-primary/20 pl-4">
-                      <h4 className="font-semibold text-neutral-700 mb-2">{item.label}:</h4>
-                      <p className="text-neutral-600 leading-relaxed ui-label" dangerouslySetInnerHTML={{ __html: item.content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\*(.*?)\*/g, '<em>$1</em>') }} />
+                    <div key={itemIndex} className="border-l-4 border-primary/30 pl-4">
+                      <h4 className="font-semibold text-neutral-800 mb-2">{item.label}:</h4>
+                      <p className="text-neutral-700 leading-relaxed ui-label" dangerouslySetInnerHTML={{ __html: item.content.replace(/\*\*(.*?)\*\*/g, '<strong class="text-neutral-800">$1</strong>').replace(/\*(.*?)\*/g, '<em class="text-primary font-medium">$1</em>') }} />
                     </div>
                   ))}
                 </div>
@@ -296,17 +296,17 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
             ))}
             
             {/* Action Section */}
-            <div className="bg-primary/5 rounded-lg p-6 border border-primary/20">
+            <div className="bg-primary/10 rounded-lg p-6 border border-primary/30">
               <h3 className="text-lg font-semibold text-primary mb-3 flex items-center space-x-2">
                 <ArrowRight className="w-5 h-5" />
                 <span>{config.decisionBoxContent.action.title}</span>
               </h3>
-              <p className="text-neutral-700 mb-3 ui-label">Once decided, write down:</p>
+              <p className="text-neutral-800 mb-3 ui-label font-medium">Once decided, write down:</p>
               <ul className="space-y-2">
                 {config.decisionBoxContent.action.items.map((item, index) => (
                   <li key={index} className="flex items-start space-x-2">
                     <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                    <span className="text-neutral-700 ui-label" dangerouslySetInnerHTML={{ __html: item.replace(/\{\{(.*?)\}\}/g, '<strong>$1</strong>') }} />
+                    <span className="text-neutral-700 ui-label" dangerouslySetInnerHTML={{ __html: item.replace(/\{\{(.*?)\}\}/g, '<strong class="text-neutral-800">$1</strong>') }} />
                   </li>
                 ))}
               </ul>
