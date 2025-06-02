@@ -1,85 +1,267 @@
 {
   "phase": 7,
-  "title": "Website & Digital Presence",
-  "intro": "Transform your selected hero concept into a detailed product specification. Define your Minimum Viable Product (MVP), core features, and user experience that delivers on your value proposition while staying focused on your target customer's most critical needs.",
-  "estimatedTime": "20 minutes",
+  "title": "ElevenLabs Call-Agent: Give Your Brand an Expert to Talk To",
+  "intro": "Websites and videos inform, but a live voice interaction builds trust. In this phase you'll launch a phone concierge powered by ElevenLabs' Call-API that can answer parents' questions using only the vetted sources stored in your Notebook LM evidence hub. Within minutes you could dial a real number (or in this case talk over the website) and ask \"Is this toy safe for five-year-olds?\" and hear an on-brand, fact-backed reply.",
+  "estimatedTime": "15 minutes",
   "fields": [
     {
-      "id": "product_type",
-      "label": "Product Type",
+      "id": "agent_name",
+      "label": "Voice Agent Name",
+      "type": "text",
+      "placeholder": "e.g., Alex, Sarah, Morgan",
+      "required": true,
+      "persist": true,
+      "help": "Choose a friendly name for your AI voice concierge"
+    },
+    {
+      "id": "agent_persona",
+      "label": "Agent Persona & Role",
+      "type": "textarea",
+      "placeholder": "You are 'Alex', a friendly, knowledgeable, and patient product concierge for [Company Name]. Your specialty is providing clear information about our new [Concept Code] offering.",
+      "required": true,
+      "persist": true,
+      "help": "Define who the AI is, its function, and key characteristics"
+    },
+    {
+      "id": "conversation_context",
+      "label": "Environment & Context",
+      "type": "textarea",
+      "placeholder": "You are interacting with users over the phone or on the website. The user is typically a parent interested in [Concept Code]. They may be curious, potentially cautious, or sometimes multitasking.",
+      "required": true,
+      "persist": true,
+      "help": "Describe the communication channel and likely user context"
+    },
+    {
+      "id": "knowledge_source_handling",
+      "label": "Knowledge Source Handling",
       "type": "select",
       "required": true,
       "persist": true,
-      "help": "Primary product format",
+      "help": "Choose how strictly the AI uses your provided sources vs. general knowledge",
       "options": [
-        { "value": "Software/App", "label": "Software/App" },
-        { "value": "Physical Product", "label": "Physical Product" },
-        { "value": "Service", "label": "Service" },
-        { "value": "Platform", "label": "Platform" },
-        { "value": "Hardware + Software", "label": "Hardware + Software" }
+        { "value": "strict", "label": "Strict Control - Only use provided knowledge base" },
+        { "value": "flexible", "label": "Prioritized Flexibility - Use knowledge base first, supplement when needed" }
       ]
     },
     {
-      "id": "core_user_story",
-      "label": "Core User Story",
+      "id": "boundaries_rules",
+      "label": "Boundaries & Safety Rules",
       "type": "textarea",
-      "placeholder": "As a [user type], I want to [accomplish goal] so that [benefit achieved]",
+      "placeholder": "Never speculate or invent answers. Do not provide medical, legal, or financial advice. Avoid discussing competitors.",
       "required": true,
       "persist": true,
-      "help": "Primary user story your product solves"
-    },
-    {
-      "id": "mvp_feature_1",
-      "label": "MVP Feature #1",
-      "type": "text",
-      "placeholder": "e.g., Automated inventory tracking",
-      "required": true,
-      "persist": true,
-      "help": "Most critical feature for launch"
-    },
-    {
-      "id": "mvp_feature_2",
-      "label": "MVP Feature #2",
-      "type": "text",
-      "placeholder": "e.g., Real-time analytics dashboard",
-      "required": true,
-      "persist": true,
-      "help": "Second most important feature"
-    },
-    {
-      "id": "mvp_feature_3",
-      "label": "MVP Feature #3",
-      "type": "text",
-      "placeholder": "e.g., Mobile notifications",
-      "required": true,
-      "persist": true,
-      "help": "Third essential feature"
-    },
-    {
-      "id": "user_journey",
-      "label": "User Journey Overview",
-      "type": "textarea",
-      "placeholder": "Describe the step-by-step experience from discovery to ongoing use",
-      "required": true,
-      "persist": true,
-      "help": "How users discover, onboard, and engage with your product"
-    },
-    {
-      "id": "success_metrics",
-      "label": "Success Metrics",
-      "type": "textarea",
-      "placeholder": "e.g., Daily active users, retention rate, customer satisfaction score",
-      "required": true,
-      "persist": true,
-      "help": "Key performance indicators to measure product success"
+      "help": "Define prohibited actions and safety constraints"
     }
   ],
-  "promptTemplate": "**PRODUCT SPECIFICATION REQUEST**\n\nBased on the hero concept selected in Phase 4 Part 1, create a detailed product specification for {{phase1.company_name}}.\n\n**HERO CONCEPT FOUNDATION:**\n- Company: {{phase1.company_name}}\n- Sector: {{phase1.sector}}\n- Benefit Keyword: {{phase1.benefit_keyword}}\n- Selected Concept: {{phase4.winning_concept}}\n- Brand Adjectives: {{phase4.brand_adj_1}}, {{phase4.brand_adj_2}}, {{phase4.brand_adj_3}}\n\n**PRODUCT DETAILS:**\n- Product Type: {{product_type}}\n- Core User Story: {{core_user_story}}\n\n**MVP FEATURES:**\n1. {{mvp_feature_1}}\n2. {{mvp_feature_2}}\n3. {{mvp_feature_3}}\n\n**USER EXPERIENCE:**\n{{user_journey}}\n\n**SUCCESS CRITERIA:**\n{{success_metrics}}\n\n**REQUEST:**\nCreate a comprehensive product specification document that includes:\n1. Executive Summary\n2. Technical Requirements\n3. User Experience Flow\n4. Development Roadmap\n5. Risk Assessment\n6. Go-to-Market Considerations\n\nEnsure alignment with the Phase 4 concept selection and brand positioning established in earlier phases.",
-  "instructions": [
-    "Review your selected hero concept from Phase 4 Part 1",
-    "Define the core user story that your product solves",
-    "Identify the 3 most critical MVP features",
-    "Map out the complete user journey",
-    "Establish measurable success metrics"
-  ]
+  "promptTemplate": "**ELEVENLABS VOICE AGENT SYSTEM PROMPT**\n\n**AI PERSONA & ROLE:**\n{{agent_persona}}\n\n**ENVIRONMENT & CONTEXT:**\n{{conversation_context}}\n\n**CONVERSATIONAL STYLE & TONE:**\nYour tone must always be {{phase4.brand_adj_1}}, {{phase4.brand_adj_2}}, and {{phase4.brand_adj_3}}. To sound natural and engaging, occasionally use brief, appropriate affirmations like 'Okay,' 'Got it,' or 'I understand'. Use natural pauses for clarity, especially when explaining steps if necessary. Speak clearly and avoid overly technical jargon.\n\n**CORE GOAL & OBJECTIVE:**\nYour primary goal is to help users by accurately and concisely answering their questions about {{phase5.chosen_concept_code_name}}'s features, benefits, usage, and safety, based primarily on the provided information sources, ensuring they feel informed and confident.\n\n**KNOWLEDGE SOURCE HANDLING:**\n{{#if knowledge_source_handling == 'strict'}}\nYou MUST base all your answers strictly and solely on the information provided in the connected knowledge base (from Notebook LM). Do not use any external websites, general knowledge, or make assumptions beyond the provided text. If the answer to a user's question is not found in the provided knowledge base, clearly state that you do not have that specific information available and cannot answer.\n{{else}}\nStrongly prioritize using ONLY the information within the connected knowledge base (from Notebook LM) for your answers. If, and only if, the provided knowledge base does not contain the information needed to answer a direct user question about {{phase5.chosen_concept_code_name}} or closely related context, you may carefully supplement with your broader knowledge. When doing so, you must explicitly state you are using general information (e.g., 'Based on general knowledge outside the provided materials...').\n{{/if}}\n\n**BOUNDARIES & RULES:**\n{{boundaries_rules}} Regardless of knowledge source handling: Never speculate or invent answers or details not present in your sources. Do not provide medical, legal, financial, or any other form of professional advice. Avoid discussing competitors or topics unrelated to {{phase1.company_name}} and {{phase5.chosen_concept_code_name}}. If a question is outside your scope or knowledge base, politely state you cannot help with that specific query.",
+  "decisionBoxContent": {
+    "title": "Crafting Your Optimal ElevenLabs Voice Agent Prompt",
+    "subtitle": "Configure the ElevenLabs Conversational AI to act as a trustworthy, helpful, and on-brand voice concierge",
+    "sections": [
+      {
+        "number": "1",
+        "title": "Define the AI's Persona & Role",
+        "items": [
+          {
+            "label": "Be Specific",
+            "content": "Clearly state who the AI is, its name (optional but recommended), its function, and its key characteristics relevant to the interaction. Connect traits to the role."
+          },
+          {
+            "label": "Example Approach",
+            "content": "\"You are 'Alex', a friendly, knowledgeable, and patient product concierge for {{phase1.company_name}}. Your specialty is providing clear information about our new {{phase5.chosen_concept_code_name}} offering.\""
+          }
+        ]
+      },
+      {
+        "number": "2",
+        "title": "Set the Environment & Context",
+        "items": [
+          {
+            "label": "Inform the AI",
+            "content": "Briefly tell the AI about the communication channel and the likely user context. This helps it adjust style and empathy."
+          },
+          {
+            "label": "Example Approach",
+            "content": "\"You are interacting with users over the phone or on the website. The user is typically a parent interested in {{phase5.chosen_concept_code_name}}. They may be curious, potentially cautious, or sometimes multitasking. Adapt your responses to be clear, concise, and reassuring in this context.\""
+          }
+        ]
+      },
+      {
+        "number": "3",
+        "title": "Establish Conversational Style & Tone",
+        "items": [
+          {
+            "label": "Use Brand Adjectives",
+            "content": "Explicitly incorporate the {{phase4.brand_adj_1}}, {{phase4.brand_adj_2}}, {{phase4.brand_adj_3}} adjectives to define the core personality."
+          },
+          {
+            "label": "Add Naturalness",
+            "content": "Instruct the AI to use subtle conversational elements to sound less robotic. Example: \"Your tone must always be {{phase4.brand_adj_1}}, {{phase4.brand_adj_2}}, and {{phase4.brand_adj_3}}. To sound natural and engaging, occasionally use brief, appropriate affirmations like 'Okay,' 'Got it,' or 'I understand'.\""
+          }
+        ]
+      },
+      {
+        "number": "4",
+        "title": "Knowledge Source Handling (Critical Choice)",
+        "items": [
+          {
+            "label": "Option A: Strict Control",
+            "content": "**Best for:** Ensuring only approved information is shared, preventing speculation, high-stakes accuracy needs.\n**Trade-off:** AI cannot answer questions outside the provided sources, potentially frustrating users seeking broader info."
+          },
+          {
+            "label": "Option B: Prioritized Flexibility",
+            "content": "**Best for:** Allowing the AI to answer a wider range of questions when vetted info is unavailable, potentially improving user satisfaction.\n**Trade-off:** Requires trusting the AI's judgment; necessitates clear instruction on how to use external knowledge. Less message control."
+          }
+        ]
+      },
+      {
+        "number": "5",
+        "title": "Establish Boundaries & Rules",
+        "items": [
+          {
+            "label": "Define \"Don'ts\"",
+            "content": "Clearly list prohibited actions to reinforce constraints. Tailor slightly based on your choice in Knowledge Source Handling."
+          },
+          {
+            "label": "Safety Net",
+            "content": "Example: \"Never speculate or invent answers or details not present in your sources. Do not provide medical, legal, financial, or any other form of professional advice. Avoid discussing competitors or topics unrelated to {{phase1.company_name}} and {{phase5.chosen_concept_code_name}}.\""
+          }
+        ]
+      }
+    ],
+    "action": {
+      "title": "Complete the Configuration",
+      "items": [
+        "Define your AI agent's name and persona",
+        "Set the conversation environment and context",
+        "Choose knowledge source handling approach (strict vs. flexible)",
+        "Establish clear boundaries and safety rules",
+        "Test with key anticipated questions and refine"
+      ]
+    }
+  },
+  "stepByStepFlow": [
+    {
+      "step": 1,
+      "action": "**Setup ElevenLabs Agent** - Go to ElevenLabs → \"Conversational AI\" → \"New Agent\"",
+      "details": {
+        "title": "Create Your Voice Agent Foundation",
+        "steps": [
+          {
+            "number": "1",
+            "action": "In ElevenLabs go to \"**Conversational AI**\" and select \"**New Agent**\""
+          },
+          {
+            "number": "2",
+            "action": "Pick an **agent name** and select \"**Blank Template**\""
+          },
+          {
+            "number": "3",
+            "action": "You'll see a configuration interface with several important fields to fill out"
+          }
+        ]
+      }
+    },
+    {
+      "step": 2,
+      "action": "**Configure Agent Settings** - Fill in First Message and System Prompt",
+      "details": {
+        "title": "Configure Core Agent Behavior",
+        "steps": [
+          {
+            "number": "1",
+            "action": "Fill in the **First Message** - This is what users hear when they first connect"
+          },
+          {
+            "number": "2",
+            "action": "Fill in the **System Prompt** - Use the comprehensive prompt template from the Prompt Preview section below, with all your form field values filled in"
+          },
+          {
+            "number": "3",
+            "action": "Review other settings but focus on these two most important fields first"
+          }
+        ]
+      }
+    },
+    {
+      "step": 3,
+      "action": "**Upload Knowledge Base** - Add your documents as the agent's information source",
+      "details": {
+        "title": "Connect Your Vetted Information Sources",
+        "steps": [
+          {
+            "number": "1",
+            "action": "Near the bottom of the configuration, find the \"**Knowledge Base**\" section"
+          },
+          {
+            "number": "2",
+            "action": "Upload your **Science_Evidence.pdf** file (provides verified knowledge base)"
+          },
+          {
+            "number": "3",
+            "action": "Upload your **Hero_Concept_Detailed_Brief.docx** file (can be offered as a \"want to learn more?\" option)"
+          },
+          {
+            "number": "4",
+            "action": "Wait for the documents to process and be indexed by the system"
+          }
+        ]
+      }
+    },
+    {
+      "step": 4,
+      "action": "**Test the Voice Agent** - Verify behavior and make refinements",
+      "details": {
+        "title": "Test and Refine Agent Performance",
+        "steps": [
+          {
+            "number": "1",
+            "action": "**Test the AI agent** with key anticipated questions (this is fun!). Try questions like: \"Is {{phase5.chosen_concept_code_name}} safe for five-year-olds?\""
+          },
+          {
+            "number": "2",
+            "action": "**Listen carefully** to the responses. Check if the agent uses your brand adjectives and stays within knowledge boundaries"
+          },
+          {
+            "number": "3",
+            "action": "**Make adjustments** to the System Prompt based on performance, refining wording until the agent behaves as desired"
+          },
+          {
+            "number": "4",
+            "action": "**Test multiple scenarios** to ensure consistent, on-brand responses"
+          }
+        ]
+      }
+    },
+    {
+      "step": 5,
+      "action": "**Get Widget Code** - Copy embed code for website integration",
+      "details": {
+        "title": "Integrate Agent into Your Website",
+        "steps": [
+          {
+            "number": "1",
+            "action": "At the top of the ElevenLabs interface, click \"**Widget**\""
+          },
+          {
+            "number": "2",
+            "action": "**Copy the embed code** somewhere handy (save it in a text file)"
+          },
+          {
+            "number": "3",
+            "action": "This code can be embedded into your website to provide live voice interaction"
+          },
+          {
+            "number": "4",
+            "action": "Test the widget to ensure it connects properly and maintains agent behavior"
+          }
+        ]
+      }
+    }
+  ],
+  "expectedOutput": {
+    "fileCreated": "ElevenLabs widget embed code, configured voice agent",
+    "whyItMatters": "Live voice interaction builds trust beyond static websites and videos. Users can ask specific questions and get on-brand, fact-backed replies that demonstrate your expertise and build confidence in your product.",
+    "nextSteps": "Your voice agent is ready to be integrated into your website as a \"Talk to an Expert\" feature, providing 24/7 customer support powered by your vetted knowledge base."
+  }
 }
