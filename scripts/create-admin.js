@@ -1,5 +1,5 @@
-const bcrypt = require('bcrypt');
-const { Pool } = require('@neondatabase/serverless');
+import bcrypt from 'bcrypt';
+import { Pool } from '@neondatabase/serverless';
 
 async function createAdmin() {
   if (!process.env.DATABASE_URL) {
