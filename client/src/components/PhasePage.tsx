@@ -11,6 +11,7 @@ import { ChevronLeft, ChevronRight, ChevronDown, Info, Vote, Save, Copy, CheckCi
 import { savePhaseData, getPhaseData, saveToLocalStorage, getFromLocalStorage, getAllLocalStorageData, getAllPhaseDataForTeam, updateTeamPhase } from "@/lib/db";
 import { useLocation } from "wouter";
 import { cn } from "@/lib/utils";
+import { PHASE_CONFIG } from "../../../shared/constants";
 
 interface FieldConfig {
   id: string;
@@ -261,7 +262,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
     });
   }
 
-  const progressPercentage = (config.phase / 8) * 100;
+  const progressPercentage = (config.phase / PHASE_CONFIG.TOTAL_PHASES) * 100;
   
   // Check for actual missing required fields, not just validation errors
   const hasRequiredFieldsEmpty = config.fields.some(field => 
