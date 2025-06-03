@@ -1,6 +1,6 @@
-import { teams, phaseData, users, type Team, type InsertTeam, type PhaseData, type InsertPhaseData, type User, type InsertUser } from "@shared/schema";
+import { teams, phaseData, users, cohorts, votes, type Team, type InsertTeam, type PhaseData, type InsertPhaseData, type User, type InsertUser, type Cohort, type InsertCohort, type Vote, type InsertVote } from "@shared/schema";
 import { db } from "./db";
-import { eq, and } from "drizzle-orm";
+import { eq, and, isNotNull, sql, desc } from "drizzle-orm";
 
 export interface IStorage {
   // Team operations
