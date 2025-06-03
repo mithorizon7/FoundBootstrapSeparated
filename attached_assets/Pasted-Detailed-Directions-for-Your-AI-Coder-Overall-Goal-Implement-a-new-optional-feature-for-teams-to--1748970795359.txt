@@ -1,0 +1,108 @@
+Detailed Directions for Your AI Coder:
+
+Overall Goal:
+Implement a new optional feature for teams to submit their final deployed websites at the end of the bootcamp, display these websites on a showcase page for a defined "cohort" of teams, and allow teams within that cohort to vote for their top three submissions.
+
+I. Data Model Changes (to be done in FoundInTwo/shared/schema.ts and then migrated using drizzle-kit push):
+
+1. Modify teams Table:
+Add submitted_website_url:
+Type: TEXT
+Nullable: true (as submission is optional)
+Add cohort_tag:
+Type: TEXT (e.g., "SPRING2025_YPO", "FALL2025_INTERNAL")
+Nullable: true (teams not in a cohort will have this as null)
+Consider adding an index if you'll query by this often.
+2. Create New cohorts Table:
+tag TEXT PRIMARY KEY (e.g., "SPRING2025_YPO" - this will be the cohort_tag used in the teams table)
+name TEXT NOT NULL (e.g., "Spring 2025 YPO Bootcamp")
+submissions_open BOOLEAN DEFAULT FALSE NOT NULL
+voting_open BOOLEAN DEFAULT FALSE NOT NULL
+description TEXT (Optional, for admin notes)
+created_at TIMESTAMP DEFAULT NOW() NOT NULL
+updated_at TIMESTAMP DEFAULT NOW() NOT NULL
+3. Create New votes Table:
+id SERIAL PRIMARY KEY
+cohort_tag TEXT REFERENCES cohorts(tag) NOT NULL
+voting_team_id INTEGER REFERENCES teams(id) NOT NULL
+voted_for_team_id INTEGER REFERENCES teams(id) NOT NULL
+rank INTEGER NOT NULL (1, 2, or 3)
+created_at TIMESTAMP DEFAULT NOW() NOT NULL
+Constraints:
+Add a unique constraint on (cohort_tag, voting_team_id, rank) to ensure a team ranks others uniquely.
+Add a unique constraint on (cohort_tag, voting_team_id, voted_for_team_id) to prevent a team from voting for the same website multiple times in different ranks.
+Add a check constraint: voting_team_id != voted_for_team_id.
+II. Backend API Enhancements (in FoundInTwo/server/storage.ts and FoundInTwo/server/routes.ts):
+
+1. Website Submission Endpoint:
+PATCH /api/teams/:teamId/website
+Request Body: { website_url: "string" }
+Action: Updates submitted_website_url for the specified teamId.
+Auth: Ensure this is protected and only an authenticated member of the team can submit/update.
+2. Cohort Management Endpoints (Admin Only):
+POST /api/admin/cohorts
+Request Body: { tag: "string", name: "string", description?: "string" }
+Action: Creates a new cohort.
+GET /api/admin/cohorts
+Action: Lists all cohorts.
+GET /api/admin/cohorts/:cohortTag
+Action: Gets details for a specific cohort.
+PATCH /api/admin/cohorts/:cohortTag
+Request Body: { name?: "string", description?: "string", submissions_open?: boolean, voting_open?: boolean }
+Action: Updates cohort details/status.
+POST /api/admin/cohorts/:cohortTag/teams
+Request Body: { team_codes: ["string", ...] } or { team_ids: [number, ...] }
+Action: Assigns multiple teams to a cohort by updating their cohort_tag.
+GET /api/admin/cohorts/:cohortTag/teams_status
+Action: Returns teams in the cohort, their submission status (submitted_website_url), and voting status.
+3. Showcase & Voting Endpoints:
+GET /api/showcase/:cohortTag
+Action: Fetches all teams belonging to the cohortTag that have a non-null submitted_website_url. Returns team_id, name, submitted_website_url.
+Auth: Could be public or require general user authentication if you want to restrict who sees showcases.
+POST /api/showcase/:cohortTag/vote
+Request Body: { votes: [{ voted_for_team_id: number, rank: number }, ...] } (Array of 3 votes)
+Action: Records votes for the voting_team_id (derived from authenticated user/team). Perform validations (3 unique votes, rank 1-3, not voting for self, team is in cohort, voting is open for cohort).
+Auth: Requires authenticated team context.
+GET /api/showcase/:cohortTag/results
+Action: Calculates and returns aggregated voting results (e.g., each team and their total points based on ranks).
+Auth: Could be restricted until voting is closed, or admin-only initially.
+III. Frontend UI Changes (in FoundInTwo/client/):
+
+1. Website Submission in Final Phase:
+Location: In FoundInTwo/client/src/components/PhasePage.tsx.
+Logic: When rendering the final phase (e.g., Phase 8, based on config.phase):
+Conditionally display a new section: "Submit Your Deployed Website."
+This section should only appear if the current team's cohort_tag corresponds to a cohort where submissions_open is true (this data might need to be fetched when the phase page loads or passed down).
+Include an Input field for the URL and a Button to submit. On submit, call the PATCH /api/teams/:teamId/website endpoint.
+2. New Showcase Page:
+Create client/src/pages/Showcase.tsx.
+Route: /showcase/:cohortTag (add to FoundInTwo/client/src/App.tsx).
+Functionality:
+Fetch submitted websites from GET /api/showcase/:cohortTag.
+Display each website (team name, link to their site that opens in a new tab). Use Card components for a nice layout.
+If the corresponding cohort has voting_open as true (fetch this cohort status):
+Display a voting interface (see next point).
+Users/teams should only be able to vote if they are part of this cohort.
+3. Voting UI (Part of Showcase Page or separate component):
+Allow the logged-in team to select their top 3 distinct websites from the list (cannot select their own team's website).
+Use Checkbox or RadioGroup (styled appropriately) for selection, or a drag-and-drop interface for ranking.
+A Button to submit votes to POST /api/showcase/:cohortTag/vote.
+Display a message if the team has already voted for this cohort.
+4. New Results Page (Optional, or Admin-only initially):
+Create client/src/pages/Results.tsx.
+Route: /results/:cohortTag (add to FoundInTwo/client/src/App.tsx).
+Fetch and display voting results from GET /api/showcase/:cohortTag/results. Show team rankings, total points, and clearly indicate the "victor."
+5. Admin UI for Cohort Management (Enhance Admin.tsx):
+Add a new tab or section to FoundInTwo/client/src/pages/Admin.tsx.
+Display Cohorts: List existing cohorts with their status (submissions_open, voting_open).
+Create Cohort: Form to create a new cohort (name, unique tag, description).
+Manage Cohort Status: Buttons to toggle submissions_open and voting_open for each cohort.
+Assign Teams to Cohort:
+A UI to select an existing cohort.
+A way to select multiple teams (e.g., from the existing teams list or by entering team codes) and assign them the selected cohort_tag via the POST /api/admin/cohorts/:cohortTag/teams endpoint.
+View Cohort Submissions/Votes: Link to view submission status and voting results for a cohort.
+IV. Unobtrusiveness & Optionality Strategy:
+
+The core phase flow remains unchanged. New features are opt-in via cohort assignment and admin controls.
+Teams not assigned a cohort_tag or in a cohort where features are disabled will not see submission prompts or have access to active showcases/voting.
+New pages (/showcase, /results) are separate and don't clutter existing navigation unless explicitly linked (e.g., an admin might share a showcase link).
