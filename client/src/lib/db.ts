@@ -76,7 +76,7 @@ export function getFromLocalStorage(phaseNumber: number): Record<string, any> | 
 export function getAllLocalStorageData(): Record<string, any> {
   const allData: Record<string, any> = {};
   
-  for (let i = 1; i <= 7; i++) {
+  for (let i = 1; i <= 8; i++) {
     const data = getFromLocalStorage(i);
     if (data) {
       allData[`phase${i}`] = data;
