@@ -82,7 +82,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
           </div>
 
           {/* Phase Navigation */}
-          <nav className="hidden lg:flex items-center space-x-1 flex-1 justify-center mx-8">
+          <nav className="hidden lg:flex items-center space-x-1 flex-1 justify-center mx-4 min-w-0">
             {phases.slice(0, 5).map((phase) => {
               const isActive = currentPhaseNumber === phase.number;
               const isCompleted = team ? phase.number < team.currentPhase : false;
@@ -92,7 +92,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
                 <Link
                   key={phase.number}
                   href={phase.path + (team ? `?team_id=${team.code}` : '')}
-                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
                     isActive
                       ? 'bg-primary text-white'
                       : isAvailable
@@ -100,7 +100,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
                       : 'text-gray-400 cursor-not-allowed'
                   }`}
                 >
-                  <span className={`w-5 h-5 rounded-full flex items-center justify-center text-xs ${
+                  <span className={`w-5 h-5 rounded-full flex items-center justify-center text-xs flex-shrink-0 ${
                     isActive
                       ? 'bg-white bg-opacity-20'
                       : isCompleted
@@ -111,7 +111,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
                   }`}>
                     {phase.number}
                   </span>
-                  <span>{phase.title}</span>
+                  <span className="hidden xl:inline">{phase.title}</span>
                 </Link>
               );
             })}
@@ -123,9 +123,9 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100"
+                    className="flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100"
                   >
-                    <span>More Phases</span>
+                    <span className="hidden xl:inline">More Phases</span>
                     <ChevronDown className="w-3 h-3" />
                   </Button>
                 </DropdownMenuTrigger>
