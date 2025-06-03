@@ -58,16 +58,16 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
   return (
     <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex items-center h-16">
           {/* Logo and Brand */}
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 flex-shrink-0">
             <Link href="/" className="flex items-center space-x-3">
               <img 
                 src={logoSrc} 
                 alt="Found-in-Two Logo" 
                 className="w-10 h-10 object-contain"
               />
-              <span className="text-xl font-bold text-neutral-800 page-title">Found-in-Two</span>
+              <span className="text-xl font-bold text-neutral-800">Found-in-Two</span>
             </Link>
             
             {/* Team Info */}
@@ -82,7 +82,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
           </div>
 
           {/* Phase Navigation */}
-          <nav className="hidden lg:flex items-center space-x-1">
+          <nav className="hidden lg:flex items-center space-x-1 flex-1 justify-center mx-8">
             {phases.slice(0, 5).map((phase) => {
               const isActive = currentPhaseNumber === phase.number;
               const isCompleted = team ? phase.number < team.currentPhase : false;
@@ -168,7 +168,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
           </nav>
 
           {/* Action Buttons */}
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-3 flex-shrink-0">
             {/* Mobile Menu Button */}
             <Button
               variant="ghost"
