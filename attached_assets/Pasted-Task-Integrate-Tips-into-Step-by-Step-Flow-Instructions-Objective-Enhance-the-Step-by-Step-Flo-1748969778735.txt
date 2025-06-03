@@ -1,0 +1,52 @@
+Task: Integrate "Tips" into Step-by-Step Flow Instructions
+
+Objective:
+Enhance the "Step-by-Step Flow" instructions within each phase of the application by directly embedding the advisory "Tips" found in the original instructional documents. This will provide users with more comprehensive guidance directly within each step.
+
+Detailed Instructions:
+
+Identify Source Documents for Tips:
+
+The "Tips" are primarily located in the "Tips & Time" column of the "Step-by-Step Flow" tables within the .docx files for each phase (e.g., FoundInTwo/attached_assets/Detailed Instructions_YPO Activity_updated.docx, FoundInTwo/attached_assets/Phase 1 to 3 steps.docx). The user's feedback in FoundInTwo/attached_assets/Pasted-It-s-very-good-but-we-need-to-find-a-good-way-to-integrate-back-in-more-of-the-actual-instructions--1748882233348.txt also emphasizes the importance of these instructions.
+Modify JSON Configuration Files (configs/phase-X.json):
+
+For each phase's configuration file (e.g., FoundInTwo/configs/phase-1.json, FoundInTwo/configs/phase-2.json, etc.):
+Locate the stepByStepFlow array.
+For each step object within this array:
+Identify the corresponding "Tip" from the source .docx document for that specific step number.
+Embed the Tip:
+If the step object has a details.steps array (meaning it's an expandable section in the UI):
+Determine the most appropriate sub-step within details.steps to append the tip to, or append it to the details.title if it's more general to that detailed section.
+Modify the action string of that sub-step (or the details.title string) to include the tip. Prepend the tip with "TIP: " and ensure it appears on a new line for clarity (use \n for a newline character within the JSON string, which will be interpreted as a line break when rendered, or rely on the existing HTML rendering for line breaks if that's how dangerouslySetInnerHTML is configured in PhasePage.tsx).
+If the step object does not have a details.steps array (it's a simple step):
+Modify the main action string of that step object to include the tip. Prepend the tip with "TIP: " and ensure it appears on a new line.
+Formatting: The PhasePage.tsx component uses dangerouslySetInnerHTML to render these action strings, which processes HTML. You can use <br> for explicit line breaks or ensure Markdown-like newlines (\n\n for paragraphs, \n potentially followed by a list marker for list items within the tip if applicable) are used if the rendering setup supports that for new lines. The simplest way is often to just append \nTIP: ... or <br><strong>TIP:</strong> ... to the existing action string.
+Example Modification (Conceptual for a simple step's action string in JSON): Original action string: "**Copy the Phase 1 Prompt** from the Prompt Preview section below and fill in the missing elements." Modified action string (with tip integrated): "**Copy the Phase 1 Prompt** from the Prompt Preview section below and fill in the missing elements.\nTIP: This is your market research, make sure you’re getting what you want from it." (If HTML is preferred for rendering via dangerouslySetInnerHTML): "**Copy the Phase 1 Prompt** from the Prompt Preview section below and fill in the missing elements.<br><strong>TIP:</strong> This is your market research, make sure you’re getting what you want from it."
+Time Estimates: The "Time" information (e.g., "1 min", "10 sec") from the original documents should be preserved if it's already in the JSON's time field for each step, or added if it's missing and deemed useful.
+No Changes to PhasePage.tsx (Unless for Styling Line Breaks):
+
+Since the tips are being embedded directly into the existing text fields (action or details.title/details.steps.action) that are already rendered by FoundInTwo/client/src/components/PhasePage.tsx, no new rendering logic for new JSON fields should be necessary.
+The existing dangerouslySetInnerHTML should handle the rendering of the modified strings.
+The AI coder might need to ensure that newlines (\n) in the JSON strings are correctly interpreted as line breaks in the final HTML output or use <br> tags within the JSON strings if that's more reliable with the current rendering setup.
+Preserve Existing Functionality and Structure (Crucial):
+
+Guideline: Reiterate to the AI coder that these modifications are to the content of existing string properties within the JSON files. The structure of the JSON (object keys, array formats) should remain the same.
+All other application functionalities (form handling, prompt generation, navigation, data persistence, rendering of other sections like intro, decisionBoxContent, expectedOutput) must remain unaffected.
+Testing and Verification:
+
+Guideline: After implementation, manually review each phase in the application:
+Confirm that the "TIP:" text is visible for each relevant step in the "Step-by-Step Flow."
+Ensure the tips are accurately transcribed from the source documents.
+Check that the formatting (especially line breaks before the "TIP:") is correct and readable.
+Verify that no existing step actions or other instructional text have been accidentally removed or garbled.
+Confirm that the overall page layout and functionality remain stable.
+Summary for the AI Coder:
+
+"Your task is to integrate the 'Tips' from our original instructional documents directly into the existing stepByStepFlow text within the configs/phase-X.json files.
+
+For each step in the stepByStepFlow of every phase-X.json file, find the corresponding 'Tip' in the provided .docx source documents.
+Append this 'Tip' to the existing action string (for simple steps) or the most relevant action string within details.steps (for complex, expandable steps).
+Prefix the appended text with 'TIP: ' (e.g., \\nTIP: Your tip text here. or <br><strong>TIP:</strong> Your tip text here.). Ensure it starts on a new line for readability.
+Do NOT introduce new JSON fields for these tips. Modify the existing string values.
+No changes to the PhasePage.tsx rendering logic for new fields are expected, as the modified strings will be rendered by the existing dangerouslySetInnerHTML. However, ensure newlines are rendered correctly.
+Crucially, ensure all other content and application functionalities remain unchanged and operational."

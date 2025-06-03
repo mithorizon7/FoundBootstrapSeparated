@@ -150,7 +150,7 @@
         "steps": [
           {
             "number": "1",
-            "action": "**Copy the Phase 1 Prompt** from the Prompt Preview section below"
+            "action": "**Copy the Phase 1 Prompt** from the Prompt Preview section below<br><strong>TIP:</strong> This is your market research, make sure you're getting what you want from it."
           },
           {
             "number": "2",
@@ -214,7 +214,7 @@
           },
           {
             "number": "4",
-            "action": "**Fill in all form fields** based on your findings - work faster than you'd like, do your best"
+            "action": "**Fill in all form fields** based on your findings - work faster than you'd like, do your best<br><strong>TIP:</strong> You will have to be faster than you would like. Do the best you can."
           },
           {
             "number": "5",
@@ -240,7 +240,7 @@
           },
           {
             "number": "3",
-            "action": "**Spend at least 5 minutes as a team** going through the report systematically"
+            "action": "**Spend at least 5 minutes as a team** going through the report systematically<br><strong>TIP:</strong> This will be far too much information for you to go over in detail at this time, but get a good overview of the Market situation."
           },
           {
             "number": "4",
