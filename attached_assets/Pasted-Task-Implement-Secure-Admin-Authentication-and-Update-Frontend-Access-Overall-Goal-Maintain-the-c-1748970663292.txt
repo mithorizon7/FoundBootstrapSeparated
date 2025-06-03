@@ -1,0 +1,79 @@
+Task: Implement Secure Admin Authentication and Update Frontend Access
+
+Overall Goal:
+Maintain the current simple access for teams (team name + code) for their activities, including website submission and voting. Implement a proper authentication and authorization system specifically for administrators to secure the Admin Panel (/admin) and all related backend APIs (/api/admin/*, new cohort management APIs). The admin login link should be accessible from a dropdown in the main navigation header.
+
+I. Data Model Changes (in FoundInTwo/shared/schema.ts):
+
+Modify users Table:
+
+Action: Add a role column.
+Name: role
+Type: TEXT
+Default/Nullable: NOT NULL DEFAULT 'user' (or similar, if you plan to have non-admin registered users later; if only for admins, it could be nullable or have a specific default). For now, the focus is on an 'admin' role.
+Note: Passwords in this table must be stored as secure hashes (e.g., generated using bcrypt).
+Admin User Creation:
+
+Action: Provide a mechanism for creating admin users. This should NOT be a public registration page. Options include:
+A one-time script to insert admin credentials directly into the database (with a hashed password).
+Secure seeding as part of the deployment process.
+Populate the role column with 'admin' for these designated admin accounts.
+II. Backend Admin Authentication & Authorization (primarily in FoundInTwo/server/index.ts and FoundInTwo/server/routes.ts):
+
+Setup Session Management and Passport.js (in FoundInTwo/server/index.ts):
+
+Action: Initialize and configure express-session.
+Use connect-pg-simple to store sessions in your PostgreSQL database, or memorystore if preferred for simplicity (though connect-pg-simple is better for persistence across server restarts).
+Ensure a strong secret is used for session signing, ideally from an environment variable.
+Action: Initialize passport.
+Add app.use(passport.initialize());
+Add app.use(passport.session()); (after session middleware).
+Action: Configure the passport-local strategy.
+This strategy will authenticate users against the users table using username and the securely hashed password.
+Implement passport.serializeUser and passport.deserializeUser functions.
+Dependency Check: Ensure bcrypt (or a similar password hashing library) is added to package.json if not already present, and use it for password verification in the local strategy.
+Create Admin Login/Logout API Endpoints (in FoundInTwo/server/routes.ts):
+
+Action:
+POST /api/auth/admin/login: Uses the passport-local strategy for authentication (passport.authenticate('local', { ... })). On success, establishes a session.
+POST /api/auth/admin/logout: Terminates the user's session (req.logout() or req.session.destroy()).
+Protect Admin API Routes (in FoundInTwo/server/routes.ts):
+
+Action: Create middleware functions:
+ensureAuthenticatedAdmin(req, res, next):
+Checks req.isAuthenticated() (provided by Passport).
+Checks if req.user (populated by Passport after login) exists and if req.user.role === 'admin'.
+If either check fails, responds with a 401 Unauthorized or 403 Forbidden status. Otherwise, calls next().
+Action: Apply the ensureAuthenticatedAdmin middleware to:
+All existing /api/admin/* routes (e.g., /api/admin/export).
+All new API routes created for cohort management (e.g., /api/cohorts/* if these are admin-only).
+III. Frontend Admin Access UI (modifying FoundInTwo/client/src/components/NavigationHeader.tsx and creating a new login page):
+
+Admin Login Page:
+
+Action: Create a new simple page component (e.g., client/src/pages/AdminLogin.tsx).
+Route: /admin-login (add this route to FoundInTwo/client/src/App.tsx). This page should not be linked prominently for regular users.
+Functionality:
+Contains input fields for username and password.
+A submit button that calls the POST /api/auth/admin/login endpoint.
+Handles login success (e.g., redirecting to /admin) and login failure (displaying an error message).
+Upon successful login, a client-side mechanism (e.g., a global state/context, or a simple flag refreshed on app load based on session status) should be updated to reflect the admin's authenticated state.
+Update NavigationHeader.tsx:
+
+Determine Admin Authentication Status: The component needs to be aware of the admin's authentication state. This might involve:
+Checking a global state/context (e.g., useAuth().isAdminAuthenticated).
+Making an API call on load (e.g., /api/auth/admin/status) to check the session, though a global state updated by the login process is usually more efficient.
+Modify the "Team Menu" Dropdown (or create a similar dedicated admin dropdown):
+If Admin is NOT Authenticated: Include a dropdown item:
+Text: "Admin Login"
+Action: Navigates to the /admin-login page.
+If Admin IS Authenticated:
+The isAdmin prop (if it's updated to reflect true authentication status) can be used.
+The dropdown item that previously linked to /admin (if isAdmin was true) should continue to do so ("Admin Dashboard").
+Add an "Admin Logout" dropdown item that calls the POST /api/auth/admin/logout endpoint and then clears the client-side admin authentication state and redirects (e.g., to the homepage or admin login page).
+Important: The isAdmin prop used by NavigationHeader.tsx for displaying the "Dashboard" link must now be driven by the actual backend authentication status, not a hardcoded value or a simple query parameter.
+Secure Client-Side Route for /admin (in FoundInTwo/client/src/App.tsx):
+
+Action (Optional but Recommended Client-Side Guard): While server-side protection of APIs is paramount, you can also add a client-side route guard for /admin.
+If the client-side admin authentication state is false, attempting to navigate to /admin could redirect to /admin-login or the homepage.
+Reminder: Even with a client-side guard, the backend APIs called by the /admin page must still be protected by the ensureAuthenticatedAdmin middleware, as client-side checks can be bypassed.

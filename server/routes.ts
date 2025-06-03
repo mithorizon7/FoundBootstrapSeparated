@@ -1,12 +1,63 @@
-import type { Express } from "express";
+import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
+import passport from "passport";
 import { storage } from "./storage";
 import { insertTeamSchema, insertPhaseDataSchema } from "@shared/schema";
 import { z } from "zod";
 import fs from "fs";
 import path from "path";
 
+// Admin authentication middleware
+function ensureAuthenticatedAdmin(req: Request, res: Response, next: NextFunction) {
+  if (!req.isAuthenticated() || !req.user || (req.user as any).role !== 'admin') {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
+  next();
+}
+
 export async function registerRoutes(app: Express): Promise<Server> {
+  // Authentication routes
+  app.post("/api/auth/admin/login", (req, res, next) => {
+    passport.authenticate('local', (err: any, user: any, info: any) => {
+      if (err) {
+        return res.status(500).json({ message: 'Authentication error' });
+      }
+      if (!user) {
+        return res.status(401).json({ message: info?.message || 'Invalid credentials' });
+      }
+      req.logIn(user, (err) => {
+        if (err) {
+          return res.status(500).json({ message: 'Login error' });
+        }
+        return res.json({ message: 'Login successful', user: { id: user.id, username: user.username, role: user.role } });
+      });
+    })(req, res, next);
+  });
+
+  app.post("/api/auth/admin/logout", (req, res) => {
+    req.logout((err) => {
+      if (err) {
+        return res.status(500).json({ message: 'Logout error' });
+      }
+      res.json({ message: 'Logout successful' });
+    });
+  });
+
+  app.get("/api/auth/admin/status", (req, res) => {
+    if (req.isAuthenticated() && req.user && (req.user as any).role === 'admin') {
+      res.json({ 
+        isAuthenticated: true, 
+        user: { 
+          id: (req.user as any).id, 
+          username: (req.user as any).username, 
+          role: (req.user as any).role 
+        } 
+      });
+    } else {
+      res.json({ isAuthenticated: false });
+    }
+  });
+
   // Team routes
   app.post("/api/teams", async (req, res) => {
     try {
@@ -113,8 +164,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Admin CSV export
-  app.get("/api/admin/export", async (req, res) => {
+  // Admin CSV export (protected)
+  app.get("/api/admin/export", ensureAuthenticatedAdmin, async (req, res) => {
     try {
       const teams = await storage.getAllTeams();
       const csvRows = [
