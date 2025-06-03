@@ -459,7 +459,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                             </div>
                             <div className="flex-1">
                               <div 
-                                className="text-neutral-700 text-premium leading-relaxed group-hover:text-neutral-800 transition-colors duration-200"
+                                className="text-neutral-700 font-medium leading-relaxed group-hover:text-neutral-800 transition-colors duration-200"
                                 dangerouslySetInnerHTML={{
                                   __html: step.action
                                     .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-neutral-800">$1</strong>')
@@ -516,7 +516,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                           </div>
                           <div className="flex-1">
                             <div 
-                              className="text-neutral-700 text-premium leading-relaxed group-hover:text-neutral-800 transition-colors duration-200"
+                              className="text-neutral-700 font-medium leading-relaxed group-hover:text-neutral-800 transition-colors duration-200"
                               dangerouslySetInnerHTML={{
                                 __html: step.action
                                   .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-neutral-800">$1</strong>')
