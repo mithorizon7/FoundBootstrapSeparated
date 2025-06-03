@@ -11,7 +11,8 @@
       "placeholder": "e.g., 10 years",
       "required": true,
       "persist": true,
-      "help": "How recent must studies be for your research?"
+      "help": "How recent must studies be for your research?",
+      "tooltip": "Sets the timeframe for research studies the AI will include. Newer evidence (5-10 years) is more credible but may limit available studies, while longer horizons (15+ years) provide more data but may include outdated findings."
     },
     {
       "id": "tone_preference",
@@ -20,7 +21,8 @@
       "placeholder": "e.g., academic gravitas, relatable practitioner",
       "required": true,
       "persist": true,
-      "help": "What tone will resonate with your audience?"
+      "help": "What tone will resonate with your audience?",
+      "tooltip": "Determines how research findings are presented in your marketing materials. Academic gravitas works for B2B and professional services, while relatable practitioner tone suits consumer markets and wellness sectors."
     },
     {
       "id": "statistic_style",
@@ -29,7 +31,8 @@
       "placeholder": "e.g., percentages, absolute gains",
       "required": true,
       "persist": true,
-      "help": "How should impact be presented in your marketing materials?"
+      "help": "How should impact be presented in your marketing materials?",
+      "tooltip": "Shapes how the AI presents research data in your marketing copy. Percentages are compelling for improvements, absolute gains work for concrete outcomes, and effect sizes resonate with technical audiences."
     },
     {
       "id": "benefit_keyword",
@@ -38,7 +41,8 @@
       "placeholder": "e.g., play-driven learning, AI-assisted wellness",
       "required": true,
       "persist": true,
-      "help": "Primary benefit or approach to validate with research"
+      "help": "Primary benefit or approach to validate with research",
+      "tooltip": "The central value proposition from Phase 1 that needs scientific backing. OpenAI's Deep Research will find peer-reviewed studies validating this benefit to strengthen your marketing credibility and investor presentations."
     },
     {
       "id": "research_focus",
@@ -47,7 +51,8 @@
       "placeholder": "e.g., cognitive benefits, user engagement metrics, cost-effectiveness studies",
       "required": false,
       "persist": true,
-      "help": "Optional: specific areas or angles to emphasize in the research"
+      "help": "Optional: specific areas or angles to emphasize in the research",
+      "tooltip": "Additional angles for the AI to explore beyond your core benefit. This helps create a more comprehensive evidence base and may uncover unexpected supporting research for your marketing materials."
     }
   ],
   "promptTemplate": "**ROLE**\n\nYou are an expert research librarian curating peer-reviewed evidence for venture pitch decks, leveraging advanced research capabilities.\n\n**CONTEXT**\n\nWe are launching {{phase1.company_name}}, operating in {{phase1.sector}} within {{phase1.target_region}}.\nOur core benefit promise is **\"{{benefit_keyword}}.\"\n\n**EVIDENCE HORIZON**\n\nOnly cite studies published in the last {{evidence_horizon}} years. Prioritize high-quality research sources (e.g., reputable journals, systematic reviews, highly-cited studies).\n\n**TASK**\n\nCompile an evidence dossier validating the efficacy, mechanism, or established need related to **\"{{benefit_keyword}}\"**, with four clearly headed sections:\n\nA. **Key Findings**\n   * Five numbered findings **demonstrating key aspects (e.g., efficacy, mechanism, need)** related to `{{benefit_keyword}}` (≤ 60 words each).\n   * Each must cite at least one peer-reviewed source (APA in-line).\n   * Where readily identifiable, briefly note the study type (e.g., meta-analysis, RCT, survey) alongside the citation.\n\nB. **Marketing-Ready Statistics**\n   * Three statistics **quantifying the impact or relevance** of `{{benefit_keyword}}`, ideal for consumer-facing copy.\n   * Use {{statistic_style}} format.\n   * Include sample size, study source, **and study type if available**.\n   * **Preferably draw from or cite peer-reviewed research**; clearly state source type if non-peer-reviewed but highly credible (e.g., major governmental report).\n\nC. **Expert Pull-quotes**\n   * Two quotes (≤ 25 words) reflecting the `{{tone_preference}}` tone, **discussing the value or potential** of `{{benefit_keyword}}`.\n   * From recognized researchers **or leading practitioners (if sourcing for practitioner tone)**.\n   * Provide full attribution (name, institution, year). **Prioritize experts whose work appears in or cites peer-reviewed literature.**\n\nD. **Reference List**\n   * Full APA citations for all sources mentioned, alphabetized.\n\n**FORMAT**\n\nReturn as GitHub-flavored .docx file with H2 section headers.",

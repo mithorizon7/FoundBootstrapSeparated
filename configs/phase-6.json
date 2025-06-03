@@ -11,6 +11,7 @@
       "required": true,
       "persist": true,
       "help": "Choose the overall visual approach for your hero image",
+      "tooltip": "Defines the aesthetic direction for all visual assets. Photoreal works for tangible products, stylized illustration for tech/apps, minimalist for premium brands, and bold/dramatic for disruptive concepts.",
       "options": [
         { "value": "Photoreal", "label": "Photoreal" },
         { "value": "Stylized illustration", "label": "Stylized illustration" },
@@ -25,6 +26,7 @@
       "required": true,
       "persist": true,
       "help": "Choose the perspective for your hero image",
+      "tooltip": "Determines the focal emphasis of your hero image. Close-up highlights product details, interaction scene shows usage, lifestyle context demonstrates benefits, abstract/conceptual communicates brand values.",
       "options": [
         { "value": "Close-up product glamour shot", "label": "Close-up product glamour shot" },
         { "value": "Interaction scene", "label": "Interaction scene" },
