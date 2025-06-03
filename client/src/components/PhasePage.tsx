@@ -446,7 +446,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                 const hasDetails = step.details && step.details.steps;
                 
                 return (
-                  <div key={step.step} className={`bg-white rounded-lg card-premium group border border-neutral-200 transition-all duration-200 ${hasDetails ? 'hover:border-primary/30' : 'hover:border-primary/30'}`}>
+                  <div key={step.step} className={`bg-white rounded-lg shadow-md group border border-neutral-200 transition-all duration-200 hover:shadow-lg hover:border-primary/30 hover:-translate-y-px`}>
                     {hasDetails ? (
                       // Expandable accordion format for complex steps
                       <Collapsible>
@@ -510,7 +510,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                       <div className="p-6">
                         <div className="flex items-start space-x-4">
                           <div className="flex-shrink-0">
-                            <div className="step-number w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg text-white">
+                            <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center font-bold text-lg text-white shadow-md">
                               {step.step}
                             </div>
                           </div>
@@ -546,17 +546,17 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         {/* Left Column: Decision Box Form */}
         <div className="space-y-6">
-          <Card className="card-premium">
+          <Card className="bg-white shadow-lg border border-neutral-200 transition-all duration-200 hover:shadow-xl hover:-translate-y-px">
             <CardHeader>
               <div className="flex items-center space-x-3">
                 <div className="w-8 h-8 bg-accent-100 rounded-lg flex items-center justify-center transition-all duration-200 hover:bg-accent-200">
                   <Vote className="w-4 h-4 text-accent-600" />
                 </div>
-                <CardTitle className="text-lg section-header">Decision Box</CardTitle>
+                <CardTitle className="text-lg font-semibold text-neutral-800">Decision Box</CardTitle>
                 <div className="flex-1"></div>
                 <div className="flex items-center space-x-2 text-sm text-neutral-500">
                   <div className="w-2 h-2 bg-accent-500 rounded-full animate-pulse"></div>
-                  <span className="text-premium">Auto-saving</span>
+                  <span className="font-medium">Auto-saving</span>
                 </div>
               </div>
             </CardHeader>
