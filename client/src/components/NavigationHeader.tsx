@@ -82,7 +82,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
           </div>
 
           {/* Phase Navigation */}
-          <nav className="hidden lg:flex items-center space-x-1 flex-1 justify-center mx-4 min-w-0">
+          <nav className="hidden xl:flex items-center space-x-1 flex-1 justify-center mx-4 min-w-0">
             {phases.slice(0, 5).map((phase) => {
               const isActive = currentPhaseNumber === phase.number;
               const isCompleted = team ? phase.number < team.currentPhase : false;
@@ -173,7 +173,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
             <Button
               variant="ghost"
               size="sm"
-              className="lg:hidden"
+              className="xl:hidden"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               <Menu className="w-4 h-4" />
