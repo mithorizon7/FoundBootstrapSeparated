@@ -11,7 +11,8 @@
       "placeholder": "e.g., Targeting mid-market B2B SaaS customers in North America with a focus on ease-of-use and integration",
       "required": true,
       "persist": true,
-      "help": "Write a single, clear sentence stating your company's specific goal and target market"
+      "help": "Write a single, clear sentence stating your company's specific goal and target market",
+      "tooltip": "Define your strategic positioning clearly. This ambition statement helps the AI create a competitor matrix that evaluates threats specifically relevant to your market approach and target customers."
     },
     {
       "id": "market_share_weight",
@@ -20,7 +21,8 @@
       "placeholder": "0.25",
       "required": true,
       "persist": true,
-      "help": "Importance of market share in threat assessment (0-1)"
+      "help": "Importance of market share in threat assessment (0-1)",
+      "tooltip": "How much should market dominance factor into threat scoring? Higher weight means established market leaders get higher threat scores. All weights should sum to 1.0 across the four factors."
     },
     {
       "id": "innovation_weight",
@@ -29,7 +31,8 @@
       "placeholder": "0.25",
       "required": true,
       "persist": true,
-      "help": "Importance of innovation capability in threat assessment (0-1)"
+      "help": "Importance of innovation capability in threat assessment (0-1)",
+      "tooltip": "How critical is innovation speed for competitive advantage in your sector? Tech sectors typically weight this higher than traditional industries. Affects how AI scores R&D-focused competitors."
     },
     {
       "id": "channel_power_weight",
@@ -38,7 +41,8 @@
       "placeholder": "0.25", 
       "required": true,
       "persist": true,
-      "help": "Importance of sales/distribution strength in threat assessment (0-1)"
+      "help": "Importance of sales/distribution strength in threat assessment (0-1)",
+      "tooltip": "Rate the importance of distribution networks and sales reach. Consumer brands typically weight this higher than B2B software companies. Determines how AI scores competitors with strong retail presence."
     },
     {
       "id": "brand_weight",
@@ -47,7 +51,8 @@
       "placeholder": "0.25",
       "required": true,
       "persist": true,
-      "help": "Importance of brand reputation in threat assessment (0-1)"
+      "help": "Importance of brand reputation in threat assessment (0-1)",
+      "tooltip": "How much does brand recognition and customer loyalty matter in your market? Consumer markets typically weight this higher than technical B2B markets where features matter more than brand."
     }
   ],
   "promptTemplate": "**ROLE**\n\nYou are a strategy consultant creating a competitive threat matrix.\n\n**CONTEXT**\n\nUsing the attached Market_Competitors.pdf, create a quantitative competitor matrix for {{phase1.company_name}} in the {{phase1.sector}} market.\n\nOur ambition: {{company_ambition}}\n\n**TASK**\n\nCreate a CSV-formatted competitive matrix with these columns:\n1. Brand Name\n2. Market Share Score (1-5, where 5 = dominant player)\n3. Innovation Score (1-5, where 5 = cutting-edge technology leader)\n4. Channel Power Score (1-5, where 5 = strongest sales/distribution)\n5. Brand Score (1-5, where 5 = strongest reputation/loyalty)\n6. Weighted Threat Score (calculated using weights: Market Share {{market_share_weight}}, Innovation {{innovation_weight}}, Channel Power {{channel_power_weight}}, Brand {{brand_weight}})\n7. Core USP (one sentence)\n8. Notable Strength (key advantage)\n9. Key Vulnerability (potential weakness to exploit)\n\n**SCORING GUIDELINES**\n- Use the competitor information from the PDF to justify each 1-5 score\n- Include the top 5 competitors identified in the market research\n- Calculate weighted scores as: (Market Share × {{market_share_weight}}) + (Innovation × {{innovation_weight}}) + (Channel Power × {{channel_power_weight}}) + (Brand × {{brand_weight}})\n\n**OUTPUT FORMAT**\n\nReturn the matrix in CSV format, followed by a brief analysis of the \"Boss Rival\" (highest weighted threat score) and top 2 strategic opportunities based on competitor vulnerabilities.",

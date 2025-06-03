@@ -1,0 +1,62 @@
+Task: Implement Contextual Tooltips for Decision Box Fields
+
+Objective:
+For every input field within the main 'Decision Box' forms of each phase, we need to add an informative tooltip. This tooltip should offer clear, educational guidance to help users understand what information is required for that field and how their input contributes to the phase's objectives and the AI prompt they are building. This will support their learning and group discussions.
+
+Detailed Instructions:
+
+Identify Target Fields:
+
+The tooltips are to be added to each input field defined in the main fields array within every FoundInTwo/configs/phase-X.json configuration file (e.g.,).
+Tooltip Content Generation (Primary Task - Content Creation for JSON):
+
+For each target field in each phase-X.json file:
+Analyze Context: To craft the tooltip text, analyze the following within its respective phase-X.json file:
+The overall phase title and intro.
+The decisionBoxContent (if present) for high-level guidance.
+The stepByStepFlow to understand how the field's input fits into the user's tasks.
+The promptTemplate to see how the field's value (e.g., {{field.id}}) is used in the AI prompt and its purpose there.
+The field's existing label, placeholder, and any current help text.
+Craft Tooltip Text: Based on this comprehensive analysis, write concise, helpful, and educational tooltip text (1-3 sentences is likely ideal for a tooltip).
+The text should be in your own words, aimed at guiding the user's thinking effectively.
+Explain the significance of the field or how their input will be used in subsequent steps or prompts.
+This new tooltip content should enhance or could replace any existing simple help text for the field if it provides superior guidance.
+Store Tooltip Text: Add the generated tooltip text as a new property, for example, tooltip: "Your insightful guidance here...", to each field object within the configs/phase-X.json files.
+UI Implementation (Secondary Task - Component Modification):
+
+Modify Component: Update the FoundInTwo/client/src/components/Field.tsx component.
+Display Tooltip: For each field rendered by Field.tsx, if a tooltip property exists in its config prop:
+Implement the tooltip using the existing Tooltip, TooltipTrigger, and TooltipContent components from FoundInTwo/client/src/components/ui/tooltip.tsx.
+The TooltipTrigger should likely wrap the field's Label or an informational icon (e.g., a small 'i' icon) next to the label.
+The TooltipContent will display the tooltip text from the JSON configuration.
+Styling: Ensure the tooltips are "nice" (visually appealing, non-intrusive) and consistent with the application's existing UI style.
+Preserve Existing Functionality (Crucial):
+
+These changes are primarily additive (new property in JSON, new display logic in Field.tsx).
+Critical: Ensure that all existing functionalities of the forms (data input, validation), prompt generation, data persistence, and the overall layout and behavior of the PhasePage.tsx remain unchanged and are not broken.
+The primary structure of the JSON files and the Field.tsx component should be respected, with the tooltip functionality layered on top.
+Example of an updated field definition in phase-X.json:
+
+JSON
+// Existing field structure:
+// {
+//   "id": "company_name",
+//   "label": "Company Name",
+//   "type": "text",
+//   "placeholder": "e.g., BrightBlocks",
+//   "required": true,
+//   "persist": true,
+//   "help": "A short, memorable brand name"
+// }
+
+// After your AI Coder's work (example for company_name in phase-1.json):
+{
+  "id": "company_name",
+  "label": "Company Name",
+  "type": "text",
+  "placeholder": "e.g., BrightBlocks",
+  "required": true,
+  "persist": true,
+  "help": "A short, memorable brand name", // AI can decide if this is still needed or integrated into tooltip
+  "tooltip": "This is the official name for your new venture. It will be used in all generated AI prompts (like in the Phase 1 prompt: '...for a new entrant called {{company_name}}') and will be central to your branding throughout all phases."
+}

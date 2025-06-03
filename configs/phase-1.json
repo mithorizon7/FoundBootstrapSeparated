@@ -11,7 +11,8 @@
       "placeholder": "e.g., BrightBlocks",
       "required": true,
       "persist": true,
-      "help": "A short, memorable brand name"
+      "help": "A short, memorable brand name",
+      "tooltip": "This is the official name for your venture that will be used throughout all AI prompts and research. Choose something memorable and brandable as it becomes central to your identity across all phases."
     },
     {
       "id": "sector",
@@ -20,7 +21,8 @@
       "placeholder": "e.g., STEM toys for ages 4-8",
       "required": true,
       "persist": true,
-      "help": "The slice of the market you will attack"
+      "help": "The slice of the market you will attack",
+      "tooltip": "Define the specific market niche you're entering. This helps Gemini Deep Research focus on relevant competitors, market size, and industry trends for your exact domain."
     },
     {
       "id": "benefit_keyword",
@@ -29,7 +31,8 @@
       "placeholder": "e.g., play-driven learning",
       "required": true,
       "persist": true,
-      "help": "The human outcome your offer will improve"
+      "help": "The human outcome your offer will improve",
+      "tooltip": "The primary value proposition that differentiates you. This keyword guides the AI research to find market gaps around this specific benefit and competitive positioning opportunities."
     },
     {
       "id": "target_region",
@@ -38,6 +41,7 @@
       "required": true,
       "persist": true,
       "help": "Primary geography for your launch",
+      "tooltip": "Your initial market focus affects regulatory considerations, competitive landscape, and market sizing data that Gemini will research. Start focused rather than global.",
       "options": [
         { "value": "North America", "label": "North America" },
         { "value": "Europe", "label": "Europe" },
@@ -53,7 +57,8 @@
       "type": "color",
       "required": true,
       "persist": true,
-      "help": "Primary hex color for your brand"
+      "help": "Primary hex color for your brand",
+      "tooltip": "Your main brand color that will appear in all marketing materials and website designs generated in later phases. Choose a color that reflects your brand personality and stands out in your market sector."
     },
     {
       "id": "secondary_color",
@@ -61,7 +66,8 @@
       "type": "color",
       "required": true,
       "persist": true,
-      "help": "Secondary hex color for your brand"
+      "help": "Secondary hex color for your brand",
+      "tooltip": "A complementary color that works with your primary color for visual hierarchy and design variety. This will be used for accents, buttons, and secondary elements in your brand materials."
     }
   ],
   "promptTemplate": "**ROLE**\n\nYou are a senior market-intelligence analyst at a global consulting firm.\n\n**CONTEXT**\n\nWe are evaluating the {{sector}} market in {{target_region}} for a new entrant called {{company_name}}.\n\n**TASK**\n\nProduce a structured report with five numbered sections:\n\n1. **Market Sizing & Growth**\n   * Current‐year (e.g., Projected 2025) TAM and SAM in USD.\n   * Recent or Projected Market CAGR (specify timeframe, e.g., 2023-2028).\n   * Minimum one, preferably two, independent sources per figure (link or full citation). Prioritize reputable sources (market research firms, government data, industry associations).\n   * Briefly outline key factors or common methodologies used to estimate potential SOM in this sector (a specific sourced SOM figure is not required).\n\n2. **Top 5 Competitors**\n   * Identify the Top 5 competitors based on perceived market influence or relevance to {{company_name}}'s likely offering.\n   * Table: Brand | Core Offer | One-sentence USP | Market Positioning/Tier (e.g., Leader, Major Player, Niche) | Evidence of Scale (e.g., Revenue/funding if public, employee range) | Key Strengths (1-2 bullets)\n   * Mention any significant funding, patent, or M&A event involving these competitors in the last 18-24 months.\n\n3. **Potential Unmet Needs**\n   * Minimum three potential unmet needs within the market, supported by cited evidence.\n   * ≤ 30 words each. Include a parent quote, data point, or reference to analysis from a reputable source illustrating customer pain or market gap.\n   * Briefly note the potential implication of addressing this need for {{company_name}}.\n\n4. **Macro & Regulatory Trends**\n   * Three trends (e.g., Technological, Regulatory, Economic, Social) most likely to significantly reshape this category within the next 3 years.\n   * Pair each with a referenced statistic or forecast.\n   * For each trend, briefly state its potential impact (opportunity or threat) on {{company_name}}.\n\n5. **Key Assumptions and Limitations**\n   * Briefly outline key assumptions made during the analysis and any significant limitations encountered (e.g., data availability, reliance on public sources).\n\n**FORMAT**\n\nReturn the content in GitHub-flavored Markdown with clear H2 headers for the numbered sections.\n\nStructure the output cleanly (especially tables and lists) to allow for easy copying and pasting into a final document (e.g., Word or PowerPoint) for executive presentation.\n\nFinish with a consolidated APA reference list for all cited sources.",

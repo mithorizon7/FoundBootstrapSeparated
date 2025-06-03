@@ -2,6 +2,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface FieldConfig {
@@ -13,6 +15,7 @@ interface FieldConfig {
   required?: boolean;
   persist?: boolean;
   help?: string;
+  tooltip?: string;
 }
 
 interface FieldProps {
@@ -23,7 +26,7 @@ interface FieldProps {
 }
 
 export function Field({ config, value, onChange, error }: FieldProps) {
-  const { id, label, type, placeholder, options, required, help } = config;
+  const { id, label, type, placeholder, options, required, help, tooltip } = config;
 
   const renderField = () => {
     switch (type) {
@@ -91,14 +94,28 @@ export function Field({ config, value, onChange, error }: FieldProps) {
   };
 
   return (
-    <div className="space-y-2">
-      <Label htmlFor={id} className="text-sm font-medium text-gray-700">
-        {label}
-        {required && <span className="text-red-500 ml-1">*</span>}
-      </Label>
-      {renderField()}
-      {help && <p className="text-xs text-gray-500">{help}</p>}
-      {error && <p className="text-xs text-red-600">{error}</p>}
-    </div>
+    <TooltipProvider>
+      <div className="space-y-2">
+        <div className="flex items-center space-x-2">
+          <Label htmlFor={id} className="text-sm font-medium text-gray-700">
+            {label}
+            {required && <span className="text-red-500 ml-1">*</span>}
+          </Label>
+          {tooltip && (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Info className="w-4 h-4 text-gray-400 hover:text-gray-600 cursor-help" />
+              </TooltipTrigger>
+              <TooltipContent className="max-w-xs">
+                <p className="text-sm">{tooltip}</p>
+              </TooltipContent>
+            </Tooltip>
+          )}
+        </div>
+        {renderField()}
+        {help && <p className="text-xs text-gray-500">{help}</p>}
+        {error && <p className="text-xs text-red-600">{error}</p>}
+      </div>
+    </TooltipProvider>
   );
 }
