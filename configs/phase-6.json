@@ -139,7 +139,7 @@
         "steps": [
           {
             "number": "1",
-            "action": "Open Suno → \"Create\" in the sidebar. If you click \"Simple\" you can just describe the style you want and what you want it to be about. Experiment a bit (you don't have unlimited tries for free). Try for 10 different prompts. You can also click \"custom\" and have it make a song to your own lyrics"
+            "action": "Open Suno → \"Create\" in the sidebar. If you click \"Simple\" you can just describe the style you want and what you want it to be about. Experiment a bit (you don't have unlimited tries for free). Try for 10 different prompts. You can also click \"custom\" and have it make a song to your own lyrics<br><strong>TIP:</strong> You don't have unlimited tries for free, so make each prompt count by being specific about style and mood."
           },
           {
             "number": "2",

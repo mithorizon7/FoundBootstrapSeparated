@@ -180,17 +180,17 @@
     },
     {
       "step": 5,
-      "action": "**Offline while ChatGPT thinks (~3 min)**: The team sketches logo doodles or packaging ideas inspired by the brand adjectives—these visuals help later when selecting DALL-E prompts",
+      "action": "**Offline while ChatGPT thinks (~3 min)**: The team sketches logo doodles or packaging ideas inspired by the brand adjectives—these visuals help later when selecting DALL-E prompts<br><strong>TIP:</strong> Use this time productively to visualize your concepts and prepare for design decisions in later phases.",
       "time": "3 minutes"
     },
     {
       "step": 6,
-      "action": "When ChatGPT returns, review the information. Check BOM estimates for plausibility",
+      "action": "When ChatGPT returns, review the information. Check BOM estimates for plausibility<br><strong>TIP:</strong> Verify that the Bill of Materials costs seem realistic for your price tier and market positioning.",
       "time": "2 minutes"
     },
     {
       "step": 7,
-      "action": "Debate the recommendation paragraph; if you disagree, adjust scoring weights and ask ChatGPT to recalculate",
+      "action": "Debate the recommendation paragraph; if you disagree, adjust scoring weights and ask ChatGPT to recalculate<br><strong>TIP:</strong> This is your opportunity to refine the analysis if the AI's recommendation doesn't align with your team's strategic thinking.",
       "time": "3 minutes"
     },
     {

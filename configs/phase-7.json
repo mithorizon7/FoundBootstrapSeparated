@@ -175,7 +175,7 @@
         "steps": [
           {
             "number": "1",
-            "action": "Fill in the **First Message** - This is what users hear when they first connect"
+            "action": "Fill in the **First Message** - This is what users hear when they first connect<br><strong>TIP:</strong> Make this greeting warm and professional, introducing the agent by name and explaining how they can help."
           },
           {
             "number": "2",
