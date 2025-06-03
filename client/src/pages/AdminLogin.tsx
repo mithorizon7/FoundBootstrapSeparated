@@ -5,15 +5,22 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/contexts/AuthContext";
 import { Lock, User } from "lucide-react";
-import { apiRequest } from "@/lib/queryClient";
 
 export default function AdminLogin() {
   const [, setLocation] = useLocation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { login, isAuthenticated, user } = useAuth();
   const { toast } = useToast();
+
+  // Redirect if already authenticated as admin
+  if (isAuthenticated && user?.role === 'admin') {
+    setLocation("/admin");
+    return null;
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,6 +47,8 @@ export default function AdminLogin() {
       });
 
       if (response.ok) {
+        const data = await response.json();
+        login(data.user);
         toast({
           title: "Login successful",
           description: "Welcome to the admin dashboard.",

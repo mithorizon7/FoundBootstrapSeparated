@@ -1,11 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
+import { useLocation } from "wouter";
+import { useAuth } from "@/contexts/AuthContext";
 import { NavigationHeader } from "@/components/NavigationHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
-import { Download, Users } from "lucide-react";
+import { Download, Users, Shield } from "lucide-react";
 import { getTimeAgo } from "@/lib/utils";
 
 interface TeamWithProgress {
@@ -18,7 +20,34 @@ interface TeamWithProgress {
 }
 
 export default function Admin() {
+  const [, setLocation] = useLocation();
+  const { isAuthenticated, user } = useAuth();
   const { toast } = useToast();
+  
+  // Redirect to login if not authenticated as admin
+  if (!isAuthenticated || user?.role !== 'admin') {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <div className="mx-auto w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center mb-4">
+              <Shield className="w-6 h-6 text-red-600" />
+            </div>
+            <CardTitle className="text-2xl">Access Denied</CardTitle>
+            <p className="text-gray-600">You need admin privileges to access this page.</p>
+          </CardHeader>
+          <CardContent>
+            <Button
+              onClick={() => setLocation("/admin-login")}
+              className="w-full"
+            >
+              Go to Admin Login
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
   
   const { data: teams = [], isLoading } = useQuery<TeamWithProgress[]>({
     queryKey: ['/api/teams'],
