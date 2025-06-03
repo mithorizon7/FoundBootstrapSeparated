@@ -19,6 +19,8 @@ function Router() {
       <Route path="/phase/:id" component={Phase} />
       <Route path="/admin" component={Admin} />
       <Route path="/admin-login" component={AdminLogin} />
+      <Route path="/showcase/:cohortTag" component={Showcase} />
+      <Route path="/results/:cohortTag" component={Results} />
       <Route component={NotFound} />
     </Switch>
   );

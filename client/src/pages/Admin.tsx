@@ -1,4 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { useAuth } from "@/contexts/AuthContext";
 import { NavigationHeader } from "@/components/NavigationHeader";
@@ -6,9 +7,17 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
-import { Download, Users, Shield } from "lucide-react";
+import { Download, Users, Shield, Plus, Settings, Eye, BarChart3, Globe, Vote } from "lucide-react";
 import { getTimeAgo } from "@/lib/utils";
+import type { Team, Cohort } from "@shared/schema";
 
 interface TeamWithProgress {
   id: number;
@@ -23,6 +32,18 @@ export default function Admin() {
   const [, setLocation] = useLocation();
   const { isAuthenticated, user } = useAuth();
   const { toast } = useToast();
+  const queryClient = useQueryClient();
+  
+  // State for cohort management
+  const [newCohortOpen, setNewCohortOpen] = useState(false);
+  const [assignTeamsOpen, setAssignTeamsOpen] = useState(false);
+  const [selectedCohort, setSelectedCohort] = useState<string>("");
+  const [selectedTeams, setSelectedTeams] = useState<number[]>([]);
+  const [newCohort, setNewCohort] = useState({
+    tag: "",
+    name: "",
+    description: "",
+  });
   
   // Redirect to login if not authenticated as admin
   if (!isAuthenticated || user?.role !== 'admin') {

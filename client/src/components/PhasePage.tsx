@@ -3,15 +3,19 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Progress } from "@/components/ui/progress";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { useToast } from "@/hooks/use-toast";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Field } from "./Field";
 import { PromptPreview } from "./PromptPreview";
-import { ChevronLeft, ChevronRight, ChevronDown, Info, Vote, Save, Copy, CheckCircle, Clock, FileText, Target, ArrowRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, ChevronDown, Info, Vote, Save, Copy, CheckCircle, Clock, FileText, Target, ArrowRight, Globe, Upload } from "lucide-react";
 import { savePhaseData, getPhaseData, saveToLocalStorage, getFromLocalStorage, getAllLocalStorageData, getAllPhaseDataForTeam, updateTeamPhase } from "@/lib/db";
 import { useLocation } from "wouter";
 import { cn } from "@/lib/utils";
 import { PHASE_CONFIG } from "../../../shared/constants";
+import type { Team, Cohort } from "@shared/schema";
 
 interface FieldConfig {
   id: string;
@@ -80,8 +84,68 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [allPhaseData, setAllPhaseData] = useState<Record<string, any>>({});
+  const [websiteUrl, setWebsiteUrl] = useState<string>("");
   const [, setLocation] = useLocation();
   const { toast } = useToast();
+  const queryClient = useQueryClient();
+
+  // Check if current phase is the final phase (Phase 8)
+  const isFinalPhase = config.phase === Object.keys(PHASE_CONFIG).length;
+
+  // Fetch team data to check cohort membership
+  const { data: teamData } = useQuery<Team>({
+    queryKey: ['/api/teams', teamCode],
+    queryFn: async () => {
+      if (!teamCode) return null;
+      const response = await fetch(`/api/teams/${teamCode}`);
+      if (!response.ok) throw new Error('Failed to fetch team');
+      return response.json();
+    },
+    enabled: !!teamCode,
+  });
+
+  // Fetch cohort data if team is in a cohort
+  const { data: cohortData } = useQuery<Cohort>({
+    queryKey: ['/api/admin/cohorts', teamData?.cohortTag],
+    queryFn: async () => {
+      if (!teamData?.cohortTag) return null;
+      const response = await fetch(`/api/admin/cohorts/${teamData.cohortTag}`);
+      if (!response.ok) return null;
+      return response.json();
+    },
+    enabled: !!teamData?.cohortTag,
+  });
+
+  // Website submission mutation
+  const submitWebsiteMutation = useMutation({
+    mutationFn: async (url: string) => {
+      if (!teamId) throw new Error('Team ID required');
+      const response = await fetch(`/api/teams/${teamId}/website`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ website_url: url }),
+      });
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to submit website');
+      }
+      return response.json();
+    },
+    onSuccess: () => {
+      toast({
+        title: "Website submitted successfully",
+        description: "Your final website has been submitted to the cohort showcase.",
+      });
+      queryClient.invalidateQueries({ queryKey: ['/api/teams'] });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Failed to submit website",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
 
   // Load existing data on mount
   useEffect(() => {
@@ -118,6 +182,13 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
 
     loadData();
   }, [config.phase, teamId]);
+
+  // Set website URL from team data
+  useEffect(() => {
+    if (teamData?.submittedWebsiteUrl) {
+      setWebsiteUrl(teamData.submittedWebsiteUrl);
+    }
+  }, [teamData]);
 
   // Auto-save data
   useEffect(() => {
@@ -574,6 +645,104 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
             </div>
           </AlertDescription>
         </Alert>
+      )}
+
+      {/* Website Submission Section - Final Phase Only */}
+      {isFinalPhase && teamData?.cohortTag && cohortData?.submissionsOpen && (
+        <Card className="bg-gradient-to-r from-green-50 to-blue-50 border-green-200 card-premium">
+          <CardHeader>
+            <CardTitle className="flex items-center space-x-2 text-neutral-800 section-header">
+              <Globe className="w-5 h-5 text-green-600" />
+              <span>Submit Your Deployed Website</span>
+            </CardTitle>
+            <p className="text-neutral-600 mt-2 ui-label">
+              Your team is part of the <strong>{cohortData.name}</strong> cohort. Submit your final website to participate in the showcase and voting.
+            </p>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="bg-white rounded-lg p-6 border border-green-200">
+              <div className="space-y-4">
+                <div>
+                  <Label htmlFor="website-url" className="text-base font-medium text-neutral-800">
+                    Website URL
+                  </Label>
+                  <p className="text-sm text-neutral-600 mb-3">
+                    Enter the full URL of your deployed website (e.g., https://yourteam.replit.app)
+                  </p>
+                  <Input
+                    id="website-url"
+                    type="url"
+                    value={websiteUrl}
+                    onChange={(e) => setWebsiteUrl(e.target.value)}
+                    placeholder="https://your-website-url.com"
+                    className="text-base"
+                  />
+                </div>
+                
+                <div className="flex items-center justify-between pt-4 border-t border-gray-100">
+                  <div className="text-sm text-neutral-600">
+                    {teamData.submittedWebsiteUrl ? (
+                      <span className="flex items-center space-x-2 text-green-700">
+                        <CheckCircle className="w-4 h-4" />
+                        <span>Website submitted successfully</span>
+                      </span>
+                    ) : (
+                      <span>Submit your website to join the cohort showcase</span>
+                    )}
+                  </div>
+                  
+                  <Button
+                    onClick={() => submitWebsiteMutation.mutate(websiteUrl)}
+                    disabled={!websiteUrl.trim() || submitWebsiteMutation.isPending}
+                    className="flex items-center space-x-2"
+                  >
+                    <Upload className="w-4 h-4" />
+                    <span>
+                      {submitWebsiteMutation.isPending 
+                        ? "Submitting..." 
+                        : teamData.submittedWebsiteUrl 
+                          ? "Update Submission" 
+                          : "Submit Website"
+                      }
+                    </span>
+                  </Button>
+                </div>
+              </div>
+            </div>
+            
+            {teamData.submittedWebsiteUrl && cohortData && (
+              <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                <div className="flex items-center space-x-2 text-blue-800 mb-2">
+                  <Vote className="w-4 h-4" />
+                  <span className="font-medium">Next Steps</span>
+                </div>
+                <p className="text-blue-700 text-sm mb-3">
+                  Your website has been submitted! You can now view the cohort showcase and vote for your favorite submissions.
+                </p>
+                <div className="flex space-x-3">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setLocation(`/showcase/${teamData.cohortTag}`)}
+                    className="border-blue-300 text-blue-700 hover:bg-blue-100"
+                  >
+                    View Showcase
+                  </Button>
+                  {cohortData.votingOpen && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setLocation(`/results/${teamData.cohortTag}`)}
+                      className="border-blue-300 text-blue-700 hover:bg-blue-100"
+                    >
+                      View Results
+                    </Button>
+                  )}
+                </div>
+              </div>
+            )}
+          </CardContent>
+        </Card>
       )}
 
       {/* Legacy Instructions (fallback) */}
