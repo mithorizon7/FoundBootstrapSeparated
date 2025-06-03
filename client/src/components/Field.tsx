@@ -37,7 +37,7 @@ export function Field({ config, value, onChange, error }: FieldProps) {
             placeholder={placeholder}
             value={value}
             onChange={(e) => onChange(e.target.value)}
-            className={cn("input-premium", error && 'border-red-300 focus:border-red-400')}
+            className={cn("transition-all duration-200 ease-out border border-neutral-300 bg-white shadow-sm focus:border-primary-500 focus:shadow-md focus:-translate-y-px", error && 'border-red-300 focus:border-red-400')}
             required={required}
           />
         );
@@ -45,7 +45,7 @@ export function Field({ config, value, onChange, error }: FieldProps) {
       case "select":
         return (
           <Select value={value} onValueChange={onChange} required={required}>
-            <SelectTrigger className={cn("input-premium", error && 'border-red-300 focus:border-red-400')}>
+            <SelectTrigger className={cn("transition-all duration-200 ease-out border border-neutral-300 bg-white shadow-sm focus:border-primary-500 focus:shadow-md focus:-translate-y-px", error && 'border-red-300 focus:border-red-400')}>
               <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent>
@@ -86,7 +86,7 @@ export function Field({ config, value, onChange, error }: FieldProps) {
             placeholder={placeholder}
             value={value}
             onChange={(e) => onChange(e.target.value)}
-            className={cn("input-premium", error && 'border-red-300 focus:border-red-400')}
+            className={cn("transition-all duration-200 ease-out border border-neutral-300 bg-white shadow-sm focus:border-primary-500 focus:shadow-md focus:-translate-y-px", error && 'border-red-300 focus:border-red-400')}
             required={required}
           />
         );

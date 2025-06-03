@@ -97,138 +97,15 @@
 }
 
 @layer components {
-  /* Premium button enhancements */
-  .btn-premium {
-    @apply transition-all duration-200 ease-out;
-    transform: translateY(0);
-    box-shadow: var(--shadow-sm);
-    background: hsl(var(--primary-500));
-    color: white;
-  }
+  /* Minimal essential custom styles - prefer Tailwind utilities */
   
-  .btn-premium:hover {
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-md);
-    background: hsl(var(--primary-600));
-  }
+  /* Essential custom components - minimal styles that cannot be easily replaced with Tailwind utilities */
   
-  .btn-premium:active {
-    transform: translateY(0);
-    box-shadow: var(--shadow-sm);
-    transition-duration: 100ms;
-  }
-
-  /* Enhanced step numbers */
-  .step-number {
-    @apply transition-all duration-300 ease-out;
-    background: hsl(var(--primary-500));
-    color: white;
-    border: 1px solid hsl(var(--primary-600));
-    box-shadow: var(--shadow-md);
-  }
-
-  /* Input field enhancements */
-  .input-premium {
-    @apply transition-all duration-200 ease-out;
-    border: 1px solid hsl(var(--neutral-300));
-    background: white;
-    box-shadow: var(--shadow-sm);
-  }
-  
-  .input-premium:focus {
-    border-color: hsl(var(--primary-500));
-    box-shadow: 0 0 0 3px hsl(var(--primary-100)), var(--shadow-md);
-    transform: translateY(-1px);
-  }
-
-  /* Card depth enhancements */
-  .card-premium {
-    @apply transition-all duration-200 ease-out;
-    background: white;
-    border: 1px solid hsl(var(--neutral-300));
-    box-shadow: var(--shadow-sm);
-  }
-  
-  .card-premium:hover {
-    box-shadow: var(--shadow-md);
-    border-color: hsl(var(--neutral-300));
-    transform: translateY(-1px);
-  }
-
-  /* Smooth content transitions */
-  .content-fade {
-    @apply transition-all duration-300 ease-out;
-  }
-  
-  .content-fade.updating {
-    @apply opacity-75;
-  }
-
-  /* Enhanced typography with Plus Jakarta Sans weights */
-  .text-premium {
-    line-height: 1.6;
-    font-weight: 400;
-  }
-  
-  .heading-premium {
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    font-weight: 700;
-  }
-
-  /* Typography scale and weight system */
-  .body-text { 
-    font-weight: 400; 
-  }
-
-  .ui-label { 
-    font-weight: 500; 
-  }
-
-  .section-header { 
-    font-weight: 600; 
-    letter-spacing: -0.01em;
-  }
-
-  .page-title { 
-    font-weight: 700; 
-    letter-spacing: -0.02em;
-  }
-
-  .hero-text { 
-    font-weight: 800; 
-    letter-spacing: -0.02em;
-  }
-
-  /* Button typography */
-  .btn-premium {
-    font-weight: 600;
-    letter-spacing: 0.01em;
-  }
-
-  /* Step numbers */
-  .step-number {
-    font-weight: 600;
-  }
-
-  /* Input styling */
-  .input-premium::placeholder {
-    font-weight: 400;
-    opacity: 0.6;
-  }
-
-  /* Phase indicator */
-  .phase-indicator {
-    font-weight: 600;
-  }
-
-  /* Variable highlighting in prompts */
+  /* Variable highlighting in prompts - complex gradient styles */
   .variable-highlight {
-    @apply transition-all duration-200 ease-out;
+    @apply transition-all duration-200 ease-out px-1.5 py-0.5 rounded;
     background: linear-gradient(135deg, hsl(var(--accent) / 0.1) 0%, hsl(var(--accent) / 0.05) 100%);
     border: 1px solid hsl(var(--accent) / 0.2);
-    border-radius: 4px;
-    padding: 2px 6px;
   }
   
   .variable-highlight.focused {
@@ -237,17 +114,10 @@
     box-shadow: 0 0 0 2px hsl(var(--primary) / 0.1);
   }
 
-  /* Progress indicators */
+  /* Progress indicators with gradient - complex styling */
   .progress-premium {
     @apply transition-all duration-500 ease-out;
     background: linear-gradient(90deg, hsl(var(--primary)) 0%, hsl(var(--accent)) 100%);
-  }
-
-  /* Team dropdown enhancements */
-  .dropdown-premium {
-    @apply transition-all duration-200 ease-out;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    border: 1px solid hsl(var(--border));
   }
 }
 

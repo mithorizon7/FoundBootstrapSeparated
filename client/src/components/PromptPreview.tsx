@@ -64,22 +64,22 @@ export function PromptPreview({ template, data }: PromptPreviewProps) {
   };
 
   return (
-    <div className="bg-white rounded-xl card-premium p-6 sticky top-24">
+    <div className="bg-white rounded-xl border border-neutral-300 shadow-sm hover:shadow-md transition-all duration-200 ease-out hover:-translate-y-px p-6 sticky top-24">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center space-x-3">
           <div className="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center transition-all duration-200 hover:bg-primary-200">
             <Copy className="w-4 h-4 text-primary-600" />
           </div>
-          <h2 className="text-lg font-semibold text-neutral-800 heading-premium">AI Prompt Preview</h2>
+          <h2 className="text-lg font-bold text-neutral-800 leading-tight tracking-tight">AI Prompt Preview</h2>
         </div>
         <div className="flex items-center space-x-2">
-          <div className="text-xs text-neutral-500 bg-neutral-100 px-2 py-1 rounded content-fade">Live Preview</div>
+          <div className="text-xs text-neutral-500 bg-neutral-100 px-2 py-1 rounded transition-all duration-300 ease-out">Live Preview</div>
         </div>
       </div>
 
       <div className="bg-neutral-50 rounded-lg p-4 mb-4 max-h-96 overflow-y-auto border border-neutral-200">
         <div 
-          className="text-sm text-neutral-700 text-premium leading-relaxed"
+          className="text-sm text-neutral-700 leading-relaxed font-normal"
           dangerouslySetInnerHTML={{
             __html: formatPromptForDisplay(compiledPrompt)
           }}
@@ -89,7 +89,7 @@ export function PromptPreview({ template, data }: PromptPreviewProps) {
       <div className="flex items-center space-x-3">
         <Button
           onClick={handleCopy}
-          className={cn("flex-1 btn-premium bg-primary text-white hover:bg-primary/90 transition-colors duration-200 flex items-center justify-center space-x-2",
+          className={cn("flex-1 bg-primary-500 text-white hover:bg-primary-600 transition-all duration-200 ease-out transform hover:-translate-y-px shadow-sm hover:shadow-md font-semibold tracking-wide flex items-center justify-center space-x-2",
             copied && "bg-accent-600 hover:bg-accent-700"
           )}
         >
@@ -99,7 +99,7 @@ export function PromptPreview({ template, data }: PromptPreviewProps) {
         <Button
           onClick={handleDownload}
           variant="outline"
-          className="btn-premium px-4 py-3 border border-neutral-300 rounded-lg text-neutral-600 hover:bg-neutral-50 transition-colors duration-200"
+          className="px-4 py-3 border border-neutral-300 rounded-lg text-neutral-600 hover:bg-neutral-50 transition-all duration-200 ease-out transform hover:-translate-y-px shadow-sm hover:shadow-md font-semibold tracking-wide"
         >
           <Download className="w-4 h-4" />
         </Button>
