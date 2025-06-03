@@ -453,7 +453,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                         <CollapsibleTrigger className="w-full p-6 text-left hover:bg-neutral-50 transition-colors duration-200">
                           <div className="flex items-start space-x-4">
                             <div className="flex-shrink-0">
-                              <div className="step-number w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg text-white">
+                              <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center font-bold text-lg text-white shadow-md">
                                 {step.step}
                               </div>
                             </div>
