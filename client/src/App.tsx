@@ -8,6 +8,8 @@ import Home from "@/pages/Home";
 import Phase from "@/pages/Phase";
 import Admin from "@/pages/Admin";
 import AdminLogin from "@/pages/AdminLogin";
+import Showcase from "@/pages/Showcase";
+import Results from "@/pages/Results";
 import NotFound from "@/pages/not-found";
 
 function Router() {
