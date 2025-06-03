@@ -11,7 +11,8 @@
       "placeholder": "e.g., Alex, Sarah, Morgan",
       "required": true,
       "persist": true,
-      "help": "Choose a friendly name for your AI voice concierge"
+      "help": "Choose a friendly name for your AI voice concierge",
+      "tooltip": "Creates a personal connection with callers and establishes brand personality. Choose a name that feels approachable and matches your target audience's preferences and cultural context."
     },
     {
       "id": "agent_persona",
@@ -20,7 +21,8 @@
       "placeholder": "You are 'Alex', a friendly, knowledgeable, and patient product concierge for [Company Name]. Your specialty is providing clear information about our new [Concept Code] offering.",
       "required": true,
       "persist": true,
-      "help": "Define who the AI is, its function, and key characteristics"
+      "help": "Define who the AI is, its function, and key characteristics",
+      "tooltip": "Establishes the voice agent's personality and expertise level. This persona should align with your brand adjectives and target audience expectations while clearly defining the agent's role and capabilities."
     },
     {
       "id": "conversation_context",
@@ -29,7 +31,8 @@
       "placeholder": "You are interacting with users over the phone or on the website. The user is typically a parent interested in [Concept Code]. They may be curious, potentially cautious, or sometimes multitasking.",
       "required": true,
       "persist": true,
-      "help": "Describe the communication channel and likely user context"
+      "help": "Describe the communication channel and likely user context",
+      "tooltip": "Helps the AI understand caller circumstances and adapt its communication style. Mentioning that users might be multitasking or cautious helps the agent be more patient and clear in responses."
     },
     {
       "id": "knowledge_source_handling",
@@ -38,6 +41,7 @@
       "required": true,
       "persist": true,
       "help": "Choose how strictly the AI uses your provided sources vs. general knowledge",
+      "tooltip": "Strict control ensures all answers come from your verified research, ideal for regulated industries. Flexible allows broader helpfulness but may introduce unverified information beyond your brand knowledge.",
       "options": [
         { "value": "strict", "label": "Strict Control - Only use provided knowledge base" },
         { "value": "flexible", "label": "Prioritized Flexibility - Use knowledge base first, supplement when needed" }
@@ -50,7 +54,8 @@
       "placeholder": "Never speculate or invent answers. Do not provide medical, legal, or financial advice. Avoid discussing competitors.",
       "required": true,
       "persist": true,
-      "help": "Define prohibited actions and safety constraints"
+      "help": "Define prohibited actions and safety constraints",
+      "tooltip": "Protects your brand reputation by preventing the agent from making claims it can't support or venturing into liability areas. Essential for maintaining trust and avoiding regulatory issues."
     }
   ],
   "promptTemplate": "**ELEVENLABS VOICE AGENT SYSTEM PROMPT**\n\n**AI PERSONA & ROLE:**\n{{agent_persona}}\n\n**ENVIRONMENT & CONTEXT:**\n{{conversation_context}}\n\n**CONVERSATIONAL STYLE & TONE:**\nYour tone must always be {{phase4.brand_adj_1}}, {{phase4.brand_adj_2}}, and {{phase4.brand_adj_3}}. To sound natural and engaging, occasionally use brief, appropriate affirmations like 'Okay,' 'Got it,' or 'I understand'. Use natural pauses for clarity, especially when explaining steps if necessary. Speak clearly and avoid overly technical jargon.\n\n**CORE GOAL & OBJECTIVE:**\nYour primary goal is to help users by accurately and concisely answering their questions about {{phase5.chosen_concept_code_name}}'s features, benefits, usage, and safety, based primarily on the provided information sources, ensuring they feel informed and confident.\n\n**KNOWLEDGE SOURCE HANDLING:**\n{{#if knowledge_source_handling == 'strict'}}\nYou MUST base all your answers strictly and solely on the information provided in the connected knowledge base (from Notebook LM). Do not use any external websites, general knowledge, or make assumptions beyond the provided text. If the answer to a user's question is not found in the provided knowledge base, clearly state that you do not have that specific information available and cannot answer.\n{{else}}\nStrongly prioritize using ONLY the information within the connected knowledge base (from Notebook LM) for your answers. If, and only if, the provided knowledge base does not contain the information needed to answer a direct user question about {{phase5.chosen_concept_code_name}} or closely related context, you may carefully supplement with your broader knowledge. When doing so, you must explicitly state you are using general information (e.g., 'Based on general knowledge outside the provided materials...').\n{{/if}}\n\n**BOUNDARIES & RULES:**\n{{boundaries_rules}} Regardless of knowledge source handling: Never speculate or invent answers or details not present in your sources. Do not provide medical, legal, financial, or any other form of professional advice. Avoid discussing competitors or topics unrelated to {{phase1.company_name}} and {{phase5.chosen_concept_code_name}}. If a question is outside your scope or knowledge base, politely state you cannot help with that specific query.",

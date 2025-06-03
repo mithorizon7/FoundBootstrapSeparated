@@ -11,6 +11,7 @@
       "required": true,
       "persist": true,
       "help": "Choose how detailed you want to be with Replit AI instructions",
+      "tooltip": "Detailed gives you specific control over layout and sections, ideal if you have clear website requirements. Vibey leverages brand personality for creative interpretation, better for exploring design possibilities.",
       "options": [
         { "value": "detailed", "label": "Detailed - Specify exact sections and layout" },
         { "value": "vibey", "label": "Vibey - Describe feeling and purpose, let AI interpret" }
@@ -23,7 +24,8 @@
       "placeholder": "Detailed: Briefly describe the desired sections (e.g., 'Hero section with image and value prop, podcast player section, section to embed voice agent, simple footer')\n\nVibey: Describe the feeling using your brand adjectives (e.g., 'Create a [Adj1], [Adj2], [Adj3] website for [Company] introducing [Concept]. Focus on [core value proposition]')",
       "required": true,
       "persist": true,
-      "help": "Instructions for Replit AI on how to build your website"
+      "help": "Instructions for Replit AI on how to build your website",
+      "tooltip": "The core instruction that determines your website structure and personality. Include key elements like hero sections, product features, media integration, and any specific functionality you need."
     },
     {
       "id": "productive_task_choice",
@@ -32,6 +34,7 @@
       "required": true,
       "persist": true,
       "help": "Choose what to work on while Replit builds your website (~10 minutes)",
+      "tooltip": "Maximizes productivity during AI build time. Launch announcements prepare marketing, FAQs improve customer experience, elevator pitches help with networking and investor conversations.",
       "options": [
         { "value": "launch_announcement", "label": "Draft Launch Announcement for social media" },
         { "value": "key_faqs", "label": "Outline Key FAQs for website visitors" },
@@ -45,7 +48,8 @@
       "placeholder": "Write a short (3-4 sentence) social media post announcing the launch of your website, highlighting the core benefit and mentioning one key feature",
       "required": false,
       "persist": true,
-      "help": "Social media post for LinkedIn or Twitter/X"
+      "help": "Social media post for LinkedIn or Twitter/X",
+      "tooltip": "Your first public communication about the launch. Should capture attention, communicate core value, and drive traffic to your new website. Keep it concise and shareable."
     },
     {
       "id": "key_faqs",
@@ -54,7 +58,8 @@
       "placeholder": "List the top 3-5 questions you anticipate visitors asking (safety, usage, price, etc.) with concise, factual answers",
       "required": false,
       "persist": true,
-      "help": "Frequently asked questions and answers for your concept"
+      "help": "Frequently asked questions and answers for your concept",
+      "tooltip": "Anticipates common visitor concerns and questions to reduce friction in decision-making. Base answers on your research findings to maintain credibility and address real customer objections."
     },
     {
       "id": "elevator_pitch",
@@ -63,7 +68,8 @@
       "placeholder": "Condense the core message into a compelling 15-20 second verbal pitch summary",
       "required": false,
       "persist": true,
-      "help": "Practice-ready elevator pitch for your concept"
+      "help": "Practice-ready elevator pitch for your concept",
+      "tooltip": "Distills your entire concept into a memorable, conversational summary perfect for networking events, investor meetings, or casual conversations. Should capture attention and invite follow-up questions."
     }
   ],
   "promptTemplate": "**REPLIT AI WEBSITE BUILDER BRIEF**\n\n{{#if website_brief_approach == 'detailed'}}\n**DETAILED APPROACH:**\n{{website_brief}}\n\n**REQUIRED SECTIONS:**\n- Hero section featuring {{phase5.chosen_concept_code_name}} with hero image and value proposition\n- About/Concept section with key features and benefits\n- Media section with podcast player and background music\n- \"Talk to an Expert\" section with voice agent integration\n- Simple, clean footer\n{{else}}\n**VIBEY APPROACH:**\n{{website_brief}}\n\nCreate a {{phase4.brand_adj_1}}, {{phase4.brand_adj_2}}, and {{phase4.brand_adj_3}} website for {{phase1.company_name}} introducing {{phase5.chosen_concept_code_name}}. Feature the hero image prominently, include podcast audio, and integrate the voice agent. Focus on {{phase5.chosen_concept_unmet_need}}.\n{{/if}}\n\n**BRAND IDENTITY:**\n- Company: {{phase1.company_name}}\n- Concept: {{phase5.chosen_concept_code_name}}\n- Brand Adjectives: {{phase4.brand_adj_1}}, {{phase4.brand_adj_2}}, {{phase4.brand_adj_3}}\n- Target Audience: {{phase5.concept_target_audience}}\n\n**ASSETS TO INTEGRATE:**\n- Hero Image: hero.png\n- Website Copy: copy.txt\n- Background Music: jingle.mp3\n- Narration: voiceover.mp3\n- Podcast: podcast.mp3\n- Voice Agent: ElevenLabs embed code\n\n**CORE MESSAGE:**\nTrust the AI to interpret this brief and use the uploaded assets creatively to create a professional, engaging website that serves as the central hub for investors and early customers.",

@@ -41,7 +41,8 @@
       "placeholder": "e.g., Upbeat electronic, Warm acoustic, Corporate cinematic",
       "required": true,
       "persist": true,
-      "help": "Describe the musical style that matches your brand"
+      "help": "Describe the musical style that matches your brand",
+      "tooltip": "Sets the emotional tone for your brand jingle and background music. Upbeat electronic suits tech products, warm acoustic works for family brands, corporate cinematic fits B2B services."
     },
     {
       "id": "voice_persona",
@@ -50,6 +51,7 @@
       "required": true,
       "persist": true,
       "help": "Choose the voice character for your narration",
+      "tooltip": "Defines the personality and tone for all spoken content including explainer videos, ads, and voice agents. Should align with your target audience's preferences and brand personality.",
       "options": [
         { "value": "Friendly parent", "label": "Friendly parent" },
         { "value": "Energetic coach", "label": "Energetic coach" },
@@ -64,7 +66,8 @@
       "placeholder": "Select one jaw-dropping statistic from Section B of Science_Evidence.pdf",
       "required": true,
       "persist": true,
-      "help": "Choose the most compelling statistic to feature in your narration"
+      "help": "Choose the most compelling statistic to feature in your narration",
+      "tooltip": "The most credible, impressive data point from your Phase 3 research that will grab attention and validate your solution. This becomes the hook that opens your narrated content and marketing materials."
     }
   ],
   "promptTemplate": "**PURPOSE**: Create an engaging 60-second voiceover script that introduces our company's solution in a way that builds trust, demonstrates value, and motivates action. This script should work as background narration on our website, over promotional videos, or as standalone audio content.\n\n**SCRIPT REQUIREMENTS:**\n\nWrite a 60-second narration introducing **{{phase5.chosen_concept_code_name}}**, our new {{phase1.sector}} solution.\n\n• Hook potential customers in the first line using this statistic: \"{{selected_statistic}}\".\n• Weave in this expert pull-quote for credibility: \"[Pull-quote from Science_Evidence.pdf]\".\n• Describe one key interactive feature and expected benefit in ≤ 25 words.\n• End with a rousing call to action (<15 words).\n\nTone: {{voice_persona}} (warm, encouraging, trustworthy).\n\nOutput plain text only.",
