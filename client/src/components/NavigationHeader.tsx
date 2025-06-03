@@ -1,7 +1,10 @@
 import { Link, useLocation } from "wouter";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, Users, ChartLine, UserCircle, ChevronDown } from "lucide-react";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { Menu, Users, ChartLine, UserCircle, ChevronDown, LogIn, LogOut, Shield } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useToast } from "@/hooks/use-toast";
 import logoSrc from "@/assets/logo.png";
 
 interface Team {
@@ -13,7 +16,6 @@ interface Team {
 
 interface NavigationHeaderProps {
   team?: Team;
-  isAdmin?: boolean;
 }
 
 const phases = [
@@ -26,12 +28,31 @@ const phases = [
   { number: 7, title: "Launch", path: "/phase/7" },
 ];
 
-export function NavigationHeader({ team, isAdmin }: NavigationHeaderProps) {
+export function NavigationHeader({ team }: NavigationHeaderProps) {
+  const [, setLocation] = useLocation();
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [teamMenuOpen, setTeamMenuOpen] = useState(false);
+  const { isAuthenticated, user, logout } = useAuth();
+  const { toast } = useToast();
 
   const currentPhaseNumber = parseInt(location.split('/')[2]) || 0;
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      toast({
+        title: "Logged out",
+        description: "You have been successfully logged out.",
+      });
+      setLocation("/");
+    } catch (error) {
+      toast({
+        title: "Logout failed",
+        description: "Unable to logout. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
@@ -109,7 +130,7 @@ export function NavigationHeader({ team, isAdmin }: NavigationHeaderProps) {
             </Button>
             
             {/* Admin Dashboard Link */}
-            {isAdmin && (
+            {isAuthenticated && user?.role === 'admin' && (
               <Link href="/admin">
                 <Button variant="ghost" size="sm" className="hidden md:flex items-center space-x-2">
                   <ChartLine className="w-4 h-4" />
@@ -118,19 +139,43 @@ export function NavigationHeader({ team, isAdmin }: NavigationHeaderProps) {
               </Link>
             )}
             
-            {/* Team Menu */}
-            <div className="relative">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="flex items-center space-x-2"
-                onClick={() => setTeamMenuOpen(!teamMenuOpen)}
-              >
-                <UserCircle className="w-4 h-4" />
-                <span className="hidden sm:inline">Team</span>
-                <ChevronDown className="w-3 h-3" />
-              </Button>
-            </div>
+            {/* User Menu */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="flex items-center space-x-2"
+                >
+                  <UserCircle className="w-4 h-4" />
+                  <span className="hidden sm:inline">
+                    {isAuthenticated ? user?.username : "Menu"}
+                  </span>
+                  <ChevronDown className="w-3 h-3" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                {!isAuthenticated ? (
+                  <DropdownMenuItem onClick={() => setLocation("/admin-login")}>
+                    <LogIn className="w-4 h-4 mr-2" />
+                    Admin Login
+                  </DropdownMenuItem>
+                ) : (
+                  <>
+                    {user?.role === 'admin' && (
+                      <DropdownMenuItem onClick={() => setLocation("/admin")}>
+                        <Shield className="w-4 h-4 mr-2" />
+                        Admin Dashboard
+                      </DropdownMenuItem>
+                    )}
+                    <DropdownMenuItem onClick={handleLogout}>
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Logout
+                    </DropdownMenuItem>
+                  </>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </div>
