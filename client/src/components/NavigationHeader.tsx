@@ -21,11 +21,12 @@ interface NavigationHeaderProps {
 const phases = [
   { number: 1, title: "Market Research", path: "/phase/1" },
   { number: 2, title: "Competitors", path: "/phase/2" },
-  { number: 3, title: "Positioning", path: "/phase/3" },
-  { number: 4, title: "Product Design", path: "/phase/4" },
-  { number: 5, title: "Media Kit", path: "/phase/5" },
-  { number: 6, title: "Website", path: "/phase/6" },
-  { number: 7, title: "Launch", path: "/phase/7" },
+  { number: 3, title: "Background Research", path: "/phase/3" },
+  { number: 4, title: "Hero Offer Design", path: "/phase/4" },
+  { number: 5, title: "Brief Generation", path: "/phase/5" },
+  { number: 6, title: "Implementation", path: "/phase/6" },
+  { number: 7, title: "AI Agent Setup", path: "/phase/7" },
+  { number: 8, title: "Final Review", path: "/phase/8" },
 ];
 
 export function NavigationHeader({ team }: NavigationHeaderProps) {
@@ -82,7 +83,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
 
           {/* Phase Navigation */}
           <nav className="hidden lg:flex items-center space-x-1">
-            {phases.slice(0, 3).map((phase) => {
+            {phases.slice(0, 5).map((phase) => {
               const isActive = currentPhaseNumber === phase.number;
               const isCompleted = team ? phase.number < team.currentPhase : false;
               const isAvailable = team ? phase.number <= team.currentPhase : phase.number === 1;
@@ -114,7 +115,56 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
                 </Link>
               );
             })}
-            <div className="text-gray-300 px-2">...</div>
+            
+            {/* More Phases Dropdown */}
+            {phases.length > 5 && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100"
+                  >
+                    <span>More Phases</span>
+                    <ChevronDown className="w-3 h-3" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  {phases.slice(5).map((phase) => {
+                    const isActive = currentPhaseNumber === phase.number;
+                    const isCompleted = team ? phase.number < team.currentPhase : false;
+                    const isAvailable = team ? phase.number <= team.currentPhase : phase.number === 1;
+                    
+                    return (
+                      <DropdownMenuItem
+                        key={phase.number}
+                        onClick={() => {
+                          if (isAvailable) {
+                            setLocation(phase.path + (team ? `?team_id=${team.code}` : ''));
+                          }
+                        }}
+                        className={`flex items-center space-x-3 ${
+                          isActive ? 'bg-primary text-white' : ''
+                        } ${!isAvailable ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      >
+                        <span className={`w-5 h-5 rounded-full flex items-center justify-center text-xs ${
+                          isActive
+                            ? 'bg-white bg-opacity-20'
+                            : isCompleted
+                            ? 'bg-accent-100 text-accent-600'
+                            : isAvailable
+                            ? 'bg-neutral-200'
+                            : 'bg-neutral-100'
+                        }`}>
+                          {phase.number}
+                        </span>
+                        <span>{phase.title}</span>
+                      </DropdownMenuItem>
+                    );
+                  })}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </nav>
 
           {/* Action Buttons */}

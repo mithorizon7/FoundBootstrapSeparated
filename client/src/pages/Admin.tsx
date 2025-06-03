@@ -228,7 +228,7 @@ export default function Admin() {
   };
 
   const getProgressPercentage = (currentPhase: number): number => {
-    return Math.max(0, Math.min(100, ((currentPhase - 1) / 7) * 100));
+    return Math.max(0, Math.min(100, ((currentPhase - 1) / 8) * 100));
   };
 
   if (isLoading) {
@@ -340,7 +340,7 @@ export default function Admin() {
                                   <Progress value={getProgressPercentage(team.currentPhase)} />
                                 </div>
                                 <span className="text-sm text-gray-600">
-                                  {team.currentPhase - 1}/7
+                                  {team.currentPhase - 1}/8
                                 </span>
                               </div>
                             </td>
