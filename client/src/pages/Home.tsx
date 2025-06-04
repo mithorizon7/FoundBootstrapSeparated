@@ -60,7 +60,7 @@ export default function Home() {
             </div>
           </div>
           
-          <h1 className="text-5xl font-bold text-neutral-800 mb-6 page-title">
+          <h1 className="text-3xl sm:text-5xl font-bold text-neutral-800 mb-6 page-title">
             Found a Company in <span className="text-primary">Two Hours</span>
           </h1>
           
@@ -102,7 +102,7 @@ export default function Home() {
         {/* Process Overview */}
         <Card className="bg-white">
           <CardHeader>
-            <CardTitle className="text-2xl text-center">The 8-Phase Journey</CardTitle>
+            <CardTitle className="text-xl sm:text-2xl text-center">The 8-Phase Journey</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">

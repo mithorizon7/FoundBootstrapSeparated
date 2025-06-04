@@ -98,10 +98,20 @@ export default {
             height: "0",
           },
         },
+        "pulse-soft": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0.7" },
+        },
+        "copy-flash": {
+          "0%": { backgroundColor: "hsl(var(--accent))" },
+          "100%": { backgroundColor: "transparent" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "pulse-soft": "pulse-soft 2s infinite",
+        "copy-success": "copy-flash 0.3s ease-out",
       },
     },
   },

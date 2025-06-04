@@ -351,7 +351,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
               <span className="text-white font-bold text-lg">{config.phase}</span>
             </div>
             <div>
-              <CardTitle className="text-2xl font-bold text-neutral-800 leading-tight tracking-tight">{config.title}</CardTitle>
+              <CardTitle className="text-xl sm:text-2xl font-bold text-neutral-800 leading-tight tracking-tight">{config.title}</CardTitle>
               <p className="text-sm text-gray-600 font-medium">
                 Phase {config.phase} of {PHASE_CONFIG.TOTAL_PHASES}
                 {config.estimatedTime && ` • ${config.estimatedTime}`}
