@@ -394,7 +394,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
             {config.decisionBoxContent.sections.map((section, index) => (
               <div key={index} className="bg-white rounded-lg p-6 border border-neutral-300 shadow-sm hover:shadow-md transition-all duration-200 ease-out hover:-translate-y-px">
                 <h3 className="text-xl font-semibold text-neutral-800 mb-4 flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-white font-bold">
+                  <div className="min-w-8 h-8 px-2 bg-primary rounded-full flex items-center justify-center text-white font-bold text-sm whitespace-nowrap">
                     {section.number}
                   </div>
                   <span>{section.title}</span>
@@ -403,7 +403,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                   {section.items.map((item, itemIndex) => (
                     <div key={itemIndex} className="border-l-4 border-primary/30 pl-4">
                       <h4 className="font-semibold text-neutral-800 mb-2">{item.label}:</h4>
-                      <p className="text-neutral-700 leading-relaxed font-medium" dangerouslySetInnerHTML={{ __html: item.content.replace(/\*\*(.*?)\*\*/g, '<strong class="text-neutral-800">$1</strong>').replace(/\*(.*?)\*/g, '<em class="text-primary font-medium">$1</em>') }} />
+                      <p className="text-neutral-700 leading-relaxed font-medium" dangerouslySetInnerHTML={{ __html: item.content.replace(/\*\*(.*?)\*\*/g, '<strong class="text-neutral-800">$1</strong>').replace(/\*(.*?)\*/g, '<em class="text-primary font-medium">$1</em>').replace(/•\s/g, '<br/>• ').replace(/\n/g, '<br/>') }} />
                     </div>
                   ))}
                 </div>
