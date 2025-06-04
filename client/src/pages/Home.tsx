@@ -60,11 +60,11 @@ export default function Home() {
             </div>
           </div>
           
-          <h1 className="text-3xl sm:text-5xl font-bold text-neutral-800 mb-6 page-title">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-neutral-800 mb-8 leading-tight tracking-tight">
             Found a Company in <span className="text-primary">Two Hours</span>
           </h1>
           
-          <p className="text-xl text-neutral-600 mb-8 max-w-3xl mx-auto ui-label">
+          <p className="text-lg md:text-xl text-neutral-600 mb-10 max-w-4xl mx-auto leading-relaxed font-medium">
             A sprint that shows how a small team armed with today's generative-AI tools can do—in a single workshop—what once took weeks: scout a market, design a differentiated offer, create a full media kit, and launch a live, interactive, AI-powered website.
           </p>
           
@@ -83,17 +83,17 @@ export default function Home() {
         </div>
 
         {/* Features Grid */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
+        <div className="grid md:grid-cols-3 gap-10 mb-20">
           {features.map((feature, index) => (
-            <Card key={index} className="text-center">
-              <CardHeader>
-                <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center mx-auto mb-4">
-                  <feature.icon className="w-6 h-6 text-primary" />
+            <Card key={index} className="text-center p-2 hover:shadow-lg transition-shadow">
+              <CardHeader className="pb-4">
+                <div className="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center mx-auto mb-6">
+                  <feature.icon className="w-8 h-8 text-primary" />
                 </div>
-                <CardTitle className="text-xl section-header">{feature.title}</CardTitle>
+                <CardTitle className="text-xl font-bold text-neutral-800 mb-3">{feature.title}</CardTitle>
               </CardHeader>
-              <CardContent>
-                <p className="text-neutral-600 ui-label">{feature.description}</p>
+              <CardContent className="pt-0">
+                <p className="text-base text-neutral-600 leading-relaxed font-medium">{feature.description}</p>
               </CardContent>
             </Card>
           ))}
