@@ -400,7 +400,18 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                   {section.items.map((item, itemIndex) => (
                     <div key={itemIndex} className="border-l-4 border-primary/30 pl-4">
                       <h4 className="font-semibold text-neutral-800 mb-2">{item.label}:</h4>
-                      <p className="text-neutral-700 leading-relaxed font-medium" dangerouslySetInnerHTML={{ __html: item.content.replace(/\*\*(.*?)\*\*/g, '<strong class="text-neutral-800">$1</strong>').replace(/\*(.*?)\*/g, '<em class="text-primary font-medium">$1</em>').replace(/•\s/g, '<br/>• ').replace(/\n/g, '<br/>') }} />
+                      <div 
+                        className="text-neutral-700 leading-relaxed font-medium prose-sm"
+                        dangerouslySetInnerHTML={{ 
+                          __html: item.content
+                            .replace(/\*\*(.*?)\*\*/g, '<strong class="text-neutral-800 font-semibold">$1</strong>')
+                            .replace(/\*(.*?)\*/g, '<em class="text-primary font-medium">$1</em>')
+                            .replace(/• /g, '<span class="flex items-start gap-2 mb-2"><span class="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></span><span>')
+                            .replace(/\n(?=• )/g, '</span></span>')
+                            .replace(/\n\n/g, '</span></span><div class="mb-3"></div>')
+                            .replace(/\n/g, '<br/>')
+                        }} 
+                      />
                     </div>
                   ))}
                 </div>
@@ -414,14 +425,22 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                 <span>{config.decisionBoxContent.action.title}</span>
               </h3>
               <p className="text-neutral-800 mb-3 font-medium">Once decided, write down:</p>
-              <ul className="space-y-2">
+              <div className="space-y-3">
                 {config.decisionBoxContent.action.items.map((item, index) => (
-                  <li key={index} className="flex items-start space-x-2">
+                  <div key={index} className="flex items-start gap-3">
                     <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                    <span className="text-neutral-700 font-medium" dangerouslySetInnerHTML={{ __html: item.replace(/\{\{(.*?)\}\}/g, '<strong class="text-neutral-800">$1</strong>') }} />
-                  </li>
+                    <div 
+                      className="text-neutral-700 font-medium leading-relaxed"
+                      dangerouslySetInnerHTML={{ 
+                        __html: item
+                          .replace(/\*\*(.*?)\*\*/g, '<strong class="text-neutral-800 font-semibold">$1</strong>')
+                          .replace(/\*(.*?)\*/g, '<em class="text-primary font-medium">$1</em>')
+                          .replace(/\{\{(.*?)\}\}/g, '<strong class="text-neutral-800 font-semibold">$1</strong>') 
+                      }} 
+                    />
+                  </div>
                 ))}
-              </ul>
+              </div>
             </div>
           </CardContent>
         </Card>
@@ -489,8 +508,10 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                                             __html: detailStep.action
                                               .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-neutral-800">$1</strong>')
                                               .replace(/\*([^*]+)\*/g, '<em class="italic text-primary font-medium">$1</em>')
-                                              .replace(/•\s/g, '<br/>• ')
-                                              .replace(/\n/g, '<br/>')
+                                              .replace(/• /g, '<div class="flex items-start gap-2 my-1"><span class="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0"></span><span>')
+                                              .replace(/\n(?=• )/g, '</span></div>')
+                                              .replace(/\n\n/g, '</span></div><div class="my-2"></div>')
+                                              .replace(/\n/g, '<br class="my-1"/>')
                                           }}
                                         />
                                       </div>
@@ -616,9 +637,18 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                     <FileText className="w-4 h-4 text-primary-600" />
                     <span>File Created:</span>
                   </div>
-                  <span className="font-mono bg-primary-50 px-3 py-2 rounded text-sm block text-center transition-all duration-200 group-hover:bg-primary-100 text-primary-700">
-                    {config.expectedOutput.fileCreated}
-                  </span>
+                  <div 
+                    className="text-sm text-primary-700 leading-relaxed"
+                    dangerouslySetInnerHTML={{
+                      __html: config.expectedOutput.fileCreated
+                        .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-neutral-800">$1</strong>')
+                        .replace(/\*([^*]+)\*/g, '<em class="text-primary font-medium">$1</em>')
+                        .replace(/• /g, '<div class="flex items-start gap-2 my-1"><span class="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></span><span>')
+                        .replace(/\n(?=• )/g, '</span></div>')
+                        .replace(/\n\n/g, '</span></div><div class="my-2"></div>')
+                        .replace(/\n/g, '<br/>')
+                    }}
+                  />
                 </div>
               )}
               {config.expectedOutput.whyItMatters && (
@@ -627,7 +657,18 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                     <CheckCircle className="w-4 h-4 text-accent-600" />
                     <span>Why it matters:</span>
                   </div>
-                  <p className="text-sm text-neutral-700 text-premium">{config.expectedOutput.whyItMatters}</p>
+                  <div 
+                    className="text-sm text-neutral-700 leading-relaxed"
+                    dangerouslySetInnerHTML={{
+                      __html: config.expectedOutput.whyItMatters
+                        .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-neutral-800">$1</strong>')
+                        .replace(/\*([^*]+)\*/g, '<em class="text-primary font-medium">$1</em>')
+                        .replace(/• /g, '<div class="flex items-start gap-2 my-1"><span class="w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0"></span><span>')
+                        .replace(/\n(?=• )/g, '</span></div>')
+                        .replace(/\n\n/g, '</span></div><div class="my-2"></div>')
+                        .replace(/\n/g, '<br/>')
+                    }}
+                  />
                 </div>
               )}
               {config.expectedOutput.nextSteps && (
@@ -636,7 +677,18 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                     <ArrowRight className="w-4 h-4 text-primary-600" />
                     <span>Next Steps:</span>
                   </div>
-                  <p className="text-sm text-neutral-700 text-premium">{config.expectedOutput.nextSteps}</p>
+                  <div 
+                    className="text-sm text-neutral-700 leading-relaxed"
+                    dangerouslySetInnerHTML={{
+                      __html: config.expectedOutput.nextSteps
+                        .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-neutral-800">$1</strong>')
+                        .replace(/\*([^*]+)\*/g, '<em class="text-primary font-medium">$1</em>')
+                        .replace(/• /g, '<div class="flex items-start gap-2 my-1"><span class="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></span><span>')
+                        .replace(/\n(?=• )/g, '</span></div>')
+                        .replace(/\n\n/g, '</span></div><div class="my-2"></div>')
+                        .replace(/\n/g, '<br/>')
+                    }}
+                  />
                 </div>
               )}
             </div>

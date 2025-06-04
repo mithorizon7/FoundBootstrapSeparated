@@ -97,6 +97,41 @@
 }
 
 @layer components {
+  /* Professional bullet points for enhanced Phase content */
+  .phase-bullet {
+    @apply w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0;
+  }
+  
+  .phase-bullet-accent {
+    @apply w-1.5 h-1.5 bg-accent rounded-full mt-2 flex-shrink-0;
+  }
+  
+  .phase-bullet-primary {
+    @apply w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0;
+  }
+  
+  /* Enhanced markdown content styling */
+  .phase-content {
+    @apply leading-relaxed;
+  }
+  
+  .phase-content strong {
+    @apply font-semibold text-neutral-800;
+  }
+  
+  .phase-content em {
+    @apply font-medium text-primary;
+  }
+  
+  /* Professional spacing for content sections */
+  .phase-section {
+    @apply space-y-3;
+  }
+  
+  .phase-subsection {
+    @apply space-y-2;
+  }
+  
   /* Minimal essential custom styles - prefer Tailwind utilities */
   
   /* Essential custom components - minimal styles that cannot be easily replaced with Tailwind utilities */
