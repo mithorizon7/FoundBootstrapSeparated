@@ -92,12 +92,12 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
                 <Link
                   key={phase.number}
                   href={phase.path + (team ? `?team_id=${team.code}` : '')}
-                  className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
+                  className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap cursor-pointer ${
                     isActive
                       ? 'bg-primary text-white'
                       : isAvailable
                       ? 'text-gray-600 hover:bg-gray-100'
-                      : 'text-gray-400 cursor-not-allowed'
+                      : 'text-gray-400 cursor-not-allowed pointer-events-none'
                   }`}
                 >
                   <span className={`w-5 h-5 rounded-full flex items-center justify-center text-xs flex-shrink-0 ${
@@ -143,9 +143,9 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
                             setLocation(phase.path + (team ? `?team_id=${team.code}` : ''));
                           }
                         }}
-                        className={`flex items-center space-x-3 ${
+                        className={`flex items-center space-x-3 cursor-pointer ${
                           isActive ? 'bg-primary text-white' : ''
-                        } ${!isAvailable ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        } ${!isAvailable ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''}`}
                       >
                         <span className={`w-5 h-5 rounded-full flex items-center justify-center text-xs ${
                           isActive
