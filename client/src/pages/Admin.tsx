@@ -179,17 +179,20 @@ export default function Admin() {
     },
   });
 
-  const handleExportCSV = async () => {
-    try {
+  const exportCSVMutation = useMutation({
+    mutationFn: async () => {
       const response = await fetch('/api/admin/export', {
         credentials: 'include',
       });
       
       if (!response.ok) {
-        throw new Error('Failed to export data');
+        const error = await response.json();
+        throw new Error(error.message || 'Failed to export data');
       }
       
-      const blob = await response.blob();
+      return response.blob();
+    },
+    onSuccess: (blob) => {
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.style.display = 'none';
@@ -204,14 +207,15 @@ export default function Admin() {
         title: "Export successful",
         description: "Team progress data has been exported to CSV.",
       });
-    } catch (error) {
+    },
+    onError: (error: Error) => {
       toast({
         title: "Export failed",
-        description: "Failed to export team progress data.",
+        description: error.message || "Failed to export team progress data.",
         variant: "destructive",
       });
-    }
-  };
+    },
+  });
 
   const getPhaseTitle = (phase: number): string => {
     const titles = {
@@ -255,11 +259,12 @@ export default function Admin() {
                 <p className="text-gray-600 mt-1">Monitor team progress, manage cohorts, and export data</p>
               </div>
               <Button
-                onClick={handleExportCSV}
+                onClick={() => exportCSVMutation.mutate()}
+                disabled={exportCSVMutation.isPending}
                 className="flex items-center space-x-2 bg-green-600 hover:bg-green-700"
               >
                 <Download className="w-4 h-4" />
-                <span>Export CSV</span>
+                <span>{exportCSVMutation.isPending ? "Exporting..." : "Export CSV"}</span>
               </Button>
             </div>
           </CardHeader>
@@ -541,6 +546,7 @@ export default function Admin() {
                                         tag: cohort.tag,
                                         updates: { submissionsOpen: !cohort.submissionsOpen }
                                       })}
+                                      disabled={updateCohortMutation.isPending}
                                       className="h-6 w-6 p-0"
                                     >
                                       <Settings className="w-3 h-3" />
@@ -560,6 +566,7 @@ export default function Admin() {
                                         tag: cohort.tag,
                                         updates: { votingOpen: !cohort.votingOpen }
                                       })}
+                                      disabled={updateCohortMutation.isPending}
                                       className="h-6 w-6 p-0"
                                     >
                                       <Settings className="w-3 h-3" />
