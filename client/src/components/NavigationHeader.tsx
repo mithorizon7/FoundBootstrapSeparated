@@ -5,7 +5,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Menu, Users, ChartLine, UserCircle, ChevronDown, LogIn, LogOut, Shield } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
-// import logoSrc from "@/assets/logo.png";
+import logoSrc from "@/assets/logo.png";
 
 interface Team {
   id: number;
@@ -62,9 +62,11 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
           {/* Logo and Brand */}
           <div className="flex items-center space-x-4 flex-shrink-0">
             <Link href="/" className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">F2</span>
-              </div>
+              <img 
+                src={logoSrc} 
+                alt="Found-in-Two Logo" 
+                className="w-10 h-10 object-contain"
+              />
               <span className="text-xl font-bold text-neutral-800">Found-in-Two</span>
             </Link>
             
