@@ -1,0 +1,44 @@
+Instructions for AI Coder:
+
+I. Typography & Visual Hierarchy Refinement:
+
+Objective: Establish a clearer, more scannable visual hierarchy across the application, particularly on content-rich pages like Home.tsx and PhasePage.tsx.
+
+Files to Primarily Update/Review:
+
+FoundInTwo/client/src/index.css (for any remaining global styles or to ensure Tailwind base styles are optimal)
+FoundInTwo/tailwind.config.ts (if typographic scale adjustments are needed)
+Components applying typography directly: FoundInTwo/client/src/pages/Home.tsx, FoundInTwo/client/src/components/PhasePage.tsx, FoundInTwo/client/src/components/NavigationHeader.tsx, and any other components responsible for rendering distinct text elements (e.g., card titles, section headers).
+Actions:
+
+Font Weight and Size Application:
+Review & Enforce Guidelines: Conduct a comprehensive review of all text elements. Consistently apply the "Plus Jakarta Sans" font weights as previously defined (e.g., normal for body, medium/semibold for labels/sub-headers, bold/extrabold for main titles).
+Increase Differentiation:
+Page Titles/Main Headers: (e.g., "Found a Company in Two Hours" on Home.tsx, Phase titles like "Market & Competitor Research" in PhasePage.tsx) Ensure these use a significantly larger font size (e.g., text-2xl, text-3xl, or even text-4xl depending on context, with appropriate responsive scaling like md:text-3xl lg:text-4xl) and a heavier weight (e.g., font-bold or font-extrabold).
+Section Headers: (e.g., "The 8-Phase Journey" on Home.tsx, "Decision Box," "Step-by-Step Workflow," "AI Prompt Preview" in PhasePage.tsx) These should be clearly distinct from page titles and body text, using a larger size (e.g., text-xl or text-2xl) and a noticeable weight (e.g., font-semibold or font-bold).
+Sub-Headers/Labels: (e.g., field labels in "Decision Box", titles within decisionBoxContent sections) Ensure these are appropriately sized (e.g., text-sm or text-base) and weighted (e.g., font-medium or font-semibold) to stand out from body text but remain subordinate to section headers.
+Body/Instructional Text: (e.g., intro text in phases, action strings in stepByStepFlow) Use a comfortable reading size (e.g., text-sm or text-base) and standard weight (font-normal or font-medium where appropriate for emphasis within a block).
+Eliminate Responsive Overrides in index.css: Remove custom responsive typography classes like the .text-5xl and .text-2xl media query overrides in FoundInTwo/client/src/index.css. Instead, apply Tailwind's responsive prefixes (e.g., sm:, md:, lg:) directly in the JSX classNames for these elements.
+Spacing & "Breathing Room":
+Review Padding & Margins: Increase spacing between major sections and text blocks to improve scannability and reduce visual clutter.
+Home.tsx: Check spacing around the hero section, between the feature cards, and before/after "The 8-Phase Journey" section.
+PhasePage.tsx: Critically evaluate vertical spacing:
+Around the main phase intro text.
+Between individual fields within the "Decision Box."
+Between items in the stepByStepFlow (both top-level and nested steps).
+Around the "AI Prompt Preview" and "Expected Output" sections.
+Before the footer navigation buttons.
+Remove Custom Spacing Utilities from index.css: Eliminate classes like .space-y-6 > * + *. Use Tailwind's native spacing utilities (e.g., space-y-4, space-y-6, py-8, mb-6) directly in the JSX of the relevant components. This ensures consistency and leverages Tailwind's design system.
+II. Emphasizing Key Navigational/Structural Elements:
+
+Phase Numbers/Titles in Context:
+PhasePage Header: The current display of the phase number in a circle and the phase title is already quite prominent and well-executed. Maintain this clarity.
+"The 8-Phase Journey" (Home Page): The numbered circles are effective. Ensure the font size and weight of the number within the circle and the accompanying phase title are balanced for clear visual guidance.
+III. General Instructions for AI Coder:
+
+Consistency: Apply typographic and spacing principles consistently across all phases and pages.
+Responsiveness: All changes must be fully responsive. Test thoroughly on various screen sizes to ensure the hierarchy and readability are maintained.
+Accessibility: Ensure color contrast remains compliant and that font choices/sizes are accessible.
+Iterative Refinement: After initial changes, review the pages. It might take a few iterations to find the perfect balance of font sizes, weights, and spacing.
+Leverage Tailwind Theme: If global changes to the typographic scale (e.g., base font size, heading ratios) are needed, consider adjustments in the theme.extend.fontSize section of FoundInTwo/tailwind.config.ts, though direct utility application in components is often more flexible for specific contexts.
+By implementing these typographic and spacing refinements, the application should feel significantly less text-heavy, more organized, and more aligned with the desired premium, professional user experience.

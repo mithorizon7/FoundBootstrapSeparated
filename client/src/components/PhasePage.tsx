@@ -709,13 +709,20 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                   <div 
                     className="text-sm text-neutral-700 leading-relaxed"
                     dangerouslySetInnerHTML={{
-                      __html: config.expectedOutput.nextSteps
-                        .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-neutral-800">$1</strong>')
-                        .replace(/\*([^*]+)\*/g, '<em class="text-primary font-medium">$1</em>')
-                        .replace(/• /g, '<div class="flex items-start gap-3 mb-2"><span class="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></span><span>')
-                        .replace(/\n(?=• )/g, '</span></div>')
-                        .replace(/\n\n/g, '</span></div><div class="mb-3"></div>')
-                        .replace(/\n/g, '<br/>')
+                      __html: (() => {
+                        const normalized = config.expectedOutput.nextSteps
+                          .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-neutral-800">$1</strong>')
+                          .replace(/\*([^*]+)\*/g, '<em class="text-primary font-medium">$1</em>')
+                          // Remove all leading whitespace before bullets to flatten hierarchy
+                          .replace(/\n\s+• /g, '\n• ')
+                          .replace(/^\s+• /g, '• ')
+                          // Convert all bullets to flat structure
+                          .replace(/• /g, '<div class="flex items-start gap-3 mb-2"><span class="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></span><span>')
+                          .replace(/\n(?=• )/g, '</span></div>')
+                          .replace(/\n\n/g, '</span></div><div class="mb-3"></div>')
+                          .replace(/\n/g, '<br/>');
+                        return normalized;
+                      })()
                     }}
                   />
                 </div>
