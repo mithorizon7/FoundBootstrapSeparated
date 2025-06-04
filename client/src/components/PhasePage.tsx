@@ -452,8 +452,8 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
       {config.stepByStepFlow && (
         <Card className="bg-gradient-to-r from-neutral-50 to-neutral-100 border-neutral-300 transition-all duration-200 ease-out hover:shadow-md hover:-translate-y-px">
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-neutral-800 font-semibold tracking-tight">
-              <ArrowRight className="w-5 h-5 text-primary" />
+            <CardTitle className="flex items-center space-x-3 text-neutral-800 font-bold tracking-tight text-xl md:text-2xl">
+              <ArrowRight className="w-6 h-6 text-primary" />
               <span>Step-by-Step Workflow</span>
             </CardTitle>
           </CardHeader>
@@ -477,11 +477,11 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                             </div>
                             <div className="flex-1">
                               <div 
-                                className="text-neutral-700 font-medium leading-relaxed group-hover:text-neutral-800 transition-colors duration-200"
+                                className="text-base md:text-lg text-neutral-700 font-medium leading-relaxed group-hover:text-neutral-800 transition-colors duration-200"
                                 dangerouslySetInnerHTML={{
                                   __html: step.action
-                                    .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-neutral-800">$1</strong>')
-                                    .replace(/\*([^*]+)\*/g, '<em class="italic text-primary font-medium">$1</em>')
+                                    .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-bold text-neutral-800">$1</strong>')
+                                    .replace(/\*([^*]+)\*/g, '<em class="font-semibold text-primary">$1</em>')
                                 }}
                               />
                             </div>
@@ -495,24 +495,24 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                             <div className="pt-4 space-y-4">
                               {step.details && (
                                 <>
-                                  <h4 className="font-semibold text-neutral-800 text-lg">{step.details.title}</h4>
+                                  <h4 className="font-bold text-neutral-800 text-xl mb-4">{step.details.title}</h4>
                                   {step.details.steps.map((detailStep, index) => (
-                                    <div key={index} className="flex items-start space-x-3 bg-neutral-50 rounded-lg p-4">
+                                    <div key={index} className="flex items-start space-x-4 bg-neutral-50 rounded-lg p-6">
                                       <div className="flex-shrink-0">
-                                        <div className="min-w-6 h-6 px-2 bg-primary/10 rounded-full flex items-center justify-center text-xs font-semibold text-primary whitespace-nowrap">
+                                        <div className="min-w-8 h-8 px-2 bg-primary/20 rounded-full flex items-center justify-center text-sm font-bold text-primary whitespace-nowrap">
                                           {detailStep.number}
                                         </div>
                                       </div>
                                       <div className="flex-1">
                                         <div 
-                                          className="text-sm text-neutral-700 leading-relaxed"
+                                          className="text-base text-neutral-700 leading-relaxed font-medium"
                                           dangerouslySetInnerHTML={{
                                             __html: detailStep.action
-                                              .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-neutral-800">$1</strong>')
-                                              .replace(/\*([^*]+)\*/g, '<em class="italic text-primary font-medium">$1</em>')
-                                              .replace(/• /g, '<div class="flex items-start gap-2 my-1"><span class="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0"></span><span>')
+                                              .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-bold text-neutral-800">$1</strong>')
+                                              .replace(/\*([^*]+)\*/g, '<em class="font-semibold text-primary">$1</em>')
+                                              .replace(/• /g, '<div class="flex items-start gap-3 my-2"><span class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span><span>')
                                               .replace(/\n(?=• )/g, '</span></div>')
-                                              .replace(/\n\n/g, '</span></div><div class="my-2"></div>')
+                                              .replace(/\n\n/g, '</span></div><div class="my-3"></div>')
                                               .replace(/\n/g, '<br class="my-1"/>')
                                           }}
                                         />
