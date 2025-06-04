@@ -60,21 +60,33 @@ export function Field({ config, value, onChange, error }: FieldProps) {
 
       case "color":
         return (
-          <div className="flex items-center space-x-3">
-            <input
-              type="color"
-              value={value}
-              onChange={(e) => onChange(e.target.value)}
-              className="w-12 h-10 border border-gray-300 rounded-lg cursor-pointer"
-            />
-            <Input
-              type="text"
-              value={value}
-              onChange={(e) => onChange(e.target.value)}
-              className="flex-1 font-mono text-sm"
-              placeholder="#000000"
-              pattern="^#[0-9A-Fa-f]{6}$"
-            />
+          <div className="space-y-2">
+            <div className="flex items-center space-x-3">
+              <div className="relative group">
+                <input
+                  type="color"
+                  value={value}
+                  onChange={(e) => onChange(e.target.value)}
+                  className="w-12 h-10 border-2 border-gray-300 rounded-lg cursor-pointer hover:border-primary-400 hover:shadow-md transition-all duration-200 hover:scale-105"
+                  title="Click to open color picker"
+                />
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-primary rounded-full opacity-75 group-hover:opacity-100 transition-opacity duration-200">
+                  <div className="w-full h-full bg-primary rounded-full animate-pulse"></div>
+                </div>
+              </div>
+              <Input
+                type="text"
+                value={value}
+                onChange={(e) => onChange(e.target.value)}
+                className="flex-1 font-mono text-sm transition-all duration-200 ease-out border border-neutral-300 bg-white shadow-sm focus:border-primary-500 focus:shadow-md focus:-translate-y-px"
+                placeholder="#000000"
+                pattern="^#[0-9A-Fa-f]{6}$"
+              />
+            </div>
+            <p className="text-xs text-gray-500 flex items-center space-x-1">
+              <span className="w-2 h-2 bg-primary rounded-full"></span>
+              <span>Click the color box to open the color picker</span>
+            </p>
           </div>
         );
 

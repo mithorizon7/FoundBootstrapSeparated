@@ -108,14 +108,16 @@ export default function Home() {
             </p>
           </CardHeader>
           <CardContent className="px-8 pb-8">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
               {[
                 { phase: 1, title: "Market & Competitor Research", description: "Panoramic, data-backed view of market size, competitors, and customer pain points using AI analysis" },
                 { phase: 2, title: "Competitor Matrix Construction", description: "Transform research into quantitative competitor matrix with threat scoring and strategic gaps" },
                 { phase: 3, title: "Background Research: OpenAI Deep-Research", description: "Commission AI-powered research to compile peer-reviewed evidence validating your core benefit" },
-                { phase: 4, title: "Design & Select the Hero Offer: Part 1", description: "Generate and score three product concepts to crown your single 'hero offer' for market" },
-                { phase: 5, title: "Product Design & Feature Definition: Part 2", description: "Transform hero concept into detailed MVP specification with features and user experience" },
-                { phase: 6, title: "Media Kit & Brand Assets", description: "Create comprehensive brand messaging, visual guidelines, and marketing materials" }
+                { phase: 4, title: "Design & Select the Hero Offer", description: "Generate and score three product concepts to crown your single 'hero offer' for market" },
+                { phase: 5, title: "Product Design & Feature Definition", description: "Transform hero concept into detailed MVP specification with features and user experience" },
+                { phase: 6, title: "Media Kit & Brand Assets", description: "Create comprehensive brand messaging, visual guidelines, and marketing materials" },
+                { phase: 7, title: "Website & Digital Presence", description: "Build conversion-optimized website with clear value proposition and lead generation" },
+                { phase: 8, title: "Launch Strategy & Go-to-Market", description: "Comprehensive launch plan with customer acquisition, marketing channels, and success metrics" }
               ].map((phase) => (
                 <div key={phase.phase} className="text-center space-y-4">
                   <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto shadow-md">
@@ -125,24 +127,6 @@ export default function Home() {
                   <p className="text-sm text-neutral-600 leading-relaxed font-medium">{phase.description}</p>
                 </div>
               ))}
-            </div>
-            
-            {/* Phases 7 and 8 centered separately */}
-            <div className="flex flex-col md:flex-row justify-center gap-8 pt-4">
-              <div className="text-center max-w-sm space-y-4">
-                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto shadow-md">
-                  <span className="text-white font-bold text-lg">7</span>
-                </div>
-                <h3 className="font-bold text-lg text-neutral-800 leading-tight">Website & Digital Presence</h3>
-                <p className="text-sm text-neutral-600 leading-relaxed font-medium">Build conversion-optimized website with clear value proposition and lead generation</p>
-              </div>
-              <div className="text-center max-w-sm space-y-4">
-                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto shadow-md">
-                  <span className="text-white font-bold text-lg">8</span>
-                </div>
-                <h3 className="font-bold text-lg text-neutral-800 leading-tight">Launch Strategy & Go-to-Market</h3>
-                <p className="text-sm text-neutral-600 leading-relaxed font-medium">Comprehensive launch plan with customer acquisition, marketing channels, and success metrics</p>
-              </div>
             </div>
           </CardContent>
         </Card>
