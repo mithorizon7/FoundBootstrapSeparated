@@ -70,7 +70,7 @@
       "tooltip": "The most credible, impressive data point from your Phase 3 research that will grab attention and validate your solution. This becomes the hook that opens your narrated content and marketing materials."
     }
   ],
-  "promptTemplate": "**PURPOSE**: Create an engaging 60-second voiceover script that introduces our company's solution in a way that builds trust, demonstrates value, and motivates action. This script should work as background narration on our website, over promotional videos, or as standalone audio content.\n\n**SCRIPT REQUIREMENTS:**\n\nWrite a 60-second narration introducing **{{phase5.chosen_concept_code_name}}**, our new {{phase1.sector}} solution.\n\n• Hook potential customers in the first line using this statistic: \"{{selected_statistic}}\".\n• Weave in this expert pull-quote for credibility: \"[Pull-quote from Science_Evidence.pdf]\".\n• Describe one key interactive feature and expected benefit in ≤ 25 words.\n• End with a rousing call to action (<15 words).\n\nTone: {{voice_persona}} (warm, encouraging, trustworthy).\n\nOutput plain text only.",
+  "promptTemplate": "**PURPOSE**: Create an engaging 60-second voiceover script that introduces our company's solution in a way that builds trust, demonstrates value, and motivates action. This script should work as background narration on our website, over promotional videos, or as standalone audio content.\n\n**SCRIPT REQUIREMENTS:**\n\nWrite a 60-second narration introducing **{{phase5.chosen_concept_code_name}}**, our new {{phase1.sector}} solution.\n\n• Hook potential customers in the first line using this statistic: \"{{selected_statistic}}\"\n• Weave in this expert pull-quote for credibility: \"[Pull-quote from Science_Evidence.pdf]\"\n• Describe one key interactive feature and expected benefit in ≤ 25 words\n• End with a rousing call to action (<15 words)\n\nTone: {{voice_persona}} (warm, encouraging, trustworthy).\n\nOutput plain text only.",
   "decisionBoxContent": {
     "title": "Creative Choices",
     "subtitle": "5 shared decisions - Agree on these before splitting into parallel tracks",
@@ -185,7 +185,7 @@
           },
           {
             "number": "Create Prompt",
-            "action": "Write a detailed prompt for Claude. Instruct it to:\n• Act as an expert copywriter specializing in your company's sector\n• Use uploaded documents as sole source of truth: **Hero_Concept_Detailed_Brief.docx** and **Science_Evidence.pdf**\n• Generate specific labeled copy elements: \"Main Headline,\" \"Engaging Sub-headline,\" \"Introductory Body Copy,\" \"3-5 Benefit-Oriented Bullet Points,\" and \"Persuasive Call to Action\"\n• Match your brand's tone using your three brand adjectives"
+            "action": "Write a detailed prompt for Claude. Instruct it to:\n\n• Act as an expert copywriter specializing in your company's sector\n• Use uploaded documents as sole source of truth: **Hero_Concept_Detailed_Brief.docx** and **Science_Evidence.pdf**\n• Generate specific labeled copy elements: \"Main Headline,\" \"Engaging Sub-headline,\" \"Introductory Body Copy,\" \"3-5 Benefit-Oriented Bullet Points,\" and \"Persuasive Call to Action\"\n• Match your brand's tone using your three brand adjectives"
           },
           {
             "number": "Generate",
