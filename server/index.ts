@@ -1,23 +1,36 @@
 import express, { type Request, Response, NextFunction } from "express";
 import session from "express-session";
+import connectPgSimple from "connect-pg-simple";
 import passport from "passport";
 import { Strategy as LocalStrategy } from "passport-local";
 import bcrypt from "bcrypt";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { storage } from "./storage";
+import { pool } from "./db";
 import type { User } from "@shared/schema";
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Session configuration
+// PostgreSQL session store configuration
+const PgSessionStore = connectPgSimple(session);
+
+// Session configuration with PostgreSQL persistence
 app.use(session({
+  store: new PgSessionStore({
+    pool: pool, // Use the database pool from ./db
+    tableName: 'user_sessions', // Table name for session storage
+    createTableIfMissing: true, // Automatically create the table if it doesn't exist
+  }),
   secret: process.env.SESSION_SECRET || 'your-session-secret-key-change-in-production',
   resave: false,
   saveUninitialized: false,
-  cookie: { secure: false, maxAge: 24 * 60 * 60 * 1000 } // 24 hours
+  cookie: { 
+    secure: process.env.NODE_ENV === 'production', // Secure cookies in production
+    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+  }
 }));
 
 // Passport configuration
