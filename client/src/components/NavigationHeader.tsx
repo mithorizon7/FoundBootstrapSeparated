@@ -5,6 +5,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Menu, Users, ChartLine, UserCircle, ChevronDown, LogIn, LogOut, Shield } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import logoSrc from "@assets/ActivityLogo2.png";
 
 
 interface Team {
@@ -62,9 +63,11 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
           {/* Logo and Brand */}
           <div className="flex items-center space-x-4 flex-shrink-0">
             <Link href="/" className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">F2</span>
-              </div>
+              <img 
+                src={logoSrc} 
+                alt="Found-in-Two Logo" 
+                className="w-10 h-10 object-contain"
+              />
               <span className="text-xl font-bold text-neutral-800">Found-in-Two</span>
             </Link>
             
@@ -79,8 +82,8 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
             )}
           </div>
 
-          {/* Phase Navigation */}
-          <nav className="hidden xl:flex items-center space-x-1 flex-1 justify-center mx-8 min-w-0">
+          {/* Phase Navigation - Center */}
+          <nav className="hidden lg:flex items-center space-x-2 flex-1 justify-center mx-8">
             {phases.slice(0, 4).map((phase) => {
               const isActive = currentPhaseNumber === phase.number;
               const isCompleted = team ? phase.number < team.currentPhase : false;
@@ -90,26 +93,26 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
                 <Link
                   key={phase.number}
                   href={phase.path + (team ? `?team_id=${team.code}` : '')}
-                  className={`flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap cursor-pointer ${
+                  className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
                     isActive
-                      ? 'bg-primary text-white'
+                      ? 'bg-primary text-white shadow-md'
                       : isAvailable
-                      ? 'text-gray-600 hover:bg-gray-100'
+                      ? 'text-gray-700 hover:bg-gray-100'
                       : 'text-gray-400 cursor-not-allowed pointer-events-none'
                   }`}
                 >
-                  <span className={`w-5 h-5 rounded-full flex items-center justify-center text-xs flex-shrink-0 ${
+                  <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${
                     isActive
-                      ? 'bg-white bg-opacity-20'
+                      ? 'bg-white bg-opacity-20 text-white'
                       : isCompleted
                       ? 'bg-accent-100 text-accent-600'
                       : isAvailable
-                      ? 'bg-neutral-200'
+                      ? 'bg-neutral-200 text-neutral-700'
                       : 'bg-neutral-100'
                   }`}>
                     {phase.number}
                   </span>
-                  <span className="hidden xl:inline">{phase.title}</span>
+                  <span className="hidden lg:inline whitespace-nowrap">{phase.title}</span>
                 </Link>
               );
             })}
@@ -121,13 +124,13 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="flex items-center space-x-1 px-2 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100"
+                    className="flex items-center space-x-1 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-100"
                   >
-                    <span className="hidden xl:inline">More Phases</span>
-                    <ChevronDown className="w-3 h-3" />
+                    <span>More</span>
+                    <ChevronDown className="w-4 h-4" />
                   </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48">
+                <DropdownMenuContent align="center" className="w-56">
                   {phases.slice(4).map((phase) => {
                     const isActive = currentPhaseNumber === phase.number;
                     const isCompleted = team ? phase.number < team.currentPhase : false;
@@ -145,13 +148,13 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
                           isActive ? 'bg-primary text-white' : ''
                         } ${!isAvailable ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''}`}
                       >
-                        <span className={`w-5 h-5 rounded-full flex items-center justify-center text-xs ${
+                        <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
                           isActive
-                            ? 'bg-white bg-opacity-20'
+                            ? 'bg-white bg-opacity-20 text-white'
                             : isCompleted
                             ? 'bg-accent-100 text-accent-600'
                             : isAvailable
-                            ? 'bg-neutral-200'
+                            ? 'bg-neutral-200 text-neutral-700'
                             : 'bg-neutral-100'
                         }`}>
                           {phase.number}
@@ -165,17 +168,53 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
             )}
           </nav>
 
-          {/* Action Buttons */}
-          <div className="flex items-center space-x-3 flex-shrink-0">
-            {/* Mobile Menu Button */}
-            <Button
-              variant="ghost"
-              size="sm"
-              className="xl:hidden"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            >
-              <Menu className="w-4 h-4" />
-            </Button>
+          {/* Right Side Actions */}
+          <div className="flex items-center space-x-2 ml-auto">
+            {/* Mobile Menu Button - Only for phase navigation */}
+            <DropdownMenu open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="lg:hidden"
+                >
+                  <Menu className="w-5 h-5" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-64">
+                <div className="px-2 py-2">
+                  <div className="text-sm font-semibold text-gray-700 mb-2">Navigate to Phase</div>
+                  {phases.map((phase) => {
+                    const isActive = currentPhaseNumber === phase.number;
+                    const isAvailable = true;
+                    
+                    return (
+                      <DropdownMenuItem
+                        key={phase.number}
+                        onClick={() => {
+                          if (isAvailable) {
+                            setLocation(phase.path + (team ? `?team_id=${team.code}` : ''));
+                            setMobileMenuOpen(false);
+                          }
+                        }}
+                        className={`flex items-center space-x-3 mb-1 cursor-pointer ${
+                          isActive ? 'bg-primary text-white' : ''
+                        }`}
+                      >
+                        <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
+                          isActive
+                            ? 'bg-white bg-opacity-20 text-white'
+                            : 'bg-neutral-200 text-neutral-700'
+                        }`}>
+                          {phase.number}
+                        </span>
+                        <span>{phase.title}</span>
+                      </DropdownMenuItem>
+                    );
+                  })}
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
             
             {/* Admin Dashboard Link */}
             {isAuthenticated && user?.role === 'admin' && (
@@ -187,7 +226,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
               </Link>
             )}
             
-            {/* User Menu */}
+            {/* User Menu - Far Right */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -195,11 +234,11 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
                   size="sm"
                   className="flex items-center space-x-2"
                 >
-                  <UserCircle className="w-4 h-4" />
+                  <UserCircle className="w-5 h-5" />
                   <span className="hidden sm:inline">
-                    {isAuthenticated ? user?.username : "Menu"}
+                    {isAuthenticated ? user?.username : "Account"}
                   </span>
-                  <ChevronDown className="w-3 h-3" />
+                  <ChevronDown className="w-4 h-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
@@ -228,44 +267,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
         </div>
       </div>
 
-      {/* Mobile Navigation Overlay */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-200 px-4 py-3">
-          <div className="space-y-2">
-            {phases.map((phase) => {
-              const isActive = currentPhaseNumber === phase.number;
-              const isAvailable = true; // Allow navigation to all phases
-              
-              return (
-                <Link
-                  key={phase.number}
-                  href={phase.path + (team ? `?team_id=${team.code}` : '')}
-                  className={`flex items-center space-x-3 p-3 rounded-lg ${
-                    isActive
-                      ? 'bg-primary text-white'
-                      : isAvailable
-                      ? 'hover:bg-gray-100'
-                      : 'text-gray-400 cursor-not-allowed'
-                  }`}
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <span className={`w-6 h-6 rounded-full flex items-center justify-center text-sm font-medium ${
-                    isActive
-                      ? 'bg-white bg-opacity-20'
-                      : 'bg-gray-200'
-                  }`}>
-                    {phase.number}
-                  </span>
-                  <div>
-                    <div className="font-medium">{phase.title}</div>
-                    {isActive && <div className="text-sm opacity-90">Current Phase</div>}
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      )}
+
     </header>
   );
 }
