@@ -15,7 +15,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
-import { Download, Users, Shield, Plus, Settings, Eye, BarChart3, Globe, Vote } from "lucide-react";
+import { Download, Users, Shield, Plus, Settings, Eye, BarChart3, Globe, Vote, Loader2 } from "lucide-react";
 import { getTimeAgo } from "@/lib/utils";
 import type { Team, Cohort } from "@shared/schema";
 
@@ -68,11 +68,11 @@ export default function Admin() {
     );
   }
   
-  const { data: teams = [], isLoading } = useQuery<TeamWithProgress[]>({
+  const { data: teams = [], isLoading: teamsLoading } = useQuery<TeamWithProgress[]>({
     queryKey: ['/api/teams'],
   });
 
-  const { data: cohorts = [] } = useQuery<Cohort[]>({
+  const { data: cohorts = [], isLoading: cohortsLoading } = useQuery<Cohort[]>({
     queryKey: ['/api/admin/cohorts'],
     queryFn: async () => {
       const response = await fetch('/api/admin/cohorts', {
@@ -283,7 +283,13 @@ export default function Admin() {
               </TabsList>
 
               <TabsContent value="teams" className="p-0">
-                {teams.length === 0 ? (
+                {teamsLoading ? (
+                  <div className="text-center py-12">
+                    <Loader2 className="w-8 h-8 text-gray-400 mx-auto mb-4 animate-spin" />
+                    <h3 className="text-lg font-medium text-gray-900 mb-2">Loading teams...</h3>
+                    <p className="text-gray-600">Please wait while we fetch team data.</p>
+                  </div>
+                ) : teams.length === 0 ? (
                   <div className="text-center py-12">
                     <Users className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                     <h3 className="text-lg font-medium text-gray-900 mb-2">No teams yet</h3>
