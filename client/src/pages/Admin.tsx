@@ -235,11 +235,11 @@ export default function Admin() {
     return Math.max(0, Math.min(100, ((currentPhase - 1) / 8) * 100));
   };
 
-  if (isLoading) {
+  if (teamsLoading || cohortsLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <Loader2 className="w-12 h-12 text-primary mx-auto mb-4 animate-spin" />
           <p className="text-gray-600">Loading dashboard...</p>
         </div>
       </div>
@@ -495,7 +495,13 @@ export default function Admin() {
                     </div>
                   </div>
 
-                  {cohorts.length === 0 ? (
+                  {cohortsLoading ? (
+                    <div className="text-center py-12">
+                      <Loader2 className="w-8 h-8 text-gray-400 mx-auto mb-4 animate-spin" />
+                      <h3 className="text-lg font-medium text-gray-900 mb-2">Loading cohorts...</h3>
+                      <p className="text-gray-600">Please wait while we fetch cohort data.</p>
+                    </div>
+                  ) : cohorts.length === 0 ? (
                     <div className="text-center py-12">
                       <Globe className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                       <h3 className="text-lg font-medium text-gray-900 mb-2">No cohorts yet</h3>
