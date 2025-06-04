@@ -43,5 +43,6 @@ async function createAdmin() {
   } catch (error) {
     console.error('Error creating admin user:', error);
   }
+}
 
 createAdmin();

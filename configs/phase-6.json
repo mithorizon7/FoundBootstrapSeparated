@@ -208,33 +208,33 @@
     },
     {
       "step": "6E",
-      "action": "**Downloadable Podcast (NotebookLM)** – ≈ 6 min online",
+      "action": "📻 **AI-Generated Podcast** (NotebookLM) – 6 min",
       "details": {
-        "title": "Create Podcast with NotebookLM",
+        "title": "Create Educational Podcast Content",
         "steps": [
           {
-            "number": "1",
-            "action": "**Setup Notebook:** Open notebooklm.google.com → Click + New Notebook. Rename it"
+            "number": "Setup",
+            "action": "Open notebooklm.google.com → Create new notebook → Assign descriptive project name"
           },
           {
-            "number": "2",
-            "action": "**Add Key Sources:** Click + Sources → Upload your **Science_Evidence.pdf** file. If you have other relevant text documents (like an explainer video script), upload those too. Let NotebookLM process them"
+            "number": "Source Upload",
+            "action": "**Content Integration:** Upload `Science_Evidence.pdf` → Add any additional research documents → Allow processing time for AI analysis"
           },
           {
-            "number": "3",
-            "action": "**Generate Podcast:** Click \"Audio Overview.\" This will take a couple of minutes to complete and be available"
+            "number": "Generation",
+            "action": "Click 'Audio Overview' → Wait for podcast generation (~2-3 minutes) → AI creates conversational discussion format"
           },
           {
-            "number": "4",
-            "action": "**Download Audio:** When complete, find the Download option → Download → Rename to **podcast.mp3** and save to project folder"
+            "number": "Download",
+            "action": "Access completed audio → Preview for quality → Download → Rename to `podcast.mp3` → Save to project folder"
           }
         ]
       }
     }
   ],
   "expectedOutput": {
-    "fileCreated": "hero.png, jingle.mp3, voiceover.mp3, copy.txt, podcast.mp3",
-    "whyItMatters": "hero.png powers your website hero section & video first frame. voiceover.mp3 provides narration track for videos. jingle.mp3 serves as background layer in video, plus 'Play Jingle' button on site. copy.txt becomes the main source for website copy when building the website.",
-    "nextSteps": "Success criteria: each file exists, matches brand adjectives & colors. You now have a complete media kit ready for Phase 7's website and video creation."
+    "fileCreated": "🎯 **Complete Media Kit Assets:**\n\n• `hero.png` - Brand hero image\n• `jingle.mp3` - Custom brand music\n• `voiceover.mp3` - Professional narration\n• `copy.txt` - Website copywriting\n• `podcast.mp3` - Educational content",
+    "whyItMatters": "**Asset Applications:**\n\n🎨 **Hero Image:** Website header, video thumbnails, social media posts\n🎙️ **Voiceover:** Explainer videos, website auto-play, marketing content\n🎵 **Brand Jingle:** Background music, website audio branding, social media\n📝 **Website Copy:** Homepage content, marketing materials, pitch decks\n📻 **Podcast:** Educational content, thought leadership, content marketing",
+    "nextSteps": "**Quality Check:** Verify all assets align with brand adjectives and visual identity. Your complete media kit is now ready for Phase 7's website and video production workflows."
   }
 }
