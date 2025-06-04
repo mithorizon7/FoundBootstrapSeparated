@@ -72,7 +72,7 @@
   ],
   "promptTemplate": "**PURPOSE**: Create an engaging 60-second voiceover script that introduces our company's solution in a way that builds trust, demonstrates value, and motivates action. This script should work as background narration on our website, over promotional videos, or as standalone audio content.\n\n**SCRIPT REQUIREMENTS:**\n\nWrite a 60-second narration introducing **{{phase5.chosen_concept_code_name}}**, our new {{phase1.sector}} solution.\n\n• Hook potential customers in the first line using this statistic: \"{{selected_statistic}}\"\n• Weave in this expert pull-quote for credibility: \"[Pull-quote from Science_Evidence.pdf]\"\n• Describe one key interactive feature and expected benefit in ≤ 25 words\n• End with a rousing call to action (<15 words)\n\nTone: {{voice_persona}} (warm, encouraging, trustworthy).\n\nOutput plain text only.",
   "decisionBoxContent": {
-    "title": "Creative Choices",
+    "title": "Decision Box (For Narration Script)",
     "subtitle": "5 shared decisions - Agree on these before splitting into parallel tracks",
     "sections": [
       {
