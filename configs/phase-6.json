@@ -72,124 +72,136 @@
   ],
   "promptTemplate": "**PURPOSE**: Create an engaging 60-second voiceover script that introduces our company's solution in a way that builds trust, demonstrates value, and motivates action. This script should work as background narration on our website, over promotional videos, or as standalone audio content.\n\n**SCRIPT REQUIREMENTS:**\n\nWrite a 60-second narration introducing **{{phase5.chosen_concept_code_name}}**, our new {{phase1.sector}} solution.\n\n• Hook potential customers in the first line using this statistic: \"{{selected_statistic}}\"\n• Weave in this expert pull-quote for credibility: \"[Pull-quote from Science_Evidence.pdf]\"\n• Describe one key interactive feature and expected benefit in ≤ 25 words\n• End with a rousing call to action (<15 words)\n\nTone: {{voice_persona}} (warm, encouraging, trustworthy).\n\nOutput plain text only.",
   "decisionBoxContent": {
-    "title": "Decision Box (For Narration Script)",
-    "subtitle": "5 shared decisions - Agree on these before splitting into parallel tracks",
+    "title": "Creative Direction & Team Setup",
+    "subtitle": "Make these shared decisions before splitting into parallel production tracks",
     "sections": [
       {
         "number": "Setup",
         "title": "Team Organization",
         "items": [
           {
-            "label": "Resource Requirements",
-            "content": "**Tools Needed:**\n\n• **Track 6A** (Hero Image): Sora\n• **Track 6B** (Music): Suno.ai\n• **Track 6C** (Narration): ChatGPT + ElevenLabs\n• **Track 6D** (Website Copy): Claude\n• **Track 6E** (Podcast): NotebookLM\n\n**Team Assignment:**\n\nMultiple team laptops should be logged into the respective services; different groups of teammates can \"own\" each track."
+            "label": "🛠️ Tools & Platform Access",
+            "content": "**Required Platforms:**\n\n🎨 **Track A** (Hero Image): Sora\n🎵 **Track B** (Music): Suno.ai\n🎙️ **Track C** (Narration): ChatGPT + ElevenLabs\n📝 **Track D** (Website Copy): Claude\n📻 **Track E** (Podcast): NotebookLM\n\n**Pre-Check:** Ensure team members have accounts and access to these platforms before beginning."
           },
           {
-            "label": "Parallel Execution Strategy",
-            "content": "**Tip:** Assign one teammate to each track (A, B, C, D, E) so the outputs finish roughly together. Total time: ≈ 20 minutes (18 min online creation running in parallel, ~2 min coordination)"
+            "label": "👥 Team Role Assignment",
+            "content": "**Parallel Production Strategy:**\n\n• Assign one teammate per track (A-E)\n• Each person works independently on their assigned track\n• Coordinate timing to finish simultaneously\n• **Total Duration:** ~20 minutes (18 min creation + 2 min coordination)"
+          },
+          {
+            "label": "📋 Asset Naming Convention",
+            "content": "**File Naming Standards:**\n\n• Hero Image → `hero.png`\n• Brand Jingle → `jingle.mp3`\n• Voiceover → `voiceover.mp3`\n• Website Copy → `copy.txt`\n• Podcast → `podcast.mp3`\n\n**Organization:** Create a shared project folder for all generated assets."
           }
         ]
       }
     ],
     "action": {
-      "title": "Make Creative Decisions",
+      "title": "🎯 Creative Direction Decisions",
       "items": [
-        "Visual style (e.g., Photoreal vs. stylized illustration)",
-        "Perspective (e.g., Close-up product glamour shot vs. interaction scene)",
-        "Music genre (whatever matches your brand)",
-        "Voice persona (e.g., Friendly parent, energetic coach, or trusted expert)",
-        "Featured statistic (select one jaw-dropping stat from Science_Evidence.pdf)"
+        "🎨 **Visual Style:** Choose aesthetic approach (Photoreal, Stylized illustration, Minimalist, or Bold/Dramatic)",
+        "📐 **Image Perspective:** Select focal emphasis (Close-up glamour, Interaction scene, Lifestyle context, or Abstract/Conceptual)", 
+        "🎵 **Music Genre:** Define brand-aligned musical style (e.g., Upbeat electronic, Warm acoustic, Corporate cinematic)",
+        "🎙️ **Voice Persona:** Select narrator character (Friendly parent, Energetic coach, Trusted expert, or Professional advisor)",
+        "📊 **Featured Statistic:** Choose most compelling data point from Science_Evidence.pdf for narrative hook"
       ]
     }
   },
   "stepByStepFlow": [
     {
       "step": "6A",
-      "action": "**Hero Image (Sora)** – ≈ 3 min online",
+      "action": "🎨 **Hero Image Creation** (Sora) – 3 min",
       "details": {
-        "title": "Generate Hero Image with Sora",
+        "title": "Generate Brand Hero Image",
         "steps": [
           {
-            "number": "1",
-            "action": "Open Sora, select image → prompt (select aspect ratio and do 4v for 4 versions at once)"
+            "number": "Setup",
+            "action": "Open Sora → Select 'Image' → Choose aspect ratio → Enable '4v' for 4 simultaneous variations"
           },
           {
-            "number": "2", 
-            "action": "Prompt for a hero image of your top product or service. Send it a few times for lots of options, change and refine your prompt until you get what you want"
+            "number": "Create", 
+            "action": "**Prompt Strategy:** Describe your hero image using selected visual style and perspective. Example: 'Photoreal close-up glamour shot of [your product] in premium lighting'"
           },
           {
-            "number": "3",
-            "action": "Generate many variations → pick best, download"
+            "number": "Iterate",
+            "action": "Generate multiple batches → Refine prompts based on results → Test different angles and compositions"
           },
           {
-            "number": "4",
-            "action": "Rename to **hero.png** and save to project folder"
+            "number": "Finalize",
+            "action": "Select best variation → Download → Rename to `hero.png` → Save to project folder"
           },
           {
-            "number": "5",
-            "action": "**Bonus:** Switch to video and prompt videos you might want to use somewhere in your website. Sora's videos are better right now for conceptual video and less for pure realism"
+            "number": "Bonus",
+            "action": "**Optional:** Generate conceptual videos for website backgrounds (Sora excels at abstract/conceptual motion graphics)"
           }
         ]
       }
     },
     {
       "step": "6B",
-      "action": "**Music Bed (Suno.ai)** – ≈ 4 min online",
+      "action": "🎵 **Brand Jingle Creation** (Suno.ai) – 4 min",
       "details": {
-        "title": "Create Brand Jingle with Suno.ai",
+        "title": "Generate Custom Brand Music",
         "steps": [
           {
-            "number": "1",
-            "action": "Open Suno → \"Create\" in the sidebar. If you click \"Simple\" you can just describe the style you want and what you want it to be about. Experiment a bit (you don't have unlimited tries for free). Try for 10 different prompts. You can also click \"custom\" and have it make a song to your own lyrics<br><strong>TIP:</strong> You don't have unlimited tries for free, so make each prompt count by being specific about style and mood."
+            "number": "Access",
+            "action": "Open Suno.ai → Click 'Create' in sidebar → **Choose Mode:** 'Simple' for style description OR 'Custom' for specific lyrics"
           },
           {
-            "number": "2",
-            "action": "Make a Music Prompt that matches your company's brand adjectives and chosen genre"
+            "number": "Prompt",
+            "action": "**Strategic Prompting:** Combine your brand adjectives with chosen music genre. Be specific about mood, energy level, and intended use as brand jingle."
           },
           {
-            "number": "3",
-            "action": "Generate (≈ 2 min)"
+            "number": "Generate",
+            "action": "Submit prompt → Wait for generation (~2 min) → **Pro Tip:** Free accounts have limited generations, so craft thoughtful prompts"
           },
           {
-            "number": "4",
-            "action": "Choose best version → download and rename as **jingle.mp3**"
+            "number": "Select",
+            "action": "Review all variations → Choose version that best captures brand essence → Download → Rename to `jingle.mp3`"
           }
         ]
       }
     },
     {
       "step": "6C",
-      "action": "**Narration Script & Voice (ChatGPT → ElevenLabs)** – ≈ 6 min online",
+      "action": "🎙️ **Professional Voiceover** (ChatGPT + ElevenLabs) – 6 min",
       "details": {
-        "title": "Create Voiceover Script and Audio",
+        "title": "Script Writing & Voice Generation",
         "steps": [
           {
-            "number": "Script",
-            "action": "Open ChatGPT. Use the script prompt template (available in Prompt Preview below) with your selected statistic and pull-quote. Copy output text"
+            "number": "Script Creation",
+            "action": "**ChatGPT Phase:** Use the provided prompt template → Input your selected statistic and pull-quote → Generate 60-second script → Review and refine for natural flow"
           },
           {
-            "number": "Voice",
-            "action": "ElevenLabs → \"Go to App\" (top right) → \"Instant Speech\" → Select your voice persona. Explore the voice library, then paste script. Generate Speech → download and rename to **voiceover.mp3**"
+            "number": "Voice Selection", 
+            "action": "**ElevenLabs Setup:** Access app → Browse 'Instant Speech' → Explore voice library → Match voice to your chosen persona (Friendly parent, Energetic coach, etc.)"
+          },
+          {
+            "number": "Audio Generation",
+            "action": "Paste finalized script → Generate speech → Preview for quality and tone → Download → Rename to `voiceover.mp3`"
           }
         ]
       }
     },
     {
       "step": "6D",
-      "action": "**Website Copy (Claude)** – ≈ 6 min online",
+      "action": "📝 **Website Copywriting** (Claude) – 6 min",
       "details": {
-        "title": "Generate Website Copy with Claude",
+        "title": "Generate Professional Website Copy",
         "steps": [
           {
-            "number": "Plan",
-            "action": "**Team Discussion:** Briefly discuss your main goals for the website copy. Think about: Who is your precise target audience? What's the #1 thing they should learn or feel? What action do you want them to take?"
+            "number": "Strategy",
+            "action": "**Team Alignment:** Define target audience, primary message, and desired user action. Clarify brand tone using your three brand adjectives."
           },
           {
-            "number": "Create Prompt",
-            "action": "Write a detailed prompt for Claude. Instruct it to:\n\n• Act as an expert copywriter specializing in your company's sector\n• Use uploaded documents as sole source of truth: **Hero_Concept_Detailed_Brief.docx** and **Science_Evidence.pdf**\n• Generate specific labeled copy elements: \"Main Headline,\" \"Engaging Sub-headline,\" \"Introductory Body Copy,\" \"3-5 Benefit-Oriented Bullet Points,\" and \"Persuasive Call to Action\"\n• Match your brand's tone using your three brand adjectives"
+            "number": "Prompt Development",
+            "action": "**Claude Instructions:** Create detailed prompt requesting expert copywriter persona → Specify copy elements needed (headline, sub-headline, body copy, bullet points, call-to-action) → Reference brand adjectives for tone"
           },
           {
-            "number": "Generate",
-            "action": "Open Claude → Upload **Hero_Concept_Detailed_Brief.docx** AND **Science_Evidence.pdf** → Paste your prompt → Generate → Save as **copy.txt**"
+            "number": "Document Upload",
+            "action": "Open Claude → Upload `Hero_Concept_Detailed_Brief.docx` AND `Science_Evidence.pdf` → Submit comprehensive prompt"
+          },
+          {
+            "number": "Content Generation",
+            "action": "Review generated copy for brand alignment → Request revisions if needed → Download final version → Save as `copy.txt`"
           }
         ]
       }

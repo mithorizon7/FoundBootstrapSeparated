@@ -1,5 +1,7 @@
 import bcrypt from 'bcrypt';
-import { Pool } from '@neondatabase/serverless';
+import { db } from '../server/db.js';
+import { users } from '../shared/schema.js';
+import { eq, and } from 'drizzle-orm';
 
 async function createAdmin() {
   if (!process.env.DATABASE_URL) {
@@ -7,16 +9,18 @@ async function createAdmin() {
     process.exit(1);
   }
 
-  const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-  
   try {
-    // Check if admin user already exists
-    const existingAdmin = await pool.query(
-      'SELECT * FROM users WHERE username = $1 AND role = $2',
-      ['davedxn@mit.edu', 'admin']
-    );
+    // Check if admin user already exists using Drizzle ORM
+    const existingAdmin = await db
+      .select()
+      .from(users)
+      .where(and(
+        eq(users.username, 'davedxn@mit.edu'),
+        eq(users.role, 'admin')
+      ))
+      .limit(1);
 
-    if (existingAdmin.rows.length > 0) {
+    if (existingAdmin.length > 0) {
       console.log('Admin user already exists');
       return;
     }
@@ -26,19 +30,18 @@ async function createAdmin() {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    await pool.query(
-      'INSERT INTO users (username, password, role) VALUES ($1, $2, $3)',
-      ['davedxn@mit.edu', hashedPassword, 'admin']
-    );
+    // Insert using Drizzle ORM
+    await db.insert(users).values({
+      username: 'davedxn@mit.edu',
+      password: hashedPassword,
+      role: 'admin'
+    });
 
     console.log('Admin user created successfully');
     console.log('Username: davedxn@mit.edu');
     console.log('Password: mithorizon');
   } catch (error) {
     console.error('Error creating admin user:', error);
-  } finally {
-    await pool.end();
   }
-}
 
 createAdmin();
