@@ -98,7 +98,7 @@
           },
           {
             "label": "Action: Prepare the Unmet Needs Text for the Prompt",
-            "content": "The Phase 4 prompt will require you to paste in your three chosen unmet needs as concise points. You can copy, summarize, or adapt from your report.\n\n**Example format:**\n• Parents struggle with complex tech toys and need simpler, more supportive solutions\n• Desire for toys that genuinely deliver on educational promises without \"STEM-washing\"\n• Need for durable toys that offer long-lasting play value relative to their cost\n\nHave the exact text for your three chosen unmet needs (preferably as bullet points) ready to paste into the form field above."
+            "content": "The Phase 4 prompt will require you to paste in your three chosen unmet needs as concise points. You can copy, summarize, or adapt from your report.\n\n**Example format:**\n\n• Parents struggle with complex tech toys and need simpler, more supportive solutions\n• Desire for toys that genuinely deliver on educational promises without \"STEM-washing\"\n• Need for durable toys that offer long-lasting play value relative to their cost\n\nHave the exact text for your three chosen unmet needs (preferably as bullet points) ready to paste into the form field above."
           }
         ]
       },

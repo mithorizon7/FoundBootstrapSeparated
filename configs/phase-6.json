@@ -81,7 +81,7 @@
         "items": [
           {
             "label": "Resource Requirements",
-            "content": "**Tools Needed:**\n• **Track 6A** (Hero Image): Sora\n• **Track 6B** (Music): Suno.ai\n• **Track 6C** (Narration): ChatGPT + ElevenLabs\n• **Track 6D** (Website Copy): Claude\n• **Track 6E** (Podcast): NotebookLM\n\n**Team Assignment:** Multiple team laptops should be logged into the respective services; different groups of teammates can \"own\" each track."
+            "content": "**Tools Needed:**\n\n• **Track 6A** (Hero Image): Sora\n• **Track 6B** (Music): Suno.ai\n• **Track 6C** (Narration): ChatGPT + ElevenLabs\n• **Track 6D** (Website Copy): Claude\n• **Track 6E** (Podcast): NotebookLM\n\n**Team Assignment:**\n\nMultiple team laptops should be logged into the respective services; different groups of teammates can \"own\" each track."
           },
           {
             "label": "Parallel Execution Strategy",
