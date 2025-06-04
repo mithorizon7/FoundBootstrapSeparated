@@ -28,7 +28,7 @@ export default function Home() {
   const features = [
     {
       icon: Target,
-      title: "7 Strategic Phases",
+      title: "8 Strategic Phases",
       description: "From market research to product launch, follow a proven framework used by successful startups."
     },
     {
