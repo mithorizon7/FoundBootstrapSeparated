@@ -481,7 +481,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                                   {step.details.steps.map((detailStep, index) => (
                                     <div key={index} className="flex items-start space-x-3 bg-neutral-50 rounded-lg p-4">
                                       <div className="flex-shrink-0">
-                                        <div className="w-6 h-6 bg-primary/10 rounded-full flex items-center justify-center text-xs font-semibold text-primary">
+                                        <div className="min-w-6 h-6 px-2 bg-primary/10 rounded-full flex items-center justify-center text-xs font-semibold text-primary whitespace-nowrap">
                                           {detailStep.number}
                                         </div>
                                       </div>
