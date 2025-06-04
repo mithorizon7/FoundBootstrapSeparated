@@ -86,7 +86,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
             {phases.slice(0, 5).map((phase) => {
               const isActive = currentPhaseNumber === phase.number;
               const isCompleted = team ? phase.number < team.currentPhase : false;
-              const isAvailable = team ? phase.number <= team.currentPhase : phase.number === 1;
+              const isAvailable = true; // Allow navigation to all phases
               
               return (
                 <Link
@@ -133,7 +133,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
                   {phases.slice(5).map((phase) => {
                     const isActive = currentPhaseNumber === phase.number;
                     const isCompleted = team ? phase.number < team.currentPhase : false;
-                    const isAvailable = team ? phase.number <= team.currentPhase : phase.number === 1;
+                    const isAvailable = true; // Allow navigation to all phases
                     
                     return (
                       <DropdownMenuItem
@@ -236,7 +236,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
           <div className="space-y-2">
             {phases.map((phase) => {
               const isActive = currentPhaseNumber === phase.number;
-              const isAvailable = team ? phase.number <= team.currentPhase : phase.number === 1;
+              const isAvailable = true; // Allow navigation to all phases
               
               return (
                 <Link
