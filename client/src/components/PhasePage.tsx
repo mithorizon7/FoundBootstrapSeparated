@@ -344,15 +344,15 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
   return (
     <div className="space-y-8">
       {/* Phase Header */}
-      <Card>
-        <CardHeader>
-          <div className="flex items-center space-x-4 mb-4">
-            <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
-              <span className="text-white font-bold text-lg">{config.phase}</span>
+      <Card className="shadow-lg border-0">
+        <CardHeader className="pb-6">
+          <div className="flex items-center space-x-6 mb-6">
+            <div className="w-16 h-16 bg-primary rounded-xl flex items-center justify-center shadow-md">
+              <span className="text-white font-bold text-xl">{config.phase}</span>
             </div>
-            <div>
-              <CardTitle className="text-xl sm:text-2xl font-bold text-neutral-800 leading-tight tracking-tight">{config.title}</CardTitle>
-              <p className="text-sm text-gray-600 font-medium">
+            <div className="flex-1">
+              <CardTitle className="text-2xl md:text-3xl font-extrabold text-neutral-800 leading-tight tracking-tight mb-2">{config.title}</CardTitle>
+              <p className="text-base text-neutral-600 font-semibold">
                 Phase {config.phase} of {PHASE_CONFIG.TOTAL_PHASES}
                 {config.estimatedTime && ` • ${config.estimatedTime}`}
               </p>
@@ -361,13 +361,15 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
           
           <Progress value={progressPercentage} className="mb-4" />
           
-          <div className="mt-4">
-            <div className="text-lg text-gray-700 leading-relaxed font-medium max-w-4xl">
+          <div className="mt-6">
+            <div className="text-lg md:text-xl text-neutral-700 leading-relaxed font-medium max-w-5xl">
               <div dangerouslySetInnerHTML={{ 
                 __html: config.intro
-                  .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-neutral-800">$1</strong>')
-                  .replace(/\*([^*]+)\*/g, '<em class="italic text-primary font-medium">$1</em>')
-                  .replace(/•\s/g, '<br/>• ')
+                  .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-bold text-neutral-800">$1</strong>')
+                  .replace(/\*([^*]+)\*/g, '<em class="font-semibold text-primary">$1</em>')
+                  .replace(/•\s/g, '<div class="flex items-start gap-3 my-2"><span class="w-2 h-2 bg-primary rounded-full mt-3 flex-shrink-0"></span><span>')
+                  .replace(/\n(?=• )/g, '</span></div>')
+                  .replace(/\n\n/g, '</span></div><div class="my-4"></div>')
                   .replace(/\n/g, '<br/>')
               }} />
             </div>
@@ -377,38 +379,38 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
 
       {/* Decision Box Content */}
       {config.decisionBoxContent && (
-        <Card className="bg-gradient-to-r from-primary-100 to-neutral-100 border-primary-400/30 transition-all duration-200 ease-out hover:shadow-md hover:-translate-y-px">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-neutral-800 font-semibold tracking-tight">
-              <Vote className="w-5 h-5 text-primary" />
+        <Card className="bg-gradient-to-r from-primary-100 to-neutral-100 border-primary-400/30 transition-all duration-200 ease-out hover:shadow-md hover:-translate-y-px shadow-lg">
+          <CardHeader className="pb-6">
+            <CardTitle className="flex items-center space-x-3 text-neutral-800 font-bold tracking-tight text-xl md:text-2xl mb-3">
+              <Vote className="w-6 h-6 text-primary" />
               <span>Phase {config.phase} Decision Box: {config.decisionBoxContent.title}</span>
             </CardTitle>
-            <p className="text-neutral-600 mt-2 font-medium">
+            <p className="text-lg text-neutral-600 font-medium leading-relaxed">
               {config.decisionBoxContent.subtitle}
             </p>
           </CardHeader>
           <CardContent className="space-y-6">
             {config.decisionBoxContent.sections.map((section, index) => (
-              <div key={index} className="bg-white rounded-lg p-6 border border-neutral-300 shadow-sm hover:shadow-md transition-all duration-200 ease-out hover:-translate-y-px">
-                <h3 className="text-xl font-semibold text-neutral-800 mb-4 flex items-center space-x-3">
-                  <div className="min-w-8 h-8 px-2 bg-primary rounded-full flex items-center justify-center text-white font-bold text-sm whitespace-nowrap">
+              <div key={index} className="bg-white rounded-lg p-8 border border-neutral-300 shadow-sm hover:shadow-md transition-all duration-200 ease-out hover:-translate-y-px">
+                <h3 className="text-xl md:text-2xl font-bold text-neutral-800 mb-6 flex items-center space-x-4">
+                  <div className="min-w-10 h-10 px-3 bg-primary rounded-full flex items-center justify-center text-white font-bold text-base whitespace-nowrap shadow-md">
                     {section.number}
                   </div>
                   <span>{section.title}</span>
                 </h3>
-                <div className="space-y-4">
+                <div className="space-y-6">
                   {section.items.map((item, itemIndex) => (
-                    <div key={itemIndex} className="border-l-4 border-primary/30 pl-4">
-                      <h4 className="font-semibold text-neutral-800 mb-2">{item.label}:</h4>
+                    <div key={itemIndex} className="border-l-4 border-primary/30 pl-6 py-2">
+                      <h4 className="font-bold text-lg text-neutral-800 mb-3">{item.label}:</h4>
                       <div 
-                        className="text-neutral-700 leading-relaxed font-medium prose-sm"
+                        className="text-base text-neutral-700 leading-relaxed font-medium"
                         dangerouslySetInnerHTML={{ 
                           __html: item.content
-                            .replace(/\*\*(.*?)\*\*/g, '<strong class="text-neutral-800 font-semibold">$1</strong>')
-                            .replace(/\*(.*?)\*/g, '<em class="text-primary font-medium">$1</em>')
-                            .replace(/• /g, '<span class="flex items-start gap-2 mb-2"><span class="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></span><span>')
-                            .replace(/\n(?=• )/g, '</span></span>')
-                            .replace(/\n\n/g, '</span></span><div class="mb-3"></div>')
+                            .replace(/\*\*(.*?)\*\*/g, '<strong class="text-neutral-800 font-bold">$1</strong>')
+                            .replace(/\*(.*?)\*/g, '<em class="text-primary font-semibold">$1</em>')
+                            .replace(/• /g, '<div class="flex items-start gap-3 my-2"><span class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span><span>')
+                            .replace(/\n(?=• )/g, '</span></div>')
+                            .replace(/\n\n/g, '</span></div><div class="my-4"></div>')
                             .replace(/\n/g, '<br/>')
                         }} 
                       />

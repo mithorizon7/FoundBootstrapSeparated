@@ -100,12 +100,15 @@ export default function Home() {
         </div>
 
         {/* Process Overview */}
-        <Card className="bg-white">
-          <CardHeader>
-            <CardTitle className="text-xl sm:text-2xl text-center">The 8-Phase Journey</CardTitle>
+        <Card className="bg-white shadow-lg border-0">
+          <CardHeader className="pb-8">
+            <CardTitle className="text-2xl md:text-3xl font-bold text-center text-neutral-800 mb-4">The 8-Phase Journey</CardTitle>
+            <p className="text-lg text-neutral-600 text-center max-w-3xl mx-auto leading-relaxed">
+              A systematic approach to building a complete startup from market research to live deployment
+            </p>
           </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <CardContent className="px-8 pb-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-8">
               {[
                 { phase: 1, title: "Market & Competitor Research", description: "Panoramic, data-backed view of market size, competitors, and customer pain points using AI analysis" },
                 { phase: 2, title: "Competitor Matrix Construction", description: "Transform research into quantitative competitor matrix with threat scoring and strategic gaps" },
@@ -114,31 +117,31 @@ export default function Home() {
                 { phase: 5, title: "Product Design & Feature Definition: Part 2", description: "Transform hero concept into detailed MVP specification with features and user experience" },
                 { phase: 6, title: "Media Kit & Brand Assets", description: "Create comprehensive brand messaging, visual guidelines, and marketing materials" }
               ].map((phase) => (
-                <div key={phase.phase} className="text-center">
-                  <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center mx-auto mb-3">
-                    <span className="text-white font-semibold">{phase.phase}</span>
+                <div key={phase.phase} className="text-center space-y-4">
+                  <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto shadow-md">
+                    <span className="text-white font-bold text-lg">{phase.phase}</span>
                   </div>
-                  <h3 className="font-semibold text-gray-900 mb-2">{phase.title}</h3>
-                  <p className="text-sm text-gray-600">{phase.description}</p>
+                  <h3 className="font-bold text-lg text-neutral-800 leading-tight">{phase.title}</h3>
+                  <p className="text-sm text-neutral-600 leading-relaxed font-medium">{phase.description}</p>
                 </div>
               ))}
             </div>
             
             {/* Phases 7 and 8 centered separately */}
-            <div className="flex justify-center mt-6 gap-8">
-              <div className="text-center max-w-sm">
-                <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center mx-auto mb-3">
-                  <span className="text-white font-semibold">7</span>
+            <div className="flex flex-col md:flex-row justify-center gap-8 pt-4">
+              <div className="text-center max-w-sm space-y-4">
+                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto shadow-md">
+                  <span className="text-white font-bold text-lg">7</span>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Website & Digital Presence</h3>
-                <p className="text-sm text-gray-600">Build conversion-optimized website with clear value proposition and lead generation</p>
+                <h3 className="font-bold text-lg text-neutral-800 leading-tight">Website & Digital Presence</h3>
+                <p className="text-sm text-neutral-600 leading-relaxed font-medium">Build conversion-optimized website with clear value proposition and lead generation</p>
               </div>
-              <div className="text-center max-w-sm">
-                <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center mx-auto mb-3">
-                  <span className="text-white font-semibold">8</span>
+              <div className="text-center max-w-sm space-y-4">
+                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto shadow-md">
+                  <span className="text-white font-bold text-lg">8</span>
                 </div>
-                <h3 className="font-semibold text-gray-900 mb-2">Launch Strategy & Go-to-Market</h3>
-                <p className="text-sm text-gray-600">Comprehensive launch plan with customer acquisition, marketing channels, and success metrics</p>
+                <h3 className="font-bold text-lg text-neutral-800 leading-tight">Launch Strategy & Go-to-Market</h3>
+                <p className="text-sm text-neutral-600 leading-relaxed font-medium">Comprehensive launch plan with customer acquisition, marketing channels, and success metrics</p>
               </div>
             </div>
           </CardContent>
