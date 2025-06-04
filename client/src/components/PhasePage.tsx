@@ -365,13 +365,10 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
             <div className="text-lg text-gray-700 leading-relaxed font-medium max-w-4xl">
               <div dangerouslySetInnerHTML={{ 
                 __html: config.intro
-                  .replace(/\n\n/g, '</p><p class="mt-4">')
-                  .replace(/^(.*)$/gm, '<p>$1</p>')
-                  .replace(/• /g, '<li>')
-                  .replace(/<p><li>/g, '<ul class="list-disc list-inside mt-2 space-y-1"><li>')
-                  .replace(/<\/p>\s*<p><li>/g, '</li><li>')
-                  .replace(/<li>([^<]*)<\/p>/g, '<li>$1</li></ul>')
-                  .replace(/<p><\/p>/g, '')
+                  .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-neutral-800">$1</strong>')
+                  .replace(/\*([^*]+)\*/g, '<em class="italic text-primary font-medium">$1</em>')
+                  .replace(/•\s/g, '<br/>• ')
+                  .replace(/\n/g, '<br/>')
               }} />
             </div>
           </div>
