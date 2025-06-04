@@ -83,7 +83,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
 
           {/* Phase Navigation */}
           <nav className="hidden xl:flex items-center space-x-1 flex-1 justify-center mx-8 min-w-0">
-            {phases.slice(0, 5).map((phase) => {
+            {phases.slice(0, 4).map((phase) => {
               const isActive = currentPhaseNumber === phase.number;
               const isCompleted = team ? phase.number < team.currentPhase : false;
               const isAvailable = true; // Allow navigation to all phases
@@ -117,7 +117,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
             })}
             
             {/* More Phases Dropdown */}
-            {phases.length > 5 && (
+            {phases.length > 4 && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
@@ -130,7 +130,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48">
-                  {phases.slice(5).map((phase) => {
+                  {phases.slice(4).map((phase) => {
                     const isActive = currentPhaseNumber === phase.number;
                     const isCompleted = team ? phase.number < team.currentPhase : false;
                     const isAvailable = true; // Allow navigation to all phases
