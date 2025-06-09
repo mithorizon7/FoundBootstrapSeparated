@@ -273,7 +273,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
       if (teamId) {
         await savePhaseData(teamId, config.phase, formData);
         // Update team's current phase if proceeding to next
-        if (config.phase < 7) {
+        if (config.phase < PHASE_CONFIG.TOTAL_PHASES) {
           await updateTeamPhase(teamId, config.phase + 1);
         }
       } else {
@@ -282,7 +282,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
       
       if (onNext) {
         onNext();
-      } else if (config.phase < 7) {
+      } else if (config.phase < PHASE_CONFIG.TOTAL_PHASES) {
         const nextPhaseUrl = `/phase/${config.phase + 1}${teamCode ? `?team_id=${teamCode}` : ''}`;
         setLocation(nextPhaseUrl);
       }
@@ -611,9 +611,9 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
             <CardContent>
               <div className="flex items-center justify-between text-sm mb-2">
                 <span className="text-gray-600">Phases completed</span>
-                <span className="font-medium">{config.phase - 1} of 7</span>
+                <span className="font-medium">{config.phase - 1} of {PHASE_CONFIG.TOTAL_PHASES}</span>
               </div>
-              <Progress value={((config.phase - 1) / 7) * 100} />
+              <Progress value={((config.phase - 1) / PHASE_CONFIG.TOTAL_PHASES) * 100} />
             </CardContent>
           </Card>
         </div>
@@ -840,15 +840,15 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
           
           <Button
             onClick={handleProceedToNext}
-            disabled={hasErrors || loading || config.phase === 7}
+            disabled={hasErrors || loading || config.phase === PHASE_CONFIG.TOTAL_PHASES}
             className={cn("flex items-center space-x-2 bg-primary-500 text-white hover:bg-primary-600 transition-all duration-200 ease-out transform hover:-translate-y-px shadow-sm hover:shadow-md font-semibold tracking-wide",
-              (hasErrors || loading || config.phase === 7) && "opacity-50 cursor-not-allowed"
+              (hasErrors || loading || config.phase === PHASE_CONFIG.TOTAL_PHASES) && "opacity-50 cursor-not-allowed"
             )}
           >
             <span>
-              {config.phase === 7 ? 'Complete' : `Continue to Phase ${config.phase + 1}`}
+              {config.phase === PHASE_CONFIG.TOTAL_PHASES ? 'Complete' : `Continue to Phase ${config.phase + 1}`}
             </span>
-            {config.phase < 7 && <ChevronRight className="w-4 h-4" />}
+            {config.phase < PHASE_CONFIG.TOTAL_PHASES && <ChevronRight className="w-4 h-4" />}
           </Button>
         </div>
       </div>
