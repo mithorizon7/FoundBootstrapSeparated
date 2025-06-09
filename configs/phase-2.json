@@ -179,30 +179,22 @@
     },
     {
       "step": 4,
-      "action": "**Productive Waiting Period** - Team trend analysis while AI processes",
+      "action": "**Team Prediction Challenge** - Put your intuition to the test while the AI works",
       "time": "1-2 minutes",
       "details": {
-        "title": "Strategic Trend Review",
+        "title": "Articulating Your Strategic Assumptions",
         "steps": [
           {
             "number": "1",
-            "action": "While ChatGPT processes (≈1–2 min), **divide team responsibilities**"
+            "action": "Before the results appear, have each team member quickly write down their prediction for which competitor will have the highest 'Weighted Threat Score'."
           },
           {
             "number": "2",
-            "action": "**Review Gemini's Macro Trends section** from Phase 1 report"
+            "action": "Briefly state *why* you think that competitor is the biggest threat. Is it their brand, their market share, or something else?"
           },
           {
             "number": "3",
-            "action": "**Mark the one trend** you believe will have least impact on your market"
-          },
-          {
-            "number": "4",
-            "action": "**Document this dissent note** - it may spark important debate later"
-          },
-          {
-            "number": "5",
-            "action": "**Prepare questions** about competitor scoring methodology"
+            "action": "The data-driven matrix you are about to receive will provide a new layer of quantitative analysis to help confirm, challenge, or add nuance to your strategic thinking."
           }
         ]
       }
