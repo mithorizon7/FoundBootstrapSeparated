@@ -186,15 +186,15 @@
         "steps": [
           {
             "number": "1",
-            "action": "Before the results appear, have each team member quickly write down their prediction for which competitor will have the highest 'Weighted Threat Score'."
+            "action": "**Make individual predictions** - Before the results appear, have each team member quickly **write down their prediction** for which competitor will have the highest 'Weighted Threat Score'"
           },
           {
             "number": "2",
-            "action": "Briefly state *why* you think that competitor is the biggest threat. Is it their brand, their market share, or something else?"
+            "action": "**Articulate your reasoning** - Briefly state **why** you think that competitor is the biggest threat. Is it their brand, their market share, innovation capabilities, or something else?<br><strong>TIP:</strong> This captures your strategic intuition before data analysis influences your thinking."
           },
           {
             "number": "3",
-            "action": "The data-driven matrix you are about to receive will provide a new layer of quantitative analysis to help confirm, challenge, or add nuance to your strategic thinking."
+            "action": "**Prepare for comparison** - The data-driven matrix you are about to receive will provide a new layer of quantitative analysis to help **confirm, challenge, or add nuance** to your strategic thinking"
           }
         ]
       }
