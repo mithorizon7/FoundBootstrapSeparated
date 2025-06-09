@@ -76,7 +76,7 @@
         "items": [
           {
             "label": "Your Task",
-            "content": "Select the single concept that will become your 'Hero Offer.' Once your team has decided, fill out all the fields in the form below with the specific details for your chosen concept.<br><small class='text-neutral-600 italic'><strong>Guidance for Target Audience:</strong> Make it so specific you could easily cast them in a movie. For instance: \"Parents of children aged 4-6 who prioritize screen-free, collaborative play...\"</small>"
+            "content": "Select the single concept that will become your 'Hero Offer.' Once your team has decided, fill out all the fields in the form below with the specific details for your chosen concept.<br><small class='text-neutral-600 italic'><strong>Guidance for Target Audience:</strong> Make it so specific you could easily cast them in a movie. For instance: \"Parents of children aged 4-6 who prioritize screen-free, collaborative play and are looking to build their child's creative problem-solving skills.\"</small>"
           }
         ]
       }
