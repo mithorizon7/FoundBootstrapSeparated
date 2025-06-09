@@ -1,0 +1,114 @@
+Of course. Here is the finalized and comprehensive set of instructions for the AI Coder. It incorporates the "best of both worlds" terminology by re-integrating "Unmet Needs" and clarifies every step of the required changes.
+
+---
+
+### **Instructions for AI Coder: Refactoring to a "Discovery-Driven" Workflow**
+
+**High-Level Goal:**
+
+Our objective is to refactor the bootcamp's workflow from a "hypothesis-first" model to a **"discovery-driven"** model. Teams will no longer decide their "Core Benefit Keyword" upfront. Instead, they will use the AI-generated report from Phase 1 to make an informed decision on their core benefit at the beginning of Phase 2. This makes the process more logical and data-informed.
+
+Your task is to modify the application's configuration files to implement this new flow. You will be provided with the new Phase 1 prompt separately; these instructions cover the necessary changes to the application configuration to support it.
+
+---
+
+### **Step 1: Modify Phase 1 Configuration**
+
+**File to Edit:** `FoundInTwo/configs/phase-1.json`
+
+1.  **Remove the "Core Benefit Keyword" Field:**
+    * In the `fields` array, locate and **completely remove** the field object where the `id` is `"benefit_keyword"`.
+    * **Reasoning:** This decision is being moved to Phase 2 and should no longer be captured in Phase 1.
+
+---
+
+### **Step 2: Modify Phase 2 Configuration**
+
+**File to Edit:** `FoundInTwo/configs/phase-2.json`
+
+This is the most critical change. You will add a new decision-making step and a corresponding form field to the beginning of this phase.
+
+1.  **Update `decisionBoxContent`:**
+    * Replace the entire `decisionBoxContent` object with the following JSON. This new content instructs the user to review their Phase 1 report and decide on a `Core Benefit Keyword` based on the "Unmet Needs & Strategic Opportunities" section.
+
+    ```json
+    "decisionBoxContent": {
+      "title": "Define Your Core Benefit",
+      "subtitle": "Your Phase 1 report has identified several Unmet Needs and framed them as Strategic Opportunities. Your first task is to analyze these findings and decide on the single Core Benefit your company will pursue.",
+      "sections": [
+        {
+          "number": "1",
+          "title": "Review Unmet Needs & Opportunities",
+          "items": [
+            {
+              "label": "Your Task",
+              "content": "Carefully read the 'Unmet Needs & Strategic Opportunities' section in your Phase 1 report. Discuss with your team which customer problem represents the most compelling opportunity."
+            }
+          ]
+        },
+        {
+          "number": "2",
+          "title": "Select Your Core Benefit",
+          "items": [
+            {
+              "label": "Your Task",
+              "content": "As a team, agree on the single most promising 'Suggested Core Benefit' from the report. This will become your company's north star for all subsequent phases."
+            }
+          ]
+        }
+      ],
+      "action": {
+        "title": "Action",
+        "items": [
+          "Enter your team's final decision into the 'Your Chosen Core Benefit Keyword' field below."
+        ]
+      }
+    }
+    ```
+
+2.  **Add the New `benefit_keyword` Field:**
+    * In the `fields` array, **add the following new field object at the beginning of the array**. It must be the first field the user encounters in Phase 2.
+
+    ```json
+    {
+      "id": "benefit_keyword",
+      "label": "Your Chosen Core Benefit Keyword",
+      "type": "text",
+      "placeholder": "e.g., Guilt-Free Creative Screen Time",
+      "required": true,
+      "persist": true,
+      "help": "The single most important outcome your offer will provide.",
+      "tooltip": "Based on the 'Unmet Needs & Strategic Opportunities' section in your Phase 1 report, enter the single most promising core benefit your team will build around. This will guide all subsequent phases."
+    }
+    ```
+
+---
+
+### **Step 3: Modify Phase 4 Configuration**
+
+**File to Edit:** `FoundInTwo/configs/phase-4.json`
+
+**Action:**
+Update the instructions and form field to align with the new structure of the Phase 1 report, ensuring the focus remains on "Unmet Needs" as the starting point for ideation.
+
+1.  **Update the `unmet_needs` Field:**
+    * Locate the field object with the `id` of `"unmet_needs"`.
+    * Update its properties to the following to ensure clarity:
+        * **`label`**: `"Top Unmet Need to Address"`
+        * **`help`**: `"From your Phase 1 report, copy the 'Identified Unmet Need' that best aligns with your chosen Core Benefit."`
+        * **`tooltip`**: `"Refer to the 'Unmet Needs & Strategic Opportunities' section of your report. This ensures your product concepts are directly solving a research-validated customer problem."`
+
+2.  **Update `decisionBoxContent`:**
+    * Search through the `decisionBoxContent` text and ensure it clearly instructs the user to get their information from the **"Unmet Needs & Strategic Opportunities"** section of their Phase 1 report. The language should be consistent.
+
+---
+
+### **Final Verification Checklist:**
+
+After implementing these changes, please verify the following user flow:
+
+* [ ] The form in Phase 1 **no longer** asks for a "Core Benefit Keyword."
+* [ ] The Phase 2 page now begins with instructions for deciding on a Core Benefit.
+* [ ] Phase 2 has a **new, required field** at the top for the team to enter their "Chosen Core Benefit Keyword."
+* [ ] The value entered for `benefit_keyword` in Phase 2 correctly populates the `{{benefit_keyword}}` variable in the Phase 3 prompt preview.
+* [ ] The instructions and field tooltips in Phase 4 correctly guide the user to reference the **"Unmet Needs & Strategic Opportunities"** section of their report.

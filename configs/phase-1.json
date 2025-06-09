@@ -24,16 +24,7 @@
       "help": "The slice of the market you will attack",
       "tooltip": "Define the specific market niche you're entering. This helps Gemini Deep Research focus on relevant competitors, market size, and industry trends for your exact domain."
     },
-    {
-      "id": "benefit_keyword",
-      "label": "Core Benefit Keyword",
-      "type": "text",
-      "placeholder": "e.g., play-driven learning",
-      "required": true,
-      "persist": true,
-      "help": "The human outcome your offer will improve",
-      "tooltip": "The primary value proposition that differentiates you. This keyword guides the AI research to find market gaps around this specific benefit and competitive positioning opportunities."
-    },
+
     {
       "id": "target_region",
       "label": "Target Region",
@@ -70,7 +61,7 @@
       "tooltip": "A complementary color that works with your primary color for visual hierarchy and design variety. This will be used for accents, buttons, and secondary elements in your brand materials."
     }
   ],
-  "promptTemplate": "**ROLE**\n\nYou are a senior market-intelligence analyst at a global consulting firm.\n\n**CONTEXT**\n\nWe are evaluating the {{sector}} market in {{target_region}} for a new entrant called {{company_name}}.\n\n**TASK**\n\nProduce a structured report with five numbered sections:\n\n1. **Market Sizing & Growth**\n   * Current‐year (e.g., Projected 2025) TAM and SAM in USD.\n   * Recent or Projected Market CAGR (specify timeframe, e.g., 2023-2028).\n   * Minimum one, preferably two, independent sources per figure (link or full citation). Prioritize reputable sources (market research firms, government data, industry associations).\n   * Briefly outline key factors or common methodologies used to estimate potential SOM in this sector (a specific sourced SOM figure is not required).\n\n2. **Top 5 Competitors**\n   * Identify the Top 5 competitors based on perceived market influence or relevance to {{company_name}}'s likely offering.\n   * Table: Brand | Core Offer | One-sentence USP | Market Positioning/Tier (e.g., Leader, Major Player, Niche) | Evidence of Scale (e.g., Revenue/funding if public, employee range) | Key Strengths (1-2 bullets)\n   * Mention any significant funding, patent, or M&A event involving these competitors in the last 18-24 months.\n\n3. **Potential Unmet Needs**\n   * Minimum three potential unmet needs within the market, supported by cited evidence.\n   * ≤ 30 words each. Include a parent quote, data point, or reference to analysis from a reputable source illustrating customer pain or market gap.\n   * Briefly note the potential implication of addressing this need for {{company_name}}.\n\n4. **Macro & Regulatory Trends**\n   * Three trends (e.g., Technological, Regulatory, Economic, Social) most likely to significantly reshape this category within the next 3 years.\n   * Pair each with a referenced statistic or forecast.\n   * For each trend, briefly state its potential impact (opportunity or threat) on {{company_name}}.\n\n5. **Key Assumptions and Limitations**\n   * Briefly outline key assumptions made during the analysis and any significant limitations encountered (e.g., data availability, reliance on public sources).\n\n**FORMAT**\n\nReturn the content in GitHub-flavored Markdown with clear H2 headers for the numbered sections.\n\nStructure the output cleanly (especially tables and lists) to allow for easy copying and pasting into a final document (e.g., Word or PowerPoint) for executive presentation.\n\nFinish with a consolidated APA reference list for all cited sources.",
+  "promptTemplate": "ROLE\n\nYou are a senior market-intelligence analyst and product strategist at a global consulting firm.\n\nCONTEXT\n\nWe are evaluating the {{sector}} market in {{target_region}} for a new entrant called {{company_name}}. Our primary goal is to analyze the landscape to identify the most promising core benefit for this new venture to build around.\n\nTASK\n\nProduce a structured report designed to guide a strategic decision on the company's core benefit. The report must contain the following five sections:\n\n1. Market Sizing & Growth\n\nCurrent‐year (e.g., Projected 2025) TAM and SAM in USD.\nRecent or Projected Market CAGR (specify timeframe, e.g., 2023-2028).\nMinimum one, preferably two, independent sources per figure (link or full citation). Prioritize reputable sources.\nBriefly outline key factors or common methodologies used to estimate potential SOM in this sector.\n2. Competitive Landscape: Strengths & Weaknesses\n\nIdentify the Top 5 competitors based on perceived market influence in the {{sector}}.\nFor each competitor, create a table with the following columns:\nBrand\nCore Offer\nKey Strengths (1-2 bullets)\nPerceived Weakness / Market Gap (1-2 bullets - e.g., high price, poor user experience, missing feature, underserved niche).\nMention any significant funding or M&A events in the last 18-24 months.\n3. Unmet Needs & Strategic Opportunities\n\nBased on your research, identify a minimum of three distinct Unmet Needs.\nFor each Unmet Need, present it as a strategic opportunity in a table with the following columns:\nIdentified Unmet Need: State the customer problem clearly and concisely.\nSupporting Evidence: Cite the specific data point, quote, or finding from your research that validates this need.\nStrategic Context: In 1-2 sentences, explain why this is a strong opportunity (e.g., \"This need is amplified by the macro trend of [Trend Name] and is a known weakness of Competitor X.\").\nSuggested Core Benefit: Propose a concise benefit that directly solves the Unmet Need (e.g., \"Effortless Meal Planning,\" \"Guilt-Free Creative Screen Time,\" \"Verifiable Skills for a Modern Workforce\").\n4. Macro & Regulatory Trends\n\nIdentify three trends (e.g., Technological, Regulatory, Economic, Social) most likely to significantly reshape this category within the next 3 years.\nPair each with a referenced statistic or forecast.\nFor each trend, briefly state its potential impact (opportunity or threat) on {{company_name}}.\n5. Synthesized Recommendation\n\nConclude the report with a brief summary (1-2 paragraphs).\nBased on the entire analysis, recommend which Suggested Core Benefit from Section 3 offers the most promising strategic path for {{company_name}}.\nJustify your recommendation by synthesizing insights from the competitive weaknesses, the scale of the unmet need, and alignment with macro trends.\nFORMAT\n\nReturn the content in GitHub-flavored Markdown with clear H2 headers for the numbered sections. Structure tables and lists cleanly for executive presentation. Finish with a consolidated APA reference list for all cited sources.",
   "decisionBoxContent": {
     "title": "Market Research Foundation",
     "subtitle": "Mapping the Battlefield - Understanding your market landscape before designing anything",
@@ -87,10 +78,7 @@
             "label": "Sector Definition",
             "content": "Define the specific slice of the market you will attack - be precise about your product domain and target demographics."
           },
-          {
-            "label": "Benefit Keyword",
-            "content": "Identify the core human outcome your offer will improve - this becomes the foundation for all future research and development."
-          }
+
         ]
       },
       {
@@ -111,7 +99,7 @@
     "action": {
       "title": "Research Preparation",
       "items": [
-        "Define your company name, sector, and core benefit keyword",
+        "Define your company name and sector",
         "Select target region and brand colors",
         "Prepare to conduct parallel research while AI runs analysis",
         "Set up for 12 minutes of intensive market intelligence gathering"
@@ -154,7 +142,7 @@
           },
           {
             "number": "2",
-            "action": "**Fill in the missing elements** with your company name, sector, benefit keyword, and target region"
+            "action": "**Fill in the missing elements** with your company name, sector, and target region"
           },
           {
             "number": "3",
