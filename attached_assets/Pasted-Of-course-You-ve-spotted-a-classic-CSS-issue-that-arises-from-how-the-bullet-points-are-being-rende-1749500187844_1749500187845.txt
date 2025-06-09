@@ -1,0 +1,43 @@
+Of course. You've spotted a classic CSS issue that arises from how the bullet points are being rendered. Here is a clear description of the problem and a high-level solution to provide to your AI Coder.
+
+---
+
+### **Instructions for AI Coder: Fixing the Cascading Bullet Point Indentation**
+
+**High-Level Goal:**
+
+We need to fix a site-wide styling issue where bulleted lists are rendered with increasing indentation for each subsequent item, creating a "cascading" or "nested" appearance. These bullets should all be aligned vertically at the same indentation level.
+
+**1. The Problem: What is Happening and Why**
+
+You've correctly observed that sibling bullet points are being rendered as if they were nested.
+
+* **What it looks like:**
+    * Item 1
+        * Item 2
+            * Item 3
+* **What it should look like:**
+    * Item 1
+    * Item 2
+    * Item 3
+
+The root cause is **not in the CSS, but in the generated HTML structure**. The string replacement logic currently used to create the bullet points is incorrectly creating nested `<div>` elements instead of sibling `<div>` elements. Each nested `div` inherits the padding of its parent, causing the indentation to accumulate.
+
+This issue originates in the `dangerouslySetInnerHTML` call within **`FoundInTwo/client/src/components/PhasePage.tsx`**. The regular expression `replace(/• /g, ...)` is the primary cause of this incorrect nesting.
+
+**2. The Solution: A Centralized Fix in `PhasePage.tsx`**
+
+To solve this for the entire website, we need to implement a more robust parsing logic within `PhasePage.tsx` instead of the current chain of `.replace()` calls.
+
+* **High-Level Strategy:**
+    1.  The fix should be implemented centrally in `PhasePage.tsx` to correct the issue everywhere that `decisionBoxContent` or similar multi-line content is rendered.
+    2.  Instead of a simple find-and-replace, the logic should first split the content string (e.g., `item.content`) into an array of individual lines.
+    3.  Iterate through each line in the array.
+    4.  For each line, check if it starts with a bullet point (`• `).
+        * If it **does**, wrap that entire line in the complete, self-contained `div` structure: `<div class="flex items-start ..."> ... </div>`.
+        * If it **does not**, wrap the line in a simple paragraph tag `<p>...</p>` to preserve spacing.
+    5.  Join the array of processed HTML strings back together into a single block of HTML.
+
+**3. Expected Outcome**
+
+The result of this change will be cleaner, more semantic HTML where each bullet point is its own sibling element, not a child of the previous one. This will cause them to render correctly, aligned vertically with the same indentation, fixing the cascading issue site-wide.

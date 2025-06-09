@@ -17,6 +17,41 @@ import { cn } from "@/lib/utils";
 import { PHASE_CONFIG } from "../../../shared/constants";
 import type { Team, Cohort } from "@shared/schema";
 
+// Helper function to properly parse content with bullet points
+function parseContentWithBullets(content: string): string {
+  // Split content into lines
+  const lines = content.split('\n');
+  const processedLines: string[] = [];
+  
+  for (const line of lines) {
+    const trimmedLine = line.trim();
+    
+    if (trimmedLine.startsWith('• ')) {
+      // This is a bullet point line
+      const bulletContent = trimmedLine.substring(2); // Remove '• '
+      const processedBulletContent = bulletContent
+        .replace(/\*\*(.*?)\*\*/g, '<strong class="text-neutral-800 font-bold">$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em class="text-primary font-semibold">$1</em>');
+      
+      processedLines.push(
+        `<div class="flex items-start gap-3 my-2"><span class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span><span>${processedBulletContent}</span></div>`
+      );
+    } else if (trimmedLine === '') {
+      // Empty line - add spacing
+      processedLines.push('<div class="my-4"></div>');
+    } else {
+      // Regular line
+      const processedContent = trimmedLine
+        .replace(/\*\*(.*?)\*\*/g, '<strong class="text-neutral-800 font-bold">$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em class="text-primary font-semibold">$1</em>');
+      
+      processedLines.push(`<p class="my-2">${processedContent}</p>`);
+    }
+  }
+  
+  return processedLines.join('');
+}
+
 interface FieldConfig {
   id: string;
   label: string;
@@ -364,13 +399,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
           <div className="mt-6">
             <div className="text-lg md:text-xl text-neutral-700 leading-relaxed font-medium max-w-5xl">
               <div dangerouslySetInnerHTML={{ 
-                __html: config.intro
-                  .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-bold text-neutral-800">$1</strong>')
-                  .replace(/\*([^*]+)\*/g, '<em class="font-semibold text-primary">$1</em>')
-                  .replace(/•\s/g, '<div class="flex items-start gap-3 my-2"><span class="w-2 h-2 bg-primary rounded-full mt-3 flex-shrink-0"></span><span>')
-                  .replace(/\n(?=• )/g, '</span></div>')
-                  .replace(/\n\n/g, '</span></div><div class="my-4"></div>')
-                  .replace(/\n/g, '<br/>')
+                __html: parseContentWithBullets(config.intro)
               }} />
             </div>
           </div>
@@ -405,13 +434,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                       <div 
                         className="text-base text-neutral-700 leading-relaxed font-medium"
                         dangerouslySetInnerHTML={{ 
-                          __html: item.content
-                            .replace(/\*\*(.*?)\*\*/g, '<strong class="text-neutral-800 font-bold">$1</strong>')
-                            .replace(/\*(.*?)\*/g, '<em class="text-primary font-semibold">$1</em>')
-                            .replace(/• /g, '<div class="flex items-start gap-3 my-2"><span class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span><span>')
-                            .replace(/\n(?=• )/g, '</span></div>')
-                            .replace(/\n\n/g, '</span></div><div class="my-4"></div>')
-                            .replace(/\n/g, '<br/>')
+                          __html: parseContentWithBullets(item.content)
                         }} 
                       />
                     </div>
@@ -507,13 +530,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                                         <div 
                                           className="text-base text-neutral-700 leading-relaxed font-medium"
                                           dangerouslySetInnerHTML={{
-                                            __html: detailStep.action
-                                              .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-bold text-neutral-800">$1</strong>')
-                                              .replace(/\*([^*]+)\*/g, '<em class="font-semibold text-primary">$1</em>')
-                                              .replace(/• /g, '<div class="flex items-start gap-3 my-2"><span class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span><span>')
-                                              .replace(/\n(?=• )/g, '</span></div>')
-                                              .replace(/\n\n/g, '</span></div><div class="my-3"></div>')
-                                              .replace(/\n/g, '<br class="my-1"/>')
+                                            __html: parseContentWithBullets(detailStep.action)
                                           }}
                                         />
                                       </div>
