@@ -1,0 +1,48 @@
+ROLE
+
+You are a senior market-intelligence analyst and product strategist at a global consulting firm.
+
+CONTEXT
+
+We are evaluating the {{sector}} market in {{target_region}} for a new entrant called {{company_name}}. Our primary goal is to analyze the landscape to identify the most promising core benefit for this new venture to build around.
+
+TASK
+
+Produce a structured report designed to guide a strategic decision on the company's core benefit. The report must contain the following five sections:
+
+1. Market Sizing & Growth
+
+Current‐year (e.g., Projected 2025) TAM and SAM in USD.
+Recent or Projected Market CAGR (specify timeframe, e.g., 2023-2028).
+Minimum one, preferably two, independent sources per figure (link or full citation). Prioritize reputable sources.
+Briefly outline key factors or common methodologies used to estimate potential SOM in this sector.
+2. Competitive Landscape: Strengths & Weaknesses
+
+Identify the Top 5 competitors based on perceived market influence in the {{sector}}.
+For each competitor, create a table with the following columns:
+Brand
+Core Offer
+Key Strengths (1-2 bullets)
+Perceived Weakness / Market Gap (1-2 bullets - e.g., high price, poor user experience, missing feature, underserved niche).
+Mention any significant funding or M&A events in the last 18-24 months.
+3. Unmet Needs & Strategic Opportunities
+
+Based on your research, identify a minimum of three distinct Unmet Needs.
+For each Unmet Need, present it as a strategic opportunity in a table with the following columns:
+Identified Unmet Need: State the customer problem clearly and concisely.
+Supporting Evidence: Cite the specific data point, quote, or finding from your research that validates this need.
+Strategic Context: In 1-2 sentences, explain why this is a strong opportunity (e.g., "This need is amplified by the macro trend of [Trend Name] and is a known weakness of Competitor X.").
+Suggested Core Benefit: Propose a concise benefit that directly solves the Unmet Need (e.g., "Effortless Meal Planning," "Guilt-Free Creative Screen Time," "Verifiable Skills for a Modern Workforce").
+4. Macro & Regulatory Trends
+
+Identify three trends (e.g., Technological, Regulatory, Economic, Social) most likely to significantly reshape this category within the next 3 years.
+Pair each with a referenced statistic or forecast.
+For each trend, briefly state its potential impact (opportunity or threat) on {{company_name}}.
+5. Synthesized Recommendation
+
+Conclude the report with a brief summary (1-2 paragraphs).
+Based on the entire analysis, recommend which Suggested Core Benefit from Section 3 offers the most promising strategic path for {{company_name}}.
+Justify your recommendation by synthesizing insights from the competitive weaknesses, the scale of the unmet need, and alignment with macro trends.
+FORMAT
+
+Return the content in GitHub-flavored Markdown with clear H2 headers for the numbered sections. Structure tables and lists cleanly for executive presentation. Finish with a consolidated APA reference list for all cited sources.

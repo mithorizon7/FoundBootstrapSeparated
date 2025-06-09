@@ -1,0 +1,34 @@
+Instructions for AI Coder: Updating Phase 1 for a New Strategic Workflow
+
+High-Level Goal & Context:
+
+We are beginning a strategic refactor of the bootcamp's workflow. We are shifting from a "hypothesis-first" model (where users decide their core benefit before research) to a "discovery-driven" model (where users will use research to discover their core benefit).
+
+Your first task is to update only Phase 1 to support this new direction. This involves two critical changes: replacing the prompt and updating the form fields to remove the now-obsolete "Core Benefit Keyword." This is the foundational first step that will enable downstream changes in later phases.
+
+Your Detailed Instructions:
+
+You will be editing a single file: FoundInTwo/configs/phase-1.json.
+
+Action 1: Replace the Prompt Template
+
+In phase-1.json, locate the promptTemplate key.
+Replace its entire existing string value with the new prompt text that will be provided to you.
+Action 2: Update the Phase 1 Form Fields
+
+In the same file (phase-1.json), find the fields array.
+Locate the entire object for the "Core Benefit Keyword" field (the one with an id of "benefit_keyword").
+You must completely remove this object from the fields array.
+Reasoning (For Your Context):
+The new prompt is designed to be more open-ended and no longer uses a {{benefit_keyword}} variable. By removing this field from the Phase 1 form, we are aligning the UI with the new prompt and officially moving this strategic decision to Phase 2.
+
+Constraint for This Task:
+
+Do not make any changes to any other phase configuration files (e.g., phase-2.json, phase-4.json, etc.) at this time. This is a deliberate, step-by-step process, and further instructions will be provided for those files later.
+Verification Checklist:
+
+After your changes are complete, please verify the following:
+
+When running the application, the "Prompt Preview" in Phase 1 correctly displays the new prompt text.
+The user-facing form in Phase 1 no longer shows an input field for "Core Benefit Keyword."
+This will successfully prepare Phase 1 for our new workflow.
