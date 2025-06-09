@@ -137,18 +137,22 @@
         "steps": [
           {
             "number": "1",
-            "action": "**Copy the Phase 1 Prompt** from the Prompt Preview section below<br><strong>TIP:</strong> This is your market research, make sure you're getting what you want from it."
+            "action": "**Review what you need to customize** - You'll need to fill in your company name, sector, and target region in the prompt. Have these details ready from the form fields you completed above."
           },
           {
             "number": "2",
-            "action": "**Fill in the missing elements** with your company name, sector, and target region"
+            "action": "**Copy the Phase 1 Prompt** from the Prompt Preview section below and paste it into Gemini<br><strong>TIP:</strong> This is your market research, make sure you're getting what you want from it."
           },
           {
             "number": "3",
-            "action": "**Make any adjustments** to the prompt that you want - this is your market research, ensure you're getting what you need"
+            "action": "**Fill in the missing elements** with your company name, sector, and target region in the prompt you just pasted"
           },
           {
             "number": "4",
+            "action": "**Make any adjustments** to the prompt that you want - this is your market research, ensure you're getting what you need"
+          },
+          {
+            "number": "5",
             "action": "**Submit the prompt** to Gemini"
           }
         ]
