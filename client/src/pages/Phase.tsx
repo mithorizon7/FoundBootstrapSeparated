@@ -7,6 +7,7 @@ import { TeamModal } from "@/components/TeamModal";
 import { getTeamByCode } from "@/lib/db";
 import { Card, CardContent } from "@/components/ui/card";
 import { AlertTriangle } from "lucide-react";
+import { PHASE_CONFIG } from "../../../shared/constants";
 
 interface PhaseConfig {
   phase: number;
@@ -73,7 +74,7 @@ export default function Phase() {
     return null;
   }
 
-  if (phaseId < 1 || phaseId > 7) {
+  if (phaseId < 1 || phaseId > PHASE_CONFIG.TOTAL_PHASES) {
     return (
       <div className="min-h-screen bg-gray-50">
         <NavigationHeader team={teamData} />
@@ -83,7 +84,7 @@ export default function Phase() {
               <AlertTriangle className="w-12 h-12 text-accent-600 mx-auto mb-4" />
               <h1 className="text-2xl font-bold text-neutral-800 mb-2">Phase Not Found</h1>
               <p className="text-gray-600">
-                Please select a valid phase between 1 and 7.
+                Please select a valid phase between 1 and {PHASE_CONFIG.TOTAL_PHASES}.
               </p>
             </CardContent>
           </Card>
