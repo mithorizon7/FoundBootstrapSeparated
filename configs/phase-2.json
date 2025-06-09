@@ -160,19 +160,15 @@
         "steps": [
           {
             "number": "1",
-            "action": "**Copy the Phase 2 Prompt** from the Prompt Preview section below"
+            "action": "**Complete all form fields above** - Fill in your chosen core benefit, company's market ambition, and threat-scoring weights based on the decision box guidance"
           },
           {
             "number": "2",
-            "action": "**Replace placeholders** with your weighting percentages and company ambition"
+            "action": "**Copy the Phase 2 Prompt** from the Prompt Preview section below and paste it into ChatGPT"
           },
           {
             "number": "3",
-            "action": "**Review the data gap rule** and ensure it matches your needs"
-          },
-          {
-            "number": "4",
-            "action": "**Submit the prompt** to ChatGPT"
+            "action": "**Submit the prompt** to ChatGPT to generate your competitive matrix"
           }
         ]
       }
