@@ -6,13 +6,13 @@
   "fields": [
     {
       "id": "unmet_needs",
-      "label": "Top 3 Unmet Needs",
+      "label": "Top Unmet Need to Address",
       "type": "textarea",
-      "placeholder": "• Unmet need 1\n• Unmet need 2\n• Unmet need 3",
+      "placeholder": "From your Phase 1 report, enter the Identified Unmet Need that best aligns with your chosen Core Benefit",
       "required": true,
       "persist": true,
-      "help": "From your Phase 1 report, list three specific customer frustrations or market gaps",
-      "tooltip": "Copy the most compelling unmet needs from your Gemini research. These drive the AI's product ideation to ensure concepts address real market gaps rather than inventing solutions looking for problems."
+      "help": "From your Phase 1 report, copy the 'Identified Unmet Need' that best aligns with your chosen Core Benefit.",
+      "tooltip": "Refer to the 'Unmet Needs & Strategic Opportunities' section of your report. This ensures your product concepts are directly solving a research-validated customer problem."
     },
     {
       "id": "feasibility_weight",
@@ -82,23 +82,23 @@
     "sections": [
       {
         "number": "1",
-        "title": "Select and Prepare Your Top 3 Unmet Needs",
+        "title": "Select and Prepare Your Top Unmet Need",
         "items": [
           {
             "label": "Your Goal",
-            "content": "From your Phase 1 **Market_Competitors.pdf**, pinpoint three specific customer frustrations, market gaps, or unfulfilled desires that your new company could realistically address with an innovative product."
+            "content": "From your Phase 1 **Market_Competitors.pdf**, identify the single most strategic unmet need that aligns with your chosen Core Benefit from Phase 2."
           },
           {
-            "label": "Look in Your Phase 1 Report \"Unmet Needs\" Section",
-            "content": "Review the identified gaps, frustrations, or needs from your market research report."
+            "label": "Look in Your Phase 1 Report \"Unmet Needs & Strategic Opportunities\" Section",
+            "content": "Review the 'Unmet Needs & Strategic Opportunities' section from your market research report to find the research-validated customer problems."
           },
           {
-            "label": "How to Choose Your Top 3 Unmet Needs",
-            "content": "As a team, review the identified gaps, frustrations, or needs. Discuss and select the three that offer the most strategic opportunity for your company. Consider:\n\n• **Alignment**: Which needs best match your company's desired benefit/value add and overall vision?\n• **Impact**: Which needs, if solved, would provide significant value to your target audience?\n• **Innovation Space**: Which needs allow for a truly differentiated and innovative solution from your company?"
+            "label": "How to Choose Your Top Unmet Need",
+            "content": "As a team, review the identified unmet needs. Select the single need that best aligns with your chosen Core Benefit from Phase 2. Consider:\n\n• **Alignment**: Which need best matches your company's chosen core benefit?\n• **Strategic Context**: Review the supporting evidence and strategic context provided in the report\n• **Market Opportunity**: Consider the suggested core benefit that was proposed for this unmet need"
           },
           {
-            "label": "Action: Prepare the Unmet Needs Text for the Prompt",
-            "content": "The Phase 4 prompt will require you to paste in your three chosen unmet needs as concise points. You can copy, summarize, or adapt from your report.\n\n**Example format:**\n\n• Parents struggle with complex tech toys and need simpler, more supportive solutions\n• Desire for toys that genuinely deliver on educational promises without \"STEM-washing\"\n• Need for durable toys that offer long-lasting play value relative to their cost\n\nHave the exact text for your three chosen unmet needs (preferably as bullet points) ready to paste into the form field above."
+            "label": "Action: Prepare the Unmet Need Text for the Prompt",
+            "content": "The Phase 4 prompt will require you to paste in your chosen unmet need. You can copy the exact 'Identified Unmet Need' text from your Phase 1 report.\n\n**Example format:**\n\nParents struggle with complex tech toys and need simpler, more supportive solutions that genuinely deliver educational value without overwhelming complexity.\n\nHave the exact text for your chosen unmet need ready to paste into the form field above."
           }
         ]
       },
