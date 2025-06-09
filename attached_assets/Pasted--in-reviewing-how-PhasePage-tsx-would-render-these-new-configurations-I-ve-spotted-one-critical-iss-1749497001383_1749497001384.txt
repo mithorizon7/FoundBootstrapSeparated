@@ -1,0 +1,65 @@
+ in reviewing how PhasePage.tsx would render these new configurations, I've spotted one critical issue that would prevent users from completing Phase 2.
+
+The Issue: The Second Decision Box in Phase 2 Will Not Appear
+
+In phase-2.json, the original instructions for defining the "Market Ambition" and "Threat-Scoring Weights" have been moved into a new JSON object with the key additionalDecisionBoxContent.
+
+The problem is that the PhasePage.tsx component is only coded to look for and render a single decisionBoxContent object. It does not have any logic to detect or display a second additionalDecisionBoxContent object.
+
+As a result, the user will only see the first set of instructions ("Define Your Core Benefit") and will never be shown the crucial second set of instructions needed to define their market ambition and scoring weights for the competitor matrix.
+
+The Solution: Merge the Decision Boxes
+
+The fix is straightforward. We need to combine both sets of instructions into a single decisionBoxContent object within phase-2.json. The sections array can hold all the numbered steps in the correct order.
+
+Please instruct your AI Coder to make the following change:
+
+File to Edit: FoundInTwo/configs/phase-2.json
+
+Action:
+Replace the current decisionBoxContent and additionalDecisionBoxContent objects with a single, unified decisionBoxContent that includes all the necessary sections sequentially.
+
+Here is the corrected decisionBoxContent object to use:
+
+JSON
+"decisionBoxContent": {
+  "title": "Phase 2 Decisions",
+  "subtitle": "This phase has two parts. First, use your research to define your core benefit. Second, define the parameters for your competitive analysis.",
+  "sections": [
+    {
+      "number": "Part 1",
+      "title": "Define Your Core Benefit",
+      "items": [
+        {
+          "label": "Review 'Unmet Needs & Strategic Opportunities'",
+          "content": "Carefully read this section in your Phase 1 report. Discuss with your team which customer problem represents the most compelling opportunity."
+        },
+        {
+          "label": "Select Your Benefit",
+          "content": "As a team, agree on the single most promising 'Suggested Core Benefit' from the report. This will become your company's north star. Enter your final decision into the 'Your Chosen Core Benefit Keyword' field."
+        }
+      ]
+    },
+    {
+      "number": "Part 2",
+      "title": "Define Your Competitive Analysis Focus",
+      "items": [
+        {
+          "label": "Define Your Company's Market Ambition",
+          "content": "Write a single, clear sentence stating your company’s specific goal and target market. A precise ambition helps the AI focus its analysis on the most relevant competitors."
+        },
+        {
+          "label": "Set Your Threat-Scoring Weights",
+          "content": "Decide the importance of Market Share, Innovation, Channel Power, and Brand when evaluating competitors. Assign a numerical weight to each factor in the form fields provided."
+        }
+      ]
+    }
+  ],
+  "action": {
+    "title": "Action",
+    "items": [
+      "Complete all the form fields below to proceed."
+    ]
+  }
+}
+By making this change, the PhasePage.tsx component will render all instructions correctly in the proper order, ensuring the team has all the information they need to complete the phase successfully.
