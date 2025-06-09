@@ -1,0 +1,101 @@
+Instructions for AI Coder: Refining Phase 5 with Enhanced Guidance
+
+High-Level Goal:
+
+Our objective is to refactor phase-5.json to improve clarity and user experience by separating high-level strategic decisions from the tactical workflow. It is critical that during this refactoring, we preserve the detailed instructional tips and examples from the original documentation to ensure users are well-supported.
+
+File to Edit: FoundInTwo/configs/phase-5.json
+
+Action 1: Streamline the decisionBoxContent
+
+Replace the current verbose decisionBoxContent with the concise version below. This section should focus only on the core strategic decisions the team needs to make.
+
+New decisionBoxContent:
+JSON
+"decisionBoxContent": {
+  "title": "Select Your Hero Concept",
+  "subtitle": "Your team's goal in this step is to make a final decision on which of the three concepts from your Phase 4 report you will move forward with.",
+  "sections": [
+    {
+      "number": "1",
+      "title": "Review & Debate",
+      "items": [
+        {
+          "label": "Your Task",
+          "content": "As a team, thoroughly review the three concepts in your `Phase_4_Offer_Concepts.docx`. Discuss the pros, cons, and strategic fit of each one."
+        }
+      ]
+    },
+    {
+      "number": "2",
+      "title": "Make the Final Decision",
+      "items": [
+        {
+          "label": "Your Task",
+          "content": "Select the single concept that will become your 'Hero Offer.' Once your team has decided, fill out all the fields in the form below with the specific details for your chosen concept."
+        }
+      ]
+    }
+  ],
+  "action": {
+    "title": "Action",
+    "items": [
+      "Complete all the fields in the form to lock in your final strategic decisions."
+    ]
+  }
+}
+Action 2: Create a Clear stepByStepFlow
+
+Add a new stepByStepFlow section to the file. This section will contain the tactical, step-by-step instructions.
+
+New stepByStepFlow:
+JSON
+"stepByStepFlow": [
+  {
+    "step": 1,
+    "action": "**Review Phase 4 Concepts**: Open the `Phase_4_Offer_Concepts.docx` file you generated. As a team, decide on the single 'Hero Concept' you will advance.",
+    "time": "10 minutes"
+  },
+  {
+    "step": 2,
+    "action": "**Complete the Decision Box Form**: Fill out all the fields above with the details of your chosen Hero Concept (e.g., its code-name, the primary unmet need it solves, etc.).",
+    "time": "5 minutes"
+  },
+  {
+    "step": 3,
+    "action": "**Setup the AI Prompt**: Open a new ChatGPT chat and upload the following three documents: `Phase_4_Offer_Concepts.docx`, `Market_Competitors.pdf`, and `competitor_matrix.csv`.",
+    "time": "1 minute"
+  },
+  {
+    "step": 4,
+    "action": "**Generate the Final Brief**: Copy the prompt from the 'Prompt Preview' section, which now includes all your decisions, and submit it to ChatGPT.",
+    "time": "2 minutes"
+  },
+  {
+    "step": 5,
+    "action": "**Save Your Final Deliverable**: Review the AI-generated 'Hero Concept Detailed Brief' for accuracy. Then, copy the output and save it as `Hero_Concept_Detailed_Brief.docx`.",
+    "time": "2 minutes"
+  }
+]
+Action 3: Integrate Key Tips and Guidance
+
+This is a critical step. Review the original, verbose instructions and embed the essential tips into the new structure you just created.
+
+Methodology:
+
+For tips about making a decision (e.g., how to think about the target audience), add them to the content string of the relevant item in the decisionBoxContent.
+For tips about performing an action (e.g., which AI model to use), add them to the action string of the relevant step in the stepByStepFlow.
+Use the following HTML format for consistency: <br><small class='text-neutral-600 italic'><strong>Guidance:</strong> [Tip text here]</small>
+Example (incorporating the tip you provided):
+
+Modify the decisionBoxContent from Action 1. Find the section for "Make the Final Decision" and update its content like this:
+
+Updated items array for Section 2 of decisionBoxContent:
+JSON
+"items": [
+  {
+    "label": "Your Task",
+    "content": "Select the single concept that will become your 'Hero Offer.' Once your team has decided, fill out all the fields in the form below with the specific details for your chosen concept.<br><small class='text-neutral-600 italic'><strong>Guidance for Target Audience:</strong> Make it so specific you could easily cast them in a movie. For instance: \"Parents of children aged 4-6 who prioritize screen-free, collaborative play...\"</small>"
+  }
+]
+ By following these updated instructions, you will successfully restructure Phase 5 for clarity while ensuring all valuable, context-specific guidance is preserved and presented to the user where they need it most.
