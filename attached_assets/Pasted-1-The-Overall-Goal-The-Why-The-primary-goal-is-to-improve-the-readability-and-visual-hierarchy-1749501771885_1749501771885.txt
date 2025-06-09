@@ -1,0 +1,27 @@
+1. The Overall Goal (The "Why")
+
+The primary goal is to improve the readability and visual hierarchy of our instructional text blocks, like the one in the Phase 5 intro. Right now, they are dense blocks of plain text.
+
+We want to transform them into a scannable, at-a-glance guide where users can instantly identify the most important information. The desired outcome is a more polished, professional, and intuitive user experience that reduces cognitive load.
+
+2. Key Information to Emphasize (The "What")
+
+Within this text, there are different tiers of information. Your task is to create a clear visual distinction between them. Here are the elements to focus on, in order of importance:
+
+Primary Actions & Deliverables (Most Important): The user's eye should be drawn here first.
+
+The core verbs that start each step: Review, select, Define, Instruct.
+The specific filenames or artifacts they will interact with: Phase_4_Offer_Concepts.docx and 'Hero Concept Detailed Brief'.
+Key Concepts (Secondary Importance): These are the central strategic terms of the phase. They should stand out from normal text but be secondary to the primary actions.
+
+For example: 'Hero Concept' and 'strategic inputs'.
+Structural Elements: The numbered list format itself should be clear and easy to follow.
+
+3. Creative Latitude & Suggested Methods (The "How")
+
+We trust your design expertise to find the best solution. Please feel free to explore any of these methods to achieve the goal:
+
+Typographic Variation: Using different font weights (e.g., bold, semibold) is a great way to create hierarchy.
+Color: We could sparingly use our primary brand color to highlight the single most important term, like 'Hero Concept'.
+Styling for Artifacts: Filenames could have a unique style to make them feel like tangible objects—perhaps a <code> tag style, a different font color, or a subtle background highlight.
+Layout and Spacing: Feel free to adjust the spacing, indentation, or styling of the numbered list to make the sequence of tasks clearer.
