@@ -31,7 +31,8 @@ function parseContentWithBullets(content: string): string {
       const bulletContent = trimmedLine.substring(2); // Remove '• '
       const processedBulletContent = bulletContent
         .replace(/\*\*(.*?)\*\*/g, '<strong class="text-neutral-800 font-bold">$1</strong>')
-        .replace(/\*(.*?)\*/g, '<em class="text-primary font-semibold">$1</em>');
+        .replace(/\*(.*?)\*/g, '<em class="text-primary font-semibold">$1</em>')
+        .replace(/`([^`]+)`/g, '<code class="bg-neutral-100 text-neutral-800 px-2 py-1 rounded text-sm font-mono border">$1</code>');
       
       processedLines.push(
         `<div class="flex items-start gap-3 my-2"><span class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span><span>${processedBulletContent}</span></div>`
@@ -43,7 +44,8 @@ function parseContentWithBullets(content: string): string {
       // Regular line
       const processedContent = trimmedLine
         .replace(/\*\*(.*?)\*\*/g, '<strong class="text-neutral-800 font-bold">$1</strong>')
-        .replace(/\*(.*?)\*/g, '<em class="text-primary font-semibold">$1</em>');
+        .replace(/\*(.*?)\*/g, '<em class="text-primary font-semibold">$1</em>')
+        .replace(/`([^`]+)`/g, '<code class="bg-neutral-100 text-neutral-800 px-2 py-1 rounded text-sm font-mono border">$1</code>');
       
       processedLines.push(`<p class="my-2">${processedContent}</p>`);
     }
