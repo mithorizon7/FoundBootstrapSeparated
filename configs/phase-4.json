@@ -1,12 +1,12 @@
 {
   "phase": 4,
-  "title": "Design & Select the Hero Offer: ChatGPT Ideation",
-  "intro": "Up to now, you've diagnosed the market (Phase 1), quantified the competition (Phase 2), and armed yourself with science based evidence (Phase 3). Phase 4 is where insight becomes invention: you will generate three concrete product or service concepts, score them across business criteria, and crown a single \"hero offer\" that your company will take to market.\n\nThe chosen concept—its code-name, feature set, and cost assumptions—feeds every downstream media-creation step, so precision here saves pain later.",
+  "title": "Hero Offer Ideation",
+  "intro": "Up to now, you've diagnosed the market (Phase 1), quantified the competition (Phase 2), and armed yourself with science-based evidence (Phase 3). Phase 4 is where insight becomes invention: you will generate three concrete product or service concepts and understand their strategic potential.\n\nYour goal is to create comprehensive concept options that will be evaluated and selected in Phase 5. Each concept will include scoring, features, and strategic positioning to prepare for the final decision.",
   "estimatedTime": "15 minutes",
   "fields": [
     {
       "id": "unmet_needs",
-      "label": "Top Unmet Need to Address",
+      "label": "Key Unmet Need(s) to Address",
       "type": "textarea",
       "placeholder": "From your Phase 1 report, enter the Identified Unmet Need that best aligns with your chosen Core Benefit",
       "required": true,
@@ -160,48 +160,28 @@
   "stepByStepFlow": [
     {
       "step": 1,
-      "action": "Open a new ChatGPT chat (standard GPT-4o will work fine)",
-      "time": "15 seconds"
-    },
-    {
-      "step": 2,
-      "action": "Click Upload (+) → attach **competitor_matrix.csv**",
-      "time": "15 seconds"
-    },
-    {
-      "step": 3,
-      "action": "Copy the three unmet-needs bullets and paste them at the very top of the chat",
-      "time": "30 seconds"
-    },
-    {
-      "step": 4,
-      "action": "Copy the Phase 4 Prompt (from **Prompt Preview** below) and replace placeholders: unmet-need shortlist, scoring weights, brand adjectives, price tier (\"Mid 20-50 USD retail\"), etc. Then send",
+      "action": "**Setup & Prompting**: Open a new ChatGPT chat, upload the **competitor_matrix.csv**, and paste your **unmet_needs** text into the chat.",
       "time": "1 minute"
     },
     {
-      "step": 5,
-      "action": "**Offline while ChatGPT thinks (~3 min)**: The team sketches logo doodles or packaging ideas inspired by the brand adjectives—these visuals help later when selecting DALL-E prompts<br><strong>TIP:</strong> Use this time productively to visualize your concepts and prepare for design decisions in later phases.",
-      "time": "3 minutes"
+      "step": 2,
+      "action": "**Submit Prompt to AI**: Copy the full Phase 4 Prompt from the preview, replace the placeholders with your team's decisions (weights and adjectives), and send it to the AI.",
+      "time": "1 minute"
     },
     {
-      "step": 6,
-      "action": "When ChatGPT returns, review the information. Check BOM estimates for plausibility<br><strong>TIP:</strong> Verify that the Bill of Materials costs seem realistic for your price tier and market positioning.",
-      "time": "2 minutes"
+      "step": 3,
+      "action": "**Generate & Review Concepts**: While the AI works (~3 min), your team can discuss the potential concepts. When the AI returns the **Phase_4_Offer_Concepts.docx**, your task is to review the three options for clarity and plausibility. **Do not make a final decision yet.**",
+      "time": "5 minutes"
     },
     {
-      "step": 7,
-      "action": "Debate the recommendation paragraph; if you disagree, adjust scoring weights and ask ChatGPT to recalculate<br><strong>TIP:</strong> This is your opportunity to refine the analysis if the AI's recommendation doesn't align with your team's strategic thinking.",
-      "time": "3 minutes"
-    },
-    {
-      "step": 8,
-      "action": "Save the output as **Phase_4_Offer_Concepts.docx**",
+      "step": 4,
+      "action": "**Save the Output**: Download the generated document and save it as **Phase_4_Offer_Concepts.docx**. You will use this document to make your final decision in Phase 5.",
       "time": "30 seconds"
     }
   ],
   "expectedOutput": {
-    "fileCreated": "Phase_4_Offer_Concepts.docx and concept.txt",
-    "whyItMatters": "The code-name becomes the file prefix for all media assets. Value prop & features feed directly into storyboard text and website copy. BOM and Mid-tier price anchor future investor and FAQ answers.",
-    "nextSteps": "With the hero concept locked, color palette set, and adjectives defined, you're primed to create visuals, audio, and video in Phase 5's Media Factory."
+    "fileCreated": "Phase_4_Offer_Concepts.docx",
+    "whyItMatters": "These three comprehensive concept options provide strategic alternatives with detailed scoring, features, and positioning. This analysis becomes the foundation for making an informed selection in Phase 5.",
+    "nextSteps": "With your three concepts generated and saved in Phase_4_Offer_Concepts.docx, you are ready to proceed to Phase 5, where you will select your single Hero Offer and create a detailed brief."
   }
 }

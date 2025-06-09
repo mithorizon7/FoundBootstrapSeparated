@@ -1,0 +1,61 @@
+Thank you for the clarification. That makes perfect sense. Treating them as two distinct phases—**Phase 4 for Ideation** and **Phase 5 for Selection & Briefing**—is a great way to manage the complexity and cognitive load for the teams.
+
+With that new directive in mind, let's re-evaluate Phase 4. My previous advice about merging the phases is no longer relevant. Instead, we'll focus on perfecting Phase 4 as a self-contained "Concept Ideation" stage.
+
+Here are the revised issues and recommendations for Phase 4:
+
+### 1. The Problem: The Workflow Contradicts the Goal
+
+The most significant issue is that the current `stepByStepFlow` in `phase-4.json` still asks the team to make a final decision, which contradicts our new approach.
+
+* **The Conflict:** Step 7 tells the team to "Debate the recommendation paragraph," and Step 8 instructs them to "Copy the **winning concept block** into a new text file."
+* **The Consequence:** This creates a major point of confusion. The team is being asked to select a winner in a phase that is supposed to be only about generating options.
+
+**Solution: Revise the Step-by-Step Flow**
+The workflow should be rewritten to focus exclusively on generating and understanding the three concepts. The final step should be saving the output in preparation for the decision in Phase 5.
+
+* **Suggested New `stepByStepFlow` for `phase-4.json`:**
+    ```json
+    "stepByStepFlow": [
+      {
+        "step": 1,
+        "action": "**Setup & Prompting**: Open a new ChatGPT chat, upload the `competitor_matrix.csv`, and paste your `unmet_needs` text into the chat."
+      },
+      {
+        "step": 2,
+        "action": "**Submit Prompt to AI**: Copy the full Phase 4 Prompt from the preview, replace the placeholders with your team's decisions (weights and adjectives), and send it to the AI."
+      },
+      {
+        "step": 3,
+        "action": "**Generate & Review Concepts**: While the AI works (~3 min), your team can discuss the potential concepts. When the AI returns the `Phase_4_Offer_Concepts.docx`, your task is to review the three options for clarity and plausibility. **Do not make a final decision yet.**"
+      },
+      {
+        "step": 4,
+        "action": "**Save the Output**: Download the generated document and save it as `Phase_4_Offer_Concepts.docx`. You will use this document to make your final decision in Phase 5."
+      }
+    ]
+    ```
+
+### 2. Refinement: Align the Title and Introduction
+
+To further reduce confusion, the phase's title and intro text should be updated to reflect its true purpose.
+
+* **The Issue:** The current title "Design & **Select** the Hero Offer" and the intro text promise a final selection that no longer happens in this phase.
+* **Recommendation:**
+    * **File to Edit:** `FoundInTwo/configs/phase-4.json`
+    * **Suggested Changes:**
+        * Change the `"title"` to: `"Phase 4: Hero Offer Ideation"`
+        * Change the `"intro"` to something like: `"In this phase, you will use your research to generate three distinct product concepts. Your goal is to understand these options and prepare for the final selection, which will happen in the next phase."`
+        * Change the `"nextSteps"` in the `expectedOutput` to: `"With your three concepts generated and saved in `Phase_4_Offer_Concepts.docx`, you are ready to proceed to Phase 5, where you will select your single Hero Offer and create a detailed brief."`
+
+### 3. Minor Refinement: Clarify the "Unmet Needs" Field
+
+This point from our previous discussion is still relevant and important for clarity.
+
+* **The Issue:** The form field label "Top Unmet Need to Address" is singular, but the prompt is designed to work with multiple needs.
+* **Recommendation:**
+    * **File to Edit:** `FoundInTwo/configs/phase-4.json`
+    * **Action:** In the `fields` array, find the object with `id: "unmet_needs"`.
+    * **Suggested Change:** Change the `"label"` to: `"Key Unmet Need(s) to Address"`.
+
+By implementing these changes, Phase 4 will become a clear, logical, and self-contained step that perfectly sets the stage for the decision-making process you've planned for Phase 5.
