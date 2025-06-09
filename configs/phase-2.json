@@ -153,86 +153,32 @@
     },
     {
       "step": 3,
-      "action": "**Define Your Core Benefit** - Select strategic direction from Phase 1 analysis",
-      "time": "2 minutes",
+      "action": "**Configure & Submit Matrix Prompt** - Set competitive analysis parameters",
+      "time": "1 minute",
       "details": {
-        "title": "Strategic Benefit Selection",
+        "title": "Customize Competitive Matrix Generation",
         "steps": [
           {
             "number": "1",
-            "action": "**Review your Phase 1 report** - Open the 'Unmet Needs & Strategic Opportunities' section and discuss the identified opportunities as a team"
+            "action": "**Copy the Phase 2 Prompt** from the Prompt Preview section below"
           },
           {
             "number": "2",
-            "action": "**Select your core benefit** - Agree on the single most promising 'Suggested Core Benefit' from the report that will become your company's north star"
+            "action": "**Replace placeholders** with your weighting percentages and company ambition"
           },
           {
             "number": "3",
-            "action": "**Enter your choice** - Fill in the 'Your Chosen Core Benefit Keyword' field in the form above with your team's final decision<br><strong>TIP:</strong> This becomes the foundation for all subsequent phases, so choose thoughtfully."
+            "action": "**Review the data gap rule** and ensure it matches your needs"
+          },
+          {
+            "number": "4",
+            "action": "**Submit the prompt** to ChatGPT"
           }
         ]
       }
     },
     {
       "step": 4,
-      "action": "**Define Market Ambition** - Articulate your strategic positioning",
-      "time": "1 minute",
-      "details": {
-        "title": "Strategic Positioning Statement",
-        "steps": [
-          {
-            "number": "1",
-            "action": "**Craft your ambition statement** - Write a single, clear sentence stating your company's specific goal and target market in the 'Company's Market Ambition' field"
-          },
-          {
-            "number": "2",
-            "action": "**Be specific about scope** - Think about what you want to achieve and who you want to serve (e.g., geography, customer segment, approach)<br><strong>TIP:</strong> This helps the AI focus analysis on the most relevant competitors and market segments."
-          }
-        ]
-      }
-    },
-    {
-      "step": 5,
-      "action": "**Set Threat-Scoring Weights** - Prioritize competitive factors",
-      "time": "1 minute", 
-      "details": {
-        "title": "Competitive Assessment Criteria",
-        "steps": [
-          {
-            "number": "1",
-            "action": "**Discuss factor importance** - As a team, decide how important Market Share, Innovation, Channel Power, and Brand are when evaluating competitive threats in your specific market"
-          },
-          {
-            "number": "2",
-            "action": "**Assign numerical weights** - Enter your chosen weights in the form fields (can use decimals that sum to 1.0, or simple ratios like 3,2,2,1)<br><strong>TIP:</strong> Higher weights mean that factor has bigger influence on the final 'Threat Score' calculations."
-          }
-        ]
-      }
-    },
-    {
-      "step": 6,
-      "action": "**Submit Competitive Analysis** - Generate your competitor matrix",
-      "time": "30 seconds",
-      "details": {
-        "title": "Launch AI Analysis",
-        "steps": [
-          {
-            "number": "1",
-            "action": "**Copy the Phase 2 Prompt** from the Prompt Preview section below and paste it into ChatGPT"
-          },
-          {
-            "number": "2",
-            "action": "**Verify all placeholders** are filled with your form data (benefit keyword, ambition, and weights)"
-          },
-          {
-            "number": "3",
-            "action": "**Submit the prompt** to ChatGPT to generate your competitive threat matrix"
-          }
-        ]
-      }
-    },
-    {
-      "step": 7,
       "action": "**Team Prediction Challenge** - Put your intuition to the test while the AI works",
       "time": "1-2 minutes",
       "details": {
@@ -254,7 +200,7 @@
       }
     },
     {
-      "step": 8,
+      "step": 5,
       "action": "**Review Matrix Results** - Validate AI competitive analysis",
       "time": "1 minute",
       "details": {
@@ -280,7 +226,7 @@
       }
     },
     {
-      "step": 9,
+      "step": 6,
       "action": "**Export Competition Data** - Download analysis for future use",
       "time": "15 seconds",
       "details": {
@@ -302,7 +248,7 @@
       }
     },
     {
-      "step": 10,
+      "step": 7,
       "action": "**Strategic Team Analysis** - Extract key competitive insights",
       "time": "3-5 minutes",
       "details": {
