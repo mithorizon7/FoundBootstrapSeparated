@@ -1,7 +1,7 @@
 {
   "phase": 2,
   "title": "Competitor Matrix Construction",
-  "intro": "Your Gemini report is a rich narrative, probably about 20 pages long. However it is often helpful for decision making to have concise, quantitative snapshots. In Phase 2 you'll transform that long PDF into a CSV/Excel matrix that scores each major rival on a 1-to-5 'threat scale,' exposing exactly where you must out-maneuver and where gaps invite innovation.",
+  "intro": "Your **Gemini report** is a rich narrative, probably about 20 pages long. However it is often helpful for decision making to have **concise, quantitative snapshots**.\n\nIn Phase 2 you'll **transform** that long PDF into a `CSV/Excel matrix` that scores each major rival on a **1-to-5 'threat scale,'** exposing exactly where you must out-maneuver and where gaps invite innovation.",
   "estimatedTime": "10-12 minutes",
   "fields": [
     {

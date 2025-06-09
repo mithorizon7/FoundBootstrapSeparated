@@ -1,7 +1,7 @@
 {
   "phase": 8,
   "title": "Replit AI Builder: Launch a Live, Fully-Loaded Website",
-  "intro": "You're ready to build the website! Consolidate all your project assets (research, media, voice agent) into a single, public-facing website for your company, built rapidly using Replit's AI Website Builder. This site will serve as the central hub for investors and early customers.",
+  "intro": "You're ready to **build the website**!\n\n**Consolidate** all your project assets (research, media, voice agent) into a **single, public-facing website** for your company, built rapidly using **Replit's AI Website Builder**.\n\nThis site will serve as the **central hub** for investors and early customers.",
   "estimatedTime": "15 minutes (plus ~10 minutes AI build time)",
   "fields": [
     {

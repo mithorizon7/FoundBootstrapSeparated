@@ -1,7 +1,7 @@
 {
   "phase": 7,
   "title": "ElevenLabs Call-Agent: Give Your Brand an Expert to Talk To",
-  "intro": "Websites and videos inform, but a live voice interaction builds trust. In this phase you'll launch a phone concierge powered by ElevenLabs' Call-API that can answer parents' questions using only the vetted sources stored in your Notebook LM evidence hub. Within minutes you could dial a real number (or in this case talk over the website) and ask \"Is this toy safe for five-year-olds?\" and hear an on-brand, fact-backed reply.",
+  "intro": "Websites and videos inform, but a **live voice interaction builds trust**.\n\nIn this phase you'll **launch** a **phone concierge** powered by **ElevenLabs' Call-API** that can answer parents' questions using only the vetted sources stored in your **Notebook LM evidence hub**.\n\nWithin minutes you could **dial** a real number (or in this case talk over the website) and ask \"Is this toy safe for five-year-olds?\" and hear an **on-brand, fact-backed reply**.",
   "estimatedTime": "15 minutes",
   "fields": [
     {
