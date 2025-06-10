@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Field } from "./Field";
 import { PromptPreview } from "./PromptPreview";
+import { SelectionCard } from "./SelectionCard";
 import { ChevronLeft, ChevronRight, ChevronDown, Info, Vote, Save, Copy, CheckCircle, Clock, FileText, Target, ArrowRight, Globe, Upload } from "lucide-react";
 import { savePhaseData, getPhaseData, saveToLocalStorage, getFromLocalStorage, getAllLocalStorageData, getAllPhaseDataForTeam, updateTeamPhase } from "@/lib/db";
 import { useLocation } from "wouter";
@@ -601,15 +602,77 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
             </CardHeader>
             <CardContent>
               <div className="space-y-6">
-                {config.fields.map((field) => (
-                  <Field
-                    key={field.id}
-                    config={field}
-                    value={formData[field.id] || ''}
-                    onChange={(value) => handleFieldChange(field.id, value)}
-                    error={errors[field.id]}
-                  />
-                ))}
+                {config.fields.map((field) => {
+                  // Use SelectionCard for visual_style and voice_persona in Phase 6
+                  if (config.phase === 6 && (field.id === 'visual_style' || field.id === 'voice_persona')) {
+                    return (
+                      <div key={field.id} className="space-y-4">
+                        <Label className="text-base font-semibold text-neutral-800">
+                          {field.label}
+                          {field.required && <span className="text-accent-600 ml-1">*</span>}
+                        </Label>
+                        {field.help && (
+                          <p className="text-sm text-neutral-600 leading-relaxed">
+                            {field.help}
+                          </p>
+                        )}
+                        <div className="grid grid-cols-1 gap-4">
+                          {field.options?.map((option) => {
+                            // Parse title and description for voice_persona field
+                            if (field.id === 'voice_persona') {
+                              const match = option.label.match(/^(.+?)\s*\((.+)\)$/);
+                              const title = match ? match[1].trim() : option.label;
+                              const description = match ? match[2].trim() : '';
+                              
+                              return (
+                                <SelectionCard
+                                  key={option.value}
+                                  title={title}
+                                  description={description}
+                                  isSelected={formData[field.id] === option.value}
+                                  onClick={() => handleFieldChange(field.id, option.value)}
+                                />
+                              );
+                            }
+                            
+                            // For visual_style, use label as title and create appropriate descriptions
+                            const descriptions: Record<string, string> = {
+                              "Clean & Minimalist": "Conveys sophistication, order, and expertise. Clean lines, plenty of white space, and refined aesthetics that communicate premium quality and professionalism.",
+                              "Organic & Natural": "Emphasizes authenticity, wellness, and environmental consciousness. Soft textures, natural colors, and organic shapes that feel approachable and trustworthy.",
+                              "Bold & Dynamic": "Projects confidence, innovation, and energy. Vibrant colors, strong contrasts, and dynamic compositions that capture attention and communicate disruption.",
+                              "Elegant & Sensual": "Suggests luxury, desire, and premium experience. Rich textures, warm lighting, and sophisticated styling that appeals to aspirational desires.",
+                              "Playful & Vibrant": "Communicates fun, creativity, and accessibility. Bright colors, engaging compositions, and approachable aesthetics that feel friendly and inviting."
+                            };
+                            
+                            return (
+                              <SelectionCard
+                                key={option.value}
+                                title={option.label}
+                                description={descriptions[option.value] || ""}
+                                isSelected={formData[field.id] === option.value}
+                                onClick={() => handleFieldChange(field.id, option.value)}
+                              />
+                            );
+                          })}
+                        </div>
+                        {errors[field.id] && (
+                          <p className="text-sm text-accent-600 font-medium">{errors[field.id]}</p>
+                        )}
+                      </div>
+                    );
+                  }
+
+                  // Use regular Field component for other fields
+                  return (
+                    <Field
+                      key={field.id}
+                      config={field}
+                      value={formData[field.id] || ''}
+                      onChange={(value) => handleFieldChange(field.id, value)}
+                      error={errors[field.id]}
+                    />
+                  );
+                })}
               </div>
 
               {hasErrors && (

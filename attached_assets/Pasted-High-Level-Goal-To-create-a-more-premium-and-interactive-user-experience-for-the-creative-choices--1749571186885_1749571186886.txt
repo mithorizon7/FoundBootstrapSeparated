@@ -1,0 +1,37 @@
+High-Level Goal:
+
+To create a more premium and interactive user experience for the creative choices in Phase 6, we will replace the standard dropdown menus for visual_style and voice_persona with a custom "Selection Card" component.
+
+Implementation Plan:
+
+Create a New Component:
+
+Create a new, reusable component named something like SelectionCard.tsx.
+This component will accept props like title, description, isSelected, and onClick.
+It should be styled as a Card from shadcn/ui and should visually change when isSelected is true (e.g., by changing its border color to hsl(var(--primary))).
+Modify PhasePage.tsx:
+
+In the section that renders the form fields for Phase 6, instead of looping and rendering a <Field> component for visual_style and voice_persona, you will manually render a group of your new <SelectionCard /> components.
+You will map over the options array from phase-6.json for each field.
+The onClick handler for each card will call handleFieldChange to update the form's state with the selected value (e.g., handleFieldChange('visual_style', 'Clean & Minimalist')).
+The isSelected prop will be true if the current form state for that field matches the card's value.
+This approach will deliver a significantly more sophisticated and user-friendly experience, making the "Creative Brief" portion of Phase 6 a highlight of the bootcamp.
+
+The current plan is to present the detailed guidance in the decisionBoxContent, and then have the user select from a simple dropdown menu in the form. The "best-in-class" evolution of this is to merge the guidance and the choice into a single, interactive experience.
+
+The Premium Approach: Interactive Selection Cards
+
+Instead of using dropdown menus for Visual Style and Voice Persona, we can present these options as a set of visually rich, clickable cards.
+
+Imagine this user experience for choosing a "Visual Style":
+
+The user sees a beautifully laid-out row of five cards.
+Each card has a title (e.g., "Clean & Minimalist"), a representative icon, and the full description ("Conveys sophistication, order, and expertise...").
+Instead of reading text and then finding the corresponding option in a dropdown, the user simply clicks directly on the card that best represents their brand.
+The selected card gets a highlighted border and a checkmark, providing clear visual feedback of their choice.
+Why This Approach is More Premium
+
+Visually Engaging: It transforms a standard form into a more pleasant, gallery-like experience. It's more enjoyable to interact with.
+Reduces Cognitive Load: All information is presented upfront. The user can easily compare the different archetypes side-by-side without having to open and close a dropdown menu repeatedly.
+Reinforces Importance: Presenting these strategic choices as thoughtfully designed cards, rather than simple list items, communicates their importance to the user. It makes the decision feel more significant.
+Feels Modern and Custom: This is the kind of polished interaction users expect from a top-tier application.
