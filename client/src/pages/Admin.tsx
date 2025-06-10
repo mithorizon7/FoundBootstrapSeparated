@@ -15,7 +15,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
-import { Download, Users, Shield, Plus, Settings, Eye, BarChart3, Globe, Vote, Loader2 } from "lucide-react";
+import { Download, Users, Shield, Plus, Settings, Eye, BarChart3, Globe, Vote, Loader2, HelpCircle, Info, BookOpen } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { getTimeAgo } from "@/lib/utils";
 import type { Team, Cohort } from "@shared/schema";
 
@@ -40,6 +42,7 @@ export default function Admin() {
   const [assignTeamsOpen, setAssignTeamsOpen] = useState(false);
   const [selectedCohort, setSelectedCohort] = useState<string>("");
   const [selectedTeams, setSelectedTeams] = useState<number[]>([]);
+  const [helpOpen, setHelpOpen] = useState(false);
   const [newCohort, setNewCohort] = useState({
     tag: "",
     name: "",
@@ -247,25 +250,143 @@ export default function Admin() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <NavigationHeader />
-      
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <Card>
+    <TooltipProvider>
+      <div className="min-h-screen bg-gray-50">
+        <NavigationHeader />
+        
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <Card>
           <CardHeader className="border-b border-gray-200">
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle className="text-2xl">Instructor Dashboard</CardTitle>
                 <p className="text-gray-600 mt-1">Monitor team progress, manage cohorts, and export data</p>
               </div>
-              <Button
-                onClick={() => exportCSVMutation.mutate()}
-                disabled={exportCSVMutation.isPending}
-                className="flex items-center space-x-2 bg-green-600 hover:bg-green-700"
-              >
-                <Download className="w-4 h-4" />
-                <span>{exportCSVMutation.isPending ? "Exporting..." : "Export CSV"}</span>
-              </Button>
+              <div className="flex items-center space-x-3">
+                <Dialog open={helpOpen} onOpenChange={setHelpOpen}>
+                  <DialogTrigger asChild>
+                    <Button variant="outline" className="flex items-center space-x-2">
+                      <BookOpen className="w-4 h-4" />
+                      <span>Instructions</span>
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+                    <DialogHeader>
+                      <DialogTitle className="flex items-center space-x-2">
+                        <BookOpen className="w-5 h-5" />
+                        <span>Admin Dashboard Instructions</span>
+                      </DialogTitle>
+                    </DialogHeader>
+                    <div className="space-y-6">
+                      <div className="border-l-4 border-blue-500 pl-4">
+                        <h3 className="text-lg font-semibold text-gray-900 mb-2">Getting Started</h3>
+                        <p className="text-gray-600">
+                          This dashboard allows you to monitor student team progress and manage cohorts for collaborative activities. 
+                          Teams automatically appear here when they begin the program.
+                        </p>
+                      </div>
+
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold text-gray-900 border-b pb-2">Team Management</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="bg-blue-50 p-4 rounded-lg">
+                            <h4 className="font-medium text-blue-900 mb-2">📊 Monitor Progress</h4>
+                            <ul className="text-sm text-blue-800 space-y-1">
+                              <li>• View each team's current phase (1-8)</li>
+                              <li>• Track completion percentage</li>
+                              <li>• See last activity timestamps</li>
+                              <li>• Identify teams needing support</li>
+                            </ul>
+                          </div>
+                          <div className="bg-green-50 p-4 rounded-lg">
+                            <h4 className="font-medium text-green-900 mb-2">📥 Export Data</h4>
+                            <ul className="text-sm text-green-800 space-y-1">
+                              <li>• Click "Export CSV" to download all team data</li>
+                              <li>• Includes team names, codes, progress, and timestamps</li>
+                              <li>• Use for attendance tracking and assessment</li>
+                              <li>• Data updates in real-time</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold text-gray-900 border-b pb-2">Cohort Management</h3>
+                        <div className="bg-yellow-50 p-4 rounded-lg">
+                          <h4 className="font-medium text-yellow-900 mb-3">🎯 Step-by-Step: Creating and Managing Cohorts</h4>
+                          <div className="space-y-3">
+                            <div className="flex items-start space-x-3">
+                              <span className="bg-yellow-200 text-yellow-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">1</span>
+                              <div>
+                                <h5 className="font-medium text-yellow-900">Create a New Cohort</h5>
+                                <p className="text-sm text-yellow-800">Click "Create Cohort" → Enter a unique tag (e.g., "fall2024", "cohort-1") → Add name and description → Save</p>
+                              </div>
+                            </div>
+                            <div className="flex items-start space-x-3">
+                              <span className="bg-yellow-200 text-yellow-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">2</span>
+                              <div>
+                                <h5 className="font-medium text-yellow-900">Assign Teams to Cohort</h5>
+                                <p className="text-sm text-yellow-800">Click "Assign Teams" → Select cohort from dropdown → Check teams to include → Click "Assign Selected Teams"</p>
+                              </div>
+                            </div>
+                            <div className="flex items-start space-x-3">
+                              <span className="bg-yellow-200 text-yellow-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">3</span>
+                              <div>
+                                <h5 className="font-medium text-yellow-900">Enable Voting (Optional)</h5>
+                                <p className="text-sm text-yellow-800">Toggle "Voting Active" for cohorts where teams should vote on each other's projects</p>
+                              </div>
+                            </div>
+                            <div className="flex items-start space-x-3">
+                              <span className="bg-yellow-200 text-yellow-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">4</span>
+                              <div>
+                                <h5 className="font-medium text-yellow-900">View Results</h5>
+                                <p className="text-sm text-yellow-800">Use "View Voting Results" to see team rankings and voting analytics</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="space-y-4">
+                        <h3 className="text-lg font-semibold text-gray-900 border-b pb-2">Important Notes</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                          <div className="bg-red-50 p-4 rounded-lg">
+                            <h4 className="font-medium text-red-900 mb-2">⚠️ Cohort Tags</h4>
+                            <p className="text-sm text-red-800">Tags cannot be changed after creation. Choose descriptive, unique identifiers.</p>
+                          </div>
+                          <div className="bg-purple-50 p-4 rounded-lg">
+                            <h4 className="font-medium text-purple-900 mb-2">🔄 Real-time Updates</h4>
+                            <p className="text-sm text-purple-800">Team progress updates automatically. Refresh if data seems outdated.</p>
+                          </div>
+                          <div className="bg-indigo-50 p-4 rounded-lg">
+                            <h4 className="font-medium text-indigo-900 mb-2">👥 Team Assignment</h4>
+                            <p className="text-sm text-indigo-800">Teams can only belong to one cohort at a time. Reassigning moves them.</p>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="bg-gray-100 p-4 rounded-lg">
+                        <h4 className="font-medium text-gray-900 mb-2">💡 Pro Tips</h4>
+                        <ul className="text-sm text-gray-700 space-y-1">
+                          <li>• Create cohorts before teams finish Phase 4 for optimal collaboration</li>
+                          <li>• Use descriptive cohort names to easily identify groups</li>
+                          <li>• Enable voting only when teams have completed their projects</li>
+                          <li>• Export data regularly for backup and analysis</li>
+                          <li>• Hover over any button or field for additional help tooltips</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </DialogContent>
+                </Dialog>
+                <Button
+                  onClick={() => exportCSVMutation.mutate()}
+                  disabled={exportCSVMutation.isPending}
+                  className="flex items-center space-x-2 bg-green-600 hover:bg-green-700"
+                >
+                  <Download className="w-4 h-4" />
+                  <span>{exportCSVMutation.isPending ? "Exporting..." : "Export CSV"}</span>
+                </Button>
+              </div>
             </div>
           </CardHeader>
 
@@ -606,6 +727,7 @@ export default function Admin() {
           </CardContent>
         </Card>
       </main>
-    </div>
+      </div>
+    </TooltipProvider>
   );
 }
