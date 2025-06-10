@@ -378,14 +378,21 @@ export default function Admin() {
                     </div>
                   </DialogContent>
                 </Dialog>
-                <Button
-                  onClick={() => exportCSVMutation.mutate()}
-                  disabled={exportCSVMutation.isPending}
-                  className="flex items-center space-x-2 bg-green-600 hover:bg-green-700"
-                >
-                  <Download className="w-4 h-4" />
-                  <span>{exportCSVMutation.isPending ? "Exporting..." : "Export CSV"}</span>
-                </Button>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      onClick={() => exportCSVMutation.mutate()}
+                      disabled={exportCSVMutation.isPending}
+                      className="flex items-center space-x-2 bg-green-600 hover:bg-green-700"
+                    >
+                      <Download className="w-4 h-4" />
+                      <span>{exportCSVMutation.isPending ? "Exporting..." : "Export CSV"}</span>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Download all team data including progress, phase completion, and timestamps as a CSV file</p>
+                  </TooltipContent>
+                </Tooltip>
               </div>
             </div>
           </CardHeader>
@@ -496,12 +503,19 @@ export default function Admin() {
                     </div>
                     <div className="flex space-x-3">
                       <Dialog open={assignTeamsOpen} onOpenChange={setAssignTeamsOpen}>
-                        <DialogTrigger asChild>
-                          <Button variant="outline" className="flex items-center space-x-2">
-                            <Users className="w-4 h-4" />
-                            <span>Assign Teams</span>
-                          </Button>
-                        </DialogTrigger>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <DialogTrigger asChild>
+                              <Button variant="outline" className="flex items-center space-x-2">
+                                <Users className="w-4 h-4" />
+                                <span>Assign Teams</span>
+                              </Button>
+                            </DialogTrigger>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Add teams to existing cohorts for collaboration and voting activities</p>
+                          </TooltipContent>
+                        </Tooltip>
                         <DialogContent className="max-w-2xl">
                           <DialogHeader>
                             <DialogTitle>Assign Teams to Cohort</DialogTitle>
@@ -561,19 +575,36 @@ export default function Admin() {
                       </Dialog>
 
                       <Dialog open={newCohortOpen} onOpenChange={setNewCohortOpen}>
-                        <DialogTrigger asChild>
-                          <Button className="flex items-center space-x-2">
-                            <Plus className="w-4 h-4" />
-                            <span>New Cohort</span>
-                          </Button>
-                        </DialogTrigger>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <DialogTrigger asChild>
+                              <Button className="flex items-center space-x-2">
+                                <Plus className="w-4 h-4" />
+                                <span>New Cohort</span>
+                              </Button>
+                            </DialogTrigger>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Create a new cohort to group teams for collaboration and voting activities</p>
+                          </TooltipContent>
+                        </Tooltip>
                         <DialogContent>
                           <DialogHeader>
                             <DialogTitle>Create New Cohort</DialogTitle>
                           </DialogHeader>
                           <div className="space-y-4">
                             <div>
-                              <Label htmlFor="cohort-tag">Cohort Tag</Label>
+                              <div className="flex items-center space-x-2">
+                                <Label htmlFor="cohort-tag">Cohort Tag</Label>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Info className="w-4 h-4 text-gray-400 cursor-help" />
+                                  </TooltipTrigger>
+                                  <TooltipContent>
+                                    <p>Unique identifier for this cohort. Cannot be changed after creation.<br/>Use lowercase letters, numbers, and hyphens only.</p>
+                                  </TooltipContent>
+                                </Tooltip>
+                              </div>
                               <Input
                                 id="cohort-tag"
                                 value={newCohort.tag}
@@ -582,7 +613,17 @@ export default function Admin() {
                               />
                             </div>
                             <div>
-                              <Label htmlFor="cohort-name">Cohort Name</Label>
+                              <div className="flex items-center space-x-2">
+                                <Label htmlFor="cohort-name">Cohort Name</Label>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Info className="w-4 h-4 text-gray-400 cursor-help" />
+                                  </TooltipTrigger>
+                                  <TooltipContent>
+                                    <p>Descriptive name displayed to users and in the interface</p>
+                                  </TooltipContent>
+                                </Tooltip>
+                              </div>
                               <Input
                                 id="cohort-name"
                                 value={newCohort.name}
@@ -591,7 +632,17 @@ export default function Admin() {
                               />
                             </div>
                             <div>
-                              <Label htmlFor="cohort-description">Description</Label>
+                              <div className="flex items-center space-x-2">
+                                <Label htmlFor="cohort-description">Description</Label>
+                                <Tooltip>
+                                  <TooltipTrigger asChild>
+                                    <Info className="w-4 h-4 text-gray-400 cursor-help" />
+                                  </TooltipTrigger>
+                                  <TooltipContent>
+                                    <p>Optional description to help identify the purpose or scope of this cohort</p>
+                                  </TooltipContent>
+                                </Tooltip>
+                              </div>
                               <Textarea
                                 id="cohort-description"
                                 value={newCohort.description}
@@ -672,18 +723,25 @@ export default function Admin() {
                                     <Badge variant={cohort.submissionsOpen ? "default" : "secondary"}>
                                       {cohort.submissionsOpen ? "Open" : "Closed"}
                                     </Badge>
-                                    <Button
-                                      variant="ghost"
-                                      size="sm"
-                                      onClick={() => updateCohortMutation.mutate({
-                                        tag: cohort.tag,
-                                        updates: { submissionsOpen: !cohort.submissionsOpen }
-                                      })}
-                                      disabled={updateCohortMutation.isPending}
-                                      className="h-6 w-6 p-0"
-                                    >
-                                      <Settings className="w-3 h-3" />
-                                    </Button>
+                                    <Tooltip>
+                                      <TooltipTrigger asChild>
+                                        <Button
+                                          variant="ghost"
+                                          size="sm"
+                                          onClick={() => updateCohortMutation.mutate({
+                                            tag: cohort.tag,
+                                            updates: { submissionsOpen: !cohort.submissionsOpen }
+                                          })}
+                                          disabled={updateCohortMutation.isPending}
+                                          className="h-6 w-6 p-0"
+                                        >
+                                          <Settings className="w-3 h-3" />
+                                        </Button>
+                                      </TooltipTrigger>
+                                      <TooltipContent>
+                                        <p>Toggle submissions {cohort.submissionsOpen ? 'off' : 'on'} for this cohort</p>
+                                      </TooltipContent>
+                                    </Tooltip>
                                   </div>
                                 </div>
                                 <div className="flex items-center justify-between">
@@ -692,18 +750,25 @@ export default function Admin() {
                                     <Badge variant={cohort.votingOpen ? "default" : "secondary"}>
                                       {cohort.votingOpen ? "Open" : "Closed"}
                                     </Badge>
-                                    <Button
-                                      variant="ghost"
-                                      size="sm"
-                                      onClick={() => updateCohortMutation.mutate({
-                                        tag: cohort.tag,
-                                        updates: { votingOpen: !cohort.votingOpen }
-                                      })}
-                                      disabled={updateCohortMutation.isPending}
-                                      className="h-6 w-6 p-0"
-                                    >
-                                      <Settings className="w-3 h-3" />
-                                    </Button>
+                                    <Tooltip>
+                                      <TooltipTrigger asChild>
+                                        <Button
+                                          variant="ghost"
+                                          size="sm"
+                                          onClick={() => updateCohortMutation.mutate({
+                                            tag: cohort.tag,
+                                            updates: { votingOpen: !cohort.votingOpen }
+                                          })}
+                                          disabled={updateCohortMutation.isPending}
+                                          className="h-6 w-6 p-0"
+                                        >
+                                          <Settings className="w-3 h-3" />
+                                        </Button>
+                                      </TooltipTrigger>
+                                      <TooltipContent>
+                                        <p>Toggle voting {cohort.votingOpen ? 'off' : 'on'} for this cohort</p>
+                                      </TooltipContent>
+                                    </Tooltip>
                                   </div>
                                 </div>
                               </div>
