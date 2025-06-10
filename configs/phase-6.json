@@ -13,10 +13,11 @@
       "help": "Choose the overall visual approach for your hero image",
       "tooltip": "Defines the aesthetic direction for all visual assets. Photoreal works for tangible products, stylized illustration for tech/apps, minimalist for premium brands, and bold/dramatic for disruptive concepts.",
       "options": [
-        { "value": "Photoreal", "label": "Photoreal" },
-        { "value": "Stylized illustration", "label": "Stylized illustration" },
-        { "value": "Minimalist", "label": "Minimalist" },
-        { "value": "Bold/Dramatic", "label": "Bold/Dramatic" }
+        { "value": "Clean & Minimalist", "label": "Clean & Minimalist" },
+        { "value": "Organic & Natural", "label": "Organic & Natural" },
+        { "value": "Bold & Dynamic", "label": "Bold & Dynamic" },
+        { "value": "Elegant & Sensual", "label": "Elegant & Sensual" },
+        { "value": "Playful & Vibrant", "label": "Playful & Vibrant" }
       ]
     },
     {
@@ -53,10 +54,12 @@
       "help": "Choose the voice character for your narration",
       "tooltip": "Defines the personality and tone for all spoken content including explainer videos, ads, and voice agents. Should align with your target audience's preferences and brand personality.",
       "options": [
-        { "value": "Friendly parent", "label": "Friendly parent" },
-        { "value": "Energetic coach", "label": "Energetic coach" },
-        { "value": "Trusted expert", "label": "Trusted expert" },
-        { "value": "Professional advisor", "label": "Professional advisor" }
+        { "value": "The Sage / Expert", "label": "The Sage / Expert (Knowledgeable, authoritative)" },
+        { "value": "The Caregiver / Nurturer", "label": "The Caregiver / Nurturer (Supportive, warm)" },
+        { "value": "The Hero / Champion", "label": "The Hero / Champion (Motivational, confident)" },
+        { "value": "The Everyman / Friend", "label": "The Everyman / Friend (Relatable, authentic)" },
+        { "value": "The Creator / Innovator", "label": "The Creator / Innovator (Visionary, expressive)" },
+        { "value": "The Explorer / Pioneer", "label": "The Explorer / Pioneer (Adventurous, curious)" }
       ]
     },
     {
@@ -72,36 +75,58 @@
   ],
   "promptTemplate": "**PURPOSE**: Create an engaging 60-second voiceover script that introduces our company's solution in a way that builds trust, demonstrates value, and motivates action. This script should work as background narration on our website, over promotional videos, or as standalone audio content.\n\n**SCRIPT REQUIREMENTS:**\n\nWrite a 60-second narration introducing **{{phase5.chosen_concept_code_name}}**, our new {{phase1.sector}} solution.\n\n• Hook potential customers in the first line using this statistic: \"{{selected_statistic}}\"\n• Weave in this expert pull-quote for credibility: \"[Pull-quote from Science_Evidence.pdf]\"\n• Describe one key interactive feature and expected benefit in ≤ 25 words\n• End with a rousing call to action (<15 words)\n\nTone: {{voice_persona}} (warm, encouraging, trustworthy).\n\nOutput plain text only.",
   "decisionBoxContent": {
-    "title": "Creative Direction & Team Setup",
-    "subtitle": "Align on creative direction, then assign each team member to one of the five production tracks below. Work simultaneously to maximize efficiency and complete all media assets in parallel.",
+    "title": "Phase 6 Creative Brief: Defining Your Media Strategy",
+    "subtitle": "Before you begin the Step-by-Step Workflow, your entire team must work together to define a unified creative strategy. Use the Brand Adjectives and Hero Concept you defined in the previous phases to guide your decisions below.",
     "sections": [
       {
-        "number": "Setup",
-        "title": "Team Organization",
+        "number": "1",
+        "title": "Core Message & Goal",
         "items": [
           {
-            "label": "🛠️ Tools & Platform Access",
-            "content": "**Required Platforms:**\n\n🎨 **Track A** (Hero Image): Sora\n🎵 **Track B** (Music): Suno.ai\n🎙️ **Track C** (Narration): Google Gemini 2.5 Pro + ElevenLabs\n📝 **Track D** (Website Copy): Google Gemini 2.5 Pro\n📻 **Track E** (Podcast): NotebookLM\n\n**Pre-Check:** Ensure team members have accounts and access to these platforms before beginning."
+            "label": "Define Your Core Message",
+            "content": "First, decide on the single most important feeling or message you want all your media to convey (e.g., 'A sense of wonder and discovery,' 'Quiet confidence and reliability,' or 'Effortless family fun'). This theme will unify all your creative assets."
           },
           {
-            "label": "👥 Team Role Assignment",
-            "content": "**Parallel Production Strategy:**\n\n• Assign one teammate per track (A-E)\n• Each person works independently on their assigned track\n• Coordinate timing to finish simultaneously\n• **Total Duration:** ~20 minutes (18 min creation + 2 min coordination)"
-          },
+            "label": "Define Your Desired Action",
+            "content": "What is the primary action you want the viewer or listener to take after engaging with your media? This will be your 'Call to Action' (e.g., 'Visit our website,' 'Sign up for launch updates')."
+          }
+        ]
+      },
+      {
+        "number": "2",
+        "title": "Visual Identity",
+        "items": [
           {
-            "label": "📋 Asset Naming Convention",
-            "content": "**File Naming Standards:**\n\n• Hero Image → `hero.png`\n• Brand Jingle → `jingle.mp3`\n• Voiceover → `voiceover.mp3`\n• Website Copy → `copy.txt`\n• Podcast → `podcast.mp3`\n\n**Organization:** Create a shared project folder for all generated assets."
+            "label": "Choose Your Visual Style Archetype",
+            "content": "Your visual style should reflect your brand's personality and core message. Review the archetypes below, then make your selections for **Visual Style** and **Image Perspective** in the form.<br><br><strong>Clean & Minimalist:</strong> Conveys sophistication, order, and expertise. (Pairs well with The Sage, The Ruler).<br><strong>Organic & Natural:</strong> Feels authentic, calming, and wholesome. (Pairs well with The Caregiver, The Innocent, The Everyman).<br><strong>Bold & Dynamic:</strong> Expresses energy, confidence, and innovation. (Pairs well with The Hero, The Explorer, The Rebel).<br><strong>Elegant & Sensual:</strong> Suggests luxury, beauty, and refinement. (Pairs well with The Lover, The Creator).<br><strong>Playful & Vibrant:</strong> Creates joy, fun, and accessibility. (Pairs well with The Jester, The Innocent)."
+          }
+        ]
+      },
+      {
+        "number": "3",
+        "title": "Audio Identity",
+        "items": [
+          {
+            "label": "Choose Your Voice Persona Archetype",
+            "content": "Your brand's voice is its personality. This will guide your narration and music. Review the archetypes below, then select one from the form.<br><br><strong>The Sage / Expert:</strong> Wise, knowledgeable, and authoritative. A voice of truth and expertise. (e.g., Google, BBC, National Geographic)<br><br><strong>The Caregiver / Nurturer:</strong> Empathetic, supportive, and reassuring. A voice of comfort and protection. (e.g., Johnson & Johnson, Dove)<br><br><strong>The Hero / Champion:</strong> Motivational, confident, and inspiring. A voice that encourages action and achievement. (e.g., Nike, Under Armour)<br><br><strong>The Everyman / Friend:</strong> Relatable, down-to-earth, and authentic. A voice that feels like a trusted friend. (e.g., Target, Home Depot)<br><br><strong>The Creator / Innovator:</strong> Visionary, expressive, and imaginative. A voice that celebrates creativity and self-expression. (e.g., Apple, Adobe)<br><br><strong>The Explorer / Pioneer:</strong> Adventurous, curious, and bold. A voice that encourages discovery and new experiences. (e.g., Patagonia, National Geographic Expeditions)"
+          }
+        ]
+      },
+      {
+        "number": "4",
+        "title": "Select Key Evidence",
+        "items": [
+          {
+            "label": "Your Task",
+            "content": "Select the single most compelling statistic from your `Science_Evidence.pdf` to use as a credible hook in your narration."
           }
         ]
       }
     ],
     "action": {
-      "title": "🎯 Creative Direction Decisions",
+      "title": "Next Step",
       "items": [
-        "🎨 **Visual Style:** Choose aesthetic approach (Photoreal, Stylized illustration, Minimalist, or Bold/Dramatic)",
-        "📐 **Image Perspective:** Select focal emphasis (Close-up glamour, Interaction scene, Lifestyle context, or Abstract/Conceptual)", 
-        "🎵 **Music Genre:** Define brand-aligned musical style (e.g., Upbeat electronic, Warm acoustic, Corporate cinematic)",
-        "🎙️ **Voice Persona:** Select narrator character (Friendly parent, Energetic coach, Trusted expert, or Professional advisor)",
-        "📊 **Featured Statistic:** Choose most compelling data point from Science_Evidence.pdf for narrative hook"
+        "Once your Creative Brief is decided, complete all the fields in the form below to lock in your direction before proceeding to the Step-by-Step Workflow."
       ]
     }
   },
