@@ -46,28 +46,6 @@ export default function Admin() {
     description: "",
   });
   
-  // Redirect to login if not authenticated as admin
-  if (!isAuthenticated || user?.role !== 'admin') {
-    return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <Card className="w-full max-w-md">
-          <CardHeader className="text-center">
-            <Shield className="w-12 h-12 text-red-600 mx-auto mb-4" />
-            <CardTitle className="text-xl text-red-600">Access Denied</CardTitle>
-          </CardHeader>
-          <CardContent className="text-center">
-            <p className="text-gray-600 mb-4">
-              Admin access required. Please log in with admin credentials.
-            </p>
-            <Button onClick={() => setLocation("/admin/login")} className="w-full">
-              Go to Admin Login
-            </Button>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-  
   const { data: teams = [], isLoading: teamsLoading } = useQuery<TeamWithProgress[]>({
     queryKey: ['/api/teams'],
   });
@@ -234,6 +212,28 @@ export default function Admin() {
   const getProgressPercentage = (currentPhase: number): number => {
     return Math.max(0, Math.min(100, ((currentPhase - 1) / 8) * 100));
   };
+
+  // Authentication check after all hooks are declared
+  if (!isAuthenticated || user?.role !== 'admin') {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <Shield className="w-12 h-12 text-red-600 mx-auto mb-4" />
+            <CardTitle className="text-xl text-red-600">Access Denied</CardTitle>
+          </CardHeader>
+          <CardContent className="text-center">
+            <p className="text-gray-600 mb-4">
+              Admin access required. Please log in with admin credentials.
+            </p>
+            <Button onClick={() => setLocation("/admin-login")} className="w-full">
+              Go to Admin Login
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   if (teamsLoading || cohortsLoading) {
     return (
