@@ -1,0 +1,96 @@
+Of course. Here is a complete and detailed set of instructions for your AI Coder to implement the professional-grade background we've designed. This combines all the best refinements into a single, actionable plan.
+
+---
+
+### **Instructions for AI Coder: Implementing a Premium Background Treatment**
+
+**High-Level Goal:**
+
+Your task is to implement a professional-grade, dynamic background for the application. This will replace the current flat background color with a more sophisticated treatment that includes a subtle radial gradient, full dark mode support, and an optional texture overlay. This will give the application a "considered, dimensional surface" and a more premium feel.
+
+**File to Edit:** `FoundInTwo/client/src/index.css`
+
+---
+
+### **Step 1: Define New Semantic Color Tokens**
+
+To ensure the gradient is tied to our theme and is easily maintainable, we first need to add two new color variables.
+
+**Action:** In `index.css`, add the `--background-elevated` variable to the `:root` block and the `--background-darken-2` variable to the `.dark` block.
+
+```css
+/* Add to the :root section */
+:root {
+  /* ...all other variables... */
+  --background: var(--neutral-50);
+  --background-elevated: var(--neutral-50); /* This will be the lighter start of our gradient */
+}
+
+/* Add to the .dark section */
+.dark {
+  /* ...all other variables... */
+  --background: 220 14% 4%;
+  --background-darken-2: 220 14% 6%; /* A slightly darker shade for the top of the dark gradient */
+}
+```
+
+### **Step 2: Apply the Gradient Background**
+
+Next, modify the `body` style rules to apply the radial gradient. This includes separate definitions for light and dark mode to ensure the effect works perfectly in both themes.
+
+**Action:** Find the `body` selector and replace its existing `@apply bg-background` rule with the following code block.
+
+```css
+/* Find the existing body rule and replace it with this */
+body {
+  @apply text-foreground;
+  
+  /* Light Mode Gradient (Default) */
+  background-color: hsl(var(--background)); /* Fallback color */
+  background-image: radial-gradient(
+    ellipse 80% 80% at 50% -20%,
+    hsl(var(--background-elevated)) 0%,
+    hsl(var(--background)) 100%
+  );
+  background-attachment: fixed; /* Ensures the gradient stays in place on scroll */
+}
+
+/* Dark Mode Gradient Override */
+.dark body {
+  background-image: radial-gradient(
+    ellipse 80% 80% at 50% -20%,
+    hsl(var(--background-darken-2)) 0%,
+    hsl(var(--background)) 100%
+  );
+}
+```
+
+### **Step 3: Add the Optional Noise Overlay**
+
+This final touch adds a subtle grain texture that breaks up any potential color banding and adds a premium, tactile feel.
+
+**Action:** Add the following CSS rule to the end of `index.css`. This uses a `::before` pseudo-element so it doesn't interfere with the page content.
+
+```css
+/* Optional grain/noise overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: url(/noise.png) repeat;
+  opacity: .015;
+  pointer-events: none;
+}
+```
+**Note:** This rule requires a `noise.png` file. Please ensure a small, tileable, transparent PNG with subtle noise exists in the `public/` directory of the project.
+
+---
+
+### **Final Verification Checklist:**
+
+After implementing these changes, please verify that:
+* [ ] The background displays a subtle top-down light gradient in light mode.
+* [ ] The background displays a subtle top-down *darkening* gradient in dark mode.
+* [ ] A very faint, almost imperceptible noise texture is visible over the background.
+* [ ] The changes have not negatively impacted the readability of the content cards or text.
