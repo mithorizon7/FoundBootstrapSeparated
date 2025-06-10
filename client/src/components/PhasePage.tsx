@@ -645,15 +645,15 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
 
       {/* Expected Output - Full Width */}
       {config.expectedOutput && (
-        <Alert className="bg-gradient-to-r from-primary-50 to-accent-50 border-primary-200 card-premium">
+        <Alert className="bg-gradient-to-r from-primary-50 to-accent-50 border-primary-200 shadow-sm hover:shadow-md transition-shadow duration-200">
           <AlertDescription className="text-neutral-700">
             <div className="flex items-center space-x-2 mb-4">
               <Target className="w-5 h-5 text-primary-600" />
-              <span className="font-semibold text-lg text-neutral-800 section-header">Expected Output & What Happens Next</span>
+              <span className="font-semibold text-lg text-neutral-800">Expected Output & What Happens Next</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               {config.expectedOutput.fileCreated && (
-                <div className="bg-white rounded-lg p-4 border border-primary-200 card-premium group">
+                <div className="bg-white rounded-lg p-4 border border-primary-200 shadow-sm hover:shadow-md transition-shadow duration-200">
                   <div className="font-medium text-neutral-800 mb-2 flex items-center space-x-1">
                     <FileText className="w-4 h-4 text-primary-600" />
                     <span>File Created:</span>
@@ -673,7 +673,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                 </div>
               )}
               {config.expectedOutput.whyItMatters && (
-                <div className="bg-white rounded-lg p-4 border border-primary-200 card-premium">
+                <div className="bg-white rounded-lg p-4 border border-primary-200 shadow-sm hover:shadow-md transition-shadow duration-200">
                   <div className="font-medium text-neutral-800 mb-2 flex items-center space-x-1">
                     <CheckCircle className="w-4 h-4 text-accent-600" />
                     <span>Why it matters:</span>
@@ -693,7 +693,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                 </div>
               )}
               {config.expectedOutput.nextSteps && (
-                <div className="bg-white rounded-lg p-4 border border-primary-200 card-premium">
+                <div className="bg-white rounded-lg p-4 border border-primary-200 shadow-sm hover:shadow-md transition-shadow duration-200">
                   <div className="font-medium text-neutral-800 mb-2 flex items-center space-x-1">
                     <ArrowRight className="w-4 h-4 text-primary-600" />
                     <span>Next Steps:</span>
@@ -719,13 +719,13 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
 
       {/* Website Submission Section - Final Phase Only */}
       {isFinalPhase && teamData?.cohortTag && cohortData?.submissionsOpen && (
-        <Card className="bg-gradient-to-r from-green-50 to-blue-50 border-green-200 card-premium">
+        <Card className="bg-gradient-to-r from-green-50 to-blue-50 border-green-200 shadow-lg hover:shadow-xl transition-shadow duration-200">
           <CardHeader>
-            <CardTitle className="flex items-center space-x-2 text-neutral-800 section-header">
+            <CardTitle className="flex items-center space-x-2 text-neutral-800 font-semibold text-lg">
               <Globe className="w-5 h-5 text-green-600" />
               <span>Submit Your Deployed Website</span>
             </CardTitle>
-            <p className="text-neutral-600 mt-2 ui-label">
+            <p className="text-neutral-600 mt-2 text-sm font-medium">
               Your team is part of the <strong>{cohortData.name}</strong> cohort. Submit your final website to participate in the showcase and voting.
             </p>
           </CardHeader>

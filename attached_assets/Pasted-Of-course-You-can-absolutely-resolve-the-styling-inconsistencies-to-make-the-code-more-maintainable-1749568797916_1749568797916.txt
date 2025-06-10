@@ -1,0 +1,94 @@
+Of course. You can absolutely resolve the styling inconsistencies to make the code more maintainable without sacrificing the high-quality design you've already achieved.
+
+The goal is to shift *how* the styles are applied from custom global CSS classes to Tailwind's more idiomatic, utility-first approach. This makes the code easier to manage and scale while preserving the visual outcome.
+
+Here is a step-by-step approach to achieve this:
+
+### 1. Refactor Custom Typography Classes
+
+The most straightforward fix is to replace custom typography classes with Tailwind's utility classes. Your `client/src/index.css` file contains classes like `.page-title` and `.section-header`. These can be migrated directly into your components.
+
+**Action:**
+
+1.  Identify the styles for a custom class in `client/src/index.css`.
+2.  In the React component where that class is used (e.g., `PhasePage.tsx`), replace the custom class name with the corresponding Tailwind utility classes.
+3.  Once replaced, you can delete the custom class from `index.css`.
+
+**Example:**
+
+Let's say your CSS has this (based on the guidance documents):
+
+```css
+/* In client/src/index.css */
+.page-title { font-weight: 700; } /* Bold */
+.section-header { font-weight: 600; } /* Semibold */
+```
+
+You would change the JSX in a component like `PhasePage.tsx` from this:
+
+```jsx
+<h1 className="page-title">{config.title}</h1>
+<h2 className="section-header">Decision Box</h2>
+```
+
+To this, using direct Tailwind utilities:
+
+```jsx
+<h1 className="text-2xl md:text-3xl font-bold text-neutral-800">{config.title}</h1>
+<h2 className="text-lg font-semibold text-neutral-800">Decision Box</h2>
+```
+
+### 2. Create Component Variants for Custom Styles
+
+For more complex styles applied to components like buttons and cards (e.g., a hypothetical `.btn-premium`), the best practice is to create a new "variant" using the `cva` (class-variance-authority) utility that `shadcn/ui` already uses.
+
+**Action:**
+
+1.  Open the component's UI file, for example, `client/src/components/ui/button.tsx`.
+2.  Inside the `buttonVariants` object, add a new variant with the styles from your custom class.
+3.  Replace the usage of the custom class in your app with the new variant prop.
+
+**Example for a "premium" button style:**
+
+In `client/src/components/ui/button.tsx`, you would add a new variant:
+
+```typescript
+// client/src/components/ui/button.tsx
+
+const buttonVariants = cva(
+  "inline-flex items-center justify-center ...",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        destructive: "...",
+        outline: "...",
+        secondary: "...",
+        ghost: "...",
+        link: "...",
+        // Add your new variant here
+        premium: "bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-lg transform hover:-translate-y-px transition-all"
+      },
+      size: { /* ... */ },
+    },
+    defaultVariants: { /* ... */ },
+  }
+)
+```
+
+Now, anywhere in your application, you can achieve this style idiomatically:
+
+```jsx
+// Instead of this:
+<button className="btn-premium">Click Me</button>
+
+// You would do this:
+<Button variant="premium">Click Me</Button>
+```
+
+### Benefits of This Approach
+
+* **Consistency:** Your entire project will follow a single, predictable styling methodology.
+* **Maintainability:** All styles for a component (like a button) are located in one place, making them easier to find and update.
+* **Readability:** It becomes easier to understand how a component is styled just by looking at its JSX code.
+* **Preserves Design:** This process meticulously translates your existing design rules into a more robust and organized structure without altering the final look.
