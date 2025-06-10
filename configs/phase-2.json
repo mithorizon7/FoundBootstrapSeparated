@@ -120,33 +120,33 @@
           },
           {
             "number": "2",
-            "action": "**Select GPT o3** from the model toggle for advanced analysis capabilities"
+            "action": "**Select** GPT o3 from the model toggle for **advanced analysis** capabilities"
           },
           {
             "number": "3",
-            "action": "Ensure you have your Market_Competitors.pdf file ready for upload"
+            "action": "Ensure you have your `Market_Competitors.pdf` file **ready for upload**"
           }
         ]
       }
     },
     {
       "step": 2,
-      "action": "**Upload Market Research** - Provide your Gemini report for analysis",
+      "action": "**Upload Market Research** - **Provide** your Gemini report for analysis",
       "time": "30 seconds",
       "details": {
         "title": "Attach Market Intelligence Data",
         "steps": [
           {
             "number": "1",
-            "action": "**Click Upload** in the ChatGPT interface"
+            "action": "**Click Upload** in the **ChatGPT interface**"
           },
           {
             "number": "2",
-            "action": "**Attach Market_Competitors.pdf** from Phase 1"
+            "action": "**Attach** `Market_Competitors.pdf` from **Phase 1**"
           },
           {
             "number": "3",
-            "action": "**Wait for upload confirmation** before proceeding"
+            "action": "**Wait** for upload confirmation before **proceeding**"
           }
         ]
       }

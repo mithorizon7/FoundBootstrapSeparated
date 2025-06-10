@@ -117,7 +117,7 @@
   "stepByStepFlow": [
     {
       "step": 1,
-      "action": "**Navigate to Replit AI Website Builder** - Open the tool and prepare for upload",
+      "action": "**Navigate to Replit AI Website Builder** - **Open** the tool and **prepare** for upload",
       "details": {
         "title": "Access Replit AI Website Builder",
         "steps": [

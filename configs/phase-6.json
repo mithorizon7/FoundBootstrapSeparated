@@ -114,19 +114,19 @@
         "steps": [
           {
             "number": "Setup",
-            "action": "Open Sora → Select 'Image' → Choose aspect ratio → Enable '4v' for 4 simultaneous variations"
+            "action": "**Open** Sora → **Select** 'Image' → **Choose** aspect ratio → **Enable** '4v' for 4 simultaneous variations"
           },
           {
             "number": "Create", 
-            "action": "**Prompt Strategy:** Describe your hero image using selected visual style and perspective. Example: 'Photoreal close-up glamour shot of [your product] in premium lighting'"
+            "action": "**Prompt Strategy:** **Describe** your hero image using selected **visual style** and **perspective**. Example: 'Photoreal close-up glamour shot of [your product] in premium lighting'"
           },
           {
             "number": "Iterate",
-            "action": "Generate multiple batches → Refine prompts based on results → Test different angles and compositions"
+            "action": "**Generate** multiple batches → **Refine** prompts based on results → **Test** different angles and compositions"
           },
           {
             "number": "Finalize",
-            "action": "Select best variation → Download → Rename to `hero.png` → Save to project folder"
+            "action": "**Select** best variation → **Download** → **Rename** to `hero.png` → **Save** to project folder"
           },
           {
             "number": "Bonus",
