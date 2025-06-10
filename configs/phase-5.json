@@ -11,7 +11,7 @@
       "placeholder": "e.g., SMART PLAY BLOCKS",
       "required": true,
       "persist": true,
-      "help": "Write down the exact code-name for the concept you selected from Phase_4_Offer_Concepts.docx",
+      "help": "Write down the **exact code-name** for the concept you selected from `Phase_4_Offer_Concepts.docx`",
       "tooltip": "Copy the exact code-name from your Phase 4 output to ensure consistency across all future AI prompts and marketing materials. This becomes your product's working title throughout development."
     },
     {
@@ -21,7 +21,7 @@
       "placeholder": "The specific unmet need statement that your chosen Hero Concept most effectively solves",
       "required": true,
       "persist": true,
-      "help": "Refer to your original list of three unmet needs and the AI's selection rationale",
+      "help": "Refer to your **original list of three unmet needs** and the AI's **selection rationale**",
       "tooltip": "Defines the core problem your product solves. This drives all marketing messaging and helps the AI create focused briefs that address real customer pain points rather than generic benefits."
     },
     {
@@ -31,7 +31,7 @@
       "placeholder": "Parents of children aged 4-6 who prioritize screen-free, collaborative play and are looking to build their child's creative problem-solving skills.",
       "required": true,
       "persist": true,
-      "help": "1-2 sentence description of the specific target audience for your chosen Hero Concept (make it so specific you could easily cast them in a movie)",
+      "help": "**1-2 sentence description** of the specific target audience for your chosen **Hero Concept** (make it so specific you could easily cast them in a movie)",
       "tooltip": "Be highly specific about demographics, psychographics, and behaviors. This precision helps the AI generate marketing copy, features, and positioning that resonates with your exact customer rather than a generic audience."
     },
     {
@@ -41,7 +41,7 @@
       "placeholder": "e.g., Engaging, Intuitive, Trustworthy",
       "required": true,
       "persist": true,
-      "help": "List your team's three chosen brand adjectives from Phase 4 Part 1",
+      "help": "List your team's **three chosen brand adjectives** from Phase 4",
       "tooltip": "Maintains brand consistency across all AI-generated content. These adjectives guide tone, messaging, and feature emphasis in your detailed brief and subsequent marketing materials."
     },
     {
@@ -66,7 +66,7 @@
         "items": [
           {
             "label": "Your Task",
-            "content": "As a team, thoroughly review the three concepts in your `Phase_4_Offer_Concepts.docx`. Discuss the pros, cons, and strategic fit of each one."
+            "content": "As a team, **thoroughly review** the three concepts in your `Phase_4_Offer_Concepts.docx`. **Discuss** the pros, cons, and **strategic fit** of each one."
           }
         ]
       },
@@ -76,7 +76,7 @@
         "items": [
           {
             "label": "Your Task",
-            "content": "Select the single concept that will become your 'Hero Offer.' Once your team has decided, fill out all the fields in the form below with the specific details for your chosen concept.<br><small class='text-neutral-600 italic'><strong>Guidance for Target Audience:</strong> Make it so specific you could easily cast them in a movie. For instance: \"Parents of children aged 4-6 who prioritize screen-free, collaborative play and are looking to build their child's creative problem-solving skills.\"</small>"
+            "content": "**Select** the single concept that will become your **Hero Offer.** Once your team has decided, **fill out all the fields** in the form below with the specific details for your chosen concept.<br><small class='text-neutral-600 italic'><strong>Guidance for Target Audience:</strong> Make it so specific you could easily cast them in a movie. For instance: \"Parents of children aged 4-6 who prioritize screen-free, collaborative play and are looking to build their child's creative problem-solving skills.\"</small>"
           }
         ]
       }
@@ -84,7 +84,7 @@
     "action": {
       "title": "Action",
       "items": [
-        "Complete all the fields in the form to lock in your final strategic decisions."
+        "**Complete** all the fields in the form to **lock in** your final **strategic decisions.**"
       ]
     }
   },
@@ -117,7 +117,7 @@
   ],
   "expectedOutput": {
     "fileCreated": "Hero_Concept_Detailed_Brief.docx",
-    "whyItMatters": "This brief is a foundational blueprint that will directly fuel all subsequent development and marketing efforts, including creative asset production, content creation, and go-to-market messaging.",
-    "nextSteps": "With your Hero Concept detailed brief complete, you're ready to move into media production and brand asset creation in the following phases."
+    "whyItMatters": "This brief is a **foundational blueprint** that will directly fuel all subsequent development and marketing efforts, including **creative asset production**, **content creation**, and **go-to-market messaging**.",
+    "nextSteps": "With your **Hero Concept detailed brief** complete, you're ready to **move into** media production and brand asset creation in the following phases."
   }
 }
