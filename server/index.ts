@@ -37,30 +37,20 @@ app.use(session({
 passport.use(new LocalStrategy(
   async (username: string, password: string, done) => {
     try {
-      console.log(`Login attempt for username: ${username}`);
       const user = await storage.getUserByUsername(username);
-      console.log(`User found:`, user ? { id: user.id, username: user.username, role: user.role } : 'null');
-      
       if (!user) {
-        console.log('User not found in database');
         return done(null, false, { message: 'Invalid username or password' });
       }
 
-      console.log(`Comparing password for user ${username}`);
       const isValidPassword = await bcrypt.compare(password, user.password);
-      console.log(`Password valid: ${isValidPassword}`);
-      
       if (!isValidPassword) {
-        console.log('Password comparison failed');
         return done(null, false, { message: 'Invalid username or password' });
       }
 
       if (user.role !== 'admin') {
-        console.log(`User role is ${user.role}, not admin`);
         return done(null, false, { message: 'Access denied' });
       }
 
-      console.log('Authentication successful');
       return done(null, user);
     } catch (error) {
       console.error('Authentication error:', error);
