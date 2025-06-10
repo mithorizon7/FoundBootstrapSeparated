@@ -140,7 +140,7 @@
         "steps": [
           {
             "number": "Setup",
-            "action": "**Open** Sora → **Select** 'Image' → **Choose** aspect ratio → **Enable** '4v' for 4 simultaneous variations"
+            "action": "**Open** Sora → **Select** 'Image' → **Choose** aspect ratio → **Enable** '2v' for 2 simultaneous variations"
           },
           {
             "number": "Create", 
@@ -198,7 +198,7 @@
           },
           {
             "number": "Voice Selection", 
-            "action": "**ElevenLabs Setup:** Access app → Browse 'Instant Speech' → Explore voice library → Match voice to your chosen persona (Friendly parent, Energetic coach, etc.)"
+            "action": "**ElevenLabs Setup:** Access app → Browse 'Instant Speech' or 'Text to Speech' → Explore voice library → Match voice to your chosen persona (Friendly parent, Energetic coach, etc.)"
           },
           {
             "number": "Audio Generation",

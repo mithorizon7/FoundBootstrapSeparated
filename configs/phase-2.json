@@ -204,7 +204,7 @@
         "steps": [
           {
             "number": "1",
-            "action": "When ChatGPT returns results, **skim the markdown table** first"
+            "action": "When ChatGPT responds, **skim the results**"
           },
           {
             "number": "2",
