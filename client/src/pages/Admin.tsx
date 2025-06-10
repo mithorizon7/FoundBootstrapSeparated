@@ -739,6 +739,7 @@ export default function Admin() {
                                             updates: { submissionsOpen: checked }
                                           })}
                                           disabled={updateCohortMutation.isPending}
+                                          className="data-[state=checked]:bg-green-600 data-[state=unchecked]:bg-gray-300"
                                         />
                                       </TooltipTrigger>
                                       <TooltipContent>
@@ -762,6 +763,7 @@ export default function Admin() {
                                             updates: { votingOpen: checked }
                                           })}
                                           disabled={updateCohortMutation.isPending}
+                                          className="data-[state=checked]:bg-green-600 data-[state=unchecked]:bg-gray-300"
                                         />
                                       </TooltipTrigger>
                                       <TooltipContent>
