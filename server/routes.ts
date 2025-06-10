@@ -18,17 +18,23 @@ function ensureAuthenticatedAdmin(req: Request, res: Response, next: NextFunctio
 export async function registerRoutes(app: Express): Promise<Server> {
   // Authentication routes
   app.post("/api/auth/admin/login", (req, res, next) => {
+    console.log('Login route called with body:', req.body);
     passport.authenticate('local', (err: any, user: any, info: any) => {
+      console.log('Passport authenticate callback - err:', err, 'user:', user ? user.username : null, 'info:', info);
       if (err) {
+        console.log('Authentication error:', err);
         return res.status(500).json({ message: 'Authentication error' });
       }
       if (!user) {
+        console.log('No user returned from passport, info:', info);
         return res.status(401).json({ message: info?.message || 'Invalid credentials' });
       }
       req.logIn(user, (err) => {
         if (err) {
+          console.log('Login error:', err);
           return res.status(500).json({ message: 'Login error' });
         }
+        console.log('Login successful for user:', user.username);
         return res.json({ message: 'Login successful', user: { id: user.id, username: user.username, role: user.role } });
       });
     })(req, res, next);
