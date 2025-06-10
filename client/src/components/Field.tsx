@@ -3,7 +3,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Info } from "lucide-react";
+import { Lightbulb } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface FieldConfig {
@@ -116,10 +116,15 @@ export function Field({ config, value, onChange, error }: FieldProps) {
           {tooltip && (
             <Tooltip>
               <TooltipTrigger asChild>
-                <Info className="w-4 h-4 text-gray-400 hover:text-gray-600 cursor-help" />
+                <span className="bg-neutral-100 rounded-full p-1 cursor-help transition-all duration-200 hover:bg-primary-100 hover:scale-110 group">
+                  <Lightbulb className="w-4 h-4 text-neutral-500 transition-colors group-hover:text-primary-600" />
+                </span>
               </TooltipTrigger>
               <TooltipContent className="max-w-xs">
-                <p className="text-sm">{tooltip}</p>
+                <div className="flex items-start gap-2">
+                  <Lightbulb className="w-4 h-4 text-primary-500 mt-1 flex-shrink-0" />
+                  <p className="text-sm">{tooltip}</p>
+                </div>
               </TooltipContent>
             </Tooltip>
           )}
