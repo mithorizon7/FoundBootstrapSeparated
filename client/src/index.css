@@ -29,7 +29,7 @@
   --neutral-900: 0 0% 10%;    /* #1A1A1A - Darkest text */
 
   /* Shadcn/UI Color Variables */
-  --background: var(--neutral-50);
+  --background: var(--neutral-100);
   --foreground: var(--neutral-700);
   --muted: var(--neutral-100);
   --muted-foreground: var(--neutral-500);
