@@ -240,14 +240,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/admin/cohorts/:cohortTag/teams", ensureAuthenticatedAdmin, async (req, res) => {
     try {
       const { team_ids } = req.body;
+      console.log('Assigning teams:', team_ids, 'to cohort:', req.params.cohortTag);
+      
       if (!Array.isArray(team_ids)) {
         return res.status(400).json({ message: "team_ids must be an array" });
       }
       
       const teams = await storage.assignTeamsToCohort(team_ids, req.params.cohortTag);
+      console.log('Teams assigned successfully:', teams.length);
       res.json(teams);
-    } catch (error) {
-      res.status(500).json({ message: "Error assigning teams to cohort" });
+    } catch (error: any) {
+      console.error('Error assigning teams to cohort:', error);
+      res.status(500).json({ message: "Error assigning teams to cohort", details: error?.message || 'Unknown error' });
     }
   });
 
