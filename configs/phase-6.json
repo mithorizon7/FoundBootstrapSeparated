@@ -1,7 +1,7 @@
 {
   "phase": 6,
   "title": "Media Factory: Media Generation (Image, Video, Music, Narration)",
-  "intro": "Your **hero concept** is only as convincing as the **sensory experience** around it.\n\nIn this phase you'll **manufacture** a **mini media kit**—hero image, brand jingle, and narrated voice-over—that will power your explainer video, website, investor teaser, and social posts.\n\nBy **running** the three generation tracks **in parallel** you can operate like an in-house creative agency, **compressing days of design into minutes**.",
+  "intro": "Your **hero concept** is only as convincing as the **sensory experience** around it.\n\nIn this phase you'll **manufacture** a **comprehensive media kit**—hero image, brand jingle, narrated voice-over, website copy, and podcast content—that will power your explainer video, website, investor teaser, and social posts.\n\nBy **running** the five generation tracks **in parallel** you can operate like an in-house creative agency, **compressing days of design into minutes**.",
   "estimatedTime": "20 minutes (18 min online creation running in parallel, ~2 min coordination)",
   "fields": [
     {
@@ -73,7 +73,7 @@
   "promptTemplate": "**PURPOSE**: Create an engaging 60-second voiceover script that introduces our company's solution in a way that builds trust, demonstrates value, and motivates action. This script should work as background narration on our website, over promotional videos, or as standalone audio content.\n\n**SCRIPT REQUIREMENTS:**\n\nWrite a 60-second narration introducing **{{phase5.chosen_concept_code_name}}**, our new {{phase1.sector}} solution.\n\n• Hook potential customers in the first line using this statistic: \"{{selected_statistic}}\"\n• Weave in this expert pull-quote for credibility: \"[Pull-quote from Science_Evidence.pdf]\"\n• Describe one key interactive feature and expected benefit in ≤ 25 words\n• End with a rousing call to action (<15 words)\n\nTone: {{voice_persona}} (warm, encouraging, trustworthy).\n\nOutput plain text only.",
   "decisionBoxContent": {
     "title": "Creative Direction & Team Setup",
-    "subtitle": "Make these shared decisions before splitting into parallel production tracks",
+    "subtitle": "Align on creative direction, then assign each team member to one of the five production tracks below. Work simultaneously to maximize efficiency and complete all media assets in parallel.",
     "sections": [
       {
         "number": "Setup",
