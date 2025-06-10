@@ -83,12 +83,12 @@
         "title": "Core Message & Goal",
         "items": [
           {
-            "label": "Define Your Core Message",
-            "content": "First, decide on the single most important feeling or message you want all your media to convey (e.g., 'A sense of wonder and discovery,' 'Quiet confidence and reliability,' or 'Effortless family fun'). This theme will unify all your creative assets."
+            "label": "💭 Define Your Core Message",
+            "content": "**First, decide on the single most important feeling or message** you want all your media to convey:\n\n• 🌟 *'A sense of wonder and discovery'*\n• 🛡️ *'Quiet confidence and reliability'* \n• 🎉 *'Effortless family fun'*\n\n**This theme will unify all your creative assets.**"
           },
           {
-            "label": "Define Your Desired Action",
-            "content": "What is the primary action you want the viewer or listener to take after engaging with your media? This will be your 'Call to Action' (e.g., 'Visit our website,' 'Sign up for launch updates')."
+            "label": "🎯 Define Your Desired Action",
+            "content": "**What is the primary action** you want the viewer or listener to take after engaging with your media?\n\n**Your Call to Action could be:**\n• 🌐 *'Visit our website'*\n• 📧 *'Sign up for launch updates'*\n• 📱 *'Download our app'*"
           }
         ]
       },
@@ -97,8 +97,8 @@
         "title": "Visual Identity",
         "items": [
           {
-            "label": "Choose Your Visual Style Archetype",
-            "content": "Your visual style should reflect your brand's personality and core message. Review the archetypes below, then make your selections for **Visual Style** and **Image Perspective** in the form.<br><br><strong>Clean & Minimalist:</strong> Conveys sophistication, order, and expertise. (Pairs well with The Sage, The Ruler).<br><strong>Organic & Natural:</strong> Feels authentic, calming, and wholesome. (Pairs well with The Caregiver, The Innocent, The Everyman).<br><strong>Bold & Dynamic:</strong> Expresses energy, confidence, and innovation. (Pairs well with The Hero, The Explorer, The Rebel).<br><strong>Elegant & Sensual:</strong> Suggests luxury, beauty, and refinement. (Pairs well with The Lover, The Creator).<br><strong>Playful & Vibrant:</strong> Creates joy, fun, and accessibility. (Pairs well with The Jester, The Innocent)."
+            "label": "🎨 Choose Your Visual Style Archetype",
+            "content": "**Your visual style should reflect your brand's personality and core message.** Review the archetypes below, then make your selections for **Visual Style** and **Image Perspective** in the form.\n\n🏛️ **Clean & Minimalist**\nConveys sophistication, order, and expertise\n*Pairs well with The Sage, The Ruler*\n\n🌿 **Organic & Natural**\nFeels authentic, calming, and wholesome\n*Pairs well with The Caregiver, The Innocent, The Everyman*\n\n⚡ **Bold & Dynamic**\nExpresses energy, confidence, and innovation\n*Pairs well with The Hero, The Explorer, The Rebel*\n\n✨ **Elegant & Sensual**\nSuggests luxury, beauty, and refinement\n*Pairs well with The Lover, The Creator*\n\n🎪 **Playful & Vibrant**\nCreates joy, fun, and accessibility\n*Pairs well with The Jester, The Innocent*"
           }
         ]
       },
@@ -107,8 +107,8 @@
         "title": "Audio Identity",
         "items": [
           {
-            "label": "Choose Your Voice Persona Archetype",
-            "content": "Your brand's voice is its personality. This will guide your narration and music. Review the archetypes below, then select one from the form.<br><br><strong>The Sage / Expert:</strong> Wise, knowledgeable, and authoritative. A voice of truth and expertise. (e.g., Google, BBC, National Geographic)<br><br><strong>The Caregiver / Nurturer:</strong> Empathetic, supportive, and reassuring. A voice of comfort and protection. (e.g., Johnson & Johnson, Dove)<br><br><strong>The Hero / Champion:</strong> Motivational, confident, and inspiring. A voice that encourages action and achievement. (e.g., Nike, Under Armour)<br><br><strong>The Everyman / Friend:</strong> Relatable, down-to-earth, and authentic. A voice that feels like a trusted friend. (e.g., Target, Home Depot)<br><br><strong>The Creator / Innovator:</strong> Visionary, expressive, and imaginative. A voice that celebrates creativity and self-expression. (e.g., Apple, Adobe)<br><br><strong>The Explorer / Pioneer:</strong> Adventurous, curious, and bold. A voice that encourages discovery and new experiences. (e.g., Patagonia, National Geographic Expeditions)"
+            "label": "🎙️ Choose Your Voice Persona Archetype",
+            "content": "**Your brand's voice is its personality.** This will guide your narration and music. Review the archetypes below, then select one from the form.\n\n🧠 **The Sage / Expert**\nWise, knowledgeable, and authoritative. A voice of truth and expertise.\n*Examples: Google, BBC, National Geographic*\n\n💝 **The Caregiver / Nurturer**\nEmpathetic, supportive, and reassuring. A voice of comfort and protection.\n*Examples: Johnson & Johnson, Dove*\n\n🏆 **The Hero / Champion**\nMotivational, confident, and inspiring. A voice that encourages action and achievement.\n*Examples: Nike, Under Armour*\n\n👥 **The Everyman / Friend**\nRelatable, down-to-earth, and authentic. A voice that feels like a trusted friend.\n*Examples: Target, Home Depot*\n\n🎨 **The Creator / Innovator**\nVisionary, expressive, and imaginative. A voice that celebrates creativity and self-expression.\n*Examples: Apple, Adobe*\n\n🗺️ **The Explorer / Pioneer**\nAdventurous, curious, and bold. A voice that encourages discovery and new experiences.\n*Examples: Patagonia, National Geographic Expeditions*"
           }
         ]
       },
@@ -117,16 +117,17 @@
         "title": "Select Key Evidence",
         "items": [
           {
-            "label": "Your Task",
-            "content": "Select the single most compelling statistic from your `Science_Evidence.pdf` to use as a credible hook in your narration."
+            "label": "📊 Your Task",
+            "content": "**Select the single most compelling statistic** from your `Science_Evidence.pdf` to use as a credible hook in your narration.\n\n💡 **Pro Tip:** Look for statistics that are:\n• 🎯 **Shocking or surprising**\n• 📈 **Quantifiable and specific**\n• 🔬 **From credible research sources**\n• 💪 **Directly relevant to your solution**"
           }
         ]
       }
     ],
     "action": {
-      "title": "Next Step",
+      "title": "🚀 Next Step",
       "items": [
-        "Once your Creative Brief is decided, complete all the fields in the form below to lock in your direction before proceeding to the Step-by-Step Workflow."
+        "✅ **Once your Creative Brief is decided**, complete all the fields in the form below to **lock in your direction** before proceeding to the Step-by-Step Workflow.",
+        "⏱️ **Time Estimate:** 5-10 minutes for team alignment, then 18 minutes for parallel execution"
       ]
     }
   },
