@@ -83,12 +83,12 @@
         "title": "Core Message & Goal",
         "items": [
           {
-            "label": "💭 Define Your Core Message",
-            "content": "**First, decide on the single most important feeling or message** you want all your media to convey:\n\n• 🌟 *'A sense of wonder and discovery'*\n• 🛡️ *'Quiet confidence and reliability'* \n• 🎉 *'Effortless family fun'*\n\n**This theme will unify all your creative assets.**"
+            "label": "Define Your Core Message",
+            "content": "**First, decide on the single most important feeling or message** you want all your media to convey:\n\n• *'A sense of wonder and discovery'*\n• *'Quiet confidence and reliability'* \n• *'Effortless family fun'*\n\n**This theme will unify all your creative assets.**"
           },
           {
-            "label": "🎯 Define Your Desired Action",
-            "content": "**What is the primary action** you want the viewer or listener to take after engaging with your media?\n\n**Your Call to Action could be:**\n• 🌐 *'Visit our website'*\n• 📧 *'Sign up for launch updates'*\n• 📱 *'Download our app'*"
+            "label": "Define Your Desired Action",
+            "content": "**What is the primary action** you want the viewer or listener to take after engaging with your media?\n\n**Your Call to Action could be:**\n• *'Visit our website'*\n• *'Sign up for launch updates'*\n• *'Download our app'*"
           }
         ]
       },
@@ -117,17 +117,17 @@
         "title": "Select Key Evidence",
         "items": [
           {
-            "label": "📊 Your Task",
-            "content": "**Select the single most compelling statistic** from your `Science_Evidence.pdf` to use as a credible hook in your narration.\n\n💡 **Pro Tip:** Look for statistics that are:\n• 🎯 **Shocking or surprising**\n• 📈 **Quantifiable and specific**\n• 🔬 **From credible research sources**\n• 💪 **Directly relevant to your solution**"
+            "label": "Your Task",
+            "content": "**Select the single most compelling statistic** from your `Science_Evidence.pdf` to use as a credible hook in your narration.\n\n**Pro Tip:** Look for statistics that are:\n• **Shocking or surprising**\n• **Quantifiable and specific**\n• **From credible research sources**\n• **Directly relevant to your solution**"
           }
         ]
       }
     ],
     "action": {
-      "title": "🚀 Next Step",
+      "title": "Next Step",
       "items": [
-        "✅ **Once your Creative Brief is decided**, complete all the fields in the form below to **lock in your direction** before proceeding to the Step-by-Step Workflow.",
-        "⏱️ **Time Estimate:** 5-10 minutes for team alignment, then 18 minutes for parallel execution"
+        "**Once your Creative Brief is decided**, complete all the fields in the form below to **lock in your direction** before proceeding to the Step-by-Step Workflow.",
+        "**Time Estimate:** 5-10 minutes for team alignment, then 18 minutes for parallel execution"
       ]
     }
   },
