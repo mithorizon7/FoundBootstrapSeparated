@@ -91,27 +91,27 @@
   "stepByStepFlow": [
     {
       "step": 1,
-      "action": "**Review Phase 4 Concepts**: Open the `Phase_4_Offer_Concepts.docx` file you generated. As a team, decide on the single 'Hero Concept' you will advance.",
+      "action": "**Review Phase 4 Concepts**: Open the `Phase_4_Offer_Concepts.docx` file you generated. As a team, **decide** on the single **Hero Concept** you will advance.",
       "time": "10 minutes"
     },
     {
       "step": 2,
-      "action": "**Complete the Decision Box Form**: Fill out all the fields above with the details of your chosen Hero Concept (e.g., its code-name, the primary unmet need it solves, etc.).",
+      "action": "**Complete the Decision Box Form**: **Fill out** all the fields above with the details of your chosen **Hero Concept** (e.g., its **code-name**, the **primary unmet need** it solves, etc.).",
       "time": "5 minutes"
     },
     {
       "step": 3,
-      "action": "**Setup the AI Prompt**: Open a new ChatGPT chat and upload the following three documents: `Phase_4_Offer_Concepts.docx`, `Market_Competitors.pdf`, and `competitor_matrix.csv`.<br><small class='text-neutral-600 italic'><strong>Guidance:</strong> Select the o3 model for best results - this will take 1-2 minutes to generate but provides superior analysis quality.</small>",
+      "action": "**Setup the AI Prompt**: **Open** a new ChatGPT chat and **upload** the following three documents: `Phase_4_Offer_Concepts.docx`, `Market_Competitors.pdf`, and `competitor_matrix.csv`.<br><small class='text-neutral-600 italic'><strong>Guidance:</strong> Select the **o3 model** for best results - this will take 1-2 minutes to generate but provides **superior analysis quality**.</small>",
       "time": "1 minute"
     },
     {
       "step": 4,
-      "action": "**Generate the Final Brief**: Copy the prompt from the 'Prompt Preview' section, which now includes all your decisions, and submit it to ChatGPT.",
+      "action": "**Generate the Final Brief**: **Copy** the prompt from the **Prompt Preview** section, which now includes all your decisions, and **submit** it to ChatGPT.",
       "time": "2 minutes"
     },
     {
       "step": 5,
-      "action": "**Save Your Final Deliverable**: Review the AI-generated 'Hero Concept Detailed Brief' for accuracy. Then, copy the output and save it as `Hero_Concept_Detailed_Brief.docx`.<br><small class='text-neutral-600 italic'><strong>Guidance:</strong> Verify that the AI correctly extracted information for your chosen concept and that all strategic decisions are properly reflected in the brief.</small>",
+      "action": "**Save Your Final Deliverable**: **Review** the AI-generated **Hero Concept Detailed Brief** for accuracy. Then, **copy** the output and **save** it as `Hero_Concept_Detailed_Brief.docx`.<br><small class='text-neutral-600 italic'><strong>Guidance:</strong> **Verify** that the AI correctly extracted information for your chosen concept and that all **strategic decisions** are properly reflected in the brief.</small>",
       "time": "2 minutes"
     }
   ],

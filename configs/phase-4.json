@@ -160,22 +160,22 @@
   "stepByStepFlow": [
     {
       "step": 1,
-      "action": "**Setup & Prompting**: Open a new ChatGPT chat, upload the **competitor_matrix.csv**, and paste your **unmet_needs** text into the chat.",
+      "action": "**Setup & Prompting**: **Open** a new ChatGPT chat, **upload** the `competitor_matrix.csv`, and **paste** your **unmet_needs** text into the chat.",
       "time": "1 minute"
     },
     {
       "step": 2,
-      "action": "**Submit Prompt to AI**: Copy the full Phase 4 Prompt from the preview, replace the placeholders with your team's decisions (weights and adjectives), and send it to the AI.",
+      "action": "**Submit Prompt to AI**: **Copy** the full Phase 4 Prompt from the preview, **replace** the placeholders with your team's decisions (**weights** and **adjectives**), and **send** it to the AI.",
       "time": "1 minute"
     },
     {
       "step": 3,
-      "action": "**Generate & Review Concepts**: While the AI works (~3 min), your team can discuss the potential concepts. When the AI returns the **Phase_4_Offer_Concepts.docx**, your task is to review the three options for clarity and plausibility. **Do not make a final decision yet.**",
+      "action": "**Generate & Review Concepts**: While the AI works (~3 min), your team can **discuss** the potential concepts. When the AI returns the `Phase_4_Offer_Concepts.docx`, your task is to **review** the **three options** for clarity and plausibility. **Do not make a final decision yet.**",
       "time": "5 minutes"
     },
     {
       "step": 4,
-      "action": "**Save the Output**: Download the generated document and save it as **Phase_4_Offer_Concepts.docx**. You will use this document to make your final decision in Phase 5.",
+      "action": "**Save the Output**: **Download** the generated document and **save** it as `Phase_4_Offer_Concepts.docx`. You will use this document to make your **final decision** in Phase 5.",
       "time": "30 seconds"
     }
   ],
