@@ -125,15 +125,15 @@
           },
           {
             "number": "2",
-            "action": "**Replace placeholders** with your **evidence horizon**, **tone preference**, and **statistic style**"
+            "action": "**Verify** that your company details from Phase 1 are correctly shown in the prompt preview"
           },
           {
             "number": "3",
-            "action": "**Insert your variables**: **company name**, **sector**, **target region**, and **benefit keyword**"
+            "action": "**Confirm** your research parameters (evidence horizon, tone preference, statistic style) are properly filled in"
           },
           {
             "number": "4",
-            "action": "**Review** the prompt to ensure it captures your **research needs** accurately"
+            "action": "**Review** the complete prompt to ensure it captures your **research needs** accurately"
           }
         ]
       }
