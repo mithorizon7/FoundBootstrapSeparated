@@ -112,12 +112,14 @@ export default function Admin() {
       }
       return response.json();
     },
-    onSuccess: () => {
+    onSuccess: (data, variables) => {
       toast({
         title: "Cohort updated successfully",
         description: "The cohort settings have been updated.",
       });
+      // Invalidate both the general cohorts list and specific cohort data
       queryClient.invalidateQueries({ queryKey: ['/api/admin/cohorts'] });
+      queryClient.invalidateQueries({ queryKey: [`/api/admin/cohorts/${variables.tag}`] });
     },
     onError: (error: Error) => {
       toast({
@@ -462,7 +464,7 @@ export default function Admin() {
                                   <div className="text-sm text-gray-500">
                                     Code: {team.code}
                                     {(team as any).cohortTag && (
-                                      <span className="ml-2 text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                                      <span className="ml-2 text-xs bg-teal-100 text-black hover:bg-teal-600 hover:text-white transition-colors px-2 py-1 rounded cursor-default">
                                         {(team as any).cohortTag}
                                       </span>
                                     )}
@@ -472,7 +474,10 @@ export default function Admin() {
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap">
                               <div className="flex items-center space-x-2">
-                                <Badge variant="secondary" className="bg-primary bg-opacity-10 text-primary">
+                                <Badge 
+                                  variant="secondary" 
+                                  className="bg-teal-100 text-black hover:bg-teal-600 hover:text-white transition-colors cursor-default"
+                                >
                                   Phase {team.currentPhase}
                                 </Badge>
                                 <span className="text-sm text-gray-600">
@@ -733,13 +738,14 @@ export default function Admin() {
                                     <Tooltip>
                                       <TooltipTrigger asChild>
                                         <Switch
+                                          key={`submissions-${cohort.tag}`}
                                           checked={cohort.submissionsOpen}
                                           onCheckedChange={(checked) => updateCohortMutation.mutate({
                                             tag: cohort.tag,
                                             updates: { submissionsOpen: checked }
                                           })}
                                           disabled={updateCohortMutation.isPending}
-                                          className="data-[state=checked]:bg-green-600 data-[state=unchecked]:bg-gray-300"
+                                          className="data-[state=checked]:bg-green-600 data-[state=unchecked]:bg-gray-400 border-2 border-gray-300 data-[state=checked]:border-green-600"
                                         />
                                       </TooltipTrigger>
                                       <TooltipContent>
@@ -757,13 +763,14 @@ export default function Admin() {
                                     <Tooltip>
                                       <TooltipTrigger asChild>
                                         <Switch
+                                          key={`voting-${cohort.tag}`}
                                           checked={cohort.votingOpen}
                                           onCheckedChange={(checked) => updateCohortMutation.mutate({
                                             tag: cohort.tag,
                                             updates: { votingOpen: checked }
                                           })}
                                           disabled={updateCohortMutation.isPending}
-                                          className="data-[state=checked]:bg-green-600 data-[state=unchecked]:bg-gray-300"
+                                          className="data-[state=checked]:bg-green-600 data-[state=unchecked]:bg-gray-400 border-2 border-gray-300 data-[state=checked]:border-green-600"
                                         />
                                       </TooltipTrigger>
                                       <TooltipContent>
