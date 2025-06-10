@@ -11,6 +11,7 @@ import { pool } from "./db";
 import type { User } from "@shared/schema";
 
 const app = express();
+app.set('trust proxy', 1); // Trust first proxy for Replit deployment
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -24,12 +25,15 @@ app.use(session({
     tableName: 'user_sessions', // Table name for session storage
     createTableIfMissing: true, // Automatically create the table if it doesn't exist
   }),
-  secret: process.env.SESSION_SECRET || 'your-session-secret-key-change-in-production',
+  secret: process.env.SESSION_SECRET || require('crypto').randomBytes(32).toString('hex'),
   resave: false,
   saveUninitialized: false,
+  name: 'sessionId', // Custom session name
   cookie: { 
-    secure: process.env.NODE_ENV === 'production', // Secure cookies in production
-    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    secure: false, // Allow cookies over HTTP for Replit deployment
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    sameSite: 'lax'
   }
 }));
 

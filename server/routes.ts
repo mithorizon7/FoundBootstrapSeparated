@@ -9,9 +9,23 @@ import path from "path";
 
 // Admin authentication middleware
 function ensureAuthenticatedAdmin(req: Request, res: Response, next: NextFunction) {
-  if (!req.isAuthenticated() || !req.user || (req.user as any).role !== 'admin') {
-    return res.status(401).json({ message: 'Unauthorized' });
+  console.log('Auth check - isAuthenticated:', req.isAuthenticated(), 'user:', req.user ? { id: (req.user as any).id, role: (req.user as any).role } : null);
+  
+  if (!req.isAuthenticated()) {
+    console.log('Authentication failed: not authenticated');
+    return res.status(401).json({ message: 'Unauthorized - Not authenticated' });
   }
+  
+  if (!req.user) {
+    console.log('Authentication failed: no user object');
+    return res.status(401).json({ message: 'Unauthorized - No user' });
+  }
+  
+  if ((req.user as any).role !== 'admin') {
+    console.log('Authentication failed: wrong role', (req.user as any).role);
+    return res.status(401).json({ message: 'Unauthorized - Invalid role' });
+  }
+  
   next();
 }
 
