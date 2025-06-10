@@ -81,7 +81,7 @@
         "items": [
           {
             "label": "🛠️ Tools & Platform Access",
-            "content": "**Required Platforms:**\n\n🎨 **Track A** (Hero Image): Sora\n🎵 **Track B** (Music): Suno.ai\n🎙️ **Track C** (Narration): ChatGPT + ElevenLabs\n📝 **Track D** (Website Copy): Claude\n📻 **Track E** (Podcast): NotebookLM\n\n**Pre-Check:** Ensure team members have accounts and access to these platforms before beginning."
+            "content": "**Required Platforms:**\n\n🎨 **Track A** (Hero Image): Sora\n🎵 **Track B** (Music): Suno.ai\n🎙️ **Track C** (Narration): Google Gemini 2.5 Pro + ElevenLabs\n📝 **Track D** (Website Copy): Google Gemini 2.5 Pro\n📻 **Track E** (Podcast): NotebookLM\n\n**Pre-Check:** Ensure team members have accounts and access to these platforms before beginning."
           },
           {
             "label": "👥 Team Role Assignment",
@@ -162,13 +162,13 @@
     },
     {
       "step": "6C",
-      "action": "🎙️ **Professional Voiceover** (ChatGPT + ElevenLabs) – 6 min",
+      "action": "🎙️ **Professional Voiceover** (Gemini + ElevenLabs) – 6 min",
       "details": {
         "title": "Script Writing & Voice Generation",
         "steps": [
           {
             "number": "Script Creation",
-            "action": "**ChatGPT Phase:** Use the provided prompt template → Input your selected statistic and pull-quote → Generate 60-second script → Review and refine for natural flow"
+            "action": "**Script Writing (Gemini):** Open Google Gemini 2.5 Pro → Use the provided prompt template → Input your selected statistic and pull-quote → Generate 60-second script → Review and refine for natural flow"
           },
           {
             "number": "Voice Selection", 
@@ -183,7 +183,7 @@
     },
     {
       "step": "6D",
-      "action": "📝 **Website Copywriting** (Claude) – 6 min",
+      "action": "📝 **Website Copywriting** (Gemini) – 6 min",
       "details": {
         "title": "Generate Professional Website Copy",
         "steps": [
@@ -193,11 +193,11 @@
           },
           {
             "number": "Prompt Development",
-            "action": "**Claude Instructions:** Create detailed prompt requesting expert copywriter persona → Specify copy elements needed (headline, sub-headline, body copy, bullet points, call-to-action) → Reference brand adjectives for tone"
+            "action": "Write a detailed prompt for Google Gemini 2.5 Pro requesting expert copywriter persona → Specify copy elements needed (headline, sub-headline, body copy, bullet points, call-to-action) → Reference brand adjectives for tone"
           },
           {
             "number": "Document Upload",
-            "action": "Open Claude → Upload `Hero_Concept_Detailed_Brief.docx` AND `Science_Evidence.pdf` → Submit comprehensive prompt"
+            "action": "**Generate in Gemini:** Open Google Gemini 2.5 Pro → Upload `Hero_Concept_Detailed_Brief.docx` AND `Science_Evidence.pdf` → Submit comprehensive prompt"
           },
           {
             "number": "Content Generation",
