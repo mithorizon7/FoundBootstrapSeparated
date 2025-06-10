@@ -51,7 +51,7 @@
       "placeholder": "e.g., Mid-priced tier: (20–50 USD retail)",
       "required": true,
       "persist": true,
-      "help": "State the price tier for this concept",
+      "help": "State the **price tier** for this concept",
       "tooltip": "Establishes pricing context for all marketing messaging and competitive positioning. This affects how the AI frames value propositions, feature priorities, and customer expectations in your brief."
     }
   ],
