@@ -14,6 +14,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import { Download, Users, Shield, Plus, Settings, Eye, BarChart3, Globe, Vote, Loader2, HelpCircle, Info, BookOpen } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -399,12 +400,18 @@ export default function Admin() {
 
           <CardContent className="p-0">
             <Tabs defaultValue="teams" className="w-full">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="teams" className="flex items-center space-x-2">
+              <TabsList className="grid w-full grid-cols-2 h-12 p-1 bg-gray-100">
+                <TabsTrigger 
+                  value="teams" 
+                  className="flex items-center space-x-2 data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-primary font-medium transition-all"
+                >
                   <Users className="w-4 h-4" />
                   <span>Teams</span>
                 </TabsTrigger>
-                <TabsTrigger value="cohorts" className="flex items-center space-x-2">
+                <TabsTrigger 
+                  value="cohorts" 
+                  className="flex items-center space-x-2 data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-primary font-medium transition-all"
+                >
                   <Globe className="w-4 h-4" />
                   <span>Cohorts</span>
                 </TabsTrigger>
@@ -719,24 +726,20 @@ export default function Admin() {
                               <div className="space-y-3">
                                 <div className="flex items-center justify-between">
                                   <span className="text-sm font-medium text-gray-700">Submissions</span>
-                                  <div className="flex items-center space-x-2">
-                                    <Badge variant={cohort.submissionsOpen ? "default" : "secondary"}>
+                                  <div className="flex items-center space-x-3">
+                                    <span className={`text-xs font-medium ${cohort.submissionsOpen ? 'text-green-700' : 'text-gray-500'}`}>
                                       {cohort.submissionsOpen ? "Open" : "Closed"}
-                                    </Badge>
+                                    </span>
                                     <Tooltip>
                                       <TooltipTrigger asChild>
-                                        <Button
-                                          variant="ghost"
-                                          size="sm"
-                                          onClick={() => updateCohortMutation.mutate({
+                                        <Switch
+                                          checked={cohort.submissionsOpen}
+                                          onCheckedChange={(checked) => updateCohortMutation.mutate({
                                             tag: cohort.tag,
-                                            updates: { submissionsOpen: !cohort.submissionsOpen }
+                                            updates: { submissionsOpen: checked }
                                           })}
                                           disabled={updateCohortMutation.isPending}
-                                          className="h-6 w-6 p-0"
-                                        >
-                                          <Settings className="w-3 h-3" />
-                                        </Button>
+                                        />
                                       </TooltipTrigger>
                                       <TooltipContent>
                                         <p>Toggle submissions {cohort.submissionsOpen ? 'off' : 'on'} for this cohort</p>
@@ -746,24 +749,20 @@ export default function Admin() {
                                 </div>
                                 <div className="flex items-center justify-between">
                                   <span className="text-sm font-medium text-gray-700">Voting</span>
-                                  <div className="flex items-center space-x-2">
-                                    <Badge variant={cohort.votingOpen ? "default" : "secondary"}>
+                                  <div className="flex items-center space-x-3">
+                                    <span className={`text-xs font-medium ${cohort.votingOpen ? 'text-green-700' : 'text-gray-500'}`}>
                                       {cohort.votingOpen ? "Open" : "Closed"}
-                                    </Badge>
+                                    </span>
                                     <Tooltip>
                                       <TooltipTrigger asChild>
-                                        <Button
-                                          variant="ghost"
-                                          size="sm"
-                                          onClick={() => updateCohortMutation.mutate({
+                                        <Switch
+                                          checked={cohort.votingOpen}
+                                          onCheckedChange={(checked) => updateCohortMutation.mutate({
                                             tag: cohort.tag,
-                                            updates: { votingOpen: !cohort.votingOpen }
+                                            updates: { votingOpen: checked }
                                           })}
                                           disabled={updateCohortMutation.isPending}
-                                          className="h-6 w-6 p-0"
-                                        >
-                                          <Settings className="w-3 h-3" />
-                                        </Button>
+                                        />
                                       </TooltipTrigger>
                                       <TooltipContent>
                                         <p>Toggle voting {cohort.votingOpen ? 'off' : 'on'} for this cohort</p>
