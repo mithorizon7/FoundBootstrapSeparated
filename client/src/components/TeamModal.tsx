@@ -114,7 +114,7 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
               className="w-10 h-10 object-contain"
             />
           </div>
-          <DialogTitle className="text-xl sm:text-2xl font-bold page-title">Welcome to Found-in-Two</DialogTitle>
+          <DialogTitle className="text-xl sm:text-2xl font-bold text-neutral-800">Welcome to Found-in-Two</DialogTitle>
           <DialogDescription>
             Create or join a team to get started with your startup journey
           </DialogDescription>

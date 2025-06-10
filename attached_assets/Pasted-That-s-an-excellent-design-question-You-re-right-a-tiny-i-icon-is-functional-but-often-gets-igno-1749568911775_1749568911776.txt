@@ -1,0 +1,68 @@
+That's an excellent design question. You're right, a tiny 'i' icon is functional but often gets ignored. Making the tooltips more inviting is key to encouraging users to access the helpful guidance you've written.
+
+Here are several ways you could instruct your AI Coder to improve the tooltips visually, from simple to more advanced.
+
+---
+
+### **Instructions for AI Coder: Enhancing Tooltip Visibility and Engagement**
+
+**High-Level Goal:**
+
+Our current tooltips are represented by a subtle info icon. We need to evolve this design to be more visually engaging and inviting, encouraging users to interact with them to get helpful guidance. The solution should be implemented centrally in `FoundInTwo/client/src/components/Field.tsx` to apply site-wide.
+
+---
+
+### **Recommendation 1: Change the Icon's Connotation**
+
+The "info" icon implies simple information. We can use an icon that suggests a "helpful hint" or "bright idea."
+
+* **Action:** In `Field.tsx`, replace the `<Info />` icon from `lucide-react` with the `<Lightbulb />` icon.
+* **Why:** A lightbulb changes the feeling from "Here is some information" to "Here is a helpful idea," which is much more inviting.
+
+### **Recommendation 2: Increase the Icon's Visual Presence**
+
+A plain icon can blend into the background. Giving it a subtle container makes it look more like a distinct, interactive element.
+
+* **Action:** Wrap the new `<Lightbulb />` icon in a `<span>` and apply styling to give it a circular background.
+* **Example Code Snippet:**
+
+    ```tsx
+    // Replace the simple icon element with this styled version
+    <span className="bg-neutral-100 rounded-full p-1 cursor-help">
+      <Lightbulb className="w-4 h-4 text-neutral-500" />
+    </span>
+    ```
+
+### **Recommendation 3: Add an Engaging Hover Effect**
+
+A dynamic hover effect provides clear feedback that the element is interactive and draws the user in.
+
+* **Action:** Add transition and hover state classes to the `<span>` and icon.
+* **Example Code Snippet (Combining with Recommendation 2):**
+
+    ```tsx
+    <span className="bg-neutral-100 rounded-full p-1 cursor-help transition-all duration-200 hover:bg-primary-100 hover:scale-110">
+      <Lightbulb className="w-4 h-4 text-neutral-500 transition-colors group-hover:text-primary-600" />
+    </span>
+    ```
+    *This will make the circle change color and grow slightly when the user hovers over it.*
+
+### **Recommendation 4: Polish the Tooltip Content**
+
+Carry the improved design into the tooltip content itself for a professional, cohesive feel.
+
+* **Action:** When defining the `TooltipContent`, include the icon inside it.
+* **Example (Conceptual):**
+
+    ```tsx
+    <TooltipContent>
+      <div className="flex items-start gap-2">
+        <Lightbulb className="w-4 h-4 text-primary-500 mt-1" />
+        <p className="text-sm">
+          {tooltip}
+        </p>
+      </div>
+    </TooltipContent>
+    ```
+
+By implementing these changes, the tooltips will transform from a passive, easily missed feature into a friendly and engaging part of the user experience, actively encouraging users to discover the valuable guidance you've provided.
