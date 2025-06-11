@@ -130,7 +130,7 @@ describe('Suite 1: Team Authentication & Session Management', () => {
   it('Test 1.2: Failed Login with Invalid Token', async () => {
     const response = await request(app)
       .post('/api/auth/team/login')
-      .send({ accessToken: 'invalid_token_12345' });
+      .send({ access_token: 'invalid_token_12345' });
     
     expect(response.status).toBe(401);
     expect(response.body).toHaveProperty('message');
@@ -140,7 +140,7 @@ describe('Suite 1: Team Authentication & Session Management', () => {
     // First login
     const loginResponse = await request(app)
       .post('/api/auth/team/login')
-      .send({ accessToken: TEST_TEAMS[0].accessToken });
+      .send({ access_token: TEST_TEAMS[0].accessToken });
     
     const sessionCookie = extractSessionCookie(loginResponse);
     
@@ -150,7 +150,7 @@ describe('Suite 1: Team Authentication & Session Management', () => {
       .set('Cookie', sessionCookie);
     
     expect(logoutResponse.status).toBe(200);
-    expect(logoutResponse.body).toHaveProperty('success', true);
+    expect(logoutResponse.body).toHaveProperty('message', 'Team logout successful');
   });
 });
 
