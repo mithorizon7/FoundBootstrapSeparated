@@ -10,6 +10,7 @@ export const teams = pgTable("teams", {
   currentPhase: integer("current_phase").notNull().default(1),
   submittedWebsiteUrl: text("submitted_website_url"),
   cohortTag: text("cohort_tag"),
+  accessToken: text("access_token").notNull().unique(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 }, (table) => ({

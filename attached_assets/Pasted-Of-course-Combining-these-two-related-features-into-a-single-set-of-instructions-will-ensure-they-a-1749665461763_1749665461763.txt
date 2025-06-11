@@ -1,0 +1,88 @@
+Of course. Combining these two related features into a single set of instructions will ensure they are built cohesively.
+
+The "Switch Team" button is essentially a "logout" function for the team session, which pairs perfectly with the new "login" mechanism provided by the "Persistent Secure Link."
+
+Here is the complete, combined set of instructions for your AI Coder.
+
+---
+
+### **Instructions for AI Coder: Implement Secure Team Sessions & "Switch Team" Functionality**
+
+**High-Level Goal:**
+
+Your task is to implement a new, secure team authentication system using a "Persistent Secure Link" and add a "Switch Team" feature to the UI. This will solve two problems at once: it will fix the security vulnerability for voting, and it will fix the user experience issue for multiple teams using a shared computer.
+
+---
+
+### **Step 1: Database Schema Change**
+
+**File to Edit:** `FoundInTwo/shared/schema.ts`
+
+* **Action:** Add a new `access_token` column to the `teams` table to store each team's unique secret token. This token will act as their permanent, password-less login key.
+
+* **Code:**
+    ```typescript
+    export const teams = pgTable("teams", {
+      // ... all existing columns
+      access_token: text("access_token").notNull().unique(),
+      // ... other columns
+    });
+    ```
+
+---
+
+### **Step 2: Backend API & Authentication Changes**
+
+**Files to Edit:** `FoundInTwo/server/storage.ts` and `FoundInTwo/server/routes.ts`
+
+1.  **On Team Creation:**
+    * In `storage.ts`, update the `createTeam` function to generate a secure, random token (e.g., using Node's `crypto.randomUUID()`) and save it to the new `access_token` column for every new team.
+
+2.  **Expose the Token:**
+    * In `storage.ts`, ensure the `getTeamByCode` function returns the `access_token` along with the other team data. The `/api/teams/:code` route in `routes.ts` should pass this full team object to the client.
+
+3.  **Create Team Authentication Endpoints:**
+    * In `routes.ts`, create two new endpoints for handling team sessions:
+        * `POST /api/auth/team/login`: This endpoint will receive an `access_token`, find the matching team, and create a secure server-side session for that `team_id` (e.g., `req.session.teamId = team.id`).
+        * `POST /api/auth/team/logout`: This endpoint will destroy the current team session (e.g., `req.session.destroy()`).
+
+4.  **Protect the Voting Route:**
+    * In `routes.ts`, create a new middleware function `ensureAuthenticatedTeam` that checks if `req.session.teamId` exists.
+    * Apply this middleware to the `POST /api/showcase/:cohortTag/vote` route.
+    * Update the vote submission logic to get the `voting_team_id` from the secure `req.session.teamId`, **not** from the request body.
+
+---
+
+### **Step 3: Frontend UI & Logic Changes**
+
+1.  **Implement Session Login (`App.tsx`):**
+    * In `FoundInTwo/client/src/App.tsx`, add a `useEffect` hook that runs when the app first loads.
+    * This hook must check if a `token` exists in the URL's query parameters. If it does, it should immediately make a `POST` request to the new `/api/auth/team/login` endpoint to establish a secure session.
+
+2.  **Add the "Switch Team" Button (`NavigationHeader.tsx`):**
+    * In `FoundInTwo/client/src/components/NavigationHeader.tsx`, add a new `DropdownMenuItem` to the "Account" menu.
+    * Create a `handleSwitchTeam` function for the button's `onClick` event. This function should call the new `POST /api/auth/team/logout` endpoint and, upon success, redirect the user to the homepage (`setLocation('/')`).
+
+3.  **Display the Persistent Link (`PhasePage.tsx`):**
+    * On the Phase 8 page, add a new UI element to the "Submit Your Deployed Website" card to permanently display that team's unique and secure URL.
+
+    * **Example JSX to Add to the Phase 8 Card:**
+        ```tsx
+        {teamData?.access_token && (
+          <div className="mt-6 pt-4 border-t">
+            <Label htmlFor="secure-link" className="text-base font-semibold text-neutral-800">
+              Your Team's Permanent Secure Link
+            </Label>
+            <p className="text-sm text-neutral-600 mt-1 mb-2">
+              Bookmark this link! This is the best way to access your team's work if you switch computers or clear your browser cache.
+            </p>
+            <Input
+              id="secure-link"
+              type="text"
+              readOnly
+              value={`${window.location.origin}/phase/1?team_id=${teamData.code}&token=${teamData.access_token}`}
+              className="font-mono text-sm"
+            />
+          </div>
+        )}
+        ```
