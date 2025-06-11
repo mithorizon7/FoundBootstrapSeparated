@@ -394,8 +394,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Public endpoint to check cohort status
+  app.get("/api/cohorts/:cohortTag/status", async (req, res) => {
+    try {
+      const cohort = await storage.getCohortByTag(req.params.cohortTag);
+      if (!cohort) {
+        return res.status(404).json({ message: "Cohort not found" });
+      }
+      
+      res.json({
+        tag: cohort.tag,
+        name: cohort.name,
+        submissionsOpen: cohort.submissionsOpen,
+        votingOpen: cohort.votingOpen,
+        resultsVisible: cohort.resultsVisible
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching cohort status" });
+    }
+  });
+
   app.get("/api/showcase/:cohortTag/results", async (req, res) => {
     try {
+      // First check if results are visible for this cohort
+      const cohort = await storage.getCohortByTag(req.params.cohortTag);
+      if (!cohort) {
+        return res.status(404).json({ message: "Cohort not found" });
+      }
+      
+      if (!cohort.resultsVisible) {
+        return res.status(403).json({ message: "Results are not yet available" });
+      }
+      
       const results = await storage.getVotingResults(req.params.cohortTag);
       res.json(results);
     } catch (error) {

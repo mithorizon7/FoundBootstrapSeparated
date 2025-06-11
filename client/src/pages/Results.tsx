@@ -18,23 +18,23 @@ export default function Results() {
   const { cohortTag } = useParams();
 
   const { data: cohort } = useQuery<Cohort>({
-    queryKey: ['/api/admin/cohorts', cohortTag],
+    queryKey: ['/api/cohorts', cohortTag, 'status'],
     queryFn: async () => {
-      const response = await fetch(`/api/admin/cohorts/${cohortTag}`);
+      const response = await fetch(`/api/cohorts/${cohortTag}/status`);
       if (!response.ok) throw new Error('Failed to fetch cohort');
       return response.json();
     },
     enabled: !!cohortTag,
   });
 
-  const { data: results = [], isLoading } = useQuery<VotingResult[]>({
+  const { data: results = [], isLoading, error } = useQuery<VotingResult[]>({
     queryKey: ['/api/showcase', cohortTag, 'results'],
     queryFn: async () => {
       const response = await fetch(`/api/showcase/${cohortTag}/results`);
       if (!response.ok) throw new Error('Failed to fetch results');
       return response.json();
     },
-    enabled: !!cohortTag,
+    enabled: !!cohortTag && (cohort as any)?.resultsVisible === true,
   });
 
   const { data: teams = [] } = useQuery<Team[]>({

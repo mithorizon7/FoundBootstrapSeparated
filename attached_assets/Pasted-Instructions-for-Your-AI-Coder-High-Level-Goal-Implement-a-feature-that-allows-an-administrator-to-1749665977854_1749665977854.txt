@@ -1,0 +1,57 @@
+Instructions for Your AI Coder
+
+High-Level Goal:
+Implement a feature that allows an administrator to control when the voting results for a cohort are visible to the teams. The results must remain hidden until the admin explicitly reveals them, ensuring a fair and synchronized announcement for all participants.
+
+Step 1: Database Schema Change
+
+File to Edit: FoundInTwo/shared/schema.ts
+
+Action: In the cohorts table, add a new boolean column to track the visibility of the results.
+
+Code to Add:
+
+TypeScript
+export const cohorts = pgTable("cohorts", {
+  // ... all existing columns
+  results_visible: boolean("results_visible").notNull().default(false),
+  // ... other columns
+});
+Step 2: Backend API Change
+
+File to Edit: FoundInTwo/server/routes.ts
+
+Action: The /api/showcase/:cohortTag/results endpoint must be protected. Before fetching the results, it must first check the cohort's results_visible status.
+
+Logic:
+
+Inside the route handler, first fetch the cohort data using storage.getCohortByTag(req.params.cohortTag).
+Check if cohort.results_visible is true.
+If it is false, return a 403 Forbidden status with a message like "Results are not yet available."
+If it is true, proceed with fetching and returning the voting results as it does now.
+Step 3: Frontend UI Changes
+
+1. Add the Admin Control
+
+File to Edit: FoundInTwo/client/src/pages/Admin.tsx
+
+Action: On the "Cohorts" tab, inside each cohort's card, add a new button or switch labeled "Reveal Results".
+Logic:
+This button's state should reflect the results_visible flag.
+When the admin clicks it, it should send a PATCH request to the /api/admin/cohorts/:cohortTag endpoint with the body { results_visible: true }.
+This is the same pattern already used for the "Submissions Open" and "Voting Open" switches.
+2. Update the Results Page
+
+File to Edit: FoundInTwo/client/src/pages/Results.tsx
+
+Action: The page must now check if results are visible before trying to display them.
+
+Logic:
+
+The component should first fetch the status of the cohort itself (e.g., by calling /api/admin/cohorts/:cohortTag—this route may need to be made accessible to non-admins, or you can create a new public /api/cohorts/:cohortTag/status endpoint).
+Use the result of this initial fetch to conditionally render the page content.
+If cohort.results_visible is true: Enable the useQuery hook that fetches the voting results and display the leaderboard as it does now.
+If cohort.results_visible is false: Keep the results query disabled and instead display a holding message, such as:
+"The results are not yet available. The final votes are being tallied. Please check back later!"
+
+With these changes, the workflow will be exactly as you intended. The results will be hidden by default, and only when the administrator clicks the "Reveal Results" button will the page become visible to all teams simultaneously.
