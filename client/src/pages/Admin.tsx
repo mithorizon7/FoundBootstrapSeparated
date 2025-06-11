@@ -443,7 +443,7 @@ export default function Admin() {
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Download all team data including progress, phase completion, and timestamps as a CSV file</p>
+                    <p>Export comprehensive team data including phase progress, cohort assignments, secure access tokens, and submission status for backup and analysis</p>
                   </TooltipContent>
                 </Tooltip>
               </div>
@@ -575,7 +575,7 @@ export default function Admin() {
                             </DialogTrigger>
                           </TooltipTrigger>
                           <TooltipContent>
-                            <p>Add teams to existing cohorts for collaboration and voting activities</p>
+                            <p>Assign teams to cohorts for showcase and voting phases. Teams can only belong to one cohort at a time.</p>
                           </TooltipContent>
                         </Tooltip>
                         <DialogContent className="max-w-2xl">
@@ -663,7 +663,7 @@ export default function Admin() {
                                     <Info className="w-4 h-4 text-gray-400 cursor-help" />
                                   </TooltipTrigger>
                                   <TooltipContent>
-                                    <p>Unique identifier for this cohort. Cannot be changed after creation.<br/>Use lowercase letters, numbers, and hyphens only.</p>
+                                    <p>Permanent unique identifier for this cohort. Cannot be changed after creation.<br/>Use lowercase letters, numbers, and hyphens only (e.g., "fall-2024", "cohort-a").</p>
                                   </TooltipContent>
                                 </Tooltip>
                               </div>
@@ -682,7 +682,7 @@ export default function Admin() {
                                     <Info className="w-4 h-4 text-gray-400 cursor-help" />
                                   </TooltipTrigger>
                                   <TooltipContent>
-                                    <p>Descriptive name displayed to users and in the interface</p>
+                                    <p>Display name shown to teams and administrators throughout the interface (e.g., "Fall 2024 Cohort", "Advanced Track").</p>
                                   </TooltipContent>
                                 </Tooltip>
                               </div>
@@ -701,7 +701,7 @@ export default function Admin() {
                                     <Info className="w-4 h-4 text-gray-400 cursor-help" />
                                   </TooltipTrigger>
                                   <TooltipContent>
-                                    <p>Optional description to help identify the purpose or scope of this cohort</p>
+                                    <p>Optional description to help identify the purpose, timing, or special characteristics of this cohort group.</p>
                                   </TooltipContent>
                                 </Tooltip>
                               </div>
