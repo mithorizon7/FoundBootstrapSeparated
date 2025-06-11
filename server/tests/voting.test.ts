@@ -1,8 +1,7 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import request from 'supertest';
 import { Express } from 'express';
-import express from 'express';
-import { registerRoutes } from '../routes';
+import { createTestApp } from './test-setup';
 import { storage } from '../storage';
 import { db } from '../db';
 import { teams, cohorts, users, votes } from '../../shared/schema';
@@ -54,7 +53,7 @@ async function loginAsAdmin(): Promise<string> {
 async function loginAsTeam(accessToken: string): Promise<string> {
   const response = await request(app)
     .post('/api/auth/team/login')
-    .send({ accessToken });
+    .send({ access_token: accessToken });
   
   expect(response.status).toBe(200);
   return extractSessionCookie(response);
@@ -62,8 +61,9 @@ async function loginAsTeam(accessToken: string): Promise<string> {
 
 beforeAll(async () => {
   // Setup Express app for testing
-  app = express();
-  server = await registerRoutes(app);
+  const testSetup = await createTestApp();
+  app = testSetup.app;
+  server = testSetup.server;
   
   // Clean up any existing test data
   await db.delete(votes).where(eq(votes.cohortTag, TEST_COHORT_TAG));
@@ -117,10 +117,10 @@ describe('Suite 1: Team Authentication & Session Management', () => {
   it('Test 1.1: Successful Login with Token', async () => {
     const response = await request(app)
       .post('/api/auth/team/login')
-      .send({ accessToken: TEST_TEAMS[0].accessToken });
+      .send({ access_token: TEST_TEAMS[0].accessToken });
     
     expect(response.status).toBe(200);
-    expect(response.body).toHaveProperty('success', true);
+    expect(response.body).toHaveProperty('message', 'Team login successful');
     
     // Check that session cookie is set
     const sessionCookie = extractSessionCookie(response);
