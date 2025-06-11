@@ -1,10 +1,14 @@
 import { useParams } from "wouter";
 import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import confetti from "canvas-confetti";
 import { NavigationHeader } from "@/components/NavigationHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { Trophy, Medal, Award, ExternalLink } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Trophy, Medal, Award, ExternalLink, PartyPopper } from "lucide-react";
 import type { Cohort, Team } from "@shared/schema";
 
 interface VotingResult {
@@ -16,6 +20,9 @@ interface VotingResult {
 
 export default function Results() {
   const { cohortTag } = useParams();
+  const [isRevealed, setIsRevealed] = useState(false);
+  const [revealStep, setRevealStep] = useState(0);
+  const [animatedScores, setAnimatedScores] = useState<Record<number, number>>({});
 
   const { data: cohort } = useQuery<Cohort>({
     queryKey: ['/api/cohorts', cohortTag, 'status'],
@@ -50,6 +57,52 @@ export default function Results() {
   const getTeamWebsite = (teamId: number): string | null => {
     const team = teams.find(t => t.id === teamId);
     return team?.submittedWebsiteUrl || null;
+  };
+
+  const triggerConfetti = () => {
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+  };
+
+  const animateScore = (teamId: number, finalScore: number) => {
+    const duration = 1500; // 1.5 seconds
+    const steps = 30;
+    const increment = finalScore / steps;
+    let currentScore = 0;
+    let step = 0;
+
+    const timer = setInterval(() => {
+      step++;
+      currentScore = Math.min(Math.round(increment * step), finalScore);
+      setAnimatedScores(prev => ({ ...prev, [teamId]: currentScore }));
+      
+      if (step >= steps) {
+        clearInterval(timer);
+      }
+    }, duration / steps);
+  };
+
+  const handleReveal = async () => {
+    setIsRevealed(true);
+    triggerConfetti();
+    
+    // Animate in the podium positions with delays
+    setTimeout(() => setRevealStep(1), 500);  // 3rd place
+    setTimeout(() => setRevealStep(2), 1000); // 2nd place
+    setTimeout(() => {
+      setRevealStep(3); // 1st place
+      triggerConfetti(); // Second confetti burst for winner
+      
+      // Start score animations for top 3
+      if (results.length > 0) {
+        results.slice(0, 3).forEach((result, index) => {
+          setTimeout(() => animateScore(result.teamId, result.totalPoints), index * 200);
+        });
+      }
+    }, 1500);
   };
 
   const getRankIcon = (position: number) => {
@@ -164,43 +217,155 @@ export default function Results() {
               </p>
             </CardContent>
           </Card>
+        ) : !isRevealed ? (
+          <div className="text-center py-16">
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ duration: 0.6 }}
+              className="max-w-md mx-auto"
+            >
+              <div className="mb-8">
+                <PartyPopper className="w-16 h-16 text-primary mx-auto mb-4" />
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">The Moment You've Been Waiting For</h2>
+                <p className="text-gray-600">All votes have been counted. Are you ready to see who won?</p>
+              </div>
+              <Button
+                onClick={handleReveal}
+                size="lg"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                🏆 And the winners are...
+              </Button>
+            </motion.div>
+          </div>
         ) : (
           <div className="space-y-6">
-            {/* Podium for top 3 */}
+            {/* Visual Podium for top 3 */}
             {results.length >= 3 && (
-              <Card className="bg-gradient-to-r from-yellow-50 to-orange-50 border-yellow-200">
+              <Card className="bg-gradient-to-r from-yellow-50 to-orange-50 border-yellow-200 overflow-hidden">
                 <CardHeader>
-                  <CardTitle className="text-center text-2xl">🏆 Top 3 Winners</CardTitle>
+                  <CardTitle className="text-center text-3xl font-bold text-gray-800">🏆 Championship Podium</CardTitle>
                 </CardHeader>
                 <CardContent>
+                  <div className="relative flex items-end justify-center space-x-4 mb-8" style={{ height: '400px' }}>
+                    {/* 2nd Place - Left */}
+                    <AnimatePresence>
+                      {revealStep >= 2 && (
+                        <motion.div
+                          initial={{ x: -200, opacity: 0 }}
+                          animate={{ x: 0, opacity: 1 }}
+                          transition={{ duration: 0.8, ease: "easeOut" }}
+                          className="relative flex flex-col items-center"
+                        >
+                          <div className="w-32 h-40 bg-gradient-to-t from-gray-400 to-gray-300 border-2 border-gray-500 rounded-t-lg flex items-center justify-center mb-2">
+                            <span className="text-white font-bold text-xl">2nd</span>
+                          </div>
+                          <motion.div
+                            initial={{ y: 20, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: 0.3, duration: 0.5 }}
+                            className="bg-white p-4 rounded-lg shadow-lg border-2 border-gray-300 text-center min-w-40"
+                          >
+                            <Medal className="w-8 h-8 text-gray-500 mx-auto mb-2" />
+                            <h3 className="font-bold text-lg mb-2">{results[1]?.teamName}</h3>
+                            <Badge variant="secondary" className="mb-2 text-lg font-bold">
+                              {animatedScores[results[1]?.teamId] !== undefined 
+                                ? animatedScores[results[1]?.teamId] 
+                                : results[1]?.totalPoints} pts
+                            </Badge>
+                          </motion.div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
+                    {/* 1st Place - Center */}
+                    <AnimatePresence>
+                      {revealStep >= 3 && (
+                        <motion.div
+                          initial={{ y: -200, opacity: 0, scale: 0.8 }}
+                          animate={{ y: 0, opacity: 1, scale: 1 }}
+                          transition={{ duration: 1, ease: "easeOut" }}
+                          className="relative flex flex-col items-center"
+                        >
+                          <div className="w-36 h-52 bg-gradient-to-t from-yellow-500 to-yellow-300 border-2 border-yellow-600 rounded-t-lg flex items-center justify-center mb-2 shadow-lg">
+                            <span className="text-yellow-900 font-bold text-2xl">1st</span>
+                          </div>
+                          <motion.div
+                            initial={{ y: 20, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: 0.3, duration: 0.5 }}
+                            className="bg-white p-6 rounded-lg shadow-2xl border-2 border-yellow-400 text-center min-w-44 relative animate-pulse"
+                            style={{ 
+                              boxShadow: '0 0 30px rgba(251, 191, 36, 0.6)'
+                            }}
+                          >
+                            <Trophy className="w-10 h-10 text-yellow-500 mx-auto mb-3" />
+                            <h3 className="font-bold text-xl mb-3 text-yellow-900">{results[0]?.teamName}</h3>
+                            <Badge className="mb-3 text-xl font-bold bg-yellow-500 text-yellow-900">
+                              {animatedScores[results[0]?.teamId] !== undefined 
+                                ? animatedScores[results[0]?.teamId] 
+                                : results[0]?.totalPoints} pts
+                            </Badge>
+                          </motion.div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+
+                    {/* 3rd Place - Right */}
+                    <AnimatePresence>
+                      {revealStep >= 1 && (
+                        <motion.div
+                          initial={{ x: 200, opacity: 0 }}
+                          animate={{ x: 0, opacity: 1 }}
+                          transition={{ duration: 0.8, ease: "easeOut" }}
+                          className="relative flex flex-col items-center"
+                        >
+                          <div className="w-28 h-28 bg-gradient-to-t from-amber-600 to-amber-400 border-2 border-amber-700 rounded-t-lg flex items-center justify-center mb-2">
+                            <span className="text-amber-900 font-bold text-lg">3rd</span>
+                          </div>
+                          <motion.div
+                            initial={{ y: 20, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ delay: 0.3, duration: 0.5 }}
+                            className="bg-white p-4 rounded-lg shadow-lg border-2 border-amber-300 text-center min-w-36"
+                          >
+                            <Award className="w-8 h-8 text-amber-600 mx-auto mb-2" />
+                            <h3 className="font-bold text-lg mb-2">{results[2]?.teamName}</h3>
+                            <Badge variant="outline" className="mb-2 text-lg font-bold border-amber-600 text-amber-700">
+                              {animatedScores[results[2]?.teamId] !== undefined 
+                                ? animatedScores[results[2]?.teamId] 
+                                : results[2]?.totalPoints} pts
+                            </Badge>
+                          </motion.div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Website links for top 3 */}
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {results.slice(0, 3).map((result, index) => {
-                      const position = index + 1;
                       const website = getTeamWebsite(result.teamId);
-                      return (
-                        <div key={result.teamId} className="text-center">
-                          <div className="flex justify-center mb-3">
-                            {getRankIcon(position)}
-                          </div>
-                          <h3 className="font-semibold text-lg mb-2">{result.teamName}</h3>
-                          <Badge variant={getRankBadgeVariant(position)} className="mb-3">
-                            {result.totalPoints} points
-                          </Badge>
-                          {website && (
-                            <div>
-                              <a
-                                href={website}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="inline-flex items-center space-x-1 text-primary hover:text-primary-dark text-sm"
-                              >
-                                <ExternalLink className="w-3 h-3" />
-                                <span>View Website</span>
-                              </a>
-                            </div>
-                          )}
-                        </div>
-                      );
+                      return website ? (
+                        <motion.div
+                          key={result.teamId}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: 2 + index * 0.2 }}
+                          className="text-center"
+                        >
+                          <a
+                            href={website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center space-x-2 bg-primary text-primary-foreground px-4 py-2 rounded-lg hover:bg-primary/90 transition-colors"
+                          >
+                            <ExternalLink className="w-4 h-4" />
+                            <span>Visit {result.teamName}</span>
+                          </a>
+                        </motion.div>
+                      ) : null;
                     })}
                   </div>
                 </CardContent>
