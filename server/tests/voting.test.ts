@@ -21,7 +21,8 @@ const TEST_ADMIN = {
 const TEST_TEAMS = [
   { name: 'TeamA', code: 'TEAM_A_CODE', accessToken: 'test_token_team_a_12345' },
   { name: 'TeamB', code: 'TEAM_B_CODE', accessToken: 'test_token_team_b_12345' },
-  { name: 'TeamC', code: 'TEAM_C_CODE', accessToken: 'test_token_team_c_12345' }
+  { name: 'TeamC', code: 'TEAM_C_CODE', accessToken: 'test_token_team_c_12345' },
+  { name: 'TeamD', code: 'TEAM_D_CODE', accessToken: 'test_token_team_d_12345' }
 ];
 
 // Helper function to get session cookie
@@ -76,7 +77,7 @@ beforeAll(async () => {
   await storage.createUser({
     username: TEST_ADMIN.username,
     password: hashedPassword,
-    isAdmin: true
+    role: 'admin'
   });
   
   // Create test cohort
@@ -246,16 +247,18 @@ describe('Suite 3: Voting Logic and Security', () => {
     const teamA = await storage.getTeamByAccessToken(TEST_TEAMS[0].accessToken);
     const teamB = await storage.getTeamByAccessToken(TEST_TEAMS[1].accessToken);
     const teamC = await storage.getTeamByAccessToken(TEST_TEAMS[2].accessToken);
+    const teamD = await storage.getTeamByAccessToken(TEST_TEAMS[3].accessToken);
     
-    // Submit vote as TeamA
+    // Submit vote as TeamA (need 3 unique teams for valid vote)
     const teamCookie = await loginAsTeam(TEST_TEAMS[0].accessToken);
     const response = await request(app)
       .post(`/api/showcase/${TEST_COHORT_TAG}/vote`)
       .set('Cookie', teamCookie)
       .send({
         votes: [
-          { teamId: teamB!.id, rank: 1 },
-          { teamId: teamC!.id, rank: 2 }
+          { voted_for_team_id: teamB!.id, rank: 1 },
+          { voted_for_team_id: teamC!.id, rank: 2 },
+          { voted_for_team_id: teamD!.id, rank: 3 }
         ]
       });
     
