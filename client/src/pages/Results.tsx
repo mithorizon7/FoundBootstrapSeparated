@@ -94,7 +94,7 @@ export default function Results() {
     );
   }
 
-  if (isLoading) {
+  if (isLoading || !cohort) {
     return (
       <div className="min-h-screen bg-gray-50">
         <NavigationHeader />
@@ -102,6 +102,38 @@ export default function Results() {
           <div className="flex items-center justify-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
           </div>
+        </main>
+      </div>
+    );
+  }
+
+  // Check if results are visible
+  if (!(cohort as any)?.resultsVisible) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <NavigationHeader />
+        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              Voting Results: {cohort?.name}
+            </h1>
+            <p className="text-gray-600">
+              Final voting results for the cohort showcase competition.
+            </p>
+          </div>
+          <Card>
+            <CardContent className="text-center py-12">
+              <div className="mb-4">
+                <svg className="w-16 h-16 text-gray-400 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m0 0v2m0-2h2m-2 0H10m2-9a3 3 0 100-6 3 3 0 000 6z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Results Not Yet Available</h3>
+              <p className="text-gray-600 max-w-md mx-auto">
+                The final votes are being tallied. Please check back later!
+              </p>
+            </CardContent>
+          </Card>
         </main>
       </div>
     );
