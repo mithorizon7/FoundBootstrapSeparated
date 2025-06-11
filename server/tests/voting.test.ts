@@ -213,6 +213,10 @@ describe('Suite 3: Voting Logic and Security', () => {
       .set('Cookie', adminCookie)
       .send({ votingOpen: false });
     
+    // Get team IDs for voting
+    const teamB = await storage.getTeamByAccessToken(TEST_TEAMS[1].accessToken);
+    const teamC = await storage.getTeamByAccessToken(TEST_TEAMS[2].accessToken);
+    
     // Try to vote as team
     const teamCookie = await loginAsTeam(TEST_TEAMS[0].accessToken);
     const response = await request(app)
@@ -220,8 +224,9 @@ describe('Suite 3: Voting Logic and Security', () => {
       .set('Cookie', teamCookie)
       .send({
         votes: [
-          { teamId: 2, rank: 1 },
-          { teamId: 3, rank: 2 }
+          { voted_for_team_id: teamB!.id, rank: 1 },
+          { voted_for_team_id: teamC!.id, rank: 2 },
+          { voted_for_team_id: teamB!.id, rank: 3 }
         ]
       });
     
