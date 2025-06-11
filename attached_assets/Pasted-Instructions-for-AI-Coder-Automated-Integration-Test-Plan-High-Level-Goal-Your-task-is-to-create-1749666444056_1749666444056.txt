@@ -1,0 +1,137 @@
+Instructions for AI Coder: Automated Integration Test Plan
+
+High-Level Goal:
+
+Your task is to create a new automated test suite to rigorously validate the recently implemented team authentication and voting features. These tests will be self-contained, run without a browser, and will verify the security, logic, and data integrity of the entire workflow.
+
+Part 1: Test Setup
+
+Framework: Please use a modern JavaScript testing framework like Vitest or Jest. Create a new test file, for example: server/tests/voting.test.ts.
+
+Test Database: The tests should run against a dedicated test database to avoid polluting production data. You will need to manage the database state before and after the test suite runs.
+
+HTTP Client: Use a lightweight HTTP client like supertest or node-fetch to make requests to your running application's API endpoints from within the tests.
+
+Test Data Setup: Before the tests run, create a setup script or a beforeAll block that populates the database with a consistent test scenario:
+
+Create one Admin User.
+
+Create one Cohort (tag: 'TEST_COHORT').
+
+Create three Teams (TeamA, TeamB, TeamC), each with a unique, known access_token.
+
+Assign all three teams to the TEST_COHORT.
+
+Part 2: Test Suites & Scenarios
+
+Please implement the following test suites and scenarios.
+
+Suite 1: Team Authentication & Session Management
+
+Objective: Verify that the new token-based session system is secure and persistent.
+
+Test 1.1: Successful Login with Token
+
+Simulate a login by sending a POST request to /api/auth/team/login with TeamA's access_token.
+
+Assert: The response should be successful and should set a session cookie.
+
+Test 1.2: Failed Login with Invalid Token
+
+Send a POST request to /api/auth/team/login with an invalid token.
+
+Assert: The response should be a 401 Unauthorized or similar error.
+
+Test 1.3: Successful Logout
+
+First, log in as TeamA to establish a session.
+
+Then, send a POST request to /api/auth/team/logout using the session cookie.
+
+Assert: The response should be successful, and the session should be destroyed.
+
+Suite 2: Admin Controls for Voting
+
+Objective: Ensure that only an admin can control the voting lifecycle.
+
+Test 2.1: Admin Can Open Voting
+
+Log in as the Admin User.
+
+Send a PATCH request to /api/admin/cohorts/TEST_COHORT with { "voting_open": true }.
+
+Assert: The response is successful. A follow-up GET request should confirm the cohort's status is now voting_open: true.
+
+Test 2.2: Non-Admin Cannot Open Voting
+
+Attempt to send the same PATCH request from an unauthenticated client or a client logged in as a regular team.
+
+Assert: The API must return a 401 Unauthorized or 403 Forbidden error.
+
+Test 2.3: Admin Can Reveal Results
+
+Log in as the Admin User.
+
+Send a PATCH request to /api/admin/cohorts/TEST_COHORT with { "results_visible": true }.
+
+Assert: The response is successful and the cohort's results_visible status is now true.
+
+Suite 3: Voting Logic and Security
+
+Objective: Validate the core rules of the voting process.
+
+Test 3.1: Voting is Blocked When Closed
+
+Ensure voting_open is false for the cohort.
+
+Log in as TeamA and attempt to POST votes to /api/showcase/TEST_COHORT/vote.
+
+Assert: The API must return an error (e.g., 403 Forbidden) with a message like "Voting is not open."
+
+Test 3.2: Secure Vote Submission
+
+As Admin, open voting. Then, log in as TeamA to get a valid session cookie.
+
+Submit a valid vote (e.g., TeamA votes for TeamB and TeamC).
+
+Assert: The response should be successful. The database votes table should contain the correct new entries linked to TeamA's ID.
+
+Test 3.3: Prevent Self-Voting
+
+Log in as TeamA and attempt to submit a vote where one of the ranked teams is TeamA itself.
+
+Assert: The API must return a 400 Bad Request error with a message like "Cannot vote for your own team."
+
+Test 3.4: Prevent Duplicate Voting
+
+Log in as TeamB and submit a valid vote.
+
+Using the same session, immediately attempt to submit another valid vote.
+
+Assert: The API must return a 400 Bad Request error with a message like "Team has already voted."
+
+Suite 4: Results Visibility
+
+Objective: Confirm that results are only shown when the admin allows it.
+
+Test 4.1: Results are Hidden by Default
+
+Ensure results_visible is false for the cohort.
+
+Log in as any team and make a GET request to /api/showcase/TEST_COHORT/results.
+
+Assert: The API must return a 403 Forbidden error with a message like "Results are not yet available."
+
+Test 4.2: Results are Visible After Reveal
+
+As Admin, set results_visible to true.
+
+Log in as any team and make a GET request to /api/showcase/TEST_COHORT/results.
+
+Assert: The API must now return a 200 OK status with the calculated results data.
+
+Part 3: Teardown
+
+Action: After all tests have run, ensure you have an afterAll block that cleans up the database by deleting the test cohort, teams, and users to ensure a clean state for the next test run.
+
+This test plan will provide high confidence that the new authentication and voting systems are working correctly and securely.

@@ -101,6 +101,13 @@ export default function Results() {
         results.slice(0, 3).forEach((result, index) => {
           setTimeout(() => animateScore(result.teamId, result.totalPoints), index * 200);
         });
+        
+        // Animate scores for remaining teams
+        if (results.length > 3) {
+          results.slice(3).forEach((result, index) => {
+            setTimeout(() => animateScore(result.teamId, result.totalPoints), 4000 + index * 100);
+          });
+        }
       }
     }, 1500);
   };
@@ -372,62 +379,94 @@ export default function Results() {
               </Card>
             )}
 
-            {/* Full results table */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Complete Results</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {results.map((result, index) => {
-                    const position = index + 1;
-                    const website = getTeamWebsite(result.teamId);
-                    const progressPercentage = maxPoints > 0 ? (result.totalPoints / maxPoints) * 100 : 0;
-                    
-                    return (
-                      <div key={result.teamId} className="border rounded-lg p-4">
-                        <div className="flex items-center justify-between mb-3">
-                          <div className="flex items-center space-x-3">
-                            {getRankIcon(position)}
-                            <div>
-                              <h3 className="font-semibold text-lg">{result.teamName}</h3>
-                              <p className="text-sm text-gray-600">#{position}</p>
+            {/* Full results table with animations */}
+            <motion.div
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 3, duration: 0.8 }}
+            >
+              <Card>
+                <CardHeader>
+                  <CardTitle>Complete Leaderboard</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    {results.map((result, index) => {
+                      const position = index + 1;
+                      const website = getTeamWebsite(result.teamId);
+                      const progressPercentage = maxPoints > 0 ? (result.totalPoints / maxPoints) * 100 : 0;
+                      
+                      return (
+                        <motion.div
+                          key={result.teamId}
+                          initial={{ opacity: 0, x: -50 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 3.5 + index * 0.1, duration: 0.5 }}
+                          className={`border rounded-lg p-4 transition-all hover:shadow-lg ${
+                            position <= 3 ? 'bg-gradient-to-r from-yellow-50 to-orange-50 border-yellow-200' : 'hover:bg-gray-50'
+                          }`}
+                        >
+                          <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center space-x-3">
+                              {getRankIcon(position)}
+                              <div>
+                                <h3 className="font-semibold text-lg">{result.teamName}</h3>
+                                <p className="text-sm text-gray-600">#{position}</p>
+                              </div>
+                            </div>
+                            <div className="text-right">
+                              <motion.div
+                                key={`score-${result.teamId}`}
+                                className="text-2xl font-bold text-primary"
+                                initial={{ scale: 1 }}
+                                animate={{ scale: [1, 1.1, 1] }}
+                                transition={{ delay: 4 + index * 0.1, duration: 0.5 }}
+                              >
+                                {animatedScores[result.teamId] !== undefined && position > 3
+                                  ? animatedScores[result.teamId]
+                                  : result.totalPoints}
+                              </motion.div>
+                              <div className="text-sm text-gray-600">points</div>
                             </div>
                           </div>
-                          <div className="text-right">
-                            <div className="text-2xl font-bold text-primary">{result.totalPoints}</div>
-                            <div className="text-sm text-gray-600">points</div>
+                          
+                          <motion.div
+                            initial={{ width: 0 }}
+                            animate={{ width: '100%' }}
+                            transition={{ delay: 4.2 + index * 0.1, duration: 0.8 }}
+                          >
+                            <Progress value={progressPercentage} className="mb-3" />
+                          </motion.div>
+                          
+                          <div className="flex items-center justify-between">
+                            <div className="flex space-x-4 text-sm">
+                              {result.votes.map(vote => (
+                                <span key={vote.rank} className="text-gray-600">
+                                  {vote.rank === 1 ? '🥇' : vote.rank === 2 ? '🥈' : '🥉'} {vote.count}
+                                </span>
+                              ))}
+                            </div>
+                            {website && (
+                              <motion.a
+                                href={website}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center space-x-1 text-primary hover:text-primary-dark text-sm transition-colors"
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                              >
+                                <ExternalLink className="w-3 h-3" />
+                                <span>Visit Website</span>
+                              </motion.a>
+                            )}
                           </div>
-                        </div>
-                        
-                        <Progress value={progressPercentage} className="mb-3" />
-                        
-                        <div className="flex items-center justify-between">
-                          <div className="flex space-x-4 text-sm">
-                            {result.votes.map(vote => (
-                              <span key={vote.rank} className="text-gray-600">
-                                {vote.rank === 1 ? '🥇' : vote.rank === 2 ? '🥈' : '🥉'} {vote.count}
-                              </span>
-                            ))}
-                          </div>
-                          {website && (
-                            <a
-                              href={website}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-flex items-center space-x-1 text-primary hover:text-primary-dark text-sm"
-                            >
-                              <ExternalLink className="w-3 h-3" />
-                              <span>Visit Website</span>
-                            </a>
-                          )}
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </CardContent>
-            </Card>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
 
             {/* Voting breakdown */}
             <Card>
