@@ -315,35 +315,80 @@ export default function Admin() {
 
                       <div className="space-y-4">
                         <h3 className="text-lg font-semibold text-gray-900 border-b pb-2">Cohort Management</h3>
-                        <div className="bg-yellow-50 p-4 rounded-lg">
-                          <h4 className="font-medium text-yellow-900 mb-3">🎯 Step-by-Step: Creating and Managing Cohorts</h4>
-                          <div className="space-y-3">
-                            <div className="flex items-start space-x-3">
-                              <span className="bg-yellow-200 text-yellow-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">1</span>
-                              <div>
-                                <h5 className="font-medium text-yellow-900">Create a New Cohort</h5>
-                                <p className="text-sm text-yellow-800">Click "Create Cohort" → Enter a unique tag (e.g., "fall2024", "cohort-1") → Add name and description → Save</p>
+                        <div className="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                          <h4 className="font-medium text-blue-900 mb-4">📋 Complete Administration Guide</h4>
+                          <div className="space-y-4">
+                            <div>
+                              <h5 className="font-semibold text-blue-900 mb-2">Phase 1-7: Team Progress Monitoring</h5>
+                              <div className="space-y-2">
+                                <div className="flex items-start space-x-3">
+                                  <span className="bg-blue-200 text-blue-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">1</span>
+                                  <div>
+                                    <h6 className="font-medium text-blue-900">Monitor Team Progress</h6>
+                                    <p className="text-sm text-blue-800">Track teams through phases 1-8. Teams use secure access tokens for authentication and phase data persistence.</p>
+                                  </div>
+                                </div>
+                                <div className="flex items-start space-x-3">
+                                  <span className="bg-blue-200 text-blue-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">2</span>
+                                  <div>
+                                    <h6 className="font-medium text-blue-900">Create Cohorts</h6>
+                                    <p className="text-sm text-blue-800">Create cohorts when teams reach Phase 4-5 to group them for final showcase and voting activities.</p>
+                                  </div>
+                                </div>
+                                <div className="flex items-start space-x-3">
+                                  <span className="bg-blue-200 text-blue-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">3</span>
+                                  <div>
+                                    <h6 className="font-medium text-blue-900">Assign Teams to Cohorts</h6>
+                                    <p className="text-sm text-blue-800">Use "Assign Teams" to select cohort, choose teams, and group them together for voting phase.</p>
+                                  </div>
+                                </div>
                               </div>
                             </div>
-                            <div className="flex items-start space-x-3">
-                              <span className="bg-yellow-200 text-yellow-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">2</span>
-                              <div>
-                                <h5 className="font-medium text-yellow-900">Assign Teams to Cohort</h5>
-                                <p className="text-sm text-yellow-800">Click "Assign Teams" → Select cohort from dropdown → Check teams to include → Click "Assign Selected Teams"</p>
+
+                            <div className="border-t pt-4">
+                              <h5 className="font-semibold text-green-900 mb-2">Phase 8: Showcase & Voting Phase</h5>
+                              <div className="space-y-2">
+                                <div className="flex items-start space-x-3">
+                                  <span className="bg-green-200 text-green-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">4</span>
+                                  <div>
+                                    <h6 className="font-medium text-green-900">Enable Submissions</h6>
+                                    <p className="text-sm text-green-800">Toggle "Submissions Open" to allow teams to submit final websites in Phase 8.</p>
+                                  </div>
+                                </div>
+                                <div className="flex items-start space-x-3">
+                                  <span className="bg-green-200 text-green-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">5</span>
+                                  <div>
+                                    <h6 className="font-medium text-green-900">Open Voting</h6>
+                                    <p className="text-sm text-green-800">Once all teams have submitted, toggle "Voting Open" to enable secure team voting for top 3 favorites.</p>
+                                  </div>
+                                </div>
+                                <div className="flex items-start space-x-3">
+                                  <span className="bg-green-200 text-green-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">6</span>
+                                  <div>
+                                    <h6 className="font-medium text-green-900">Monitor Voting</h6>
+                                    <p className="text-sm text-green-800">Teams vote using secure sessions. Each team votes for 3 others (3 pts, 2 pts, 1 pt). Anti-manipulation protections active.</p>
+                                  </div>
+                                </div>
                               </div>
                             </div>
-                            <div className="flex items-start space-x-3">
-                              <span className="bg-yellow-200 text-yellow-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">3</span>
-                              <div>
-                                <h5 className="font-medium text-yellow-900">Enable Voting (Optional)</h5>
-                                <p className="text-sm text-yellow-800">Toggle "Voting Active" for cohorts where teams should vote on each other's projects</p>
-                              </div>
-                            </div>
-                            <div className="flex items-start space-x-3">
-                              <span className="bg-yellow-200 text-yellow-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">4</span>
-                              <div>
-                                <h5 className="font-medium text-yellow-900">View Results</h5>
-                                <p className="text-sm text-yellow-800">Use "View Voting Results" to see team rankings and voting analytics</p>
+
+                            <div className="border-t pt-4">
+                              <h5 className="font-semibold text-purple-900 mb-2">Results Phase: Celebration Control</h5>
+                              <div className="space-y-2">
+                                <div className="flex items-start space-x-3">
+                                  <span className="bg-purple-200 text-purple-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">7</span>
+                                  <div>
+                                    <h6 className="font-medium text-purple-900">Close Voting</h6>
+                                    <p className="text-sm text-purple-800">Turn off "Voting Open" when voting period ends. Results remain hidden until you reveal them.</p>
+                                  </div>
+                                </div>
+                                <div className="flex items-start space-x-3">
+                                  <span className="bg-purple-200 text-purple-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">8</span>
+                                  <div>
+                                    <h6 className="font-medium text-purple-900">Reveal Results</h6>
+                                    <p className="text-sm text-purple-800">Toggle "Results Visible" to simultaneously reveal the celebratory results experience to all teams with confetti, podium, and animations.</p>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -351,31 +396,36 @@ export default function Admin() {
                       </div>
 
                       <div className="space-y-4">
-                        <h3 className="text-lg font-semibold text-gray-900 border-b pb-2">Important Notes</h3>
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                          <div className="bg-red-50 p-4 rounded-lg">
-                            <h4 className="font-medium text-red-900 mb-2">⚠️ Cohort Tags</h4>
-                            <p className="text-sm text-red-800">Tags cannot be changed after creation. Choose descriptive, unique identifiers.</p>
+                        <h3 className="text-lg font-semibold text-gray-900 border-b pb-2">Security & Features</h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="bg-green-50 p-4 rounded-lg">
+                            <h4 className="font-medium text-green-900 mb-2">🔒 Secure Team Authentication</h4>
+                            <p className="text-sm text-green-800">Teams use unique access tokens for secure sessions. Voting uses server-side authentication to prevent manipulation. Teams can switch sessions safely on shared computers.</p>
+                          </div>
+                          <div className="bg-blue-50 p-4 rounded-lg">
+                            <h4 className="font-medium text-blue-900 mb-2">🎉 Celebration Experience</h4>
+                            <p className="text-sm text-blue-800">Results page features animated podium, confetti effects, and score counters. Control when teams see results for synchronized celebration moments.</p>
                           </div>
                           <div className="bg-purple-50 p-4 rounded-lg">
-                            <h4 className="font-medium text-purple-900 mb-2">🔄 Real-time Updates</h4>
-                            <p className="text-sm text-purple-800">Team progress updates automatically. Refresh if data seems outdated.</p>
+                            <h4 className="font-medium text-purple-900 mb-2">📊 Voting System</h4>
+                            <p className="text-sm text-purple-800">Teams vote for top 3 favorites (3-2-1 points). Anti-self-voting protection. Results remain hidden until administrator reveals them.</p>
                           </div>
-                          <div className="bg-indigo-50 p-4 rounded-lg">
-                            <h4 className="font-medium text-indigo-900 mb-2">👥 Team Assignment</h4>
-                            <p className="text-sm text-indigo-800">Teams can only belong to one cohort at a time. Reassigning moves them.</p>
+                          <div className="bg-amber-50 p-4 rounded-lg">
+                            <h4 className="font-medium text-amber-900 mb-2">⚙️ System Notes</h4>
+                            <p className="text-sm text-amber-800">Cohort tags cannot be changed after creation. Teams can only belong to one cohort. Real-time progress tracking across all phases.</p>
                           </div>
                         </div>
                       </div>
 
                       <div className="bg-gray-100 p-4 rounded-lg">
-                        <h4 className="font-medium text-gray-900 mb-2">💡 Pro Tips</h4>
+                        <h4 className="font-medium text-gray-900 mb-2">🎯 Best Practices</h4>
                         <ul className="text-sm text-gray-700 space-y-1">
-                          <li>• Create cohorts before teams finish Phase 4 for optimal collaboration</li>
-                          <li>• Use descriptive cohort names to easily identify groups</li>
-                          <li>• Enable voting only when teams have completed their projects</li>
-                          <li>• Export data regularly for backup and analysis</li>
-                          <li>• Hover over any button or field for additional help tooltips</li>
+                          <li>• Create cohorts when teams reach Phase 4-5 for optimal timing</li>
+                          <li>• Use descriptive cohort names and tags for easy identification</li>
+                          <li>• Enable submissions before opening voting to ensure all teams participate</li>
+                          <li>• Keep results hidden until you're ready for the celebration reveal</li>
+                          <li>• Export data regularly for backup and progress analysis</li>
+                          <li>• Use "Switch Team" feature for shared computer scenarios</li>
                         </ul>
                       </div>
                     </div>
@@ -597,7 +647,7 @@ export default function Admin() {
                             </DialogTrigger>
                           </TooltipTrigger>
                           <TooltipContent>
-                            <p>Create a new cohort to group teams for collaboration and voting activities</p>
+                            <p>Create a new cohort to group teams for Phase 8 showcase and voting. Best created when teams reach Phase 4-5 for optimal timing.</p>
                           </TooltipContent>
                         </Tooltip>
                         <DialogContent>
@@ -749,7 +799,7 @@ export default function Admin() {
                                         />
                                       </TooltipTrigger>
                                       <TooltipContent>
-                                        <p>Toggle submissions {cohort.submissionsOpen ? 'off' : 'on'} for this cohort</p>
+                                        <p>Controls whether teams can submit final websites in Phase 8. Enable this when teams are ready to showcase their completed projects.</p>
                                       </TooltipContent>
                                     </Tooltip>
                                   </div>
@@ -774,7 +824,7 @@ export default function Admin() {
                                         />
                                       </TooltipTrigger>
                                       <TooltipContent>
-                                        <p>Toggle voting {cohort.votingOpen ? 'off' : 'on'} for this cohort</p>
+                                        <p>Opens secure voting for teams to rank their top 3 favorite projects (3-2-1 points). Enable only after all submissions are complete.</p>
                                       </TooltipContent>
                                     </Tooltip>
                                   </div>
@@ -799,7 +849,7 @@ export default function Admin() {
                                         />
                                       </TooltipTrigger>
                                       <TooltipContent>
-                                        <p>Toggle results visibility {(cohort as any).resultsVisible ? 'off' : 'on'} for this cohort</p>
+                                        <p>Controls when teams can see the celebratory results experience with animated podium, confetti, and rankings. Keep hidden until ready for synchronized reveal.</p>
                                       </TooltipContent>
                                     </Tooltip>
                                   </div>
