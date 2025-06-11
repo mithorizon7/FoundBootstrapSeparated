@@ -116,6 +116,67 @@
   }
 }
 
+/* Custom animations for Results page */
+@keyframes gradient-shift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes winner-glow {
+  0%, 100% { 
+    box-shadow: 0 0 30px rgba(251, 191, 36, 0.6),
+                0 0 60px rgba(251, 191, 36, 0.4),
+                0 0 90px rgba(251, 191, 36, 0.2);
+  }
+  50% { 
+    box-shadow: 0 0 40px rgba(251, 191, 36, 0.8),
+                0 0 80px rgba(251, 191, 36, 0.6),
+                0 0 120px rgba(251, 191, 36, 0.4);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes sparkle {
+  0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1) rotate(180deg); }
+}
+
+@keyframes podium-rise {
+  0% { transform: translateY(100%) scale(0.8); opacity: 0; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+@keyframes champion-pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+  100% { transform: scale(1); }
+}
+
+.winner-glow {
+  animation: winner-glow 2s ease-in-out infinite;
+}
+
+.float-animation {
+  animation: float 3s ease-in-out infinite;
+}
+
+.sparkle-animation {
+  animation: sparkle 1.5s ease-in-out infinite;
+}
+
+.podium-rise {
+  animation: podium-rise 0.8s ease-out;
+}
+
+.champion-pulse {
+  animation: champion-pulse 2s ease-in-out infinite;
+}
+
 @layer components {
   /* Professional bullet points for enhanced Phase content */
   .phase-bullet {
