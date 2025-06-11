@@ -7,6 +7,13 @@ import { z } from "zod";
 import fs from "fs";
 import path from "path";
 
+// Extend session interface to include teamId
+declare module 'express-session' {
+  interface SessionData {
+    teamId?: number;
+  }
+}
+
 // Admin authentication middleware
 function ensureAuthenticatedAdmin(req: Request, res: Response, next: NextFunction) {
   console.log('Auth check - isAuthenticated:', req.isAuthenticated(), 'user:', req.user ? { id: (req.user as any).id, role: (req.user as any).role } : null);
@@ -26,6 +33,14 @@ function ensureAuthenticatedAdmin(req: Request, res: Response, next: NextFunctio
     return res.status(401).json({ message: 'Unauthorized - Invalid role' });
   }
   
+  next();
+}
+
+// Team authentication middleware
+function ensureAuthenticatedTeam(req: Request, res: Response, next: NextFunction) {
+  if (!req.session || !(req.session as any).teamId) {
+    return res.status(401).json({ message: 'Unauthorized - No team session' });
+  }
   next();
 }
 
@@ -70,6 +85,48 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } else {
       res.json({ isAuthenticated: false });
     }
+  });
+
+  // Team authentication routes
+  app.post("/api/auth/team/login", async (req, res) => {
+    try {
+      const { access_token } = req.body;
+      
+      if (!access_token) {
+        return res.status(400).json({ message: 'Access token is required' });
+      }
+      
+      const team = await storage.getTeamByAccessToken(access_token);
+      
+      if (!team) {
+        return res.status(401).json({ message: 'Invalid access token' });
+      }
+      
+      // Create secure session for team
+      req.session.teamId = team.id;
+      
+      res.json({ 
+        message: 'Team login successful', 
+        team: { 
+          id: team.id, 
+          code: team.code, 
+          name: team.name,
+          currentPhase: team.currentPhase
+        } 
+      });
+    } catch (error) {
+      console.error('Team login error:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+
+  app.post("/api/auth/team/logout", (req, res) => {
+    req.session.destroy((err) => {
+      if (err) {
+        return res.status(500).json({ message: 'Logout error' });
+      }
+      res.json({ message: 'Team logout successful' });
+    });
   });
 
   // Team routes

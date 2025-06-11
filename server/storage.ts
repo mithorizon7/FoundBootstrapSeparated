@@ -1,12 +1,14 @@
 import { teams, phaseData, users, cohorts, votes, type Team, type InsertTeam, type PhaseData, type InsertPhaseData, type User, type InsertUser, type Cohort, type InsertCohort, type Vote, type InsertVote } from "@shared/schema";
 import { db } from "./db";
 import { eq, and, isNotNull, sql, desc } from "drizzle-orm";
+import { randomUUID } from "crypto";
 
 export interface IStorage {
   // Team operations
   createTeam(team: InsertTeam): Promise<Team>;
   getTeamByCode(code: string): Promise<Team | undefined>;
   getTeamById(id: number): Promise<Team | undefined>;
+  getTeamByAccessToken(accessToken: string): Promise<Team | undefined>;
   updateTeamPhase(id: number, currentPhase: number): Promise<Team>;
   updateTeamWebsite(id: number, websiteUrl: string): Promise<Team>;
   assignTeamsToCohort(teamIds: number[], cohortTag: string): Promise<Team[]>;
@@ -58,9 +60,14 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createTeam(insertTeam: InsertTeam): Promise<Team> {
+    const teamWithToken = {
+      ...insertTeam,
+      accessToken: insertTeam.accessToken || randomUUID()
+    };
+    
     const [team] = await db
       .insert(teams)
-      .values(insertTeam)
+      .values(teamWithToken)
       .returning();
     return team;
   }
@@ -72,6 +79,11 @@ export class DatabaseStorage implements IStorage {
 
   async getTeamById(id: number): Promise<Team | undefined> {
     const [team] = await db.select().from(teams).where(eq(teams.id, id));
+    return team || undefined;
+  }
+
+  async getTeamByAccessToken(accessToken: string): Promise<Team | undefined> {
+    const [team] = await db.select().from(teams).where(eq(teams.accessToken, accessToken));
     return team || undefined;
   }
 
