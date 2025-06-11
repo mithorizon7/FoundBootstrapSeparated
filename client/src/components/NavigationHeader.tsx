@@ -56,6 +56,31 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
     }
   };
 
+  const handleSwitchTeam = async () => {
+    try {
+      const response = await fetch('/api/auth/team/logout', {
+        method: 'POST',
+        credentials: 'include',
+      });
+      
+      if (response.ok) {
+        toast({
+          title: "Team session ended",
+          description: "You can now enter a new team code or use a secure link.",
+        });
+        setLocation("/");
+      } else {
+        throw new Error('Failed to logout team session');
+      }
+    } catch (error) {
+      toast({
+        title: "Switch team failed",
+        description: "Failed to end team session. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
   return (
     <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -253,6 +278,12 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
                       <DropdownMenuItem onClick={() => setLocation("/admin")}>
                         <Shield className="w-4 h-4 mr-2" />
                         Admin Dashboard
+                      </DropdownMenuItem>
+                    )}
+                    {team && (
+                      <DropdownMenuItem onClick={handleSwitchTeam}>
+                        <Users className="w-4 h-4 mr-2" />
+                        Switch Team
                       </DropdownMenuItem>
                     )}
                     <DropdownMenuItem onClick={handleLogout}>

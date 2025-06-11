@@ -103,7 +103,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
       
       // Create secure session for team
-      req.session.teamId = team.id;
+      (req.session as any).teamId = team.id;
       
       res.json({ 
         message: 'Team login successful', 
@@ -339,9 +339,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.post("/api/showcase/:cohortTag/vote", async (req, res) => {
+  app.post("/api/showcase/:cohortTag/vote", ensureAuthenticatedTeam, async (req, res) => {
     try {
-      const { votes, voting_team_id } = req.body;
+      const { votes } = req.body;
+      const voting_team_id = (req.session as any).teamId; // Get from secure session
       
       if (!Array.isArray(votes) || votes.length !== 3) {
         return res.status(400).json({ message: "Must provide exactly 3 votes" });

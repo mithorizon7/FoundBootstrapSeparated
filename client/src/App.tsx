@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { useEffect } from "react";
 import Home from "@/pages/Home";
 import Phase from "@/pages/Phase";
 import Admin from "@/pages/Admin";
@@ -14,6 +15,33 @@ import Results from "@/pages/Results";
 import NotFound from "@/pages/not-found";
 
 function Router() {
+  useEffect(() => {
+    // Check for access token in URL parameters and establish secure session
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+    
+    if (token) {
+      // Attempt to login with the token
+      fetch('/api/auth/team/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ access_token: token }),
+      })
+      .then(response => {
+        if (response.ok) {
+          // Remove token from URL for security
+          const newUrl = new URL(window.location.href);
+          newUrl.searchParams.delete('token');
+          window.history.replaceState({}, '', newUrl.toString());
+        }
+      })
+      .catch(error => {
+        console.error('Team login failed:', error);
+      });
+    }
+  }, []);
+
   return (
     <Switch>
       <Route path="/" component={Home} />
