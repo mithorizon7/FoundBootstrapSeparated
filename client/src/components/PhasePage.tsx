@@ -842,6 +842,25 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                 </div>
               </div>
             </div>
+
+            {/* Persistent Secure Link Display */}
+            {teamData?.accessToken && (
+              <div className="mt-6 pt-4 border-t">
+                <Label htmlFor="secure-link" className="text-base font-semibold text-neutral-800">
+                  Your Team's Permanent Secure Link
+                </Label>
+                <p className="text-sm text-neutral-600 mt-1 mb-2">
+                  Bookmark this link! This is the best way to access your team's work if you switch computers or clear your browser cache.
+                </p>
+                <Input
+                  id="secure-link"
+                  type="text"
+                  readOnly
+                  value={`${window.location.origin}/phase/1?team_id=${teamData.code}&token=${teamData.accessToken}`}
+                  className="font-mono text-sm"
+                />
+              </div>
+            )}
             
             {teamData.submittedWebsiteUrl && cohortData && (
               <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">

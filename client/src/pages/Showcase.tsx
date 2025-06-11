@@ -70,9 +70,9 @@ export default function Showcase() {
       const response = await fetch(`/api/showcase/${cohortTag}/vote`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include', // Include session cookies for authentication
         body: JSON.stringify({
-          votes,
-          voting_team_id: votingTeamId
+          votes
         }),
       });
       if (!response.ok) {
