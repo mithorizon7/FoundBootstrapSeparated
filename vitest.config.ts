@@ -1,0 +1,18 @@
+import { defineConfig } from 'vitest/config';
+import path from 'path';
+
+export default defineConfig({
+  test: {
+    environment: 'node',
+    globals: true,
+    setupFiles: [],
+    testTimeout: 30000,
+  },
+  resolve: {
+    alias: {
+      '@shared': path.resolve(__dirname, './shared'),
+      '@': path.resolve(__dirname, './client/src'),
+      '@assets': path.resolve(__dirname, './attached_assets'),
+    },
+  },
+});
