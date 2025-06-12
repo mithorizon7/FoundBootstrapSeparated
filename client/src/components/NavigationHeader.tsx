@@ -6,7 +6,6 @@ import { Menu, Users, ChartLine, UserCircle, ChevronDown, LogIn, LogOut, Shield 
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { AvatarSelector } from "@/components/AvatarSelector";
-import { TeamLogin } from "@/components/TeamLogin";
 import logoSrc from "@assets/ActivityLogo2.png";
 
 
