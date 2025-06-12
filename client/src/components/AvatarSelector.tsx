@@ -8,12 +8,13 @@ import { apiRequest } from "@/lib/queryClient";
 
 interface AvatarSelectorProps {
   teamId: number;
+  teamCode?: string;
   currentAvatar?: string;
   teamName: string;
   size?: 'sm' | 'md' | 'lg';
 }
 
-export function AvatarSelector({ teamId, currentAvatar, teamName, size = 'md' }: AvatarSelectorProps) {
+export function AvatarSelector({ teamId, teamCode, currentAvatar, teamName, size = 'md' }: AvatarSelectorProps) {
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -36,7 +37,11 @@ export function AvatarSelector({ teamId, currentAvatar, teamName, size = 'md' }:
       return response.json();
     },
     onSuccess: () => {
-      // Invalidate all team-related queries to refresh the data
+      // Invalidate the specific team query that the page is using
+      if (teamCode) {
+        queryClient.invalidateQueries({ queryKey: [`/api/teams/${teamCode}`] });
+      }
+      // Also invalidate general team queries for admin pages
       queryClient.invalidateQueries({ queryKey: ['/api/teams'], exact: false });
       
       toast({

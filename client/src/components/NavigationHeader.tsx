@@ -103,6 +103,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
               <div className="hidden md:flex items-center space-x-3 text-sm text-gray-600 bg-gray-50 px-3 py-1 rounded-full">
                 <AvatarSelector 
                   teamId={team.id}
+                  teamCode={team.code}
                   currentAvatar={team.avatarIcon}
                   teamName={team.name}
                   size="md"
