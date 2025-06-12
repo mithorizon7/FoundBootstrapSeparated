@@ -506,15 +506,15 @@ export default function Admin() {
                           <tr key={team.id} className="hover:bg-gray-50">
                             <td className="px-6 py-4 whitespace-nowrap">
                               <div className="flex items-center space-x-3">
-                                <div className="w-8 h-8 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center">
-                                  <span className="text-primary font-medium text-sm">{team.code}</span>
+                                <div className="w-8 h-8 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                  <span className="text-primary font-medium text-sm">{team.code.substring(0, 2)}</span>
                                 </div>
-                                <div>
+                                <div className="flex-grow">
                                   <div className="font-medium text-gray-900">{team.name}</div>
-                                  <div className="text-sm text-gray-500">
-                                    Code: {team.code}
+                                  <div className="flex items-center space-x-2 text-sm text-gray-500">
+                                    <span>Code: {team.code}</span>
                                     {(team as any).cohortTag && (
-                                      <span className="ml-2 text-xs bg-teal-100 text-black hover:bg-teal-600 hover:text-white transition-colors px-2 py-1 rounded cursor-default">
+                                      <span className="text-xs bg-teal-600 text-white px-2 py-1 rounded">
                                         {(team as any).cohortTag}
                                       </span>
                                     )}
@@ -526,7 +526,7 @@ export default function Admin() {
                               <div className="flex items-center space-x-2">
                                 <Badge 
                                   variant="secondary" 
-                                  className="bg-teal-100 text-black hover:bg-teal-600 hover:text-white transition-colors cursor-default"
+                                  className="bg-blue-100 text-blue-800"
                                 >
                                   Phase {team.currentPhase}
                                 </Badge>
