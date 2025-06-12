@@ -12,6 +12,7 @@ import Admin from "@/pages/Admin";
 import AdminLogin from "@/pages/AdminLogin";
 import Showcase from "@/pages/Showcase";
 import Results from "@/pages/Results";
+import Credits from "@/pages/Credits";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -50,6 +51,7 @@ function Router() {
       <Route path="/admin-login" component={AdminLogin} />
       <Route path="/showcase/:cohortTag" component={Showcase} />
       <Route path="/results/:cohortTag" component={Results} />
+      <Route path="/credits" component={Credits} />
       <Route component={NotFound} />
     </Switch>
   );

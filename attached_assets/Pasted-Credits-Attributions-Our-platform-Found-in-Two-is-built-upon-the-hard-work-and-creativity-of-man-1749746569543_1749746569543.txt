@@ -1,0 +1,45 @@
+Credits & Attributions
+Our platform, Found-in-Two, is built upon the hard work and creativity of many talented individuals and open-source communities. We believe in giving credit where it's due and are deeply grateful for the tools and assets that made this project possible.
+
+Visual Assets & Design
+
+Hand Drawn Filled Space Vectors: Vectors and icons by Good Stuff No Nonsense in CC Attribution License via SVG Repo.
+Application Logo (logo.png, ActivityLogo2.png): [Credit for your logo designer or source would go here.]
+Typography
+
+Plus Jakarta Sans: This beautiful, modern font is used throughout our interface for excellent readability. It is provided by Google Fonts under the Open Font License.
+Core Technologies & Frameworks
+
+Our application is built on a modern, robust technology stack.
+
+React: The core frontend library for building our user interface. (MIT License)
+Vite: A next-generation frontend tooling system that provides an extremely fast development environment. (MIT License)
+Node.js & Express: Powers our secure and efficient backend server. (MIT License)
+TypeScript: For providing static typing, which helps us write more robust and maintainable code. (Apache 2.0 License)
+UI Components & Styling
+
+The look and feel of our application is made possible by these excellent tools.
+
+shadcn/ui: A collection of re-usable UI components that serve as the foundation of our design system. (MIT License)
+Tailwind CSS: A utility-first CSS framework for rapidly building custom user interfaces. (MIT License)
+Radix UI: Provides a set of unstyled, accessible components that power many of our UI elements like dropdowns, dialogs, and tooltips. (MIT License)
+Framer Motion: Used for the delightful animations throughout the user experience. (MIT License)
+Lucide React: A beautiful and consistent icon set used across the application. (ISC License)
+Vaul: The library behind our smooth and accessible drawers. (MIT License)
+canvas-confetti: For the celebratory confetti effect on the results page. (ISC License)
+Recharts: For creating beautiful and interactive charts. (MIT License)
+cmdk: The command menu component used for fast, accessible navigation. (MIT License)
+Backend & Data Management
+
+Drizzle ORM: A modern TypeScript ORM for interacting with our database. (Apache 2.0 License)
+Neon: Our serverless Postgres database provider. (Apache 2.0 License)
+Passport.js: For handling secure administrator authentication. (MIT License)
+connect-pg-simple: For persistent session storage in our PostgreSQL database. (MIT License)
+Development & Build Tools
+
+These tools are essential to our development, testing, and build processes.
+
+Vitest: A blazing fast unit test framework. (MIT License)
+esbuild: An extremely fast JavaScript bundler and minifier. (MIT License)
+tsx: For seamless TypeScript execution in Node.js. (MIT License)
+You can give this directly to your developer. They can create a new page component (e.g., Credits.tsx), link to it from your footer or navigation menu, and use this content to populate it.

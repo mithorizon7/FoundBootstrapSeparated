@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { TeamModal } from "@/components/TeamModal";
 import { NavigationHeader } from "@/components/NavigationHeader";
+import { Footer } from "@/components/Footer";
 import { ArrowRight, Users, Clock, Target } from "lucide-react";
 import logoSrc from "@/assets/logo.png";
 
@@ -44,10 +45,10 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-accent-50">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-accent-50 flex flex-col">
       <NavigationHeader />
       
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex-grow">
         {/* Hero Section */}
         <div className="text-center mb-16">
           <div className="flex justify-center mb-6">
@@ -137,6 +138,8 @@ export default function Home() {
         onClose={() => setTeamModalOpen(false)}
         onTeamSelected={handleTeamSelected}
       />
+      
+      <Footer />
     </div>
   );
 }
