@@ -132,11 +132,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Team routes
   app.post("/api/teams", async (req, res) => {
     try {
-      const teamData = insertTeamSchema.parse(req.body);
+      console.log("Team creation request body:", req.body);
+      const { name, code } = req.body;
+      
+      if (!name || !code) {
+        return res.status(400).json({ message: "Name and code are required" });
+      }
+      
+      // Generate unique access token for team authentication
+      const accessToken = `${code}_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
+      
+      const teamData = {
+        name: name.trim(),
+        code: code.trim().toUpperCase(),
+        accessToken,
+        currentPhase: 1
+      };
+      
+      console.log("Team data to create:", teamData);
+      
       const team = await storage.createTeam(teamData);
+      console.log("Team created successfully:", team);
       res.json(team);
-    } catch (error) {
-      res.status(400).json({ message: "Invalid team data" });
+    } catch (error: any) {
+      console.error("Team creation error:", error);
+      console.error("Error stack:", error.stack);
+      if (error.message?.includes('duplicate') || error.code === '23505') {
+        return res.status(409).json({ message: "Team code already exists" });
+      }
+      res.status(500).json({ message: "Error creating team", error: error.message });
     }
   });
 
