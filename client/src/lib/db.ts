@@ -5,6 +5,7 @@ export interface TeamData {
   code: string;
   name: string;
   currentPhase: number;
+  avatarIcon?: string;
   createdAt: string;
   updatedAt: string;
 }
