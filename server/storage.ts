@@ -12,6 +12,7 @@ export interface IStorage {
   getTeamByAccessToken(accessToken: string): Promise<Team | undefined>;
   updateTeamPhase(id: number, currentPhase: number): Promise<Team>;
   updateTeamWebsite(id: number, websiteUrl: string): Promise<Team>;
+  updateTeamAvatar(id: number, avatarIcon: string): Promise<Team>;
   assignTeamsToCohort(teamIds: number[], cohortTag: string): Promise<Team[]>;
   getAllTeams(): Promise<Team[]>;
   getTeamsByCohort(cohortTag: string): Promise<Team[]>;
@@ -116,6 +117,18 @@ export class DatabaseStorage implements IStorage {
       .update(teams)
       .set({ 
         submittedWebsiteUrl: websiteUrl,
+        updatedAt: new Date()
+      })
+      .where(eq(teams.id, id))
+      .returning();
+    return team;
+  }
+
+  async updateTeamAvatar(id: number, avatarIcon: string): Promise<Team> {
+    const [team] = await db
+      .update(teams)
+      .set({ 
+        avatarIcon,
         updatedAt: new Date()
       })
       .where(eq(teams.id, id))
