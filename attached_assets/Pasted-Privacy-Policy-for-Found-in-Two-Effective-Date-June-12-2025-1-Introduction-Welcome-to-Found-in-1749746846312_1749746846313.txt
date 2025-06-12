@@ -1,0 +1,67 @@
+Privacy Policy for Found-in-Two
+
+Effective Date: June 12, 2025
+
+1. Introduction
+
+Welcome to Found-in-Two. We are committed to protecting your privacy and providing a transparent experience. This Privacy Policy explains what information we collect, how we use and protect it, and the rights you have regarding your information.
+
+This policy applies to all users of the Found-in-Two web application (the "Service"), including team participants and administrators.
+
+2. Information We Collect
+
+We collect information in a few different ways, depending on how you use the Service.
+
+A. Information You Provide to Us
+
+Team Information: When you create or join a team, we store the Team Name and the unique Team Code you use to access your workspace.
+Admin Information: To secure the administrative dashboard, we collect a Username and a securely hashed Password for admin accounts.
+Bootcamp Progress: As you complete each phase of the bootcamp, we save the data and answers you provide in the form fields. This allows you and your team to persist progress and build upon your work in later phases.
+Cohort & Voting Information: If you participate in a cohort showcase, we store your team's assignment to a specific cohort, your final submitted website URL, and the votes you cast for other teams.
+B. Information We Collect Automatically
+
+Session Information (for logged-in users): We use cookies to manage your login sessions securely.
+For Teams: When you log in with your access token, a session is created to remember your team's identity as you navigate the site.
+For Admins: When you log in with your username and password, a session is created to grant you access to the admin dashboard.
+These session cookies (sessionId) are essential for the functionality of the Service and are stored persistently in our database to maintain your login status.
+Local Storage Data (for anonymous users): If you use the Service without creating or joining a team, your progress through the phases is saved directly in your browser's local storage. This data is not sent to our servers and remains on your computer.
+3. How We Use Your Information
+
+ We use the information we collect for the following purposes:
+
+To Provide and Maintain the Service: To save your team's progress, allow you to resume your work, and manage your journey through the 8 phases.
+To Authenticate Users: To securely log in admins and teams and protect access to their respective dashboards and data.
+To Facilitate Bootcamp Activities: To run the cohort-based showcase, manage voting, and display results as controlled by the administrator.
+For Administrative Purposes: To allow instructors to monitor team progress and manage the bootcamp experience via the admin dashboard.
+We do not use your information for advertising or sell your data to third parties.
+4. How We Share Your Information
+
+We are committed to not sharing your personal information, with the following limited exceptions:
+
+Within a Showcase Cohort: If your team is part of a cohort and you submit a website, your team name and submitted website URL will be visible to other teams within that same cohort for voting purposes.
+With Service Providers: We use Neon as our database provider to store application data. They are bound by their own strict privacy and security policies.
+For Legal Reasons: We may share information if required to do so by law or in response to valid requests by public authorities.
+5. Data Storage and Security
+
+We take the security of your data seriously.
+
+Data Storage: Your application data is stored securely in our PostgreSQL database, hosted by Neon.
+Password Security: Administrator passwords are not stored in plaintext; they are securely hashed using bcrypt.
+Access Tokens: Teams are identified by a unique, randomly generated access token to secure their session data.
+Data Transmission: We use standard security protocols for data transmission.
+ While we use commercially acceptable means to protect your information, no method of transmission over the Internet or electronic storage is 100% secure.
+
+6. Your Data Rights & Choices
+
+You have rights concerning your information.
+
+For Teams and Admins: You have the right to access, correct, or request the deletion of your personal information. Please contact us to make such a request.
+For Anonymous Users: Because your data is stored in your browser's local storage, you have full control. You can clear this data at any time by clearing your browser's cache and site data for our website.
+"Switch Team" Functionality: If you are using a shared computer, the "Switch Team" feature in the navigation menu will log out your current team's session, allowing another team to log in securely.
+7. Children's Privacy
+
+Our Service is not directed to individuals under the age of 13. We do not knowingly collect personal information from children under 13. If we become aware that we have collected such information, we will take steps to delete it.
+
+8. Changes to This Privacy Policy
+
+ We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new policy on this page and updating the "Effective Date" at the top. We encourage you to review this Privacy Policy periodically.

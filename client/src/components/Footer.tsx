@@ -18,6 +18,11 @@ export function Footer() {
           
           {/* Navigation Links */}
           <div className="flex items-center space-x-6 text-sm text-gray-600">
+            <Link href="/privacy">
+              <span className="hover:text-gray-900 transition-colors cursor-pointer">
+                Privacy Policy
+              </span>
+            </Link>
             <Link href="/credits">
               <span className="hover:text-gray-900 transition-colors cursor-pointer">
                 Credits & Attributions

@@ -13,6 +13,7 @@ import AdminLogin from "@/pages/AdminLogin";
 import Showcase from "@/pages/Showcase";
 import Results from "@/pages/Results";
 import Credits from "@/pages/Credits";
+import Privacy from "@/pages/Privacy";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -52,6 +53,7 @@ function Router() {
       <Route path="/showcase/:cohortTag" component={Showcase} />
       <Route path="/results/:cohortTag" component={Results} />
       <Route path="/credits" component={Credits} />
+      <Route path="/privacy" component={Privacy} />
       <Route component={NotFound} />
     </Switch>
   );
