@@ -120,6 +120,39 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.post("/api/auth/team/login-code", async (req, res) => {
+    try {
+      const { code } = req.body;
+      
+      if (!code) {
+        return res.status(400).json({ message: 'Team code is required' });
+      }
+      
+      const team = await storage.getTeamByCode(code.trim().toUpperCase());
+      
+      if (!team) {
+        return res.status(401).json({ message: 'Invalid team code' });
+      }
+      
+      // Create secure session for team
+      (req.session as any).teamId = team.id;
+      
+      res.json({ 
+        message: 'Team login successful', 
+        team: { 
+          id: team.id, 
+          code: team.code, 
+          name: team.name,
+          currentPhase: team.currentPhase,
+          avatarIcon: team.avatarIcon
+        } 
+      });
+    } catch (error) {
+      console.error('Team login error:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  });
+
   app.post("/api/auth/team/logout", (req, res) => {
     req.session.destroy((err) => {
       if (err) {
@@ -150,6 +183,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       };
       
       const team = await storage.createTeam(teamData);
+      
+      // Automatically log in the newly created team
+      (req.session as any).teamId = team.id;
+      
       res.json(team);
     } catch (error: any) {
       if (error.message?.includes('duplicate') || error.code === '23505') {

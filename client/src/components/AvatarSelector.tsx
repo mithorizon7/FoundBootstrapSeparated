@@ -83,17 +83,17 @@ export function AvatarSelector({ teamId, currentAvatar, teamName, size = 'md' }:
               key={icon}
               onClick={() => handleAvatarSelect(icon)}
               disabled={updateAvatarMutation.isPending}
-              className={`p-2 rounded-lg border-2 transition-all hover:bg-gray-50 ${
+              className={`p-1 rounded-lg border-2 transition-all hover:bg-gray-50 ${
                 icon === currentAvatar 
                   ? 'border-blue-500 bg-blue-50' 
                   : 'border-gray-200 hover:border-gray-300'
               } ${updateAvatarMutation.isPending ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
             >
-              <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 flex items-center justify-center">
                 <img 
                   src={`/team_icons/${icon}`} 
                   alt={`Avatar ${icon}`}
-                  className="w-full h-full object-contain p-1"
+                  className="w-6 h-6 object-contain"
                 />
               </div>
             </button>
