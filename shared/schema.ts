@@ -11,6 +11,7 @@ export const teams = pgTable("teams", {
   submittedWebsiteUrl: text("submitted_website_url"),
   cohortTag: text("cohort_tag"),
   accessToken: text("access_token").notNull().unique(),
+  avatarIcon: text("avatar_icon").notNull(),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 }, (table) => ({

@@ -1,4 +1,5 @@
 import { teams, phaseData, users, cohorts, votes, type Team, type InsertTeam, type PhaseData, type InsertPhaseData, type User, type InsertUser, type Cohort, type InsertCohort, type Vote, type InsertVote } from "@shared/schema";
+import { selectRandomAvatar } from "@shared/avatars";
 import { db } from "./db";
 import { eq, and, isNotNull, sql, desc } from "drizzle-orm";
 import { randomUUID } from "crypto";
@@ -60,14 +61,25 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createTeam(insertTeam: InsertTeam): Promise<Team> {
-    const teamWithToken = {
+    // Get the last 15 teams to avoid avatar collisions
+    const recentTeams = await db
+      .select({ avatarIcon: teams.avatarIcon })
+      .from(teams)
+      .orderBy(desc(teams.createdAt))
+      .limit(15);
+    
+    const recentAvatars = recentTeams.map(team => team.avatarIcon);
+    const selectedAvatar = selectRandomAvatar(recentAvatars);
+    
+    const teamWithTokenAndAvatar = {
       ...insertTeam,
-      accessToken: insertTeam.accessToken || randomUUID()
+      accessToken: insertTeam.accessToken || randomUUID(),
+      avatarIcon: insertTeam.avatarIcon || selectedAvatar
     };
     
     const [team] = await db
       .insert(teams)
-      .values(teamWithToken)
+      .values(teamWithTokenAndAvatar)
       .returning();
     return team;
   }
