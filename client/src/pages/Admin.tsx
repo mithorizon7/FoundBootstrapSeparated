@@ -506,8 +506,8 @@ export default function Admin() {
                           <tr key={team.id} className="hover:bg-gray-50">
                             <td className="px-6 py-4 whitespace-nowrap">
                               <div className="flex items-center space-x-3">
-                                <div className="w-8 h-8 bg-primary bg-opacity-10 rounded-lg flex items-center justify-center flex-shrink-0">
-                                  <span className="text-primary font-medium text-sm">{team.code.substring(0, 2)}</span>
+                                <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                                  <span className="text-white font-bold text-xs uppercase">{team.code.substring(0, 2)}</span>
                                 </div>
                                 <div className="flex-grow">
                                   <div className="font-medium text-gray-900">{team.name}</div>
