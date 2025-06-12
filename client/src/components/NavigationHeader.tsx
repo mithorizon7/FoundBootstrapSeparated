@@ -104,7 +104,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
                 <TeamAvatar 
                   avatarIcon={team.avatarIcon}
                   teamName={team.name}
-                  size="sm"
+                  size="md"
                 />
                 <div className="flex items-center space-x-2">
                   <span>{team.name}</span>
