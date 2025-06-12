@@ -63,6 +63,8 @@ export const insertTeamSchema = createInsertSchema(teams).omit({
   id: true,
   createdAt: true,
   updatedAt: true,
+}).extend({
+  avatarIcon: z.string().optional(), // Make avatar optional since it's auto-assigned
 });
 
 export const insertPhaseDataSchema = createInsertSchema(phaseData).omit({
