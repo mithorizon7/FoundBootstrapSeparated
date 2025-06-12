@@ -15,6 +15,9 @@ app.set('trust proxy', 1); // Trust first proxy for Replit deployment
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+// Serve team icons statically
+app.use('/team_icons', express.static('team_icons'));
+
 // PostgreSQL session store configuration
 const PgSessionStore = connectPgSimple(session);
 

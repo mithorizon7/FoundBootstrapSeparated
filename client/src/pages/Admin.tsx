@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useLocation } from "wouter";
 import { useAuth } from "@/contexts/AuthContext";
 import { NavigationHeader } from "@/components/NavigationHeader";
+import { TeamAvatar } from "@/components/TeamAvatar";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -506,9 +507,11 @@ export default function Admin() {
                           <tr key={team.id} className="hover:bg-gray-50">
                             <td className="px-6 py-4 whitespace-nowrap">
                               <div className="flex items-center space-x-3">
-                                <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-                                  <span className="text-white font-bold text-xs uppercase">{team.code.substring(0, 2)}</span>
-                                </div>
+                                <TeamAvatar 
+                                  avatarIcon={(team as any).avatarIcon}
+                                  teamName={team.name}
+                                  size="md"
+                                />
                                 <div className="flex-grow">
                                   <div className="font-medium text-gray-900">{team.name}</div>
                                   <div className="flex items-center space-x-2 text-sm text-gray-500">
