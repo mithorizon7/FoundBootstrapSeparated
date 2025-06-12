@@ -191,19 +191,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.patch("/api/teams/:id/avatar", ensureAuthenticatedTeam, async (req, res) => {
+  app.patch("/api/teams/:id/avatar", async (req, res) => {
     try {
       const teamId = parseInt(req.params.id);
       const { avatarIcon } = req.body;
       
-      // Verify the team is updating their own avatar
-      if (req.session.teamId !== teamId) {
-        return res.status(403).json({ message: "Unauthorized" });
-      }
-      
       // Validate avatar icon
       if (!avatarIcon || typeof avatarIcon !== 'string') {
         return res.status(400).json({ message: "Valid avatar icon required" });
+      }
+      
+      // Verify team exists
+      const existingTeam = await storage.getTeamById(teamId);
+      if (!existingTeam) {
+        return res.status(404).json({ message: "Team not found" });
       }
       
       const team = await storage.updateTeamAvatar(teamId, avatarIcon);
