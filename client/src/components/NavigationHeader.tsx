@@ -204,7 +204,17 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
           </nav>
 
           {/* Right Side Actions */}
-          <div className="flex items-center space-x-1 sm:space-x-2">
+          <div className="flex items-center space-x-1 sm:space-x-2 flex-shrink-0">
+            {/* Admin Dashboard Button - Always Visible When Admin */}
+            {isAuthenticated && user?.role === 'admin' && (
+              <Link href="/admin">
+                <Button variant="ghost" size="sm" className="flex items-center space-x-2">
+                  <ChartLine className="w-4 h-4" />
+                  <span className="hidden sm:inline">Dashboard</span>
+                </Button>
+              </Link>
+            )}
+            
             {/* Mobile Menu Button - Only for phase navigation */}
             <DropdownMenu open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <DropdownMenuTrigger asChild>
@@ -250,16 +260,6 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
                 </div>
               </DropdownMenuContent>
             </DropdownMenu>
-            
-            {/* Admin Dashboard Link */}
-            {isAuthenticated && user?.role === 'admin' && (
-              <Link href="/admin">
-                <Button variant="ghost" size="sm" className="hidden md:flex items-center space-x-2">
-                  <ChartLine className="w-4 h-4" />
-                  <span>Dashboard</span>
-                </Button>
-              </Link>
-            )}
             
             {/* User Menu - Always Accessible */}
             <DropdownMenu>
