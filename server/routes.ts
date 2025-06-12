@@ -273,11 +273,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Admin cohort management endpoints
   app.post("/api/admin/cohorts", ensureAuthenticatedAdmin, async (req, res) => {
     try {
-      const cohortData = insertCohortSchema.parse(req.body);
+      const { tag, name, description } = req.body;
+      
+      if (!tag || !name) {
+        return res.status(400).json({ message: "Tag and name are required" });
+      }
+      
+      const cohortData = {
+        tag: tag.trim(),
+        name: name.trim(),
+        description: description?.trim() || null,
+        submissionsOpen: false,
+        votingOpen: false,
+        resultsVisible: false
+      };
+      
       const cohort = await storage.createCohort(cohortData);
       res.json(cohort);
-    } catch (error) {
-      res.status(400).json({ message: "Invalid cohort data" });
+    } catch (error: any) {
+      if (error.message?.includes('duplicate') || error.code === '23505') {
+        return res.status(409).json({ message: "Cohort tag already exists" });
+      }
+      res.status(500).json({ message: "Error creating cohort" });
     }
   });
 
