@@ -86,31 +86,31 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
   return (
     <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center h-16">
-          {/* Logo and Brand */}
-          <div className="flex items-center space-x-4 flex-shrink-0">
-            <Link href="/" className="flex items-center space-x-3">
+        <div className="flex items-center justify-between h-16">
+          {/* Left: Logo and Brand */}
+          <div className="flex items-center space-x-2 sm:space-x-4 flex-shrink-0">
+            <Link href="/" className="flex items-center space-x-2 sm:space-x-3">
               <img 
                 src={logoSrc} 
                 alt="Found-in-Two Logo" 
-                className="w-10 h-10 object-contain"
+                className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
               />
-              <span className="text-xl font-bold text-neutral-800">Found-in-Two</span>
+              <span className="text-lg sm:text-xl font-bold text-neutral-800 hidden xs:block">Found-in-Two</span>
             </Link>
             
-            {/* Team Info */}
+            {/* Team Info - Responsive */}
             {team && (
-              <div className="hidden md:flex items-center space-x-3 text-sm text-gray-600 bg-gray-50 px-3 py-1 rounded-full">
+              <div className="flex items-center space-x-2 text-sm text-gray-600 bg-gray-50 px-2 py-1 rounded-full">
                 <AvatarSelector 
                   teamId={team.id}
                   teamCode={team.code}
                   currentAvatar={team.avatarIcon}
                   teamName={team.name}
-                  size="md"
+                  size="sm"
                 />
-                <div className="flex items-center space-x-2">
-                  <span>{team.name}</span>
-                  <span className="text-xs">•</span>
+                <div className="hidden sm:flex items-center space-x-2">
+                  <span className="hidden md:inline">{team.name}</span>
+                  <span className="text-xs hidden md:inline">•</span>
                   <span>{team.code}</span>
                 </div>
               </div>
@@ -204,7 +204,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
           </nav>
 
           {/* Right Side Actions */}
-          <div className="flex items-center space-x-2 ml-auto">
+          <div className="flex items-center space-x-1 sm:space-x-2">
             {/* Mobile Menu Button - Only for phase navigation */}
             <DropdownMenu open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <DropdownMenuTrigger asChild>
@@ -261,19 +261,19 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
               </Link>
             )}
             
-            {/* User Menu - Far Right */}
+            {/* User Menu - Always Accessible */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="flex items-center space-x-2"
+                  className="flex items-center space-x-1 sm:space-x-2 text-sm"
                 >
-                  <UserCircle className="w-5 h-5" />
-                  <span className="hidden sm:inline">
+                  <UserCircle className="w-5 h-5 flex-shrink-0" />
+                  <span className="hidden sm:inline truncate max-w-20">
                     {isAuthenticated ? user?.username : "Account"}
                   </span>
-                  <ChevronDown className="w-4 h-4" />
+                  <ChevronDown className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-48">
