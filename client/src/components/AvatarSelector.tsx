@@ -77,13 +77,13 @@ export function AvatarSelector({ teamId, currentAvatar, teamName, size = 'md' }:
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-64 p-4" align="start">
         <div className="text-sm font-medium text-gray-900 mb-3">Choose your team avatar</div>
-        <div className="grid grid-cols-6 gap-2 max-h-48 overflow-y-auto">
+        <div className="grid grid-cols-5 gap-3 max-h-64 overflow-y-auto">
           {TEAM_AVATAR_ICONS.map((icon) => (
             <button
               key={icon}
               onClick={() => handleAvatarSelect(icon)}
               disabled={updateAvatarMutation.isPending}
-              className={`p-3 rounded-lg border-2 transition-all hover:bg-gray-50 flex items-center justify-center ${
+              className={`w-12 h-12 rounded-lg border-2 transition-all hover:bg-gray-50 flex items-center justify-center ${
                 icon === currentAvatar 
                   ? 'border-blue-500 bg-blue-50' 
                   : 'border-gray-200 hover:border-gray-300'
@@ -92,7 +92,7 @@ export function AvatarSelector({ teamId, currentAvatar, teamName, size = 'md' }:
               <img 
                 src={`/team_icons/${icon}`} 
                 alt={`Avatar ${icon}`}
-                className="w-8 h-8 object-contain"
+                className="w-10 h-10 object-contain"
               />
             </button>
           ))}
