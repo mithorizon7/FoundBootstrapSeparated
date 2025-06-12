@@ -106,7 +106,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
                   teamCode={team.code}
                   currentAvatar={team.avatarIcon}
                   teamName={team.name}
-                  size="sm"
+                  size="md"
                 />
                 <div className="hidden sm:flex items-center space-x-2">
                   <span className="hidden md:inline">{team.name}</span>
