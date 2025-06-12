@@ -36,9 +36,8 @@ export function AvatarSelector({ teamId, currentAvatar, teamName, size = 'md' }:
       return response.json();
     },
     onSuccess: () => {
-      // Invalidate team queries to refresh the data
-      queryClient.invalidateQueries({ queryKey: ['/api/teams'] });
-      queryClient.invalidateQueries({ queryKey: ['/api/team'] });
+      // Invalidate all team-related queries to refresh the data
+      queryClient.invalidateQueries({ queryKey: ['/api/teams'], exact: false });
       
       toast({
         title: "Avatar updated",
