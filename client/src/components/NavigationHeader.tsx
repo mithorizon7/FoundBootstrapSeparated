@@ -5,6 +5,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Menu, Users, ChartLine, UserCircle, ChevronDown, LogIn, LogOut, Shield } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import { TeamAvatar } from "@/components/TeamAvatar";
 import logoSrc from "@assets/ActivityLogo2.png";
 
 
@@ -13,6 +14,7 @@ interface Team {
   code: string;
   name: string;
   currentPhase: number;
+  avatarIcon?: string;
 }
 
 interface NavigationHeaderProps {
@@ -98,11 +100,17 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
             
             {/* Team Info */}
             {team && (
-              <div className="hidden md:flex items-center space-x-2 text-sm text-gray-600 bg-gray-50 px-3 py-1 rounded-full">
-                <Users className="w-3 h-3" />
-                <span>{team.name}</span>
-                <span className="text-xs">•</span>
-                <span>{team.code}</span>
+              <div className="hidden md:flex items-center space-x-3 text-sm text-gray-600 bg-gray-50 px-3 py-1 rounded-full">
+                <TeamAvatar 
+                  avatarIcon={team.avatarIcon}
+                  teamName={team.name}
+                  size="sm"
+                />
+                <div className="flex items-center space-x-2">
+                  <span>{team.name}</span>
+                  <span className="text-xs">•</span>
+                  <span>{team.code}</span>
+                </div>
               </div>
             )}
           </div>

@@ -145,7 +145,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         name: name.trim(),
         code: code.trim().toUpperCase(),
         accessToken,
-        currentPhase: 1
+        currentPhase: 1,
+        avatarIcon: '' // Will be auto-assigned by storage layer
       };
       
       const team = await storage.createTeam(teamData);
