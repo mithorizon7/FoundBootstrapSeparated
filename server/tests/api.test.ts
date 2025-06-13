@@ -1,9 +1,7 @@
-import { describe, it, expect, beforeAll, afterAll, beforeEach } from 'vitest';
+import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import request from 'supertest';
 import express from 'express';
 import { registerRoutes } from '../routes';
-import { storage } from '../storage';
-import type { Team, Cohort, User } from '@shared/schema';
 
 // Test application setup
 let app: express.Express;
@@ -22,48 +20,6 @@ afterAll(async () => {
 });
 
 describe('API Validation Tests', () => {
-  let testTeam: Team;
-  let testCohort: Cohort;
-  let testUser: User;
-  let adminCookie: string;
-  let teamAccessToken: string;
-
-  beforeEach(async () => {
-    // Clean up and create fresh test data
-    try {
-      // Create test admin user
-      testUser = await storage.createUser({
-        username: 'testadmin',
-        password: 'hashedpassword123',
-        role: 'admin'
-      });
-
-      // Create test cohort
-      testCohort = await storage.createCohort({
-        tag: 'TEST2025',
-        name: 'Test Cohort 2025',
-        description: 'Test cohort for validation',
-        submissionsOpen: true,
-        votingOpen: false,
-        resultsVisible: false,
-        archived: false
-      });
-
-      // Create test team
-      testTeam = await storage.createTeam({
-        name: 'Test Team Alpha',
-        code: 'TESTA',
-        accessToken: 'test_token_alpha_123',
-        currentPhase: 1,
-        avatarIcon: 'team1.svg'
-      });
-
-      teamAccessToken = testTeam.accessToken;
-    } catch (error) {
-      console.log('Setup warning:', error);
-      // Continue with tests even if some setup fails
-    }
-  });
 
   describe('Team Authentication Routes', () => {
     it('should validate team login with proper schema', async () => {
