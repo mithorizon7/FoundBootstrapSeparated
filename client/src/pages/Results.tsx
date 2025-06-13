@@ -1,7 +1,7 @@
 import { useParams } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useTransform, animate } from "framer-motion";
 import confetti from "canvas-confetti";
 import { NavigationHeader } from "@/components/NavigationHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -18,11 +18,39 @@ interface VotingResult {
   votes: Array<{rank: number, count: number}>;
 }
 
+interface AnimatedScoreProps {
+  finalScore: number;
+  delay?: number;
+  duration?: number;
+  className?: string;
+}
+
+function AnimatedScore({ finalScore, delay = 0, duration = 1.5, className = "" }: AnimatedScoreProps) {
+  const motionValue = useMotionValue(0);
+  const rounded = useTransform(motionValue, (value) => Math.round(value));
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      animate(motionValue, finalScore, {
+        duration,
+        ease: "easeOut"
+      });
+    }, delay * 1000);
+
+    return () => clearTimeout(timeout);
+  }, [finalScore, delay, duration, motionValue]);
+
+  return (
+    <motion.span className={className}>
+      {rounded}
+    </motion.span>
+  );
+}
+
 export default function Results() {
   const { cohortTag } = useParams();
   const [isRevealed, setIsRevealed] = useState(false);
   const [revealStep, setRevealStep] = useState(0);
-  const [animatedScores, setAnimatedScores] = useState<Record<number, number>>({});
 
   const { data: cohort } = useQuery<Cohort>({
     queryKey: ['/api/cohorts', cohortTag, 'status'],
@@ -110,24 +138,6 @@ export default function Results() {
     }, 250);
   };
 
-  const animateScore = (teamId: number, finalScore: number) => {
-    const duration = 1500; // 1.5 seconds
-    const steps = 30;
-    const increment = finalScore / steps;
-    let currentScore = 0;
-    let step = 0;
-
-    const timer = setInterval(() => {
-      step++;
-      currentScore = Math.min(Math.round(increment * step), finalScore);
-      setAnimatedScores(prev => ({ ...prev, [teamId]: currentScore }));
-      
-      if (step >= steps) {
-        clearInterval(timer);
-      }
-    }, duration / steps);
-  };
-
   const handleReveal = async () => {
     setIsRevealed(true);
     triggerConfetti();
@@ -138,20 +148,6 @@ export default function Results() {
     setTimeout(() => {
       setRevealStep(3); // 1st place
       triggerWinnerConfetti(); // Spectacular winner celebration
-      
-      // Start score animations for top 3
-      if (results.length > 0) {
-        results.slice(0, 3).forEach((result, index) => {
-          setTimeout(() => animateScore(result.teamId, result.totalPoints), index * 200);
-        });
-        
-        // Animate scores for remaining teams
-        if (results.length > 3) {
-          results.slice(3).forEach((result, index) => {
-            setTimeout(() => animateScore(result.teamId, result.totalPoints), 4000 + index * 100);
-          });
-        }
-      }
     }, 1500);
   };
 
@@ -454,9 +450,15 @@ export default function Results() {
                               transition={{ duration: 1.5, repeat: Infinity }}
                             >
                               <Badge variant="secondary" className="mb-2 text-lg font-bold bg-gradient-to-r from-gray-300 to-gray-500 text-gray-800">
-                                {animatedScores[results[1]?.teamId] !== undefined 
-                                  ? animatedScores[results[1]?.teamId] 
-                                  : results[1]?.totalPoints} pts
+                                {revealStep >= 2 ? (
+                                  <AnimatedScore 
+                                    finalScore={results[1]?.totalPoints || 0} 
+                                    delay={1.2}
+                                    duration={1.5}
+                                  />
+                                ) : (
+                                  results[1]?.totalPoints
+                                )} pts
                               </Badge>
                             </motion.div>
                           </motion.div>
@@ -543,9 +545,15 @@ export default function Results() {
                               transition={{ duration: 1, repeat: Infinity }}
                             >
                               <Badge className="mb-3 text-xl font-bold bg-gradient-to-r from-yellow-400 to-yellow-600 text-yellow-900 shadow-lg">
-                                {animatedScores[results[0]?.teamId] !== undefined 
-                                  ? animatedScores[results[0]?.teamId] 
-                                  : results[0]?.totalPoints} pts
+                                {revealStep >= 3 ? (
+                                  <AnimatedScore 
+                                    finalScore={results[0]?.totalPoints || 0} 
+                                    delay={1.7}
+                                    duration={1.5}
+                                  />
+                                ) : (
+                                  results[0]?.totalPoints
+                                )} pts
                               </Badge>
                             </motion.div>
 
@@ -627,9 +635,15 @@ export default function Results() {
                               transition={{ duration: 2, repeat: Infinity }}
                             >
                               <Badge variant="outline" className="mb-2 text-lg font-bold border-amber-600 text-amber-700 bg-gradient-to-r from-amber-50 to-amber-100">
-                                {animatedScores[results[2]?.teamId] !== undefined 
-                                  ? animatedScores[results[2]?.teamId] 
-                                  : results[2]?.totalPoints} pts
+                                {revealStep >= 1 ? (
+                                  <AnimatedScore 
+                                    finalScore={results[2]?.totalPoints || 0} 
+                                    delay={0.7}
+                                    duration={1.5}
+                                  />
+                                ) : (
+                                  results[2]?.totalPoints
+                                )} pts
                               </Badge>
                             </motion.div>
                           </motion.div>
@@ -710,9 +724,15 @@ export default function Results() {
                                 animate={{ scale: [1, 1.1, 1] }}
                                 transition={{ delay: 4 + index * 0.1, duration: 0.5 }}
                               >
-                                {animatedScores[result.teamId] !== undefined && position > 3
-                                  ? animatedScores[result.teamId]
-                                  : result.totalPoints}
+                                {revealStep >= 3 ? (
+                                  <AnimatedScore 
+                                    finalScore={result.totalPoints} 
+                                    delay={4 + (position - 4) * 0.1}
+                                    duration={1}
+                                  />
+                                ) : (
+                                  result.totalPoints
+                                )}
                               </motion.div>
                               <div className="text-sm text-gray-600">points</div>
                             </div>
