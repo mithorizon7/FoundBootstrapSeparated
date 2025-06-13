@@ -730,7 +730,13 @@ export default function Admin() {
                         <Archive className="w-4 h-4" />
                         <span>{showArchived ? "Show Active" : "Show Archived"}</span>
                       </Button>
-                      <Dialog open={assignTeamsOpen} onOpenChange={setAssignTeamsOpen}>
+                      <Dialog open={assignTeamsOpen} onOpenChange={(open) => {
+                        setAssignTeamsOpen(open);
+                        if (!open) {
+                          setSelectedTeams([]);
+                          setSelectedCohort("");
+                        }
+                      }}>
                         <Tooltip>
                           <TooltipTrigger asChild>
                             <DialogTrigger asChild>
@@ -788,7 +794,11 @@ export default function Admin() {
                               </div>
                             </div>
                             <div className="flex justify-end space-x-3 pt-4">
-                              <Button variant="outline" onClick={() => setAssignTeamsOpen(false)}>
+                              <Button variant="outline" onClick={() => {
+                                setAssignTeamsOpen(false);
+                                setSelectedTeams([]);
+                                setSelectedCohort("");
+                              }}>
                                 Cancel
                               </Button>
                               <Button
@@ -802,7 +812,13 @@ export default function Admin() {
                         </DialogContent>
                       </Dialog>
 
-                      <Dialog open={unassignTeamsOpen} onOpenChange={setUnassignTeamsOpen}>
+                      <Dialog open={unassignTeamsOpen} onOpenChange={(open) => {
+                        setUnassignTeamsOpen(open);
+                        if (!open) {
+                          setSelectedUnassignTeams([]);
+                          setSelectedUnassignCohort("");
+                        }
+                      }}>
                         <Tooltip>
                           <TooltipTrigger asChild>
                             <DialogTrigger asChild>

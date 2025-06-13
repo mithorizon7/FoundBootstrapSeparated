@@ -142,22 +142,17 @@ export class DatabaseStorage implements IStorage {
   }
 
   async assignTeamsToCohort(teamIds: number[], cohortTag: string): Promise<Team[]> {
-    const updatedTeams = [];
-    
-    // Update teams one by one to ensure compatibility
-    for (const teamId of teamIds) {
-      const [team] = await db
-        .update(teams)
-        .set({ 
-          cohortTag,
-          updatedAt: new Date()
-        })
-        .where(eq(teams.id, teamId))
-        .returning();
-      if (team) {
-        updatedTeams.push(team);
-      }
+    if (teamIds.length === 0) {
+      return [];
     }
+    const updatedTeams = await db
+      .update(teams)
+      .set({ 
+        cohortTag,
+        updatedAt: new Date()
+      })
+      .where(inArray(teams.id, teamIds))
+      .returning();
     
     return updatedTeams;
   }
