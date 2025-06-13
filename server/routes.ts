@@ -306,27 +306,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.patch("/api/teams/:teamId/website", async (req, res) => {
     try {
       const teamId = parseInt(req.params.teamId);
-      const { website_url } = req.body;
-      
-      if (!website_url || typeof website_url !== 'string') {
-        return res.status(400).json({ message: "Website URL is required" });
-      }
+      const { websiteUrl } = updateTeamWebsiteSchema.parse(req.body);
       
       // Trim and validate the URL
-      const trimmedUrl = website_url.trim();
-      if (!trimmedUrl) {
-        return res.status(400).json({ message: "Website URL cannot be empty" });
-      }
+      const trimmedUrl = websiteUrl?.trim() || null;
       
-      // Basic URL format validation
-      const urlPattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/i;
-      if (!urlPattern.test(trimmedUrl)) {
-        return res.status(400).json({ message: "Please enter a valid website URL" });
-      }
-      
-      const team = await storage.updateTeamWebsite(teamId, trimmedUrl);
+      const team = await storage.updateTeamWebsite(teamId, trimmedUrl || "");
       res.json(team);
     } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid request data", errors: error.errors });
+      }
       res.status(500).json({ message: "Error updating website" });
     }
   });
@@ -362,16 +352,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Admin cohort management endpoints
   app.post("/api/admin/cohorts", ensureAuthenticatedAdmin, async (req, res) => {
     try {
-      const { tag, name, description } = req.body;
-      
-      if (!tag || !name) {
-        return res.status(400).json({ message: "Tag and name are required" });
-      }
+      const validatedData = insertCohortSchema.parse(req.body);
       
       const cohortData = {
-        tag: tag.trim(),
-        name: name.trim(),
-        description: description?.trim() || null,
+        tag: validatedData.tag.trim(),
+        name: validatedData.name.trim(),
+        description: validatedData.description?.trim() || null,
         submissionsOpen: true,
         votingOpen: false,
         resultsVisible: false
@@ -380,6 +366,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const cohort = await storage.createCohort(cohortData);
       res.json(cohort);
     } catch (error: any) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid request data", errors: error.errors });
+      }
       if (error.message?.includes('duplicate') || error.code === '23505') {
         return res.status(409).json({ message: "Cohort tag already exists" });
       }
@@ -449,17 +438,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/admin/cohorts/:cohortTag/teams", ensureAuthenticatedAdmin, async (req, res) => {
     try {
-      const { team_ids } = req.body;
-      console.log('Assigning teams:', team_ids, 'to cohort:', req.params.cohortTag);
+      const { teamIds } = assignTeamsSchema.parse(req.body);
+      console.log('Assigning teams:', teamIds, 'to cohort:', req.params.cohortTag);
       
-      if (!Array.isArray(team_ids)) {
-        return res.status(400).json({ message: "team_ids must be an array" });
-      }
-      
-      const teams = await storage.assignTeamsToCohort(team_ids, req.params.cohortTag);
+      const teams = await storage.assignTeamsToCohort(teamIds, req.params.cohortTag);
       console.log('Teams assigned successfully:', teams.length);
       res.json(teams);
     } catch (error: any) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid request data", errors: error.errors });
+      }
       console.error('Error assigning teams to cohort:', error);
       res.status(500).json({ message: "Error assigning teams to cohort", details: error?.message || 'Unknown error' });
     }
@@ -467,15 +455,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.patch("/api/admin/cohorts/unassign-teams", ensureAuthenticatedAdmin, async (req, res) => {
     try {
-      const { teamIds } = req.body;
-
-      if (!Array.isArray(teamIds) || teamIds.length === 0) {
-        return res.status(400).json({ message: "teamIds must be a non-empty array" });
-      }
+      const { teamIds } = unassignTeamsSchema.parse(req.body);
 
       await storage.unassignTeamsFromCohort(teamIds);
       res.status(200).json({ message: "Teams unassigned successfully" });
     } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid request data", errors: error.errors });
+      }
       res.status(500).json({ message: "Error unassigning teams" });
     }
   });
