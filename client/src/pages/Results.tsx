@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Button } from "@/components/ui/button";
 import { Trophy, Medal, Award, ExternalLink, PartyPopper } from "lucide-react";
+import { TeamAvatar } from "@/components/TeamAvatar";
 import type { Cohort, Team } from "@shared/schema";
 
 interface VotingResult {
@@ -94,6 +95,15 @@ export default function Results() {
   const getTeamWebsite = (teamId: number): string | null => {
     const team = teams.find(t => t.id === teamId);
     return team?.submittedWebsiteUrl ? ensureUrlProtocol(team.submittedWebsiteUrl) : null;
+  };
+
+  const getTeamAvatar = (teamId: number): { avatarIcon?: string; teamName: string } => {
+    const team = teams.find(t => t.id === teamId);
+    const result = results.find(r => r.teamId === teamId);
+    return {
+      avatarIcon: team?.avatarIcon,
+      teamName: result?.teamName || team?.name || 'Unknown Team'
+    };
   };
 
   const triggerConfetti = () => {
@@ -420,7 +430,14 @@ export default function Results() {
                                 repeatDelay: 2,
                               }}
                             />
-                            <span className="text-white font-bold text-xl relative z-10">2nd</span>
+                            <div className="relative z-10">
+                              <TeamAvatar 
+                                avatarIcon={getTeamAvatar(results[1]?.teamId).avatarIcon}
+                                teamName={getTeamAvatar(results[1]?.teamId).teamName}
+                                size="lg"
+                                className="w-16 h-16"
+                              />
+                            </div>
                           </div>
                           <motion.div
                             initial={{ y: 20, opacity: 0 }}
@@ -488,7 +505,14 @@ export default function Results() {
                                 repeatDelay: 1,
                               }}
                             />
-                            <span className="text-yellow-900 font-bold text-2xl relative z-10 float-animation">1st</span>
+                            <div className="relative z-10">
+                              <TeamAvatar 
+                                avatarIcon={getTeamAvatar(results[0]?.teamId).avatarIcon}
+                                teamName={getTeamAvatar(results[0]?.teamId).teamName}
+                                size="lg"
+                                className="w-20 h-20"
+                              />
+                            </div>
                             
                             {/* Floating crown */}
                             <motion.div
@@ -605,7 +629,14 @@ export default function Results() {
                                 repeatDelay: 3,
                               }}
                             />
-                            <span className="text-amber-900 font-bold text-lg relative z-10">3rd</span>
+                            <div className="relative z-10">
+                              <TeamAvatar 
+                                avatarIcon={getTeamAvatar(results[2]?.teamId).avatarIcon}
+                                teamName={getTeamAvatar(results[2]?.teamId).teamName}
+                                size="lg"
+                                className="w-14 h-14"
+                              />
+                            </div>
                           </div>
                           <motion.div
                             initial={{ y: 20, opacity: 0 }}
