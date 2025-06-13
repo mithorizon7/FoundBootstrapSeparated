@@ -1,10 +1,22 @@
 export function compileTemplate(template: string, data: Record<string, any>): string {
   let result = template;
   
+  // Handle Handlebars conditionals {{#if condition}} ... {{else}} ... {{/if}}
+  const ifElseRegex = /\{\{#if\s+([^}]+)\}\}([\s\S]*?)(?:\{\{else\}\}([\s\S]*?))?\{\{\/if\}\}/g;
+  result = result.replace(ifElseRegex, (match, condition, ifContent, elseContent) => {
+    const isTrue = evaluateCondition(condition.trim(), data);
+    if (isTrue) {
+      return ifContent || '';
+    } else {
+      return elseContent || '';
+    }
+  });
+  
   // Handle simple variable substitution {{variableName}}
-  const simpleVarRegex = /\{\{([^.}]+)\}\}/g;
+  const simpleVarRegex = /\{\{([^.}#\/]+)\}\}/g;
   result = result.replace(simpleVarRegex, (match, varName) => {
-    const value = data[varName.trim()];
+    const cleanVarName = varName.trim();
+    const value = data[cleanVarName];
     return value !== undefined ? String(value) : match;
   });
   
@@ -28,6 +40,20 @@ export function compileTemplate(template: string, data: Record<string, any>): st
   });
   
   return result;
+}
+
+function evaluateCondition(condition: string, data: Record<string, any>): boolean {
+  // Handle equality comparisons like "website_brief_approach == 'detailed'"
+  const equalityMatch = condition.match(/^([a-zA-Z0-9_]+)\s*==\s*['"]([^'"]+)['"]$/);
+  if (equalityMatch) {
+    const [, varName, expectedValue] = equalityMatch;
+    const actualValue = data[varName.trim()];
+    return actualValue === expectedValue;
+  }
+  
+  // Handle simple boolean variables
+  const value = data[condition];
+  return !!value;
 }
 
 export function extractVariables(template: string): string[] {
