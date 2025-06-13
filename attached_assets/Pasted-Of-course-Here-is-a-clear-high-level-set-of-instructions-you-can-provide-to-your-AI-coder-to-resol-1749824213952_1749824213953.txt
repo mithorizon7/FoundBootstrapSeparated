@@ -1,0 +1,44 @@
+Of course. Here is a clear, high-level set of instructions you can provide to your AI coder to resolve the issue with the cohort toggles.
+
+***
+
+### Instructions for AI Coder: Fixing the Admin Dashboard Toggles
+
+**1. The Problem Statement (What is the issue?)**
+
+On the Instructor Dashboard, within the "Cohorts" tab, the toggles for controlling "Submissions," "Voting," and "Results" are not working correctly. When an administrator clicks a toggle to change its state (e.g., to open voting), the user interface does not reliably update to show the new state. The change is saved on the backend, but the switch on the page appears to revert to its original position, creating a confusing user experience.
+
+**2. Root Cause Analysis (Why is this happening?)**
+
+The issue is not on the backend; the backend API correctly updates the cohort's status in the database. The problem is a frontend bug in how the component refreshes its data after the change is made.
+
+The code in `client/src/pages/Admin.tsx` uses the `useMutation` hook from TanStack Query to update the cohort. In the `onSuccess` callback of this mutation, it attempts to invalidate two queries to force a data refresh. However, one of these invalidation calls uses an incorrect format for the `queryKey`, which likely causes an error and prevents the component's data from being properly updated.
+
+**3. The Resolution Plan (What needs to be done?)**
+
+Your task is to correct the data invalidation logic in the `Admin.tsx` component and clean up a related type-casting issue.
+
+* **File to Edit:** `FoundBootstrapShortened/client/src/pages/Admin.tsx`
+
+* **Step-by-Step Instructions:**
+    1.  **Locate the `updateCohortMutation`:** Find the `useMutation` hook that handles cohort updates within the `Admin` component.
+    2.  **Correct the `onSuccess` Callback:** In the `onSuccess` function of the mutation, you will find two `queryClient.invalidateQueries` calls. One of them is incorrect.
+        * **Find this line:**
+            ```javascript
+            queryClient.invalidateQueries({ queryKey: [`/api/admin/cohorts/${variables.tag}`] });
+            ```
+        * **Correct it to use the proper array format for a dynamic query key:**
+            ```javascript
+            queryClient.invalidateQueries({ queryKey: ['/api/admin/cohorts', variables.tag] });
+            ```
+    3.  **Remove Unsafe Type Cast:** While in the same file, find the `<Switch>` component for "Results". Its `checked` prop currently uses an unsafe type cast (`(cohort as any).resultsVisible`).
+        * **Find this line:**
+            ```javascript
+            checked={(cohort as any).resultsVisible || false}
+            ```
+        * **Replace it with the type-safe version:**
+            ```javascript
+            checked={cohort.resultsVisible}
+            ```
+
+By making these two changes, the component will correctly invalidate the query, refetch the updated cohort data from the server, and display the proper state on the toggles.

@@ -120,7 +120,7 @@ export default function Admin() {
       });
       // Invalidate both the general cohorts list and specific cohort data
       queryClient.invalidateQueries({ queryKey: ['/api/admin/cohorts'] });
-      queryClient.invalidateQueries({ queryKey: [`/api/admin/cohorts/${variables.tag}`] });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/cohorts', variables.tag] });
     },
     onError: (error: Error) => {
       toast({
@@ -842,7 +842,7 @@ export default function Admin() {
                                       <TooltipTrigger asChild>
                                         <Switch
                                           key={`results-${cohort.tag}`}
-                                          checked={(cohort as any).resultsVisible || false}
+                                          checked={cohort.resultsVisible}
                                           onCheckedChange={(checked) => updateCohortMutation.mutate({
                                             tag: cohort.tag,
                                             updates: { resultsVisible: checked }
