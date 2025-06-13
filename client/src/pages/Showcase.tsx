@@ -58,9 +58,9 @@ export default function Showcase() {
   });
 
   const { data: cohort } = useQuery<Cohort>({
-    queryKey: ['/api/admin/cohorts', cohortTag],
+    queryKey: ['/api/cohorts', cohortTag],
     queryFn: async () => {
-      const response = await fetch(`/api/admin/cohorts/${cohortTag}`);
+      const response = await fetch(`/api/cohorts/${cohortTag}`);
       if (!response.ok) throw new Error('Failed to fetch cohort');
       return response.json();
     },
@@ -192,6 +192,17 @@ export default function Showcase() {
           <p className="text-gray-600">
             {cohort?.description || 'View and vote for the best website submissions from this cohort.'}
           </p>
+          
+          {/* Debug information for voting status */}
+          {process.env.NODE_ENV === 'development' && (
+            <div className="mt-4 p-3 bg-gray-100 rounded-lg text-xs text-gray-600">
+              <strong>Debug Info:</strong> Voting Open: {cohort?.votingOpen ? 'Yes' : 'No'} | 
+              Team ID: {votingTeamId || 'None'} | 
+              Has Submitted: {votingTeam?.submittedWebsiteUrl ? 'Yes' : 'No'} | 
+              Has Voted: {hasAlreadyVoted ? 'Yes' : 'No'} | 
+              Eligible Teams: {eligibleTeams.length}
+            </div>
+          )}
           
           {cohort?.votingOpen && !hasAlreadyVoted && votingTeamId && (
             votingTeam?.submittedWebsiteUrl ? (
