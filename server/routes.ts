@@ -446,10 +446,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { votes } = req.body;
       const voting_team_id = (req.session as any).teamId; // Get from secure session
       
-      if (!Array.isArray(votes) || votes.length !== 3) {
-        return res.status(400).json({ message: "Must provide exactly 3 votes" });
-      }
-      
       // Validate cohort exists and voting is open
       const cohort = await storage.getCohortByTag(req.params.cohortTag);
       if (!cohort) {
@@ -476,10 +472,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: "Team has already voted" });
       }
       
-      // Validate vote structure
+      // Get eligible teams (those with submissions, excluding voting team)
+      const eligibleTeams = await storage.getSubmittedTeamsByCohort(req.params.cohortTag);
+      const votableTeams = eligibleTeams.filter(team => team.id !== voting_team_id);
+      const maxVotes = Math.min(3, votableTeams.length);
+      
+      if (maxVotes === 0) {
+        return res.status(400).json({ message: "No other teams available to vote for" });
+      }
+      
+      if (!Array.isArray(votes) || votes.length !== maxVotes) {
+        return res.status(400).json({ message: `Must provide exactly ${maxVotes} vote${maxVotes > 1 ? 's' : ''}` });
+      }
+      
+      // Validate vote structure - require ranks 1 through maxVotes
       const ranks = votes.map(v => v.rank);
-      if (!ranks.includes(1) || !ranks.includes(2) || !ranks.includes(3)) {
-        return res.status(400).json({ message: "Must include ranks 1, 2, and 3" });
+      const expectedRanks = Array.from({ length: maxVotes }, (_, i) => i + 1);
+      for (const expectedRank of expectedRanks) {
+        if (!ranks.includes(expectedRank)) {
+          return res.status(400).json({ message: `Must include rank ${expectedRank}` });
+        }
       }
       
       // Prevent self-voting

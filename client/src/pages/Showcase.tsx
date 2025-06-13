@@ -133,14 +133,14 @@ export default function Showcase() {
     return vote ? vote.rank : null;
   };
 
-  const canSubmitVotes = selectedVotes.length === 3 && 
-    selectedVotes.some(v => v.rank === 1) &&
-    selectedVotes.some(v => v.rank === 2) &&
-    selectedVotes.some(v => v.rank === 3);
-
   const hasAlreadyVoted = existingVotes.length > 0;
-
   const eligibleTeams = teams.filter(team => team.id !== votingTeamId);
+  const maxVotes = Math.min(3, eligibleTeams.length);
+  
+  const canSubmitVotes = selectedVotes.length === maxVotes && 
+    Array.from({ length: maxVotes }, (_, i) => i + 1).every(rank => 
+      selectedVotes.some(v => v.rank === rank)
+    );
 
   // Helper function to ensure URLs have proper protocol
   const ensureUrlProtocol = (url: string | null): string => {
@@ -201,8 +201,14 @@ export default function Showcase() {
                   <span className="font-medium text-blue-900">Voting Instructions</span>
                 </div>
                 <p className="text-blue-700 mt-2">
-                  Select your top 3 favorite websites by clicking the rank buttons (1st, 2nd, 3rd place).
-                  You cannot vote for your own team's submission.
+                  {maxVotes === 3 ? (
+                    "Select your top 3 favorite websites by clicking the rank buttons (1st, 2nd, 3rd place)."
+                  ) : maxVotes === 2 ? (
+                    "Select your top 2 favorite websites by clicking the rank buttons (1st, 2nd place)."
+                  ) : (
+                    "Select your favorite website by clicking the 1st place button."
+                  )}
+                  {" You cannot vote for your own team's submission."}
                 </p>
               </div>
             ) : (
@@ -254,6 +260,19 @@ export default function Showcase() {
               </p>
             </CardContent>
           </Card>
+        ) : eligibleTeams.length === 0 ? (
+          <Card>
+            <CardContent className="text-center py-12">
+              <Trophy className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-gray-900 mb-2">Only Your Team Has Submitted</h3>
+              <p className="text-gray-600 mb-4">
+                You're the only team that has submitted so far. Voting will be available once other teams submit their websites.
+              </p>
+              <p className="text-sm text-gray-500">
+                Check back later when more teams have completed their submissions.
+              </p>
+            </CardContent>
+          </Card>
         ) : (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
@@ -286,7 +305,7 @@ export default function Showcase() {
                         
                         {cohort?.votingOpen && !hasAlreadyVoted && votingTeamId && votingTeam?.submittedWebsiteUrl && (
                           <div className="flex space-x-2">
-                            {[1, 2, 3].map((rank) => (
+                            {Array.from({ length: maxVotes }, (_, i) => i + 1).map((rank) => (
                               <Button
                                 key={rank}
                                 variant={selectedRank === rank ? "default" : "outline"}
