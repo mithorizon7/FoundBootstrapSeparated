@@ -860,14 +860,14 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                     Website URL
                   </Label>
                   <p className="text-sm text-neutral-600 mb-3">
-                    Enter the full URL of your deployed website (e.g., https://yourteam.replit.app)
+                    Enter your website URL. You can include or omit "https://" - we'll add it automatically if needed.
                   </p>
                   <Input
                     id="website-url"
-                    type="url"
+                    type="text"
                     value={websiteUrl}
                     onChange={(e) => setWebsiteUrl(e.target.value)}
-                    placeholder="https://your-website-url.com"
+                    placeholder="yourteam.replit.app or https://yourteam.replit.app"
                     className="text-base"
                   />
                 </div>

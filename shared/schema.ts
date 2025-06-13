@@ -106,8 +106,19 @@ export const updateTeamAvatarSchema = z.object({
 });
 
 export const updateTeamWebsiteSchema = z.object({
-  websiteUrl: z.string().optional().nullable().refine((url) => {
-    if (!url || url.trim() === "") return true; // Allow empty/null
+  websiteUrl: z.string().optional().nullable().transform((url) => {
+    if (!url || url.trim() === "") return null;
+    
+    const trimmed = url.trim();
+    
+    // If URL doesn't start with protocol, add https://
+    if (!trimmed.startsWith('http://') && !trimmed.startsWith('https://')) {
+      return `https://${trimmed}`;
+    }
+    
+    return trimmed;
+  }).refine((url) => {
+    if (!url) return true; // Allow null
     try {
       new URL(url);
       return true;
