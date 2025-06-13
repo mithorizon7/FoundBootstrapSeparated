@@ -754,6 +754,89 @@ export default function Admin() {
                         </DialogContent>
                       </Dialog>
 
+                      <Dialog open={unassignTeamsOpen} onOpenChange={setUnassignTeamsOpen}>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <DialogTrigger asChild>
+                              <Button variant="outline" className="flex items-center space-x-2">
+                                <Users className="w-4 h-4" />
+                                <span>Unassign Teams</span>
+                              </Button>
+                            </DialogTrigger>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Remove teams from their current cohort assignments. Teams will no longer be part of any cohort.</p>
+                          </TooltipContent>
+                        </Tooltip>
+                        <DialogContent className="max-w-2xl">
+                          <DialogHeader>
+                            <DialogTitle>Unassign Teams from Cohort</DialogTitle>
+                          </DialogHeader>
+                          <div className="space-y-4">
+                            <div>
+                              <Label htmlFor="unassign-cohort-select">Select Cohort</Label>
+                              <Select value={selectedUnassignCohort} onValueChange={setSelectedUnassignCohort}>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Choose a cohort to view its teams" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  {cohorts.map((cohort) => (
+                                    <SelectItem key={cohort.tag} value={cohort.tag}>
+                                      {cohort.name} ({cohort.tag})
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            </div>
+                            {selectedUnassignCohort && (
+                              <div>
+                                <Label>Select Teams to Unassign</Label>
+                                <div className="mt-2 space-y-2 max-h-60 overflow-y-auto">
+                                  {teams
+                                    .filter(team => team.cohortTag === selectedUnassignCohort)
+                                    .map((team) => (
+                                      <div key={team.id} className="flex items-center space-x-2">
+                                        <Checkbox
+                                          id={`unassign-team-${team.id}`}
+                                          checked={selectedUnassignTeams.includes(team.id)}
+                                          onCheckedChange={(checked) => {
+                                            if (checked) {
+                                              setSelectedUnassignTeams([...selectedUnassignTeams, team.id]);
+                                            } else {
+                                              setSelectedUnassignTeams(selectedUnassignTeams.filter(id => id !== team.id));
+                                            }
+                                          }}
+                                        />
+                                        <Label htmlFor={`unassign-team-${team.id}`} className="flex-1">
+                                          {team.name} ({team.code})
+                                        </Label>
+                                      </div>
+                                    ))}
+                                  {teams.filter(team => team.cohortTag === selectedUnassignCohort).length === 0 && (
+                                    <p className="text-sm text-gray-500 py-4">No teams are currently assigned to this cohort.</p>
+                                  )}
+                                </div>
+                              </div>
+                            )}
+                            <div className="flex justify-end space-x-3 pt-4">
+                              <Button variant="outline" onClick={() => {
+                                setUnassignTeamsOpen(false);
+                                setSelectedUnassignTeams([]);
+                                setSelectedUnassignCohort("");
+                              }}>
+                                Cancel
+                              </Button>
+                              <Button
+                                onClick={() => unassignTeamsMutation.mutate({ teamIds: selectedUnassignTeams })}
+                                disabled={selectedUnassignTeams.length === 0 || unassignTeamsMutation.isPending}
+                              >
+                                {unassignTeamsMutation.isPending ? "Unassigning..." : "Unassign Teams"}
+                              </Button>
+                            </div>
+                          </div>
+                        </DialogContent>
+                      </Dialog>
+
                       <Dialog open={newCohortOpen} onOpenChange={setNewCohortOpen}>
                         <Tooltip>
                           <TooltipTrigger asChild>
