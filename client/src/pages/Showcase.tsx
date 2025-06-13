@@ -231,7 +231,21 @@ export default function Showcase() {
           )}
         </div>
 
-        {teams.length === 0 ? (
+        {/* Check if user must submit before viewing */}
+        {votingTeamId && votingTeam && !votingTeam.submittedWebsiteUrl ? (
+          <Card>
+            <CardContent className="text-center py-12">
+              <ExternalLink className="w-12 h-12 text-orange-400 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-gray-900 mb-2">Submit Your Website First</h3>
+              <p className="text-gray-600 mb-4">
+                You must submit your team's website before you can view other team submissions. This ensures fair competition and prevents idea copying.
+              </p>
+              <p className="text-sm text-gray-500">
+                Complete your Phase 8 submission, then return here to see all submissions and vote.
+              </p>
+            </CardContent>
+          </Card>
+        ) : teams.length === 0 ? (
           <Card>
             <CardContent className="text-center py-12">
               <h3 className="text-lg font-medium text-gray-900 mb-2">No submissions yet</h3>
@@ -292,7 +306,7 @@ export default function Showcase() {
               })}
             </div>
 
-            {cohort?.votingOpen && !hasAlreadyVoted && votingTeamId && (
+            {cohort?.votingOpen && !hasAlreadyVoted && votingTeamId && votingTeam?.submittedWebsiteUrl && (
               <div className="flex justify-center">
                 <Button
                   onClick={() => submitVotesMutation.mutate(selectedVotes)}
