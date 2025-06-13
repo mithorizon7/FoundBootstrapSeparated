@@ -144,10 +144,10 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
 
   // Fetch cohort data if team is in a cohort
   const { data: cohortData } = useQuery<Cohort>({
-    queryKey: ['/api/admin/cohorts', teamData?.cohortTag],
+    queryKey: ['/api/cohorts', teamData?.cohortTag],
     queryFn: async () => {
       if (!teamData?.cohortTag) return null;
-      const response = await fetch(`/api/admin/cohorts/${teamData.cohortTag}`);
+      const response = await fetch(`/api/cohorts/${teamData.cohortTag}`);
       if (!response.ok) return null;
       return response.json();
     },

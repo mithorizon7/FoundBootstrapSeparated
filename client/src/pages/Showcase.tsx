@@ -276,7 +276,7 @@ export default function Showcase() {
         ) : (
           <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-              {eligibleTeams.map((team) => {
+              {teams.map((team) => {
                 const selectedRank = getSelectedRank(team.id);
                 return (
                   <Card key={team.id} className="relative overflow-hidden">
@@ -303,7 +303,7 @@ export default function Showcase() {
                           <span>Visit Website</span>
                         </a>
                         
-                        {cohort?.votingOpen && !hasAlreadyVoted && votingTeamId && votingTeam?.submittedWebsiteUrl && (
+                        {cohort?.votingOpen && !hasAlreadyVoted && votingTeamId && votingTeam?.submittedWebsiteUrl && team.id !== votingTeamId && (
                           <div className="flex space-x-2">
                             {Array.from({ length: maxVotes }, (_, i) => i + 1).map((rank) => (
                               <Button
@@ -316,6 +316,12 @@ export default function Showcase() {
                                 {rank === 1 ? '1st' : rank === 2 ? '2nd' : '3rd'}
                               </Button>
                             ))}
+                          </div>
+                        )}
+                        
+                        {team.id === votingTeamId && (
+                          <div className="flex items-center space-x-2 text-blue-600 bg-blue-50 px-3 py-2 rounded-lg">
+                            <span className="text-sm font-medium">Your Team's Submission</span>
                           </div>
                         )}
                       </div>

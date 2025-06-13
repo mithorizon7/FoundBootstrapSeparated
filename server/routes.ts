@@ -593,6 +593,28 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Public endpoint for teams to fetch their cohort data
+  app.get("/api/cohorts/:cohortTag", async (req, res) => {
+    try {
+      const cohort = await storage.getCohortByTag(req.params.cohortTag);
+      if (!cohort) {
+        return res.status(404).json({ message: "Cohort not found" });
+      }
+      
+      // Return safe cohort data (no admin-only fields)
+      res.json({
+        tag: cohort.tag,
+        name: cohort.name,
+        description: cohort.description,
+        submissionsOpen: cohort.submissionsOpen,
+        votingOpen: cohort.votingOpen,
+        resultsVisible: cohort.resultsVisible
+      });
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching cohort" });
+    }
+  });
+
   app.get("/api/showcase/:cohortTag/results", async (req, res) => {
     try {
       // First check if results are visible for this cohort
