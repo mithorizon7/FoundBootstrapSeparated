@@ -39,7 +39,7 @@
       "id": "concept_price_tier",
       "label": "Price Tier for this Concept",
       "type": "text",
-      "placeholder": "e.g., Mid-priced tier: (20–50 USD retail)",
+      "placeholder": "e.g., Mid-Range",
       "required": true,
       "persist": true,
       "help": "State the **price tier** for this concept",
