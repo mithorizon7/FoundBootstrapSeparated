@@ -482,7 +482,7 @@ export default function Admin() {
                                   <span className="bg-blue-200 text-blue-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">2</span>
                                   <div>
                                     <h6 className="font-medium text-blue-900">Create Cohorts</h6>
-                                    <p className="text-sm text-blue-800">Create cohorts when teams reach Phase 4-5 to group them for final showcase and voting activities.</p>
+                                    <p className="text-sm text-blue-800">Create cohorts to group teams together to be able share and see each others websites for the final showcase and voting.</p>
                                   </div>
                                 </div>
                                 <div className="flex items-start space-x-3">
@@ -501,46 +501,21 @@ export default function Admin() {
                                 <div className="flex items-start space-x-3">
                                   <span className="bg-green-200 text-green-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">4</span>
                                   <div>
-                                    <h6 className="font-medium text-green-900">Enable Submissions</h6>
-                                    <p className="text-sm text-green-800">Toggle "Submissions Open" to allow teams to submit final websites in Phase 8.</p>
+                                    <h6 className="font-medium text-green-900">Open Voting</h6>
+                                    <p className="text-sm text-green-800">Once all teams have submitted, toggle "Voting Open" to enable secure team voting for top 3 favorites. Make sure results are closed until all voting is complete.</p>
                                   </div>
                                 </div>
                                 <div className="flex items-start space-x-3">
                                   <span className="bg-green-200 text-green-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">5</span>
                                   <div>
-                                    <h6 className="font-medium text-green-900">Open Voting</h6>
-                                    <p className="text-sm text-green-800">Once all teams have submitted, toggle "Voting Open" to enable secure team voting for top 3 favorites.</p>
-                                  </div>
-                                </div>
-                                <div className="flex items-start space-x-3">
-                                  <span className="bg-green-200 text-green-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">6</span>
-                                  <div>
-                                    <h6 className="font-medium text-green-900">Monitor Voting</h6>
-                                    <p className="text-sm text-green-800">Teams vote using secure sessions. Each team votes for 3 others (3 pts, 2 pts, 1 pt). Anti-manipulation protections active.</p>
+                                    <h6 className="font-medium text-green-900">Reveal Results</h6>
+                                    <p className="text-sm text-green-800">Toggle "Results Visible" to simultaneously allow all teams to see the results of the voting at the same time.</p>
                                   </div>
                                 </div>
                               </div>
                             </div>
 
-                            <div className="border-t pt-4">
-                              <h5 className="font-semibold text-purple-900 mb-2">Results Phase: Celebration Control</h5>
-                              <div className="space-y-2">
-                                <div className="flex items-start space-x-3">
-                                  <span className="bg-purple-200 text-purple-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">7</span>
-                                  <div>
-                                    <h6 className="font-medium text-purple-900">Close Voting</h6>
-                                    <p className="text-sm text-purple-800">Turn off "Voting Open" when voting period ends. Results remain hidden until you reveal them.</p>
-                                  </div>
-                                </div>
-                                <div className="flex items-start space-x-3">
-                                  <span className="bg-purple-200 text-purple-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">8</span>
-                                  <div>
-                                    <h6 className="font-medium text-purple-900">Reveal Results</h6>
-                                    <p className="text-sm text-purple-800">Toggle "Results Visible" to simultaneously reveal the celebratory results experience to all teams with confetti, podium, and animations.</p>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
+
                           </div>
                         </div>
                       </div>
