@@ -157,26 +157,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Team routes
   app.post("/api/teams", async (req, res) => {
     try {
-      const { name, code } = req.body;
-      
-      if (!name || !code) {
-        return res.status(400).json({ message: "Name and code are required" });
-      }
+      const validatedData = insertTeamSchema.parse(req.body);
       
       // Generate unique access token for team authentication
-      const accessToken = `${code}_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
+      const accessToken = `${validatedData.code}_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
       
-      const teamData = {
-        name: name.trim(),
-        code: code.trim().toUpperCase(),
+      const finalTeamData = {
+        name: validatedData.name.trim(),
+        code: validatedData.code.trim().toUpperCase(),
         accessToken,
         currentPhase: 1
         // avatarIcon will be auto-assigned by storage layer
       };
       
-      const team = await storage.createTeam(teamData);
+      const team = await storage.createTeam(finalTeamData);
       res.json(team);
     } catch (error: any) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid request data", errors: error.errors });
+      }
       if (error.message?.includes('duplicate') || error.code === '23505') {
         return res.status(409).json({ message: "Team code already exists" });
       }
@@ -208,10 +207,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.patch("/api/teams/:id/phase", async (req, res) => {
     try {
       const teamId = parseInt(req.params.id);
-      const { currentPhase } = req.body;
+      const { currentPhase } = updateTeamPhaseSchema.parse(req.body);
       const team = await storage.updateTeamPhase(teamId, currentPhase);
       res.json(team);
     } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid request data", errors: error.errors });
+      }
       res.status(500).json({ message: "Error updating team phase" });
     }
   });
@@ -219,12 +221,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.patch("/api/teams/:id/avatar", async (req, res) => {
     try {
       const teamId = parseInt(req.params.id);
-      const { avatarIcon } = req.body;
-      
-      // Validate avatar icon
-      if (!avatarIcon || typeof avatarIcon !== 'string') {
-        return res.status(400).json({ message: "Valid avatar icon required" });
-      }
+      const { avatarIcon } = updateTeamAvatarSchema.parse(req.body);
       
       // Verify team exists
       const existingTeam = await storage.getTeamById(teamId);
@@ -235,6 +232,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const team = await storage.updateTeamAvatar(teamId, avatarIcon);
       res.json(team);
     } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid request data", errors: error.errors });
+      }
       res.status(500).json({ message: "Error updating team avatar" });
     }
   });
