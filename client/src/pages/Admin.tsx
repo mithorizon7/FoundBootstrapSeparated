@@ -352,8 +352,20 @@ export default function Admin() {
     return titles[phase as keyof typeof titles] || "Unknown Phase";
   };
 
-  const getProgressPercentage = (currentPhase: number): number => {
+  const getProgressPercentage = (currentPhase: number, hasSubmittedWebsite: boolean = false): number => {
+    // If they've submitted their website, they've completed all 8 phases
+    if (hasSubmittedWebsite) {
+      return 100;
+    }
     return Math.max(0, Math.min(100, ((currentPhase - 1) / 8) * 100));
+  };
+
+  const getProgressText = (currentPhase: number, hasSubmittedWebsite: boolean = false): string => {
+    // If they've submitted their website, they've completed all 8 phases
+    if (hasSubmittedWebsite) {
+      return "8/8";
+    }
+    return `${currentPhase - 1}/8`;
   };
 
   // Authentication check after all hooks are declared
@@ -681,10 +693,10 @@ export default function Admin() {
                             <td className="px-6 py-4 whitespace-nowrap">
                               <div className="flex items-center space-x-3">
                                 <div className="w-24">
-                                  <Progress value={getProgressPercentage(team.currentPhase)} />
+                                  <Progress value={getProgressPercentage(team.currentPhase, !!(team as any).submittedWebsiteUrl)} />
                                 </div>
                                 <span className="text-sm text-gray-600">
-                                  {team.currentPhase - 1}/8
+                                  {getProgressText(team.currentPhase, !!(team as any).submittedWebsiteUrl)}
                                 </span>
                               </div>
                             </td>
