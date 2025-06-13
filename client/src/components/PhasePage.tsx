@@ -986,18 +986,28 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
             <span>Save & Exit</span>
           </Button>
           
-          <Button
-            onClick={handleProceedToNext}
-            disabled={hasErrors || loading || config.phase === PHASE_CONFIG.TOTAL_PHASES}
-            className={cn("flex items-center space-x-2 bg-primary-500 text-white hover:bg-primary-600 transition-all duration-200 ease-out transform hover:-translate-y-px shadow-sm hover:shadow-md font-semibold tracking-wide",
-              (hasErrors || loading || config.phase === PHASE_CONFIG.TOTAL_PHASES) && "opacity-50 cursor-not-allowed"
-            )}
-          >
-            <span>
-              {config.phase === PHASE_CONFIG.TOTAL_PHASES ? 'Complete' : `Continue to Phase ${config.phase + 1}`}
-            </span>
-            {config.phase < PHASE_CONFIG.TOTAL_PHASES && <ChevronRight className="w-4 h-4" />}
-          </Button>
+          {config.phase === PHASE_CONFIG.TOTAL_PHASES ? (
+            <Button
+              onClick={handleSaveAndExit}
+              disabled={hasErrors || loading}
+              className={cn("flex items-center space-x-2 bg-green-600 text-white hover:bg-green-700 transition-all duration-200 ease-out transform hover:-translate-y-px shadow-sm hover:shadow-md font-semibold tracking-wide",
+                (hasErrors || loading) && "opacity-50 cursor-not-allowed"
+              )}
+            >
+              <span>🚀 Launched!</span>
+            </Button>
+          ) : (
+            <Button
+              onClick={handleProceedToNext}
+              disabled={hasErrors || loading}
+              className={cn("flex items-center space-x-2 bg-primary-500 text-white hover:bg-primary-600 transition-all duration-200 ease-out transform hover:-translate-y-px shadow-sm hover:shadow-md font-semibold tracking-wide",
+                (hasErrors || loading) && "opacity-50 cursor-not-allowed"
+              )}
+            >
+              <span>Continue to Phase {config.phase + 1}</span>
+              <ChevronRight className="w-4 h-4" />
+            </Button>
+          )}
         </div>
       </div>
     </div>
