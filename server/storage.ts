@@ -1,7 +1,7 @@
 import { teams, phaseData, users, cohorts, votes, type Team, type InsertTeam, type PhaseData, type InsertPhaseData, type User, type InsertUser, type Cohort, type InsertCohort, type Vote, type InsertVote } from "@shared/schema";
 import { selectRandomAvatar } from "@shared/avatars";
 import { db } from "./db";
-import { eq, and, isNotNull, sql, desc, asc } from "drizzle-orm";
+import { eq, and, isNotNull, sql, desc, asc, inArray } from "drizzle-orm";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
@@ -14,6 +14,7 @@ export interface IStorage {
   updateTeamWebsite(id: number, websiteUrl: string): Promise<Team>;
   updateTeamAvatar(id: number, avatarIcon: string): Promise<Team>;
   assignTeamsToCohort(teamIds: number[], cohortTag: string): Promise<Team[]>;
+  unassignTeamsFromCohort(teamIds: number[]): Promise<void>;
   getAllTeams(): Promise<Team[]>;
   getTeamsByCohort(cohortTag: string): Promise<Team[]>;
   getSubmittedTeamsByCohort(cohortTag: string): Promise<Team[]>;
@@ -159,6 +160,16 @@ export class DatabaseStorage implements IStorage {
     }
     
     return updatedTeams;
+  }
+
+  async unassignTeamsFromCohort(teamIds: number[]): Promise<void> {
+    if (teamIds.length === 0) {
+      return;
+    }
+    await db
+      .update(teams)
+      .set({ cohortTag: null, updatedAt: new Date() })
+      .where(inArray(teams.id, teamIds));
   }
 
   async getAllTeams(): Promise<Team[]> {

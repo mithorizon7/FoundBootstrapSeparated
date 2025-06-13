@@ -1,0 +1,125 @@
+### Instructions for AI Coder: Implement "Unassign Team from Cohort" Functionality
+
+**1. High-Level Goal**
+
+Your task is to implement a new feature that allows an administrator to remove or unassign one or more teams from a cohort. This functionality is currently missing from the Admin Dashboard. The most logical way to implement this is by setting the `cohortTag` for the selected teams to `null` in the database.
+
+This will require creating a new API endpoint on the backend and adding a new dialog and mutation to the frontend admin panel.
+
+---
+
+**2. The Resolution Plan**
+
+#### **Part 1: Backend Implementation**
+
+**Step 1.1: Create the Storage Layer Function**
+
+First, create the function that will perform the database update.
+
+* **File to Edit:** `FoundBootstrapShortened/server/storage.ts`
+* **Action:**
+    1.  Import `inArray` from `drizzle-orm`. Your import should look like this:
+        ```typescript
+        import { eq, and, isNotNull, sql, desc, asc, inArray } from "drizzle-orm";
+        ```
+    2.  Add a new method to the `DatabaseStorage` class called `unassignTeamsFromCohort`. This function will take an array of team IDs and update their `cohortTag` to `null`.
+
+* **Code to Add:**
+
+    ```typescript
+    // Add this method inside the DatabaseStorage class in server/storage.ts
+    async unassignTeamsFromCohort(teamIds: number[]): Promise<void> {
+      if (teamIds.length === 0) {
+        return;
+      }
+      await db
+        .update(teams)
+        .set({ cohortTag: null, updatedAt: new Date() })
+        .where(inArray(teams.id, teamIds));
+    }
+    ```
+
+**Step 1.2: Create the API Endpoint**
+
+Next, expose the new storage function via a secure admin API endpoint.
+
+* **File to Edit:** `FoundBootstrapShortened/server/routes.ts`
+* **Action:** Add a new `PATCH` route to handle the un-assignment logic. Place it near the other admin cohort routes.
+
+* **Code to Add:**
+
+    ```typescript
+    // Add this new route in server/routes.ts, inside the registerRoutes function
+    app.patch("/api/admin/cohorts/unassign-teams", ensureAuthenticatedAdmin, async (req, res) => {
+      try {
+        const { teamIds } = req.body;
+
+        if (!Array.isArray(teamIds) || teamIds.length === 0) {
+          return res.status(400).json({ message: "teamIds must be a non-empty array" });
+        }
+
+        await storage.unassignTeamsFromCohort(teamIds);
+        res.status(200).json({ message: "Teams unassigned successfully" });
+      } catch (error) {
+        res.status(500).json({ message: "Error unassigning teams" });
+      }
+    });
+    ```
+
+---
+
+#### **Part 2: Frontend Implementation**
+
+**Step 2.1: Add the "Unassign Teams" UI and Mutation**
+
+Finally, create the user interface in the Admin Dashboard for an admin to perform this action.
+
+* **File to Edit:** `FoundBootstrapShortened/client/src/pages/Admin.tsx`
+* **Action:** You will add a new "Unassign Teams" button, a dialog box similar to the existing "Assign Teams" dialog, and a new `useMutation` hook to call the backend.
+
+* **Code Implementation Steps:**
+
+    1.  **Create the `unassignTeamsMutation`:** Add a new `useMutation` hook. This will be very similar to the existing `assignTeamsMutation`.
+
+        ```typescript
+        // Add this new mutation alongside the other mutations
+        const unassignTeamsMutation = useMutation({
+          mutationFn: async ({ teamIds }: { teamIds: number[] }) => {
+            const response = await fetch(`/api/admin/cohorts/unassign-teams`, {
+              method: 'PATCH',
+              headers: { 'Content-Type': 'application/json' },
+              credentials: 'include',
+              body: JSON.stringify({ teamIds }),
+            });
+            if (!response.ok) {
+              const error = await response.json();
+              throw new Error(error.message);
+            }
+            return response.json();
+          },
+          onSuccess: () => {
+            toast({
+              title: "Teams unassigned successfully",
+              description: "Selected teams have been removed from the cohort.",
+            });
+            queryClient.invalidateQueries({ queryKey: ['/api/teams'] });
+            // Optionally close dialog and reset state here
+          },
+          onError: (error: Error) => {
+            toast({
+              title: "Failed to unassign teams",
+              description: error.message,
+              variant: "destructive",
+            });
+          },
+        });
+        ```
+
+    2.  **Add the "Unassign Teams" Button and Dialog:** In the JSX, find the "Assign Teams" `Dialog` and add a new `Dialog` for un-assigning teams next to it.
+        * The dialog should have a state to manage its open/closed status (e.g., `unassignTeamsOpen`).
+        * It should contain a `<Select>` to choose a cohort.
+        * When a cohort is selected, it should display a list of teams, but **filtered to only show teams that are currently in that cohort**.
+        * Each team in the list should have a `<Checkbox>`.
+        * A final button in the dialog will trigger `unassignTeamsMutation.mutate(...)` with the array of selected team IDs.
+
+This will complete the feature, allowing administrators to both assign and unassign teams from cohorts through the dashboard.

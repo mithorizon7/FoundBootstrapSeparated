@@ -42,8 +42,11 @@ export default function Admin() {
   // State for cohort management
   const [newCohortOpen, setNewCohortOpen] = useState(false);
   const [assignTeamsOpen, setAssignTeamsOpen] = useState(false);
+  const [unassignTeamsOpen, setUnassignTeamsOpen] = useState(false);
   const [selectedCohort, setSelectedCohort] = useState<string>("");
   const [selectedTeams, setSelectedTeams] = useState<number[]>([]);
+  const [selectedUnassignCohort, setSelectedUnassignCohort] = useState<string>("");
+  const [selectedUnassignTeams, setSelectedUnassignTeams] = useState<number[]>([]);
   const [helpOpen, setHelpOpen] = useState(false);
   const [showArchived, setShowArchived] = useState(false);
   const [newCohort, setNewCohort] = useState({
@@ -171,6 +174,39 @@ export default function Admin() {
     onError: (error: Error) => {
       toast({
         title: "Failed to assign teams",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const unassignTeamsMutation = useMutation({
+    mutationFn: async ({ teamIds }: { teamIds: number[] }) => {
+      const response = await fetch(`/api/admin/cohorts/unassign-teams`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ teamIds }),
+      });
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message);
+      }
+      return response.json();
+    },
+    onSuccess: () => {
+      toast({
+        title: "Teams unassigned successfully",
+        description: "Selected teams have been removed from the cohort.",
+      });
+      setUnassignTeamsOpen(false);
+      setSelectedUnassignTeams([]);
+      setSelectedUnassignCohort("");
+      queryClient.invalidateQueries({ queryKey: ['/api/teams'] });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Failed to unassign teams",
         description: error.message,
         variant: "destructive",
       });

@@ -414,6 +414,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.patch("/api/admin/cohorts/unassign-teams", ensureAuthenticatedAdmin, async (req, res) => {
+    try {
+      const { teamIds } = req.body;
+
+      if (!Array.isArray(teamIds) || teamIds.length === 0) {
+        return res.status(400).json({ message: "teamIds must be a non-empty array" });
+      }
+
+      await storage.unassignTeamsFromCohort(teamIds);
+      res.status(200).json({ message: "Teams unassigned successfully" });
+    } catch (error) {
+      res.status(500).json({ message: "Error unassigning teams" });
+    }
+  });
+
   app.get("/api/admin/cohorts/:cohortTag/teams_status", ensureAuthenticatedAdmin, async (req, res) => {
     try {
       const teams = await storage.getTeamsByCohort(req.params.cohortTag);
