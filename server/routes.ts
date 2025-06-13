@@ -297,14 +297,54 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const teamId = parseInt(req.params.teamId);
       const { website_url } = req.body;
       
-      if (!website_url) {
+      if (!website_url || typeof website_url !== 'string') {
         return res.status(400).json({ message: "Website URL is required" });
       }
       
-      const team = await storage.updateTeamWebsite(teamId, website_url);
+      // Trim and validate the URL
+      const trimmedUrl = website_url.trim();
+      if (!trimmedUrl) {
+        return res.status(400).json({ message: "Website URL cannot be empty" });
+      }
+      
+      // Basic URL format validation
+      const urlPattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/i;
+      if (!urlPattern.test(trimmedUrl)) {
+        return res.status(400).json({ message: "Please enter a valid website URL" });
+      }
+      
+      const team = await storage.updateTeamWebsite(teamId, trimmedUrl);
       res.json(team);
     } catch (error) {
       res.status(500).json({ message: "Error updating website" });
+    }
+  });
+
+  // Admin utility endpoint to clean up invalid website URLs
+  app.post("/api/admin/cleanup-websites", ensureAuthenticatedAdmin, async (req, res) => {
+    try {
+      // Find teams with invalid website URLs (empty strings or whitespace)
+      const allTeams = await storage.getAllTeams();
+      const teamsToClean = allTeams.filter(team => 
+        team.submittedWebsiteUrl !== null && 
+        (!team.submittedWebsiteUrl.trim() || team.submittedWebsiteUrl.trim() === '')
+      );
+      
+      console.log(`Found ${teamsToClean.length} teams with invalid website URLs to clean up`);
+      
+      // Update these teams to have null website URLs
+      for (const team of teamsToClean) {
+        await storage.updateTeamWebsite(team.id, null);
+        console.log(`Cleaned up team ${team.name} (${team.code}) - removed empty website URL`);
+      }
+      
+      res.json({ 
+        message: `Cleaned up ${teamsToClean.length} teams with invalid website URLs`,
+        cleanedTeams: teamsToClean.map(t => ({ id: t.id, name: t.name, code: t.code }))
+      });
+    } catch (error) {
+      console.error('Error cleaning up website URLs:', error);
+      res.status(500).json({ message: "Error cleaning up website URLs" });
     }
   });
 
@@ -450,8 +490,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/showcase/:cohortTag", async (req, res) => {
     try {
       const teams = await storage.getSubmittedTeamsByCohort(req.params.cohortTag);
+      console.log(`Showcase for cohort ${req.params.cohortTag}: Found ${teams.length} submitted teams`);
+      teams.forEach(team => {
+        console.log(`Team ${team.name} (${team.code}): URL = "${team.submittedWebsiteUrl}"`);
+      });
       res.json(teams);
     } catch (error) {
+      console.error('Error fetching showcase:', error);
       res.status(500).json({ message: "Error fetching showcase" });
     }
   });

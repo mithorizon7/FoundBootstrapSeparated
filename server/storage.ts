@@ -11,7 +11,7 @@ export interface IStorage {
   getTeamById(id: number): Promise<Team | undefined>;
   getTeamByAccessToken(accessToken: string): Promise<Team | undefined>;
   updateTeamPhase(id: number, currentPhase: number): Promise<Team>;
-  updateTeamWebsite(id: number, websiteUrl: string): Promise<Team>;
+  updateTeamWebsite(id: number, websiteUrl: string | null): Promise<Team>;
   updateTeamAvatar(id: number, avatarIcon: string): Promise<Team>;
   assignTeamsToCohort(teamIds: number[], cohortTag: string): Promise<Team[]>;
   unassignTeamsFromCohort(teamIds: number[]): Promise<void>;
@@ -117,7 +117,7 @@ export class DatabaseStorage implements IStorage {
     return team;
   }
 
-  async updateTeamWebsite(id: number, websiteUrl: string): Promise<Team> {
+  async updateTeamWebsite(id: number, websiteUrl: string | null): Promise<Team> {
     const [team] = await db
       .update(teams)
       .set({ 
@@ -186,7 +186,8 @@ export class DatabaseStorage implements IStorage {
       .from(teams)
       .where(and(
         eq(teams.cohortTag, cohortTag),
-        isNotNull(teams.submittedWebsiteUrl)
+        isNotNull(teams.submittedWebsiteUrl),
+        sql`trim(${teams.submittedWebsiteUrl}) != ''`
       ));
   }
 
