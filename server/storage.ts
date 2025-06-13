@@ -1,7 +1,7 @@
 import { teams, phaseData, users, cohorts, votes, type Team, type InsertTeam, type PhaseData, type InsertPhaseData, type User, type InsertUser, type Cohort, type InsertCohort, type Vote, type InsertVote } from "@shared/schema";
 import { selectRandomAvatar } from "@shared/avatars";
 import { db } from "./db";
-import { eq, and, isNotNull, sql, desc } from "drizzle-orm";
+import { eq, and, isNotNull, sql, desc, asc } from "drizzle-orm";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
@@ -244,7 +244,7 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getAllCohorts(): Promise<Cohort[]> {
-    return await db.select().from(cohorts);
+    return await db.select().from(cohorts).orderBy(asc(cohorts.createdAt));
   }
 
   async updateCohort(tag: string, updates: Partial<InsertCohort>): Promise<Cohort> {

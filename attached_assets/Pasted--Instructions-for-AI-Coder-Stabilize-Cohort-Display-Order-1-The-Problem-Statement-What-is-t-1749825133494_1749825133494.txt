@@ -1,0 +1,37 @@
+### Instructions for AI Coder: Stabilize Cohort Display Order
+
+**1. The Problem Statement (What is the issue?)**
+
+In the Admin Dashboard's "Cohorts" tab, whenever an administrator toggles a switch (like "Submissions Open" or "Voting Open"), the entire list of cohort cards re-shuffles into a new, seemingly random order on the screen.
+
+**2. Root Cause Analysis (Why is this happening?)**
+
+This behavior occurs because the backend API endpoint that fetches the list of cohorts (`GET /api/admin/cohorts`) does not specify a sorting order. When a cohort is updated by toggling a switch, its physical position in the database may change. The subsequent data refetch from the frontend retrieves the cohorts in this new, unstable order from the database, causing the UI to re-render them differently each time.
+
+**3. The Resolution Plan (What needs to be done?)**
+
+The fix is to enforce a stable, deterministic sort order on the backend when querying for the list of cohorts. We will sort them by their creation date.
+
+* **File to Edit:** `FoundBootstrapShortened/server/storage.ts`
+
+* **Step-by-Step Instructions:**
+    1.  **Import Sorting Helper:** At the top of the file, import `asc` from the `drizzle-orm` package. Your imports should look something like this:
+        ```typescript
+        import { eq, and, isNotNull, sql, desc, asc } from "drizzle-orm";
+        ```
+    2.  **Locate `getAllCohorts` Function:** Find the `getAllCohorts` method within the `DatabaseStorage` class.
+    3.  **Modify the Query:** Add an `orderBy` clause to the Drizzle query to sort the results by the `createdAt` field in ascending order.
+        * **Find this line:**
+            ```typescript
+            async getAllCohorts(): Promise<Cohort[]> {
+              return await db.select().from(cohorts);
+            }
+            ```
+        * **Correct it to include the `orderBy` clause:**
+            ```typescript
+            async getAllCohorts(): Promise<Cohort[]> {
+              return await db.select().from(cohorts).orderBy(asc(cohorts.createdAt));
+            }
+            ```
+
+This change ensures that the cohorts are always fetched and displayed in a consistent, chronological order, preventing the list from re-shuffling on the screen after an update.
