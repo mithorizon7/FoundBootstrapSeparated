@@ -1,0 +1,38 @@
+### Instructions for AI Coder: Streamline Showcase Access with Single-Click Authentication
+
+**1. The High-Level Goal (What is the objective?)**
+
+Our goal is to dramatically improve the user experience for accessing the voting showcase. We will replace the current confusing, multi-step process (where a user must manually copy and paste their secure link) with a single, intuitive button on the Phase 8 page. This button will handle authentication in the background and take the user directly to the showcase page, ready to vote.
+
+**2. The Plan (What needs to be done?)**
+
+The entire implementation will be contained within the `PhasePage.tsx` component. You will create a new handler function and update the UI to use it, making the process seamless for the user.
+
+* **File to Edit:** `FoundBootstrapShortened/client/src/components/PhasePage.tsx`
+
+* **Step-by-Step Instructions:**
+
+    1.  **Create an Authentication Handler Function:**
+        * Inside the `PhasePage` component, create a new `async` function named `handleNavigateToShowcase`.
+        * This function's logic should:
+            * First, check if `teamData?.accessToken` and `teamData?.cohortTag` are available.
+            * Make a `POST` request to the `/api/auth/team/login` endpoint.
+            * The `body` of the request must be a JSON object containing the team's access token: `{ "access_token": teamData.accessToken }`.
+            * Crucially, the `fetch` request must include `credentials: 'include'` to ensure the browser properly sets the session cookie returned by the server.
+            * Upon a successful login response, use the `setLocation` function to navigate the user to the showcase page: `setLocation(\`/showcase/${teamData.cohortTag}\`);`.
+            * Implement error handling to show a toast notification if the login fails for any reason.
+
+    2.  **Update the User Interface in Phase 8:**
+        * Locate the JSX that is conditionally rendered for Phase 8 after a team has submitted their website (the card with the "Next Steps" and "View Showcase" button).
+        * **Replace the "View Showcase" button** with a new, more prominent button.
+        * Set the new button's text to **"Go to Showcase & Vote"**.
+        * Wire the button's `onClick` event to your new `handleNavigateToShowcase` function.
+        * (Recommended) Add a loading state (e.g., using a `useState` boolean) to the button so it appears disabled while the background authentication is in progress.
+
+    3.  **Refine the Permanent Link Explanation:**
+        * To complement the new primary button, simplify the text explaining the permanent link.
+        * Locate the paragraph (`<p>` tag) that describes the purpose of the secure link.
+        * Replace the existing, longer text with this more concise version:
+            > "Bookmark this link to easily resume your work on another computer or browser."
+
+This consolidated change will create a much more intuitive and professional user flow, guiding the vast majority of users through the primary "one-click" path while still preserving the permanent link for those who specifically need it for workspace persistence.

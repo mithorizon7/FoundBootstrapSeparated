@@ -123,6 +123,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
   const [loading, setLoading] = useState(false);
   const [allPhaseData, setAllPhaseData] = useState<Record<string, any>>({});
   const [websiteUrl, setWebsiteUrl] = useState<string>("");
+  const [showcaseLoading, setShowcaseLoading] = useState(false);
   const [, setLocation] = useLocation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -184,6 +185,44 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
       });
     },
   });
+
+  // Handle navigation to showcase with authentication
+  const handleNavigateToShowcase = async () => {
+    if (!teamData?.accessToken || !teamData?.cohortTag) {
+      toast({
+        title: "Authentication Error",
+        description: "Team access token or cohort information not available.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setShowcaseLoading(true);
+    
+    try {
+      const response = await fetch('/api/auth/team/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
+        body: JSON.stringify({ access_token: teamData.accessToken }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to authenticate team session');
+      }
+
+      // Navigate to showcase after successful authentication
+      setLocation(`/showcase/${teamData.cohortTag}`);
+    } catch (error) {
+      toast({
+        title: "Authentication Failed",
+        description: "Unable to authenticate your team session. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setShowcaseLoading(false);
+    }
+  };
 
   // Load existing data on mount
   useEffect(() => {
@@ -850,7 +889,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                   Your Team's Permanent Secure Link
                 </Label>
                 <p className="text-sm text-neutral-600 mt-1 mb-2">
-                  Bookmark this link! This is the best way to access your team's work if you switch computers or clear your browser cache.
+                  Bookmark this link to easily resume your work on another computer or browser.
                 </p>
                 <Input
                   id="secure-link"
@@ -873,12 +912,12 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                 </p>
                 <div className="flex space-x-3">
                   <Button
-                    variant="outline"
                     size="sm"
-                    onClick={() => setLocation(`/showcase/${teamData.cohortTag}`)}
-                    className="border-blue-300 text-blue-700 hover:bg-blue-100"
+                    onClick={handleNavigateToShowcase}
+                    disabled={showcaseLoading}
+                    className="bg-blue-600 hover:bg-blue-700 text-white"
                   >
-                    View Showcase
+                    {showcaseLoading ? "Authenticating..." : "Go to Showcase & Vote"}
                   </Button>
                   {cohortData.votingOpen && (
                     <Button
