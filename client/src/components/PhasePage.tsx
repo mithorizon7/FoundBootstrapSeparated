@@ -979,8 +979,9 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
             variant="outline"
             onClick={handleSaveAndExit}
             disabled={loading}
-            className={cn("flex items-center space-x-2 border border-neutral-300 text-neutral-600 hover:bg-accent-600 hover:text-white hover:border-accent-600 transition-colors duration-200", 
-              loading && "opacity-50 cursor-not-allowed"
+            className={cn(
+              "flex items-center space-x-2 border border-neutral-300 text-neutral-600 hover:bg-accent-600 hover:text-white hover:border-accent-600 transition-colors duration-200",
+              loading ? "opacity-50 cursor-not-allowed" : "opacity-100 cursor-pointer"
             )}
           >
             <Save className="w-4 h-4" />
