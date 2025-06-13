@@ -835,8 +835,8 @@ export default function Admin() {
                                 <div className="flex items-center justify-between">
                                   <span className="text-sm font-medium text-gray-700">Results</span>
                                   <div className="flex items-center space-x-3">
-                                    <span className={`text-xs font-medium ${(cohort as any).resultsVisible ? 'text-green-700' : 'text-gray-500'}`}>
-                                      {(cohort as any).resultsVisible ? "Visible" : "Hidden"}
+                                    <span className={`text-xs font-medium ${cohort.resultsVisible ? 'text-green-700' : 'text-gray-500'}`}>
+                                      {cohort.resultsVisible ? "Visible" : "Hidden"}
                                     </span>
                                     <Tooltip>
                                       <TooltipTrigger asChild>
@@ -860,7 +860,7 @@ export default function Admin() {
                               </div>
                               <div className="space-y-2">
                                 <p className="text-sm text-gray-600">
-                                  <span className="font-medium">Teams:</span> {teams.filter(team => (team as any).cohortTag === cohort.tag).length}
+                                  <span className="font-medium">Teams:</span> {teams.filter(team => team.cohortTag === cohort.tag).length}
                                 </p>
                                 <p className="text-sm text-gray-600">
                                   <span className="font-medium">Created:</span> {getTimeAgo(cohort.createdAt)}
