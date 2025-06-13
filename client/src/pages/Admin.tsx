@@ -411,6 +411,7 @@ export default function Admin() {
                             <ul className="text-sm text-blue-800 space-y-1">
                               <li>• View each team's current phase (1-8)</li>
                               <li>• Track completion percentage</li>
+                              <li>• Monitor website submission status</li>
                               <li>• See last activity timestamps</li>
                               <li>• Identify teams needing support</li>
                             </ul>
@@ -419,7 +420,7 @@ export default function Admin() {
                             <h4 className="font-medium text-green-900 mb-2">📥 Export Data</h4>
                             <ul className="text-sm text-green-800 space-y-1">
                               <li>• Click "Export CSV" to download all team data</li>
-                              <li>• Includes team names, codes, progress, and timestamps</li>
+                              <li>• Includes team names, codes, progress, submission status, and timestamps</li>
                               <li>• Use for attendance tracking and assessment</li>
                               <li>• Data updates in real-time</li>
                             </ul>
@@ -557,7 +558,7 @@ export default function Admin() {
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Export comprehensive team data including phase progress, cohort assignments, secure access tokens, and submission status for backup and analysis</p>
+                    <p>Export comprehensive team data including phase progress, cohort assignments, website submission status and timestamps for backup and analysis</p>
                   </TooltipContent>
                 </Tooltip>
               </div>
@@ -611,6 +612,9 @@ export default function Admin() {
                             Progress
                           </th>
                           <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Website Submission
+                          </th>
+                          <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Last Updated
                           </th>
                         </tr>
@@ -660,6 +664,22 @@ export default function Admin() {
                                   {team.currentPhase - 1}/8
                                 </span>
                               </div>
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              {(team as any).submittedWebsiteUrl ? (
+                                <div className="flex items-center space-x-2">
+                                  <Badge variant="secondary" className="bg-green-100 text-green-800">
+                                    Submitted
+                                  </Badge>
+                                  <div className="text-xs text-gray-500">
+                                    {getTimeAgo(team.updatedAt)}
+                                  </div>
+                                </div>
+                              ) : (
+                                <Badge variant="secondary" className="bg-gray-100 text-gray-600">
+                                  Not Submitted
+                                </Badge>
+                              )}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
                               {getTimeAgo(team.updatedAt)}
@@ -1073,12 +1093,29 @@ export default function Admin() {
                                 </div>
                               </div>
                               <div className="space-y-2">
-                                <p className="text-sm text-gray-600">
-                                  <span className="font-medium">Teams:</span> {teams.filter(team => team.cohortTag === cohort.tag).length}
-                                </p>
-                                <p className="text-sm text-gray-600">
-                                  <span className="font-medium">Created:</span> {getTimeAgo(cohort.createdAt)}
-                                </p>
+                                {(() => {
+                                  const cohortTeams = teams.filter(team => team.cohortTag === cohort.tag);
+                                  const submittedTeams = cohortTeams.filter(team => (team as any).submittedWebsiteUrl);
+                                  return (
+                                    <>
+                                      <p className="text-sm text-gray-600">
+                                        <span className="font-medium">Teams:</span> {cohortTeams.length}
+                                      </p>
+                                      <p className="text-sm text-gray-600">
+                                        <span className="font-medium">Submissions:</span> 
+                                        <span className={`ml-1 ${submittedTeams.length === cohortTeams.length && cohortTeams.length > 0 ? 'text-green-600 font-medium' : ''}`}>
+                                          {submittedTeams.length}/{cohortTeams.length}
+                                        </span>
+                                        {submittedTeams.length === cohortTeams.length && cohortTeams.length > 0 && (
+                                          <span className="ml-1 text-xs text-green-600">✓ Complete</span>
+                                        )}
+                                      </p>
+                                      <p className="text-sm text-gray-600">
+                                        <span className="font-medium">Created:</span> {getTimeAgo(cohort.createdAt)}
+                                      </p>
+                                    </>
+                                  );
+                                })()}
                               </div>
                             </div>
                           </CardContent>

@@ -639,12 +639,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const teams = await storage.getAllTeams();
       const csvRows = [
-        'Team Code,Team Name,Current Phase,Cohort,Website URL,Created At,Updated At'
+        'Team Code,Team Name,Current Phase,Progress,Cohort,Website Submitted,Website URL,Submission Status,Created At,Updated At'
       ];
       
       for (const team of teams) {
+        const hasSubmitted = !!team.submittedWebsiteUrl;
+        const progressPercentage = Math.round(((team.currentPhase - 1) / 8) * 100);
+        const submissionStatus = hasSubmitted ? 'Submitted' : 'Not Submitted';
+        const submissionTime = hasSubmitted ? team.updatedAt?.toISOString() : '';
+        
         csvRows.push(
-          `${team.code},${team.name},${team.currentPhase},${team.cohortTag || ''},${team.submittedWebsiteUrl || ''},${team.createdAt?.toISOString()},${team.updatedAt?.toISOString()}`
+          `"${team.code}","${team.name}",${team.currentPhase},${progressPercentage}%,"${team.cohortTag || ''}","${submissionTime}","${team.submittedWebsiteUrl || ''}","${submissionStatus}","${team.createdAt?.toISOString()}","${team.updatedAt?.toISOString()}"`
         );
       }
       
