@@ -162,7 +162,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
       const response = await fetch(`/api/teams/${teamId}/website`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ website_url: url }),
+        body: JSON.stringify({ websiteUrl: url }),
       });
       if (!response.ok) {
         const error = await response.json();
@@ -176,6 +176,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
         description: "Your final website has been submitted to the cohort showcase.",
       });
       queryClient.invalidateQueries({ queryKey: ['/api/teams'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/teams', teamId] });
     },
     onError: (error: Error) => {
       toast({
