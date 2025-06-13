@@ -8,10 +8,10 @@
       "id": "evidence_horizon",
       "label": "Evidence Horizon",
       "type": "text",
-      "placeholder": "e.g., 10 years",
+      "placeholder": "e.g., 10",
       "required": true,
       "persist": true,
-      "help": "How recent must studies be for your research?",
+      "help": "Enter only the number of years for the research timeframe.",
       "tooltip": "Sets the timeframe for research studies the AI will include. Newer evidence (5-10 years) is more credible but may limit available studies, while longer horizons (15+ years) provide more data but may include outdated findings."
     },
     {
