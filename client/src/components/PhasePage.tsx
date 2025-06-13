@@ -128,7 +128,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
   const queryClient = useQueryClient();
 
   // Check if current phase is the final phase (Phase 8)
-  const isFinalPhase = config.phase === Object.keys(PHASE_CONFIG).length;
+  const isFinalPhase = config.phase === PHASE_CONFIG.TOTAL_PHASES;
 
   // Fetch team data to check cohort membership
   const { data: teamData } = useQuery<Team>({
