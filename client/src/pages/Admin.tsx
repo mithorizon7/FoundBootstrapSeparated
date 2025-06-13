@@ -230,8 +230,11 @@ export default function Admin() {
         title: "Cohort archived successfully",
         description: "The cohort has been moved to the archive.",
       });
+      // Invalidate all cohort-related queries to ensure dropdowns update
       queryClient.invalidateQueries({ queryKey: ['/api/admin/cohorts'] });
       queryClient.invalidateQueries({ queryKey: ['/api/admin/cohorts/archived'] });
+      // Force refetch to ensure immediate UI updates
+      queryClient.refetchQueries({ queryKey: ['/api/admin/cohorts'] });
     },
     onError: (error: Error) => {
       toast({
@@ -259,8 +262,11 @@ export default function Admin() {
         title: "Cohort restored successfully",
         description: "The cohort has been restored from the archive.",
       });
+      // Invalidate all cohort-related queries to ensure dropdowns update
       queryClient.invalidateQueries({ queryKey: ['/api/admin/cohorts'] });
       queryClient.invalidateQueries({ queryKey: ['/api/admin/cohorts/archived'] });
+      // Force refetch to ensure immediate UI updates
+      queryClient.refetchQueries({ queryKey: ['/api/admin/cohorts'] });
     },
     onError: (error: Error) => {
       toast({
