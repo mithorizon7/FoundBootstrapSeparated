@@ -114,9 +114,9 @@ export function Field({ config, value, onChange, error }: FieldProps) {
             {required && <span className="text-red-500 ml-1">*</span>}
           </Label>
           {tooltip && (
-            <Tooltip>
+            <Tooltip delayDuration={200}>
               <TooltipTrigger asChild>
-                <span className="bg-neutral-100 rounded-full p-1 cursor-help transition-all duration-200 hover:bg-primary-100 hover:scale-110 group">
+                <span className="bg-neutral-100 rounded-full p-1 cursor-pointer transition-all duration-200 hover:bg-primary-100 hover:scale-110 group">
                   <Lightbulb className="w-4 h-4 text-neutral-500 transition-colors group-hover:text-primary-600" />
                 </span>
               </TooltipTrigger>
