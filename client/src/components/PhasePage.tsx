@@ -159,16 +159,36 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
   const submitWebsiteMutation = useMutation({
     mutationFn: async (url: string) => {
       if (!teamId) throw new Error('Team ID required');
+      
+      console.log('Submitting website URL:', url, 'for team:', teamId);
+      
       const response = await fetch(`/api/teams/${teamId}/website`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ websiteUrl: url }),
       });
+      
+      console.log('Response status:', response.status);
+      
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || 'Failed to submit website');
+        const errorText = await response.text();
+        console.error('Website submission failed:', errorText);
+        let errorMessage = 'Failed to submit website';
+        try {
+          const errorJson = JSON.parse(errorText);
+          errorMessage = errorJson.message || errorMessage;
+          if (errorJson.errors) {
+            console.error('Validation errors:', errorJson.errors);
+          }
+        } catch (e) {
+          console.error('Could not parse error response:', errorText);
+        }
+        throw new Error(errorMessage);
       }
-      return response.json();
+      
+      const result = await response.json();
+      console.log('Website submission successful:', result);
+      return result;
     },
     onSuccess: () => {
       toast({

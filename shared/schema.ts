@@ -106,7 +106,15 @@ export const updateTeamAvatarSchema = z.object({
 });
 
 export const updateTeamWebsiteSchema = z.object({
-  websiteUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),
+  websiteUrl: z.string().optional().nullable().refine((url) => {
+    if (!url || url.trim() === "") return true; // Allow empty/null
+    try {
+      new URL(url);
+      return true;
+    } catch {
+      return false;
+    }
+  }, "Must be a valid URL"),
 });
 
 export const assignTeamsSchema = z.object({
