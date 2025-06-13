@@ -811,21 +811,21 @@ export default function Admin() {
                     </div>
                   </div>
 
-                  {cohortsLoading ? (
+                  {(showArchived ? archivedLoading : cohortsLoading) ? (
                     <div className="text-center py-12">
                       <Loader2 className="w-8 h-8 text-gray-400 mx-auto mb-4 animate-spin" />
-                      <h3 className="text-lg font-medium text-gray-900 mb-2">Loading cohorts...</h3>
+                      <h3 className="text-lg font-medium text-gray-900 mb-2">Loading {showArchived ? 'archived ' : ''}cohorts...</h3>
                       <p className="text-gray-600">Please wait while we fetch cohort data.</p>
                     </div>
-                  ) : cohorts.length === 0 ? (
+                  ) : (showArchived ? archivedCohorts : cohorts).length === 0 ? (
                     <div className="text-center py-12">
                       <Globe className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                      <h3 className="text-lg font-medium text-gray-900 mb-2">No cohorts yet</h3>
-                      <p className="text-gray-600">Create your first cohort to organize teams and enable voting.</p>
+                      <h3 className="text-lg font-medium text-gray-900 mb-2">No {showArchived ? 'archived ' : ''}cohorts yet</h3>
+                      <p className="text-gray-600">{showArchived ? 'No cohorts have been archived yet.' : 'Create your first cohort to organize teams and enable voting.'}</p>
                     </div>
                   ) : (
                     <div className="grid gap-6">
-                      {cohorts.map((cohort) => (
+                      {(showArchived ? archivedCohorts : cohorts).map((cohort) => (
                         <Card key={cohort.tag} className="border border-gray-200">
                           <CardHeader>
                             <div className="flex justify-between items-start">
@@ -855,6 +855,29 @@ export default function Admin() {
                                   <BarChart3 className="w-4 h-4" />
                                   <span>Results</span>
                                 </Button>
+                                {showArchived ? (
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => unarchiveCohortMutation.mutate(cohort.tag)}
+                                    disabled={unarchiveCohortMutation.isPending}
+                                    className="flex items-center space-x-1"
+                                  >
+                                    <Archive className="w-4 h-4" />
+                                    <span>Restore</span>
+                                  </Button>
+                                ) : (
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => archiveCohortMutation.mutate(cohort.tag)}
+                                    disabled={archiveCohortMutation.isPending}
+                                    className="flex items-center space-x-1 text-orange-600 hover:text-orange-700 border-orange-200 hover:border-orange-300"
+                                  >
+                                    <Archive className="w-4 h-4" />
+                                    <span>Archive</span>
+                                  </Button>
+                                )}
                               </div>
                             </div>
                           </CardHeader>
@@ -875,23 +898,25 @@ export default function Admin() {
                                     <span className={`text-xs font-medium ${cohort.votingOpen ? 'text-green-700' : 'text-gray-500'}`}>
                                       {cohort.votingOpen ? "Open" : "Closed"}
                                     </span>
-                                    <Tooltip>
-                                      <TooltipTrigger asChild>
-                                        <Switch
-                                          key={`voting-${cohort.tag}`}
-                                          checked={cohort.votingOpen}
-                                          onCheckedChange={(checked) => updateCohortMutation.mutate({
-                                            tag: cohort.tag,
-                                            updates: { votingOpen: checked }
-                                          })}
-                                          disabled={updateCohortMutation.isPending}
-                                          className="data-[state=checked]:bg-green-600 data-[state=unchecked]:bg-gray-400 border-2 border-gray-300 data-[state=checked]:border-green-600"
-                                        />
-                                      </TooltipTrigger>
-                                      <TooltipContent>
-                                        <p>Opens secure voting for teams to rank their top 3 favorite projects (3-2-1 points). Enable only after all submissions are complete.</p>
-                                      </TooltipContent>
-                                    </Tooltip>
+                                    {!showArchived && (
+                                      <Tooltip>
+                                        <TooltipTrigger asChild>
+                                          <Switch
+                                            key={`voting-${cohort.tag}`}
+                                            checked={cohort.votingOpen}
+                                            onCheckedChange={(checked) => updateCohortMutation.mutate({
+                                              tag: cohort.tag,
+                                              updates: { votingOpen: checked }
+                                            })}
+                                            disabled={updateCohortMutation.isPending}
+                                            className="data-[state=checked]:bg-green-600 data-[state=unchecked]:bg-gray-400 border-2 border-gray-300 data-[state=checked]:border-green-600"
+                                          />
+                                        </TooltipTrigger>
+                                        <TooltipContent>
+                                          <p>Opens secure voting for teams to rank their top 3 favorite projects (3-2-1 points). Enable only after all submissions are complete.</p>
+                                        </TooltipContent>
+                                      </Tooltip>
+                                    )}
                                   </div>
                                 </div>
                                 <div className="flex items-center justify-between">
@@ -900,23 +925,25 @@ export default function Admin() {
                                     <span className={`text-xs font-medium ${cohort.resultsVisible ? 'text-green-700' : 'text-gray-500'}`}>
                                       {cohort.resultsVisible ? "Visible" : "Hidden"}
                                     </span>
-                                    <Tooltip>
-                                      <TooltipTrigger asChild>
-                                        <Switch
-                                          key={`results-${cohort.tag}`}
-                                          checked={cohort.resultsVisible}
-                                          onCheckedChange={(checked) => updateCohortMutation.mutate({
-                                            tag: cohort.tag,
-                                            updates: { resultsVisible: checked }
-                                          })}
-                                          disabled={updateCohortMutation.isPending}
-                                          className="data-[state=checked]:bg-green-600 data-[state=unchecked]:bg-gray-400 border-2 border-gray-300 data-[state=checked]:border-green-600"
-                                        />
-                                      </TooltipTrigger>
-                                      <TooltipContent>
-                                        <p>Controls when teams can see the celebratory results experience with animated podium, confetti, and rankings. Keep hidden until ready for synchronized reveal.</p>
-                                      </TooltipContent>
-                                    </Tooltip>
+                                    {!showArchived && (
+                                      <Tooltip>
+                                        <TooltipTrigger asChild>
+                                          <Switch
+                                            key={`results-${cohort.tag}`}
+                                            checked={cohort.resultsVisible}
+                                            onCheckedChange={(checked) => updateCohortMutation.mutate({
+                                              tag: cohort.tag,
+                                              updates: { resultsVisible: checked }
+                                            })}
+                                            disabled={updateCohortMutation.isPending}
+                                            className="data-[state=checked]:bg-green-600 data-[state=unchecked]:bg-gray-400 border-2 border-gray-300 data-[state=checked]:border-green-600"
+                                          />
+                                        </TooltipTrigger>
+                                        <TooltipContent>
+                                          <p>Controls when teams can see the celebratory results experience with animated podium, confetti, and rankings. Keep hidden until ready for synchronized reveal.</p>
+                                        </TooltipContent>
+                                      </Tooltip>
+                                    )}
                                   </div>
                                 </div>
                               </div>
