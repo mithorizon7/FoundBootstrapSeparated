@@ -88,6 +88,31 @@ export const insertVoteSchema = createInsertSchema(votes).omit({
   createdAt: true,
 });
 
+// Additional validation schemas for API routes
+export const teamLoginSchema = z.object({
+  access_token: z.string().min(1, "Access token is required"),
+});
+
+export const updateTeamPhaseSchema = z.object({
+  currentPhase: z.number().int().min(1).max(8),
+});
+
+export const updateTeamAvatarSchema = z.object({
+  avatarIcon: z.string().min(1, "Avatar icon is required"),
+});
+
+export const updateTeamWebsiteSchema = z.object({
+  websiteUrl: z.string().url("Must be a valid URL").optional().or(z.literal("")),
+});
+
+export const assignTeamsSchema = z.object({
+  teamIds: z.array(z.number().int()).min(1, "At least one team ID is required"),
+});
+
+export const unassignTeamsSchema = z.object({
+  teamIds: z.array(z.number().int()).min(1, "At least one team ID is required"),
+});
+
 // Relations
 export const teamsRelations = relations(teams, ({ one, many }) => ({
   cohort: one(cohorts, {

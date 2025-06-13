@@ -2,7 +2,18 @@ import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import passport from "passport";
 import { storage } from "./storage";
-import { insertTeamSchema, insertPhaseDataSchema, insertCohortSchema, insertVoteSchema } from "@shared/schema";
+import { 
+  insertTeamSchema, 
+  insertPhaseDataSchema, 
+  insertCohortSchema, 
+  insertVoteSchema,
+  teamLoginSchema,
+  updateTeamPhaseSchema,
+  updateTeamAvatarSchema,
+  updateTeamWebsiteSchema,
+  assignTeamsSchema,
+  unassignTeamsSchema
+} from "@shared/schema";
 import { PHASE_CONFIG } from "@shared/constants";
 import { z } from "zod";
 import fs from "fs";
@@ -91,11 +102,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Team authentication routes
   app.post("/api/auth/team/login", async (req, res) => {
     try {
-      const { access_token } = req.body;
-      
-      if (!access_token) {
-        return res.status(400).json({ message: 'Access token is required' });
-      }
+      const { access_token } = teamLoginSchema.parse(req.body);
       
       const team = await storage.getTeamByAccessToken(access_token);
       
@@ -116,6 +123,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         } 
       });
     } catch (error) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ message: "Invalid request data", errors: error.errors });
+      }
       console.error('Team login error:', error);
       res.status(500).json({ message: 'Internal server error' });
     }
