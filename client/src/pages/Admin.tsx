@@ -162,6 +162,7 @@ export default function Admin() {
         title: "Cohort updated successfully",
         description: "The cohort settings have been updated.",
       });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/cohorts', variables.tag] });
     },
     onSettled: () => {
       // Always refetch after error or success

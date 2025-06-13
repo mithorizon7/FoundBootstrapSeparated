@@ -69,7 +69,7 @@ export default function Results() {
       if (!response.ok) throw new Error('Failed to fetch results');
       return response.json();
     },
-    enabled: !!cohortTag && (cohort as any)?.resultsVisible === true,
+    enabled: !!cohortTag && cohort?.resultsVisible === true,
   });
 
   const { data: teams = [] } = useQuery<Team[]>({
@@ -207,7 +207,7 @@ export default function Results() {
   }
 
   // Check if results are visible
-  if (!(cohort as any)?.resultsVisible) {
+  if (!cohort?.resultsVisible) {
     return (
       <div className="min-h-screen bg-gray-50">
         <NavigationHeader />
