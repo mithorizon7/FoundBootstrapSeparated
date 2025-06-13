@@ -129,21 +129,43 @@ export default function Admin() {
       }
       return response.json();
     },
-    onSuccess: (data, variables) => {
-      toast({
-        title: "Cohort updated successfully",
-        description: "The cohort settings have been updated.",
+    onMutate: async ({ tag, updates }) => {
+      // Cancel outgoing refetches
+      await queryClient.cancelQueries({ queryKey: ['/api/admin/cohorts'] });
+      
+      // Snapshot the previous value
+      const previousCohorts = queryClient.getQueryData(['/api/admin/cohorts']);
+      
+      // Optimistically update the cache
+      queryClient.setQueryData(['/api/admin/cohorts'], (old: any) => {
+        if (!old) return old;
+        return old.map((cohort: any) => 
+          cohort.tag === tag ? { ...cohort, ...updates } : cohort
+        );
       });
-      // Invalidate both the general cohorts list and specific cohort data
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/cohorts'] });
-      queryClient.invalidateQueries({ queryKey: ['/api/admin/cohorts', variables.tag] });
+      
+      return { previousCohorts };
     },
-    onError: (error: Error) => {
+    onError: (error: Error, variables, context) => {
+      // Revert the optimistic update
+      if (context?.previousCohorts) {
+        queryClient.setQueryData(['/api/admin/cohorts'], context.previousCohorts);
+      }
       toast({
         title: "Failed to update cohort",
         description: error.message,
         variant: "destructive",
       });
+    },
+    onSuccess: (data, variables) => {
+      toast({
+        title: "Cohort updated successfully",
+        description: "The cohort settings have been updated.",
+      });
+    },
+    onSettled: () => {
+      // Always refetch after error or success
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/cohorts'] });
     },
   });
 
