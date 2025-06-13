@@ -516,7 +516,7 @@ export default function Results() {
                             
                             {/* Floating crown */}
                             <motion.div
-                              className="absolute -top-6 left-1/2 transform -translate-x-1/2"
+                              className="absolute -top-12 left-1/2 transform -translate-x-1/2 z-20"
                               animate={{
                                 y: [0, -5, 0],
                                 rotate: [0, 5, 0, -5, 0],
@@ -527,7 +527,7 @@ export default function Results() {
                                 ease: "easeInOut"
                               }}
                             >
-                              <span className="text-3xl">👑</span>
+                              <span className="text-4xl drop-shadow-lg">👑</span>
                             </motion.div>
                           </div>
                           <motion.div
