@@ -988,7 +988,29 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
           
           {config.phase === PHASE_CONFIG.TOTAL_PHASES ? (
             <Button
-              onClick={handleSaveAndExit}
+              onClick={async () => {
+                if (hasErrors) return;
+                setLoading(true);
+                try {
+                  if (teamId) {
+                    await savePhaseData(teamId, config.phase, formData);
+                  } else {
+                    saveToLocalStorage(config.phase, formData);
+                  }
+                  toast({
+                    title: "🚀 Launch Complete!",
+                    description: "Your final phase data has been saved successfully.",
+                  });
+                } catch (error) {
+                  toast({
+                    title: "Error saving progress",
+                    description: "Failed to save your progress. Please try again.",
+                    variant: "destructive",
+                  });
+                } finally {
+                  setLoading(false);
+                }
+              }}
               disabled={hasErrors || loading}
               className={cn("flex items-center space-x-2 bg-green-600 text-white hover:bg-green-700 transition-all duration-200 ease-out transform hover:-translate-y-px shadow-sm hover:shadow-md font-semibold tracking-wide",
                 (hasErrors || loading) && "opacity-50 cursor-not-allowed"
