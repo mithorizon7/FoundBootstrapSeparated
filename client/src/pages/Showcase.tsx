@@ -129,6 +129,15 @@ export default function Showcase() {
 
   const eligibleTeams = teams.filter(team => team.id !== votingTeamId);
 
+  // Helper function to ensure URLs have proper protocol
+  const ensureUrlProtocol = (url: string | null): string => {
+    if (!url) return '#';
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      return url;
+    }
+    return `https://${url}`;
+  };
+
   if (!cohortTag) {
     return (
       <div className="min-h-screen bg-gray-50">
@@ -227,7 +236,7 @@ export default function Showcase() {
                     <CardContent>
                       <div className="space-y-4">
                         <a
-                          href={team.submittedWebsiteUrl || '#'}
+                          href={ensureUrlProtocol(team.submittedWebsiteUrl)}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center space-x-2 text-primary hover:text-primary-dark"

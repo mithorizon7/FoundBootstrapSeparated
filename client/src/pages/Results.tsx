@@ -54,9 +54,18 @@ export default function Results() {
     enabled: !!cohortTag,
   });
 
+  // Helper function to ensure URLs have proper protocol
+  const ensureUrlProtocol = (url: string): string => {
+    if (!url) return '#';
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+      return url;
+    }
+    return `https://${url}`;
+  };
+
   const getTeamWebsite = (teamId: number): string | null => {
     const team = teams.find(t => t.id === teamId);
-    return team?.submittedWebsiteUrl || null;
+    return team?.submittedWebsiteUrl ? ensureUrlProtocol(team.submittedWebsiteUrl) : null;
   };
 
   const triggerConfetti = () => {
