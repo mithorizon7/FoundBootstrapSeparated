@@ -465,6 +465,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ message: "Team not found in this cohort" });
       }
       
+      // Validate voting team has submitted their website
+      if (!votingTeam.submittedWebsiteUrl || votingTeam.submittedWebsiteUrl.trim() === '') {
+        return res.status(400).json({ message: "Must submit your team's website before voting" });
+      }
+      
       // Check if team already voted
       const existingVotes = await storage.getVotesByTeam(req.params.cohortTag, voting_team_id);
       if (existingVotes.length > 0) {

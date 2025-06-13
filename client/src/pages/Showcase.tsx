@@ -194,16 +194,28 @@ export default function Showcase() {
           </p>
           
           {cohort?.votingOpen && !hasAlreadyVoted && votingTeamId && (
-            <div className="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
-              <div className="flex items-center space-x-2">
-                <Vote className="w-5 h-5 text-blue-600" />
-                <span className="font-medium text-blue-900">Voting Instructions</span>
+            votingTeam?.submittedWebsiteUrl ? (
+              <div className="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
+                <div className="flex items-center space-x-2">
+                  <Vote className="w-5 h-5 text-blue-600" />
+                  <span className="font-medium text-blue-900">Voting Instructions</span>
+                </div>
+                <p className="text-blue-700 mt-2">
+                  Select your top 3 favorite websites by clicking the rank buttons (1st, 2nd, 3rd place).
+                  You cannot vote for your own team's submission.
+                </p>
               </div>
-              <p className="text-blue-700 mt-2">
-                Select your top 3 favorite websites by clicking the rank buttons (1st, 2nd, 3rd place).
-                You cannot vote for your own team's submission.
-              </p>
-            </div>
+            ) : (
+              <div className="mt-4 p-4 bg-orange-50 rounded-lg border border-orange-200">
+                <div className="flex items-center space-x-2">
+                  <ExternalLink className="w-5 h-5 text-orange-600" />
+                  <span className="font-medium text-orange-900">Submit Required to Vote</span>
+                </div>
+                <p className="text-orange-700 mt-2">
+                  You must submit your team's website before you can vote for other teams. Complete your Phase 8 submission first.
+                </p>
+              </div>
+            )
           )}
           
           {hasAlreadyVoted && (
@@ -258,7 +270,7 @@ export default function Showcase() {
                           <span>Visit Website</span>
                         </a>
                         
-                        {cohort?.votingOpen && !hasAlreadyVoted && votingTeamId && (
+                        {cohort?.votingOpen && !hasAlreadyVoted && votingTeamId && votingTeam?.submittedWebsiteUrl && (
                           <div className="flex space-x-2">
                             {[1, 2, 3].map((rank) => (
                               <Button
