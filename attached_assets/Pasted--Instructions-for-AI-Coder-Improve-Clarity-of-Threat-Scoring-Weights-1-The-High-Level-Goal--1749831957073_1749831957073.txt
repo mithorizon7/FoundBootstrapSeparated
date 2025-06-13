@@ -1,0 +1,34 @@
+### Instructions for AI Coder: Improve Clarity of Threat-Scoring Weights
+
+**1. The High-Level Goal (What is the objective?)**
+
+To resolve user confusion in Phase 2 regarding the "Threat-Scoring Weights." Users are currently unclear on how to determine the values for these fields. The goal is to make this section more intuitive by providing clear, contextual guidance directly within the UI where the user is working.
+
+**2. The Problem Statement (What is the issue?)**
+
+The detailed instructions for how to think about the scoring weights are located in the `decisionBoxContent` at the top of the page. However, the input fields themselves have very minimal `help` and `tooltip` text. This separation causes users to miss the critical guidance, forcing them to seek external help to understand what values to input.
+
+**3. The Resolution Plan (What needs to be done?)**
+
+We will enhance the tooltips for each of the four weight-related input fields in the `configs/phase-2.json` file. This will provide users with the necessary context right at the point of input.
+
+* **File to Edit:** `FoundBootstrapShortened/configs/phase-2.json`
+* **Action:** For each of the four field objects listed below, update its `help` and `tooltip` properties to the new, more descriptive text.
+
+    **1. For `market_share_weight`:**
+    * **`help`:** "Assign a relative weight. All four weights should sum to 1.0."
+    * **`tooltip`:** "How important is a competitor's existing customer base? A higher weight (e.g., 0.4) means you consider market leaders a greater threat. All four weights must sum to 1.0."
+
+    **2. For `innovation_weight`:**
+    * **`help`:** "Assign a relative weight. All four weights should sum to 1.0."
+    * **`tooltip`:** "How critical is a competitor's technology? This is often weighted higher in fast-moving tech sectors. All four weights must sum to 1.0."
+
+    **3. For `channel_power_weight`:**
+    * **`help`:** "Assign a relative weight. All four weights should sum to 1.0."
+    * **`tooltip`:** "How important are sales and distribution networks? This is often critical for consumer products with a retail presence. All four weights must sum to 1.0."
+
+    **4. For `brand_weight`:**
+    * **`help`:** "Assign a relative weight. All four weights should sum to 1.0."
+    * **`tooltip`:** "How much does brand recognition and customer loyalty matter? This is key for consumer brands where trust is paramount. All four weights must sum to 1.0."
+
+By making these changes, the instructions become an integrated part of the form-filling experience, significantly reducing user friction and clarifying the task.

@@ -212,6 +212,7 @@
       "action": "📝 **Website Copywriting** (Gemini) – 6 min",
       "details": {
         "title": "Generate Professional Website Copy",
+        "subtitle": "Website \"copy\" refers to all the written text content that appears on your website - headlines, descriptions, button text, and messaging that persuades visitors to take action.",
         "steps": [
           {
             "number": "Strategy",
@@ -227,7 +228,7 @@
           },
           {
             "number": "Content Generation",
-            "action": "Review generated copy for brand alignment → Request revisions if needed → Download final version → Save as `copy.txt`"
+            "action": "Review generated copy for brand alignment → Request revisions if needed → Copy and paste the final version into a document and save as \"copy.docx\""
           }
         ]
       }
@@ -259,7 +260,7 @@
     }
   ],
   "expectedOutput": {
-    "fileCreated": "🎯 **Complete Media Kit Assets:**\n\n• `hero.png` - Brand hero image\n• `jingle.mp3` - Custom brand music\n• `voiceover.mp3` - Professional narration\n• `copy.txt` - Website copywriting\n• `podcast.mp3` - Educational content",
+    "fileCreated": "🎯 **Complete Media Kit Assets:**\n\n• `hero.png` - Brand hero image\n• `jingle.mp3` - Custom brand music\n• `voiceover.mp3` - Professional narration\n• `copy.docx` - Website copywriting\n• `podcast.mp3` - Educational content",
     "whyItMatters": "**Asset Applications:**\n\n🎨 **Hero Image:** Website header, video thumbnails, social media posts\n🎙️ **Voiceover:** Explainer videos, website auto-play, marketing content\n🎵 **Brand Jingle:** Background music, website audio branding, social media\n📝 **Website Copy:** Homepage content, marketing materials, pitch decks\n📻 **Podcast:** Educational content, thought leadership, content marketing",
     "nextSteps": "**Quality Check:** Verify all assets align with brand adjectives and visual identity. Your complete media kit is now ready for Phase 7's website and video production workflows."
   }
