@@ -129,6 +129,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
+  app.get("/api/auth/team/status", ensureAuthenticatedTeam, async (req, res) => {
+    try {
+      const teamId = (req.session as any).teamId;
+      const team = await storage.getTeamById(teamId);
+      if (!team) {
+        // This case should be rare as ensureAuthenticatedTeam already validates the session
+        return res.status(404).json({ message: "Team not found for this session." });
+      }
+      res.json(team);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching team status." });
+    }
+  });
+
   // Team routes
   app.post("/api/teams", async (req, res) => {
     try {

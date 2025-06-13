@@ -1,0 +1,90 @@
+### Instructions for AI Coder: Fix Broken Voting Functionality on Showcase Page
+
+**1. The Problem Statement (What is the issue?)**
+
+On the `/showcase/:cohortTag` page, the voting buttons do not appear for users, even when voting is open for the cohort and the user has logged in via their team's secure link. The page incorrectly acts as if no user is logged in, preventing the core voting functionality from being accessible.
+
+**2. Root Cause Analysis (Why is this happening?)**
+
+The root cause is a logical disconnect between how the application handles authentication and how the `Showcase.tsx` component attempts to identify the current team.
+
+* **Correct Authentication Flow:** The application uses a secure, server-side session for team authentication. When a user visits a secure link, the backend creates a session and sends an HTTP-only cookie to the browser. This is working correctly.
+* **Outdated Component Logic:** The `Showcase.tsx` component was not updated to use this modern authentication flow. It contains outdated code that attempts to identify the current team by reading a value (`currentTeamCode`) from the browser's `localStorage`. This value is no longer being set anywhere in the application.
+
+Because the `Showcase.tsx` component looks for data in `localStorage` and doesn't find it, it fails to identify the logged-in team and, as a result, hides the voting controls.
+
+**3. The Resolution Plan (What needs to be done?)**
+
+We will refactor `Showcase.tsx` to align with the server-side session authentication model. This involves creating a new backend endpoint to check the team's session status and updating the frontend component to use it.
+
+---
+
+**Step 1: Backend - Create a Team Status Endpoint**
+
+Create a new API endpoint that allows the frontend to securely check the current team's session status.
+
+* **File to Edit:** `FoundBootstrapShortened/server/routes.ts`
+* **Action:** Add the following new route to the file. It should be placed with the other team authentication routes.
+
+```typescript
+// Add this new route in server/routes.ts
+
+app.get("/api/auth/team/status", ensureAuthenticatedTeam, async (req, res) => {
+  try {
+    const teamId = (req.session as any).teamId;
+    const team = await storage.getTeamById(teamId);
+    if (!team) {
+      // This case should be rare as ensureAuthenticatedTeam already validates the session
+      return res.status(404).json({ message: "Team not found for this session." });
+    }
+    res.json(team);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching team status." });
+  }
+});
+```
+*Note: The existing `ensureAuthenticatedTeam` middleware will handle cases where no valid team session exists, correctly returning an unauthorized error.*
+
+---
+
+**Step 2: Frontend - Refactor Showcase Page to Use the New Endpoint**
+
+Update the `Showcase.tsx` component to fetch the team's status from the new endpoint instead of relying on `localStorage`.
+
+* **File to Edit:** `FoundBootstrapShortened/client/src/pages/Showcase.tsx`
+* **Actions:**
+    1.  **Remove the Old Logic:** Delete the entire `useEffect` hook that attempts to read `localStorage.getItem('currentTeamCode')`.
+    2.  **Fetch Team Status with `useQuery`:** Add a new `useQuery` hook to fetch data from the `/api/auth/team/status` endpoint.
+    3.  **Set the Voting Team ID:** Use an effect to set the `votingTeamId` state when the query successfully fetches the team data.
+
+* **Code Implementation:**
+    * **Replace the old `useEffect` block with this `useQuery` and `useEffect` implementation:**
+
+    ```typescript
+    // At the top of the Showcase component, with other hooks:
+    const { data: votingTeam } = useQuery<Team>({
+        queryKey: ['/api/auth/team/status'],
+        queryFn: async () => {
+            try {
+                const response = await fetch('/api/auth/team/status', { credentials: 'include' });
+                if (!response.ok) {
+                    if (response.status === 401) return null; // Not logged in
+                    throw new Error('Failed to fetch team status');
+                }
+                return response.json();
+            } catch (error) {
+                return null; // Treat errors as not logged in
+            }
+        },
+        retry: false, // Don't retry on 401 errors
+    });
+
+    // Update the existing useEffect that sets votingTeamId, or add this new one:
+    useEffect(() => {
+        if (votingTeam) {
+            setVotingTeamId(votingTeam.id);
+        }
+    }, [votingTeam]);
+
+    ```
+This change aligns the `Showcase` page with the application's proper authentication flow. It will now correctly identify logged-in teams and display the voting buttons when voting is open.

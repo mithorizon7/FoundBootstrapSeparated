@@ -22,17 +22,30 @@ export default function Showcase() {
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  // Get team ID from localStorage or URL params
+  // Fetch current team status from session
+  const { data: votingTeam } = useQuery<Team>({
+    queryKey: ['/api/auth/team/status'],
+    queryFn: async () => {
+      try {
+        const response = await fetch('/api/auth/team/status', { credentials: 'include' });
+        if (!response.ok) {
+          if (response.status === 401) return null; // Not logged in
+          throw new Error('Failed to fetch team status');
+        }
+        return response.json();
+      } catch (error) {
+        return null; // Treat errors as not logged in
+      }
+    },
+    retry: false, // Don't retry on 401 errors
+  });
+
+  // Set voting team ID when team data is available
   useEffect(() => {
-    const teamCode = localStorage.getItem('currentTeamCode');
-    if (teamCode) {
-      // Fetch team data to get ID
-      fetch(`/api/teams/${teamCode}`)
-        .then(res => res.json())
-        .then(team => setVotingTeamId(team.id))
-        .catch(() => {});
+    if (votingTeam) {
+      setVotingTeamId(votingTeam.id);
     }
-  }, []);
+  }, [votingTeam]);
 
   const { data: teams = [], isLoading: teamsLoading } = useQuery<Team[]>({
     queryKey: ['/api/showcase', cohortTag],
