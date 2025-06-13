@@ -12,7 +12,8 @@ import {
   updateTeamAvatarSchema,
   updateTeamWebsiteSchema,
   assignTeamsSchema,
-  unassignTeamsSchema
+  unassignTeamsSchema,
+  submitVotesSchema
 } from "@shared/schema";
 import { PHASE_CONFIG } from "@shared/constants";
 import { z } from "zod";
@@ -501,7 +502,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/showcase/:cohortTag/vote", ensureAuthenticatedTeam, async (req, res) => {
     try {
-      const { votes } = req.body;
+      const { votes } = submitVotesSchema.parse(req.body);
       const voting_team_id = (req.session as any).teamId; // Get from secure session
       
       // Validate cohort exists and voting is open

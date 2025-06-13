@@ -2,6 +2,7 @@ import { pgTable, text, serial, integer, boolean, timestamp, jsonb, unique, chec
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 import { relations, sql } from "drizzle-orm";
+import { PHASE_CONFIG } from "./constants";
 
 export const teams = pgTable("teams", {
   id: serial("id").primaryKey(),
@@ -111,6 +112,13 @@ export const assignTeamsSchema = z.object({
 
 export const unassignTeamsSchema = z.object({
   teamIds: z.array(z.number().int()).min(1, "At least one team ID is required"),
+});
+
+export const submitVotesSchema = z.object({
+  votes: z.array(z.object({
+    voted_for_team_id: z.number().int(),
+    rank: z.number().int().min(1).max(3),
+  })).min(1, "At least one vote is required").max(3, "Maximum 3 votes allowed"),
 });
 
 // Relations
