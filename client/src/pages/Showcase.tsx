@@ -134,7 +134,7 @@ export default function Showcase() {
   };
 
   const hasAlreadyVoted = existingVotes.length > 0;
-  const eligibleTeams = teams.filter(team => team.id !== votingTeamId);
+  const eligibleTeams = teams.filter(team => team.id !== votingTeamId); // For voting only
   const maxVotes = Math.min(3, eligibleTeams.length);
   
   const canSubmitVotes = selectedVotes.length === maxVotes && 
