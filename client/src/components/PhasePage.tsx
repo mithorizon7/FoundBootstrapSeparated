@@ -179,18 +179,9 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
       queryClient.invalidateQueries({ queryKey: ['/api/teams', teamId] });
     },
     onError: (error: Error) => {
-      let errorMessage = error.message;
-      
-      // Provide specific guidance for common errors
-      if (error.message.includes("authentication") || error.message.includes("Cannot update")) {
-        errorMessage = "Please log in to your team account first using your access code.";
-      } else if (error.message.includes("Invalid request")) {
-        errorMessage = "Please enter a valid website URL (e.g., https://yoursite.com).";
-      }
-      
       toast({
         title: "Failed to submit website",
-        description: errorMessage,
+        description: error.message,
         variant: "destructive",
       });
     },

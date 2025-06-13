@@ -304,16 +304,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Website submission endpoint
-  app.patch("/api/teams/:teamId/website", ensureAuthenticatedTeam, async (req, res) => {
+  app.patch("/api/teams/:teamId/website", async (req, res) => {
     try {
       const teamId = parseInt(req.params.teamId);
-      const sessionTeamId = (req.session as any).teamId;
-      
-      // Ensure team can only update their own website
-      if (teamId !== sessionTeamId) {
-        return res.status(403).json({ message: "Cannot update another team's website" });
-      }
-      
       const { websiteUrl } = updateTeamWebsiteSchema.parse(req.body);
       
       // Trim and validate the URL
@@ -325,7 +318,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (error instanceof z.ZodError) {
         return res.status(400).json({ message: "Invalid request data", errors: error.errors });
       }
-      console.error('Error updating website:', error);
       res.status(500).json({ message: "Error updating website" });
     }
   });
