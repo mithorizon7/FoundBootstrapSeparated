@@ -307,7 +307,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         tag: tag.trim(),
         name: name.trim(),
         description: description?.trim() || null,
-        submissionsOpen: false,
+        submissionsOpen: true,
         votingOpen: false,
         resultsVisible: false
       };
@@ -346,7 +346,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.patch("/api/admin/cohorts/:cohortTag", ensureAuthenticatedAdmin, async (req, res) => {
     try {
       const updates = req.body;
-      const cohort = await storage.updateCohort(req.params.cohortTag, updates);
+      // Remove submissionsOpen from updates since it should always be true
+      const { submissionsOpen, ...allowedUpdates } = updates;
+      const cohort = await storage.updateCohort(req.params.cohortTag, allowedUpdates);
       res.json(cohort);
     } catch (error) {
       res.status(500).json({ message: "Error updating cohort" });

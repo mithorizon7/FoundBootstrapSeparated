@@ -781,7 +781,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
       )}
 
       {/* Website Submission Section - Final Phase Only */}
-      {isFinalPhase && teamData?.cohortTag && cohortData?.submissionsOpen && (
+      {isFinalPhase && teamData?.cohortTag && cohortData && (
         <Card className="bg-gradient-to-r from-green-50 to-blue-50 border-green-200 shadow-lg hover:shadow-xl transition-shadow duration-200">
           <CardHeader>
             <CardTitle className="flex items-center space-x-2 text-neutral-800 font-semibold text-lg">

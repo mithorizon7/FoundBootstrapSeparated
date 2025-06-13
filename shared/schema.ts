@@ -38,7 +38,7 @@ export const users = pgTable("users", {
 export const cohorts = pgTable("cohorts", {
   tag: text("tag").primaryKey(),
   name: text("name").notNull(),
-  submissionsOpen: boolean("submissions_open").notNull().default(false),
+  submissionsOpen: boolean("submissions_open").notNull().default(true),
   votingOpen: boolean("voting_open").notNull().default(false),
   resultsVisible: boolean("results_visible").notNull().default(false),
   description: text("description"),

@@ -785,26 +785,9 @@ export default function Admin() {
                                 <div className="flex items-center justify-between">
                                   <span className="text-sm font-medium text-gray-700">Submissions</span>
                                   <div className="flex items-center space-x-3">
-                                    <span className={`text-xs font-medium ${cohort.submissionsOpen ? 'text-green-700' : 'text-gray-500'}`}>
-                                      {cohort.submissionsOpen ? "Open" : "Closed"}
+                                    <span className="text-xs font-medium text-green-700">
+                                      Always Open
                                     </span>
-                                    <Tooltip>
-                                      <TooltipTrigger asChild>
-                                        <Switch
-                                          key={`submissions-${cohort.tag}`}
-                                          checked={cohort.submissionsOpen}
-                                          onCheckedChange={(checked) => updateCohortMutation.mutate({
-                                            tag: cohort.tag,
-                                            updates: { submissionsOpen: checked }
-                                          })}
-                                          disabled={updateCohortMutation.isPending}
-                                          className="data-[state=checked]:bg-green-600 data-[state=unchecked]:bg-gray-400 border-2 border-gray-300 data-[state=checked]:border-green-600"
-                                        />
-                                      </TooltipTrigger>
-                                      <TooltipContent>
-                                        <p>Controls whether teams can submit final websites in Phase 8. Enable this when teams are ready to showcase their completed projects.</p>
-                                      </TooltipContent>
-                                    </Tooltip>
                                   </div>
                                 </div>
                                 <div className="flex items-center justify-between">
