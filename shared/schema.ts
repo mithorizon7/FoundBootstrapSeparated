@@ -95,7 +95,7 @@ export const teamLoginSchema = z.object({
 });
 
 export const updateTeamPhaseSchema = z.object({
-  currentPhase: z.number().int().min(1).max(8),
+  currentPhase: z.number().int().min(PHASE_CONFIG.MIN_PHASE).max(PHASE_CONFIG.MAX_PHASE),
 });
 
 export const updateTeamAvatarSchema = z.object({

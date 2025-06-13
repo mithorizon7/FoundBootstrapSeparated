@@ -2,15 +2,42 @@ import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import request from 'supertest';
 import express from 'express';
 import { registerRoutes } from '../routes';
+import { storage } from '../storage';
 
 // Test application setup
 let app: express.Express;
 let server: any;
 
+// Test data setup
+let testTeam: any;
+let testCohort: any;
+
 beforeAll(async () => {
   app = express();
   app.use(express.json());
   server = await registerRoutes(app);
+  
+  // Create test cohort
+  testCohort = await storage.createCohort({
+    tag: 'test-cohort',
+    name: 'Test Cohort',
+    submissionsOpen: true,
+    votingOpen: false,
+    resultsVisible: false,
+    archived: false,
+  });
+  
+  // Create test team
+  testTeam = await storage.createTeam({
+    name: 'Test Team',
+    code: 'TEST123',
+    accessToken: 'test_access_token_123',
+    currentPhase: 1,
+    avatarIcon: 'team1.svg',
+    cohortTag: testCohort.tag,
+  });
+  
+
 });
 
 afterAll(async () => {
@@ -25,7 +52,7 @@ describe('API Validation Tests', () => {
     it('should validate team login with proper schema', async () => {
       const response = await request(app)
         .post('/api/auth/team/login')
-        .send({ access_token: teamAccessToken });
+        .send({ access_token: testTeam.accessToken });
 
       expect(response.status).toBe(200);
       expect(response.body.team).toBeDefined();
