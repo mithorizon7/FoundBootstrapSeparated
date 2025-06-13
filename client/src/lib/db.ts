@@ -1,4 +1,5 @@
 import { apiRequest } from "./queryClient";
+import { PHASE_CONFIG } from "@shared/constants";
 
 export interface TeamData {
   id: number;
@@ -77,7 +78,7 @@ export function getFromLocalStorage(phaseNumber: number): Record<string, any> | 
 export function getAllLocalStorageData(): Record<string, any> {
   const allData: Record<string, any> = {};
   
-  for (let i = 1; i <= 8; i++) {
+  for (let i = 1; i <= PHASE_CONFIG.TOTAL_PHASES; i++) {
     const data = getFromLocalStorage(i);
     if (data) {
       allData[`phase${i}`] = data;

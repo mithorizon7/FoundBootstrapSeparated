@@ -1,0 +1,27 @@
+The Problem: What is happening?
+
+On the Results.tsx page, when the winners are revealed, the point totals for each team animate, counting up from 0 to the final score. This animation is currently created using a JavaScript function called setInterval.
+
+This is considered an imperative approach because the code gives the browser a step-by-step command: "every 50 milliseconds, add a little bit to the score, update the screen, and check if you're done."
+
+Why is this a problem?
+
+React is a declarative library. In React, we are meant to declare what the UI should look like based on the current state, and React handles the job of updating the screen efficiently.
+
+Mixing the imperative setInterval with declarative React can lead to several subtle but frustrating bugs:
+
+Memory Leaks: If the component re-renders for any reason, a new setInterval timer could be created without the old one being properly stopped. This can lead to multiple timers running simultaneously in the background, causing performance issues and unpredictable behavior.
+Complexity: Managing these timers correctly requires careful use of the useEffect hook with cleanup functions, which can make the component's logic more complex and harder to maintain.
+Lack of Control: Using a basic browser timer gives you less control over the animation's physics (like easing or spring effects) and makes it harder to coordinate with other animations on the page.
+The Solution: Use a Declarative Animation Library
+
+A much better and more "React-idiomatic" approach is to use a library designed for animations in React. The project already includes framer-motion, which is perfect for this.
+
+Instead of manually calculating the score at each interval, you would simply tell framer-motion to animate a number from 0 to the final score, and the library would handle all the complex timing, updates, and cleanup for you.
+
+File to Edit: FoundBootstrapShortened/client/src/pages/Results.tsx
+Action:
+Remove the animateScore function that uses setInterval.
+Refactor the component that displays the score to use a <motion.span> or <motion.div> from framer-motion.
+Use framer-motion's animate prop or its useAnimate hook to handle the number transition smoothly.
+This approach is more robust, less prone to bugs, and aligns with modern React development practices, resulting in cleaner and more maintainable code.

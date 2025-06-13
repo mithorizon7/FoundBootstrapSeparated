@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import passport from "passport";
 import { storage } from "./storage";
 import { insertTeamSchema, insertPhaseDataSchema, insertCohortSchema, insertVoteSchema } from "@shared/schema";
+import { PHASE_CONFIG } from "@shared/constants";
 import { z } from "zod";
 import fs from "fs";
 import path from "path";
@@ -278,7 +279,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.get("/api/configs/phase-:id", async (req, res) => {
     try {
       const phaseId = parseInt(req.params.id);
-      if (phaseId < 1 || phaseId > 8) {
+      if (phaseId < 1 || phaseId > PHASE_CONFIG.TOTAL_PHASES) {
         return res.status(404).json({ message: "Phase not found" });
       }
       
