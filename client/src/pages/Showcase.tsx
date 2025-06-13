@@ -235,6 +235,18 @@ export default function Showcase() {
             )
           )}
           
+          {!cohort?.votingOpen && votingTeamId && votingTeam?.submittedWebsiteUrl && (
+            <div className="mt-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+              <div className="flex items-center space-x-2">
+                <Trophy className="w-5 h-5 text-yellow-600" />
+                <span className="font-medium text-yellow-900">Voting Not Open Yet</span>
+              </div>
+              <p className="text-yellow-700 mt-2">
+                You can view all submitted websites below, but voting has not been opened by the administrator yet. Check back later when voting begins!
+              </p>
+            </div>
+          )}
+          
           {hasAlreadyVoted && (
             <div className="mt-4 p-4 bg-green-50 rounded-lg border border-green-200">
               <div className="flex items-center space-x-2">

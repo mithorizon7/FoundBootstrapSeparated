@@ -908,7 +908,10 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                   <span className="font-medium">Next Steps</span>
                 </div>
                 <p className="text-blue-700 text-sm mb-3">
-                  Your website has been submitted! You can now view the cohort showcase and vote for your favorite submissions.
+                  {cohortData.votingOpen 
+                    ? "Your website has been submitted! You can now view the cohort showcase and vote for your favorite submissions."
+                    : "Your website has been submitted! You can now view other team submissions in the cohort showcase."
+                  }
                 </p>
                 <div className="flex space-x-3">
                   <Button
@@ -917,7 +920,12 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                     disabled={showcaseLoading}
                     className="bg-blue-600 hover:bg-blue-700 text-white"
                   >
-                    {showcaseLoading ? "Authenticating..." : "Go to Showcase & Vote"}
+                    {showcaseLoading 
+                      ? "Authenticating..." 
+                      : cohortData.votingOpen 
+                        ? "Go to Showcase & Vote" 
+                        : "View Showcase"
+                    }
                   </Button>
                   {cohortData.votingOpen && (
                     <Button
