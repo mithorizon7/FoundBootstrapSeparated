@@ -41,11 +41,11 @@ export function TeamAvatar({ avatarIcon, teamName, size = 'md', className = '' }
   }
 
   return (
-    <div className={`${sizeClasses[size]} bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0 ${className}`}>
+    <div className={`${sizeClasses[size]} flex items-center justify-center flex-shrink-0 ${className}`}>
       <img 
         src={iconPath} 
         alt={`${teamName} avatar`}
-        className="w-full h-full object-contain p-1"
+        className="w-full h-full object-contain"
       />
     </div>
   );
