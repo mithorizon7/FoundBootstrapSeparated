@@ -17,7 +17,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
-import { Download, Users, Shield, Plus, Settings, Eye, BarChart3, Globe, Vote, Loader2, HelpCircle, Info, BookOpen } from "lucide-react";
+import { Download, Users, Shield, Plus, Settings, Eye, BarChart3, Globe, Vote, Loader2, HelpCircle, Info, BookOpen, Archive } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { getTimeAgo } from "@/lib/utils";
@@ -45,6 +45,7 @@ export default function Admin() {
   const [selectedCohort, setSelectedCohort] = useState<string>("");
   const [selectedTeams, setSelectedTeams] = useState<number[]>([]);
   const [helpOpen, setHelpOpen] = useState(false);
+  const [showArchived, setShowArchived] = useState(false);
   const [newCohort, setNewCohort] = useState({
     tag: "",
     name: "",
@@ -64,6 +65,18 @@ export default function Admin() {
       if (!response.ok) throw new Error('Failed to fetch cohorts');
       return response.json();
     },
+  });
+
+  const { data: archivedCohorts = [], isLoading: archivedLoading } = useQuery<Cohort[]>({
+    queryKey: ['/api/admin/cohorts/archived'],
+    queryFn: async () => {
+      const response = await fetch('/api/admin/cohorts/archived', {
+        credentials: 'include',
+      });
+      if (!response.ok) throw new Error('Failed to fetch archived cohorts');
+      return response.json();
+    },
+    enabled: showArchived,
   });
 
   // Mutations for cohort management
@@ -158,6 +171,64 @@ export default function Admin() {
     onError: (error: Error) => {
       toast({
         title: "Failed to assign teams",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const archiveCohortMutation = useMutation({
+    mutationFn: async (cohortTag: string) => {
+      const response = await fetch(`/api/admin/cohorts/${cohortTag}/archive`, {
+        method: 'POST',
+        credentials: 'include',
+      });
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message);
+      }
+      return response.json();
+    },
+    onSuccess: () => {
+      toast({
+        title: "Cohort archived successfully",
+        description: "The cohort has been moved to the archive.",
+      });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/cohorts'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/cohorts/archived'] });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Failed to archive cohort",
+        description: error.message,
+        variant: "destructive",
+      });
+    },
+  });
+
+  const unarchiveCohortMutation = useMutation({
+    mutationFn: async (cohortTag: string) => {
+      const response = await fetch(`/api/admin/cohorts/${cohortTag}/unarchive`, {
+        method: 'POST',
+        credentials: 'include',
+      });
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message);
+      }
+      return response.json();
+    },
+    onSuccess: () => {
+      toast({
+        title: "Cohort restored successfully",
+        description: "The cohort has been restored from the archive.",
+      });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/cohorts'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/admin/cohorts/archived'] });
+    },
+    onError: (error: Error) => {
+      toast({
+        title: "Failed to restore cohort",
         description: error.message,
         variant: "destructive",
       });
@@ -567,6 +638,14 @@ export default function Admin() {
                       <p className="text-sm text-gray-600">Create and manage cohorts for team collaboration and voting</p>
                     </div>
                     <div className="flex space-x-3">
+                      <Button
+                        variant={showArchived ? "default" : "outline"}
+                        onClick={() => setShowArchived(!showArchived)}
+                        className="flex items-center space-x-2"
+                      >
+                        <Archive className="w-4 h-4" />
+                        <span>{showArchived ? "Show Active" : "Show Archived"}</span>
+                      </Button>
                       <Dialog open={assignTeamsOpen} onOpenChange={setAssignTeamsOpen}>
                         <Tooltip>
                           <TooltipTrigger asChild>

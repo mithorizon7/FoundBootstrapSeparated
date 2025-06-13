@@ -364,6 +364,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.post("/api/admin/cohorts/:cohortTag/archive", ensureAuthenticatedAdmin, async (req, res) => {
+    try {
+      const cohort = await storage.archiveCohort(req.params.cohortTag);
+      res.json(cohort);
+    } catch (error) {
+      res.status(500).json({ message: "Error archiving cohort" });
+    }
+  });
+
+  app.post("/api/admin/cohorts/:cohortTag/unarchive", ensureAuthenticatedAdmin, async (req, res) => {
+    try {
+      const cohort = await storage.unarchiveCohort(req.params.cohortTag);
+      res.json(cohort);
+    } catch (error) {
+      res.status(500).json({ message: "Error unarchiving cohort" });
+    }
+  });
+
   app.post("/api/admin/cohorts/:cohortTag/teams", ensureAuthenticatedAdmin, async (req, res) => {
     try {
       const { team_ids } = req.body;
