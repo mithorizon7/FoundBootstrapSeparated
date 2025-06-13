@@ -41,6 +41,7 @@ export const cohorts = pgTable("cohorts", {
   submissionsOpen: boolean("submissions_open").notNull().default(true),
   votingOpen: boolean("voting_open").notNull().default(false),
   resultsVisible: boolean("results_visible").notNull().default(false),
+  archived: boolean("archived").notNull().default(false),
   description: text("description"),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),

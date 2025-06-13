@@ -324,10 +324,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/admin/cohorts", ensureAuthenticatedAdmin, async (req, res) => {
     try {
-      const cohorts = await storage.getAllCohorts();
+      const cohorts = await storage.getActiveCohorts();
       res.json(cohorts);
     } catch (error) {
       res.status(500).json({ message: "Error fetching cohorts" });
+    }
+  });
+
+  app.get("/api/admin/cohorts/archived", ensureAuthenticatedAdmin, async (req, res) => {
+    try {
+      const cohorts = await storage.getArchivedCohorts();
+      res.json(cohorts);
+    } catch (error) {
+      res.status(500).json({ message: "Error fetching archived cohorts" });
     }
   });
 

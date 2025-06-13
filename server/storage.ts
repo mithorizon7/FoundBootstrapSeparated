@@ -33,7 +33,11 @@ export interface IStorage {
   createCohort(cohort: InsertCohort): Promise<Cohort>;
   getCohortByTag(tag: string): Promise<Cohort | undefined>;
   getAllCohorts(): Promise<Cohort[]>;
+  getActiveCohorts(): Promise<Cohort[]>;
+  getArchivedCohorts(): Promise<Cohort[]>;
   updateCohort(tag: string, updates: Partial<InsertCohort>): Promise<Cohort>;
+  archiveCohort(tag: string): Promise<Cohort>;
+  unarchiveCohort(tag: string): Promise<Cohort>;
   
   // Voting operations
   submitVotes(votes: InsertVote[]): Promise<Vote[]>;
@@ -158,7 +162,7 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getAllTeams(): Promise<Team[]> {
-    return await db.select().from(teams);
+    return await db.select().from(teams).orderBy(desc(teams.updatedAt));
   }
 
   async getTeamsByCohort(cohortTag: string): Promise<Team[]> {
@@ -247,11 +251,43 @@ export class DatabaseStorage implements IStorage {
     return await db.select().from(cohorts).orderBy(asc(cohorts.createdAt));
   }
 
+  async getActiveCohorts(): Promise<Cohort[]> {
+    return await db.select().from(cohorts).where(eq(cohorts.archived, false)).orderBy(asc(cohorts.createdAt));
+  }
+
+  async getArchivedCohorts(): Promise<Cohort[]> {
+    return await db.select().from(cohorts).where(eq(cohorts.archived, true)).orderBy(asc(cohorts.createdAt));
+  }
+
   async updateCohort(tag: string, updates: Partial<InsertCohort>): Promise<Cohort> {
     const [cohort] = await db
       .update(cohorts)
       .set({
         ...updates,
+        updatedAt: new Date()
+      })
+      .where(eq(cohorts.tag, tag))
+      .returning();
+    return cohort;
+  }
+
+  async archiveCohort(tag: string): Promise<Cohort> {
+    const [cohort] = await db
+      .update(cohorts)
+      .set({
+        archived: true,
+        updatedAt: new Date()
+      })
+      .where(eq(cohorts.tag, tag))
+      .returning();
+    return cohort;
+  }
+
+  async unarchiveCohort(tag: string): Promise<Cohort> {
+    const [cohort] = await db
+      .update(cohorts)
+      .set({
+        archived: false,
         updatedAt: new Date()
       })
       .where(eq(cohorts.tag, tag))
