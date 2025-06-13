@@ -193,16 +193,16 @@ export default function Showcase() {
             {cohort?.description || 'View and vote for the best website submissions from this cohort.'}
           </p>
           
-          {/* Debug information for voting status */}
-          {process.env.NODE_ENV === 'development' && (
-            <div className="mt-4 p-3 bg-gray-100 rounded-lg text-xs text-gray-600">
-              <strong>Debug Info:</strong> Voting Open: {cohort?.votingOpen ? 'Yes' : 'No'} | 
-              Team ID: {votingTeamId || 'None'} | 
-              Has Submitted: {votingTeam?.submittedWebsiteUrl ? 'Yes' : 'No'} | 
-              Has Voted: {hasAlreadyVoted ? 'Yes' : 'No'} | 
-              Eligible Teams: {eligibleTeams.length}
-            </div>
-          )}
+          {/* Debug information for voting status - temporarily enabled for debugging */}
+          <div className="mt-4 p-3 bg-gray-100 rounded-lg text-xs text-gray-600">
+            <strong>Debug Info:</strong> Voting Open: {cohort?.votingOpen ? 'Yes' : 'No'} | 
+            Team ID: {votingTeamId || 'None'} | 
+            Has Submitted: {votingTeam?.submittedWebsiteUrl ? 'Yes' : 'No'} | 
+            Has Voted: {hasAlreadyVoted ? 'Yes' : 'No'} | 
+            Eligible Teams: {eligibleTeams.length} | 
+            Team Cohort: {votingTeam?.cohortTag || 'None'} | 
+            Team Name: {votingTeam?.name || 'None'}
+          </div>
           
           {cohort?.votingOpen && !hasAlreadyVoted && votingTeamId && (
             votingTeam?.submittedWebsiteUrl ? (
@@ -235,6 +235,18 @@ export default function Showcase() {
             )
           )}
           
+          {!votingTeamId && cohort?.votingOpen && (
+            <div className="mt-4 p-4 bg-red-50 rounded-lg border border-red-200">
+              <div className="flex items-center space-x-2">
+                <Vote className="w-5 h-5 text-red-600" />
+                <span className="font-medium text-red-900">Team Session Required</span>
+              </div>
+              <p className="text-red-700 mt-2">
+                You need to be logged in as a team to vote. Please go back to your team's Phase 8 page and use the "Go to Showcase & Vote" button to establish a secure session.
+              </p>
+            </div>
+          )}
+
           {!cohort?.votingOpen && votingTeamId && votingTeam?.submittedWebsiteUrl && (
             <div className="mt-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
               <div className="flex items-center space-x-2">
