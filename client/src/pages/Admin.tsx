@@ -176,7 +176,7 @@ export default function Admin() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
-        body: JSON.stringify({ team_ids: teamIds }),
+        body: JSON.stringify({ teamIds }),
       });
       if (!response.ok) {
         const error = await response.json();
