@@ -307,14 +307,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.patch("/api/teams/:teamId/website", async (req, res) => {
     try {
       const teamId = parseInt(req.params.teamId);
+      
+      // Log the incoming request for debugging
+      console.log(`Website submission for team ${teamId}:`, req.body);
+      
       const { websiteUrl } = updateTeamWebsiteSchema.parse(req.body);
       
-      // Trim and validate the URL
-      const trimmedUrl = websiteUrl?.trim() || null;
+      // Handle URL processing - if empty string or null, set to null, otherwise use the URL
+      const processedUrl = websiteUrl && websiteUrl.trim() ? websiteUrl.trim() : null;
       
-      const team = await storage.updateTeamWebsite(teamId, trimmedUrl || "");
+      console.log(`Processed URL: "${processedUrl}"`);
+      
+      const team = await storage.updateTeamWebsite(teamId, processedUrl);
+      
+      console.log(`Updated team ${teamId} website to: "${team.submittedWebsiteUrl}"`);
+      
       res.json(team);
     } catch (error) {
+      console.error('Website submission error:', error);
       if (error instanceof z.ZodError) {
         return res.status(400).json({ message: "Invalid request data", errors: error.errors });
       }
