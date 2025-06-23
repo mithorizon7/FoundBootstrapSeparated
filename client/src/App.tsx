@@ -5,6 +5,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+import { Footer } from "@/components/Footer";
 import { useEffect } from "react";
 import Home from "@/pages/Home";
 import Phase from "@/pages/Phase";
@@ -45,17 +46,22 @@ function Router() {
   }, []);
 
   return (
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/phase/:id" component={Phase} />
-      <Route path="/admin" component={Admin} />
-      <Route path="/admin-login" component={AdminLogin} />
-      <Route path="/showcase/:cohortTag" component={Showcase} />
-      <Route path="/results/:cohortTag" component={Results} />
-      <Route path="/credits" component={Credits} />
-      <Route path="/privacy" component={Privacy} />
-      <Route component={NotFound} />
-    </Switch>
+    <div className="min-h-screen flex flex-col">
+      <main className="flex-1">
+        <Switch>
+          <Route path="/" component={Home} />
+          <Route path="/phase/:id" component={Phase} />
+          <Route path="/admin" component={Admin} />
+          <Route path="/admin-login" component={AdminLogin} />
+          <Route path="/showcase/:cohortTag" component={Showcase} />
+          <Route path="/results/:cohortTag" component={Results} />
+          <Route path="/credits" component={Credits} />
+          <Route path="/privacy" component={Privacy} />
+          <Route component={NotFound} />
+        </Switch>
+      </main>
+      <Footer />
+    </div>
   );
 }
 
