@@ -139,7 +139,7 @@ export default function Home() {
         onTeamSelected={handleTeamSelected}
       />
       
-      <Footer />
+      <Footer showLinks={true} />
     </div>
   );
 }
