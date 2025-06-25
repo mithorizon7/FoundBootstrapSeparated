@@ -515,14 +515,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { votes } = submitVotesSchema.parse(req.body);
       const voting_team_id = (req.session as any).teamId; // Get from secure session
       
-      // Validate cohort exists and voting is open
+      // Validate cohort exists (voting is always open)
       const cohort = await storage.getCohortByTag(req.params.cohortTag);
       if (!cohort) {
         return res.status(404).json({ message: "Cohort not found" });
       }
-      if (!cohort.votingOpen) {
-        return res.status(400).json({ message: "Voting is not open for this cohort" });
-      }
+      // Voting is always open - removed check
       
       // Validate voting team is in cohort
       const votingTeam = await storage.getTeamById(voting_team_id);
@@ -635,9 +633,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ message: "Cohort not found" });
       }
       
-      if (!cohort.resultsVisible) {
-        return res.status(403).json({ message: "Results are not yet available" });
-      }
+      // Results are always visible - removed check
       
       const results = await storage.getVotingResults(req.params.cohortTag);
       res.json(results);
