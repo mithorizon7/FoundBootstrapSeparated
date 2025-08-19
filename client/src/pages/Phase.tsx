@@ -30,7 +30,7 @@ interface PhaseConfig {
 
 export default function Phase() {
   const [match, params] = useRoute("/phase/:id");
-  const [sessionModalOpen, setSessionModalOpen] = useState(false);
+  const [workspaceModalOpen, setWorkspaceModalOpen] = useState(false);
   
   const phaseId = params?.id ? parseInt(params.id) : 1;
   const urlParams = new URLSearchParams(window.location.search);
@@ -52,14 +52,14 @@ export default function Phase() {
     },
   });
 
-  // Show session modal if no session is selected and no local data exists
+  // Show workspace modal if no workspace is selected and no local data exists
   useEffect(() => {
     if (!teamCode && !localStorage.getItem('phase1_data')) {
-      setSessionModalOpen(true);
+      setWorkspaceModalOpen(true);
     }
   }, [teamCode]);
 
-  const handleSessionSelected = (selectedTeamCode: string) => {
+  const handleWorkspaceSelected = (selectedTeamCode: string) => {
     window.location.href = `/phase/${phaseId}?team_id=${selectedTeamCode}`;
   };
 
@@ -131,9 +131,9 @@ export default function Phase() {
       </main>
 
       <TeamModal
-        isOpen={sessionModalOpen}
-        onClose={() => setSessionModalOpen(false)}
-        onTeamSelected={handleSessionSelected}
+        isOpen={workspaceModalOpen}
+        onClose={() => setWorkspaceModalOpen(false)}
+        onTeamSelected={handleWorkspaceSelected}
       />
     </div>
   );

@@ -7,15 +7,16 @@ import { NavigationHeader } from "@/components/NavigationHeader";
 import { Footer } from "@/components/Footer";
 import { ArrowRight, Users, Clock, Target } from "lucide-react";
 import logoSrc from "@/assets/logo.png";
+import { WORKSPACE } from "@/lib/copy";
 
 export default function Home() {
-  const [sessionModalOpen, setSessionModalOpen] = useState(false);
+  const [workspaceModalOpen, setWorkspaceModalOpen] = useState(false);
   const [, setLocation] = useLocation();
 
   // Removed automatic modal popup - now only opens when user clicks "Get Started"
 
   const handleGetStarted = () => {
-    setSessionModalOpen(true);
+    setWorkspaceModalOpen(true);
   };
 
   const handleContinue = () => {
@@ -26,8 +27,8 @@ export default function Home() {
     }
   };
 
-  const handleSessionSelected = (teamCode: string) => {
-    // Scroll to activities section after session selection
+  const handleWorkspaceSelected = (teamCode: string) => {
+    // Scroll to activities section after workspace selection
     setTimeout(() => {
       const activitiesSection = document.querySelector('[data-activities-section]');
       if (activitiesSection) {
@@ -45,7 +46,7 @@ export default function Home() {
     {
       icon: Users,
       title: "Cross-Device Access",
-      description: "Resume your work from any device using your session code. All progress is automatically saved and synced across activities."
+      description: "Resume your work from any device using your Workspace Code. All progress is automatically saved and synced across activities."
     },
     {
       icon: Clock,
@@ -102,7 +103,7 @@ export default function Home() {
               variant="outline"
               className="border-primary text-primary hover:bg-primary hover:text-white px-8 py-4 text-lg"
             >
-              Start Session
+              {WORKSPACE.startLabel}
             </Button>
           </div>
           
@@ -166,9 +167,9 @@ export default function Home() {
       </main>
 
       <TeamModal
-        isOpen={sessionModalOpen}
-        onClose={() => setSessionModalOpen(false)}
-        onTeamSelected={handleSessionSelected}
+        isOpen={workspaceModalOpen}
+        onClose={() => setWorkspaceModalOpen(false)}
+        onTeamSelected={handleWorkspaceSelected}
       />
       
       <Footer showLinks={true} />

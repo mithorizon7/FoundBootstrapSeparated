@@ -7,6 +7,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { AvatarSelector } from "@/components/AvatarSelector";
 import logoSrc from "@assets/ActivityLogo2.png";
+import { WORKSPACE } from "@/lib/copy";
 
 
 interface Participant {
@@ -67,8 +68,8 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
       
       if (response.ok) {
         toast({
-          title: "Session ended",
-          description: "You can now start a new session or resume an existing one.",
+          title: "Workspace ended",
+          description: "You can now create a new workspace or open an existing one.",
         });
         setLocation("/");
       } else {
@@ -76,8 +77,8 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
       }
     } catch (error) {
       toast({
-        title: "Switch session failed",
-        description: "Failed to end current session. Please try again.",
+        title: "Switch workspace failed",
+        description: "Failed to end current workspace. Please try again.",
         variant: "destructive",
       });
     }
@@ -98,7 +99,7 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
               <span className="text-lg sm:text-xl font-bold text-neutral-800 hidden xs:block">GenAI Lab</span>
             </Link>
             
-            {/* Session Info - Responsive */}
+            {/* Workspace Info - Responsive */}
             {participant && (
               <div className="flex items-center space-x-2 text-sm text-gray-600 bg-gray-50 px-2 py-1 rounded-full">
                 <AvatarSelector 
@@ -109,9 +110,10 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
                   size="md"
                 />
                 <div className="hidden sm:flex items-center space-x-2">
-                  <span className="hidden md:inline">{participant.name}</span>
+                  <span className="hidden md:inline font-medium">Workspace: {participant.name}</span>
                   <span className="text-xs hidden md:inline">•</span>
-                  <span>{participant.code}</span>
+                  <span className="font-mono">Code: {participant.code}</span>
+                  <span className="text-xs text-gray-400 hidden lg:inline">• {WORKSPACE.bannerActive}</span>
                 </div>
               </div>
             )}
@@ -293,7 +295,7 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
                     {participant && (
                       <DropdownMenuItem onClick={handleEndSession}>
                         <Users className="w-4 h-4 mr-2" />
-                        End Session
+                        Open Another Workspace
                       </DropdownMenuItem>
                     )}
                     <DropdownMenuItem onClick={handleLogout}>

@@ -10,6 +10,14 @@ Preferred communication style: Simple, everyday language.
 
 ## Recent Major Updates (August 2025)
 
+### UI Terminology Transformation Complete ✅ - "Workspace" Language Rollout
+- **Centralized Copy System**: Created `client/src/lib/copy.ts` with centralized WORKSPACE constants for consistent terminology
+- **Enhanced User Messaging**: Updated all participant-facing UI from "session" to "workspace" terminology to reduce confusion about persistence
+- **TeamModal Enhancement**: Added copy-to-clipboard button for workspace codes and improved creation/resumption messaging
+- **NavigationHeader Updates**: Enhanced workspace info display with clear "Workspace: [Name] • Code: ABCD • Auto-saved" status indicators
+- **Cross-Device Messaging**: Improved user understanding that work auto-saves and syncs across devices with clear workspace code messaging
+- **Menu Language**: Updated navigation menus from "End Session" to "Open Another Workspace" for better UX clarity
+
 ### Individual Session Transformation Complete ✅ - Production Quality Review Completed
 - **Security Enhancement**: Added `ensureAuthenticatedTeam` middleware to all sensitive backend routes (`/api/teams/:id/phase`, `/api/teams/:id/avatar`, `/api/teams/:teamId/website`, `/api/phase-data`, `/api/phase-data/:teamId/:phaseNumber/complete`)
 - **Cryptographic Security**: Upgraded session code generation from weak Math.random() to crypto.getRandomValues() for production-grade security

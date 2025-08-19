@@ -4,11 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Plus } from "lucide-react";
+import { Plus, Copy } from "lucide-react";
 import { generateTeamCode } from "@/lib/utils";
 import { createTeam, getTeamByCode } from "@/lib/db";
 import { useLocation } from "wouter";
 import logoSrc from "@/assets/logo.png";
+import { WORKSPACE } from "@/lib/copy";
 
 interface TeamModalProps {
   isOpen: boolean;
@@ -27,7 +28,7 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
     if (!teamName.trim()) {
       toast({
         title: "Name required",
-        description: "Please enter your name or an identifier for your session.",
+        description: "Please enter your name or an identifier for your workspace.",
         variant: "destructive",
       });
       return;
@@ -39,8 +40,26 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
       await createTeam(teamName.trim(), code);
       
       toast({
-        title: "Session started!",
-        description: `Your session code is: ${code}. Save this to resume later on any device.`,
+        title: WORKSPACE.toastCreated,
+        description: (
+          <div className="flex items-center justify-between">
+            <div>
+              <div className="font-mono text-lg font-bold">{code}</div>
+            </div>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => {
+                navigator.clipboard.writeText(code);
+                toast({ title: "Copied!", description: "Workspace Code copied to clipboard." });
+              }}
+              className="ml-2"
+            >
+              <Copy className="w-3 h-3 mr-1" />
+              {WORKSPACE.copyCodeCta}
+            </Button>
+          </div>
+        ),
       });
       
       onTeamSelected(code);
@@ -60,8 +79,8 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
   const handleJoinTeam = async () => {
     if (!joinCode.trim()) {
       toast({
-        title: "Session code required",
-        description: "Please enter your session code to resume.",
+        title: "Workspace Code required",
+        description: WORKSPACE.missingCodeError,
         variant: "destructive",
       });
       return;
@@ -72,15 +91,15 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
       const team = await getTeamByCode(joinCode.trim().toUpperCase());
       if (!team) {
         toast({
-          title: "Session not found",
-          description: "No session found with that code. Please check and try again.",
+          title: "Workspace not found",
+          description: WORKSPACE.toastJoinError,
           variant: "destructive",
         });
         return;
       }
 
       toast({
-        title: "Session resumed!",
+        title: WORKSPACE.toastJoined,
         description: `Welcome back, ${team.name}`,
       });
       
@@ -116,18 +135,18 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
           </div>
           <DialogTitle className="text-xl sm:text-2xl font-bold text-neutral-800">Welcome to Applied GenAI Lab</DialogTitle>
           <DialogDescription className="space-y-2">
-            <p>Start your session to begin working on GenAI-assisted development activities</p>
+            <p>{WORKSPACE.explainer}</p>
             <div className="text-xs text-gray-500 bg-blue-50 p-2 rounded border space-y-1">
               <p>💡 No account needed – just remember your code to come back later on any device!</p>
-              <p className="text-red-600 font-medium">🔒 Keep your session code private – it's your personal access key.</p>
+              <p className="text-red-600 font-medium">🔒 Keep your Workspace Code private – it's your personal access key.</p>
             </div>
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-6">
-          {/* Create Session Section */}
+          {/* Create Workspace Section */}
           <div className="space-y-3">
-            <Label htmlFor="teamName">Start New Session</Label>
+            <Label htmlFor="teamName">{WORKSPACE.startLabel}</Label>
             <Input
               id="teamName"
               placeholder="Enter your name or identifier"
@@ -141,7 +160,7 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
               className="w-full bg-primary text-white hover:bg-primary/90 flex items-center justify-center space-x-2"
             >
               <Plus className="w-4 h-4" />
-              <span>Start New Session</span>
+              <span>{WORKSPACE.startLabel}</span>
             </Button>
           </div>
 
@@ -155,12 +174,12 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
             </div>
           </div>
 
-          {/* Resume Session Section */}
+          {/* Resume Workspace Section */}
           <div className="space-y-3">
-            <Label htmlFor="joinCode">Resume Existing Session</Label>
+            <Label htmlFor="joinCode">{WORKSPACE.resumeLabel}</Label>
             <Input
               id="joinCode"
-              placeholder="Enter session code (e.g., ZX1Q)"
+              placeholder={WORKSPACE.codePlaceholder}
               value={joinCode}
               onChange={(e) => setJoinCode(e.target.value.toUpperCase())}
               onKeyPress={(e) => e.key === 'Enter' && handleJoinTeam()}
@@ -173,7 +192,7 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
               variant="outline"
               className="w-full"
             >
-              Resume Session
+              {WORKSPACE.resumeLabel}
             </Button>
           </div>
 
@@ -184,7 +203,7 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
               variant="ghost"
               className="w-full text-gray-500 hover:text-gray-700"
             >
-              Browse activities (progress won't be saved)
+              Try without saving
             </Button>
           </div>
         </div>

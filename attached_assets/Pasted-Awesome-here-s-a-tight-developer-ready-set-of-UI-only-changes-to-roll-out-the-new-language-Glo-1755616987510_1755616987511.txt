@@ -1,0 +1,153 @@
+Awesome—here’s a tight, developer-ready set of UI-only changes to roll out the new language:
+
+⸻
+
+Global copy (create once, reuse everywhere)
+
+Add or update your copy constants (wherever you centralize strings, e.g. src/ui/copy.ts):
+
+export const WORKSPACE = {
+  startLabel: "Create My Workspace",
+  resumeLabel: "Open My Workspace",
+  explainer: "Your progress auto-saves and syncs across devices with a Workspace Code.",
+  codeLabel: "Workspace Code",
+  codePlaceholder: "Enter your Workspace Code",
+  copyCodeCta: "Copy Workspace Code",
+  bannerActive: "Auto-saved • Resume anywhere with your Workspace Code",
+  toastCreated: "Workspace created. Save this Workspace Code:",
+  toastJoined: "Workspace opened.",
+  toastJoinError: "That Workspace Code wasn’t found. Double-check and try again.",
+  missingCodeError: "Please enter your Workspace Code.",
+  practiceNote: "Practice mode: progress is not saved",
+};
+
+If you don’t have a central file, define these in the modal/header components now and refactor later.
+
+⸻
+
+1) Start/Resume Modal (formerly “Start a session” / “Join a team”)
+
+Component(s): TeamModal (or equivalent start/join modal), any landing “Get Started” modal.
+
+Changes:
+	•	Replace the primary CTA text with WORKSPACE.startLabel.
+	•	Replace the secondary “join” CTA text with WORKSPACE.resumeLabel.
+	•	Directly under both CTAs, add the 1-line explainer: WORKSPACE.explainer.
+	•	Change any “Team Code” label/placeholder to WORKSPACE.codeLabel / WORKSPACE.codePlaceholder.
+	•	Update empty/error states:
+	•	Empty: WORKSPACE.missingCodeError
+	•	Not found/invalid: WORKSPACE.toastJoinError
+	•	If you show the generated code after create, add a Copy button labeled WORKSPACE.copyCodeCta.
+
+Example (JSX sketch):
+
+<h2>{WORKSPACE.startLabel}</h2>
+<p className="text-muted">{WORKSPACE.explainer}</p>
+<Button onClick={handleCreate}>{WORKSPACE.startLabel}</Button>
+
+<h3 className="mt-6">{WORKSPACE.resumeLabel}</h3>
+<label>{WORKSPACE.codeLabel}</label>
+<input placeholder={WORKSPACE.codePlaceholder} ... />
+<Button onClick={handleResume}>{WORKSPACE.resumeLabel}</Button>
+<p className="text-muted">{WORKSPACE.explainer}</p>
+
+Toast after create:
+
+toast.info(
+  <div>
+    <div>{WORKSPACE.toastCreated}</div>
+    <div className="code-pill">{generatedCode}</div>
+    <Button onClick={() => copy(generatedCode)}>{WORKSPACE.copyCodeCta}</Button>
+  </div>
+);
+
+
+⸻
+
+2) Landing/Home hero & any marketing tiles
+
+Component(s): Home/Landing page.
+
+Changes:
+	•	Replace any “Start a session” button with WORKSPACE.startLabel.
+	•	If you currently advertise “teams/collaboration,” swap that tile’s subcopy to emphasize persistence:
+	•	“Auto-save across devices with a Workspace Code” (or reuse WORKSPACE.explainer).
+	•	If there’s a “Join/Enter code” quick action, rename to WORKSPACE.resumeLabel.
+
+⸻
+
+3) Header / App shell when a workspace is active
+
+Component(s): NavigationHeader (or equivalent).
+
+Changes:
+	•	If you currently show “Team: {name} · Code: ABCD”, change the label:
+	•	Workspace: {ProjectName} • Code: ABCD
+	•	Add a small, muted status chip showing WORKSPACE.bannerActive.
+	•	If there’s a menu item “Switch team”, rename to Open Another Workspace (no logic change).
+
+Example (JSX sketch):
+
+<HeaderRight>
+  <span>Workspace: <strong>{projectName}</strong></span>
+  <span>• Code: <code>{code}</code></span>
+  <span className="text-muted">({WORKSPACE.bannerActive})</span>
+</HeaderRight>
+
+
+⸻
+
+4) Phase pages: empty/gating banners & code prompts
+
+Component(s): PhasePage (or any page that prompts to start/join).
+
+Changes:
+	•	Any “Start a session” nudge → WORKSPACE.startLabel.
+	•	Any “Enter team code / Join team” nudge → WORKSPACE.resumeLabel + WORKSPACE.codeLabel.
+	•	Add the explainer line WORKSPACE.explainer beneath these prompts.
+
+⸻
+
+5) Misc. UI text replacements (participant-facing only)
+
+Search/replace in user-facing UI (no backend, no admin code unless instructors also see it in the same views):
+	•	“Start a session” → Create My Workspace
+	•	“Join” (when it means join by code) → Open My Workspace
+	•	“Team Code” / “code” labels → Workspace Code
+	•	“Enter your team code” → Enter your Workspace Code
+	•	Success toast “Joined team” → Workspace opened.
+	•	Error toast “Invalid team code” → That Workspace Code wasn’t found. Double-check and try again.
+
+Do not change API routes, data models, or internal variable names. This is copy-only.
+
+⸻
+
+6) Optional: Practice mode clarity (if present in UI)
+
+If you still offer a no-save option:
+	•	Button text: Try without saving
+	•	Subtext (muted): WORKSPACE.practiceNote
+
+⸻
+
+7) QA checklist (UI only)
+	•	Landing hero shows Create My Workspace; clicking opens the same modal as before.
+	•	Modal primary CTA reads Create My Workspace; secondary reads Open My Workspace.
+	•	The explainer line is visible under both CTAs.
+	•	The input label/placeholder say Workspace Code / Enter your Workspace Code.
+	•	After creating, toast reads “Workspace created. Save this Workspace Code:” and shows a Copy Workspace Code button.
+	•	Header shows “Workspace: {Name} • Code: ABCD (Auto-saved…)”.
+	•	Any phase-page nudge uses the new labels and explainer.
+	•	No references to “session” or “team” remain in participant-facing UI.
+
+⸻
+
+Notes for developers
+	•	Keep all handlers and routes unchanged; you’re only editing text/components.
+	•	If strings are scattered, centralize them now in a small copy.ts so future wording changes are 1-file edits.
+	•	Mind casing (Title Case for button labels, sentence case for explainers).
+	•	Keep the code font (<code>ABCD</code>) for the workspace code to improve scannability.
+
+⸻
+
+Confidence: High that these UI changes alone will make the flow self-explanatory (primary risk: missing a stray string). Medium confidence on exact component names in your code—if they differ, apply the same changes to your project’s equivalents.
