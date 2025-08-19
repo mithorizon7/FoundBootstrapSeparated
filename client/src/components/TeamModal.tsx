@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Copy } from "lucide-react";
+import { Plus, Copy, Lightbulb, Lock } from "lucide-react";
 import { generateTeamCode } from "@/lib/utils";
 import { createTeam, getTeamByCode } from "@/lib/db";
 import { useLocation } from "wouter";
@@ -126,15 +126,22 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-md">
         <DialogHeader className="text-center">
-          <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg border border-neutral-200">
-            <img 
-              src={logoSrc} 
-              alt="Found-in-Two Logo" 
-              className="w-10 h-10 object-contain"
-            />
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-full blur-2xl opacity-20 animate-pulse" />
+            </div>
+            <div className="relative w-16 h-16 bg-gradient-to-br from-white to-gray-50 rounded-full flex items-center justify-center mx-auto mb-4 shadow-xl border border-gray-100">
+              <img 
+                src={logoSrc} 
+                alt="Found-in-Two Logo" 
+                className="w-10 h-10 object-contain"
+              />
+            </div>
           </div>
-          <DialogTitle className="text-xl sm:text-2xl font-bold text-neutral-800">Welcome to Applied GenAI Lab</DialogTitle>
-          <DialogDescription>
+          <DialogTitle className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
+            Welcome to Applied GenAI Lab
+          </DialogTitle>
+          <DialogDescription className="text-gray-600 mt-2">
             Start your workspace to begin working on GenAI-assisted development activities
           </DialogDescription>
         </DialogHeader>
@@ -149,11 +156,12 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
               value={teamName}
               onChange={(e) => setTeamName(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleCreateTeam()}
+              className="h-11 px-4 border-gray-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all duration-200"
             />
             <Button
               onClick={handleCreateTeam}
               disabled={loading}
-              className="w-full bg-primary text-white hover:bg-primary/90 flex items-center justify-center space-x-2"
+              className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center space-x-2"
             >
               <Plus className="w-4 h-4" />
               <span>{WORKSPACE.startLabel}</span>
@@ -164,10 +172,10 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
           {/* Divider */}
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300"></div>
+              <div className="w-full border-t border-gray-200"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-3 bg-white text-gray-500">or</span>
+              <span className="px-4 bg-white text-gray-400 font-medium uppercase tracking-wider text-xs">or</span>
             </div>
           </div>
 
@@ -180,14 +188,14 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
               value={joinCode}
               onChange={(e) => setJoinCode(e.target.value.toUpperCase())}
               onKeyPress={(e) => e.key === 'Enter' && handleJoinTeam()}
-              className="text-center font-mono text-lg tracking-wider"
+              className="h-12 text-center font-mono text-xl tracking-widest font-bold border-gray-200 focus:border-blue-400 focus:ring-2 focus:ring-blue-100 transition-all duration-200"
               maxLength={4}
             />
             <Button
               onClick={handleJoinTeam}
               disabled={loading}
               variant="outline"
-              className="w-full"
+              className="w-full border-2 hover:bg-gray-50 transition-all duration-200"
             >
               {WORKSPACE.resumeLabel}
             </Button>
@@ -195,21 +203,38 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
           </div>
 
           {/* Anonymous Option */}
-          <div className="pt-4 border-t border-gray-200">
+          <div className="pt-4 border-t border-gray-100">
             <Button
               onClick={handleContinueAnonymously}
               variant="ghost"
-              className="w-full text-gray-500 hover:text-gray-700"
+              className="w-full text-gray-500 hover:text-gray-700 hover:bg-gray-50/50 transition-all duration-200"
             >
               Try without saving
             </Button>
-            <p className="text-xs text-muted-foreground text-center mt-2">{WORKSPACE.practiceNote}</p>
+            <p className="text-xs text-gray-400 text-center mt-2">{WORKSPACE.practiceNote}</p>
           </div>
           
           {/* Security Notice */}
-          <div className="text-xs text-gray-500 bg-blue-50 p-3 rounded border space-y-1">
-            <p>💡 No account needed – just remember your code to come back later on any device!</p>
-            <p className="text-red-600 font-medium">🔒 Keep your Workspace Code private – it's your personal access key.</p>
+          <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-slate-50 to-blue-50 p-4">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-blue-100/20 to-indigo-100/20 rounded-full blur-3xl" />
+            <div className="relative space-y-3">
+              <div className="flex items-start space-x-3">
+                <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-amber-400 to-yellow-500 rounded-lg flex items-center justify-center shadow-sm">
+                  <Lightbulb className="w-4 h-4 text-white" />
+                </div>
+                <p className="text-sm text-gray-700 leading-relaxed flex-1">
+                  No account needed – just remember your code to come back later on any device!
+                </p>
+              </div>
+              <div className="flex items-start space-x-3">
+                <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-red-500 to-rose-600 rounded-lg flex items-center justify-center shadow-sm">
+                  <Lock className="w-4 h-4 text-white" />
+                </div>
+                <p className="text-sm text-gray-700 font-medium leading-relaxed flex-1">
+                  Keep your <span className="text-red-700 font-semibold">Workspace Code private</span> – it's your personal access key.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </DialogContent>
