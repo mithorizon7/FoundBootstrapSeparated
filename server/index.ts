@@ -11,7 +11,8 @@ import { pool } from "./db";
 import type { User } from "@shared/schema";
 
 const app = express();
-app.set('trust proxy', 1); // Trust first proxy for Replit deployment
+// Trust proxy setting for load balancers and reverse proxies (Replit, Heroku, etc.)
+app.set('trust proxy', 1);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -33,7 +34,7 @@ app.use(session({
   saveUninitialized: false,
   name: 'sessionId', // Custom session name
   cookie: { 
-    secure: false, // Allow cookies over HTTP for Replit deployment
+    secure: process.env.NODE_ENV === 'production', // HTTPS in production, HTTP in development
     httpOnly: true,
     maxAge: 24 * 60 * 60 * 1000, // 24 hours
     sameSite: 'lax'
@@ -132,10 +133,9 @@ app.use((req, res, next) => {
     serveStatic(app);
   }
 
-  // ALWAYS serve the app on port 5000
-  // this serves both the API and the client.
-  // It is the only port that is not firewalled.
-  const port = 5000;
+  // Configure port - use environment variable or default to 5000
+  // This serves both the API and the client on a single port
+  const port = process.env.PORT ? parseInt(process.env.PORT) : 5000;
   server.listen({
     port,
     host: "0.0.0.0",
