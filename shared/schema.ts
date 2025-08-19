@@ -67,6 +67,9 @@ export const insertTeamSchema = createInsertSchema(teams).omit({
   createdAt: true,
   updatedAt: true,
 }).extend({
+  // Make required fields strict
+  name: z.string().min(1, "Team name is required"),
+  code: z.string().min(1, "Team code is required"),
   // Make optional fields actually optional for API requests
   accessToken: z.string().optional(),
   avatarIcon: z.string().optional(),
