@@ -423,6 +423,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const updates = req.body;
       // Remove submissionsOpen from updates since it should always be true
       const { submissionsOpen, ...allowedUpdates } = updates;
+      
+      // Hierarchical validation: If disabling competition, also disable voting and results
+      if (allowedUpdates.competitionEnabled === false) {
+        allowedUpdates.votingOpen = false;
+        allowedUpdates.resultsVisible = false;
+      }
+      
+      // Hierarchical validation: If enabling voting or results, ensure competition is enabled
+      if ((allowedUpdates.votingOpen === true || allowedUpdates.resultsVisible === true)) {
+        const currentCohort = await storage.getCohortByTag(req.params.cohortTag);
+        if (!currentCohort) {
+          return res.status(404).json({ message: "Cohort not found" });
+        }
+        
+        // Check if competition will be enabled after this update
+        const willHaveCompetition = allowedUpdates.competitionEnabled !== undefined 
+          ? allowedUpdates.competitionEnabled 
+          : currentCohort.competitionEnabled;
+          
+        if (!willHaveCompetition) {
+          return res.status(400).json({ 
+            message: "Cannot enable voting or results without enabling competition mode first" 
+          });
+        }
+      }
+      
       const cohort = await storage.updateCohort(req.params.cohortTag, allowedUpdates);
       res.json(cohort);
     } catch (error) {
@@ -605,6 +631,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         tag: cohort.tag,
         name: cohort.name,
         submissionsOpen: cohort.submissionsOpen,
+        competitionEnabled: cohort.competitionEnabled,
         votingOpen: cohort.votingOpen,
         resultsVisible: cohort.resultsVisible
       });
@@ -627,6 +654,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         name: cohort.name,
         description: cohort.description,
         submissionsOpen: cohort.submissionsOpen,
+        competitionEnabled: cohort.competitionEnabled,
         votingOpen: cohort.votingOpen,
         resultsVisible: cohort.resultsVisible
       });
