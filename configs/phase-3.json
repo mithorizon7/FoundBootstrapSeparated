@@ -168,7 +168,7 @@
         "steps": [
           {
             "number": "1",
-            "action": "**Copy** the Phase 3 Prompt from the **Prompt Preview** section below"
+            "action": "**Copy** the Research Prompt from the **Prompt Preview** section below"
           },
           {
             "number": "2",
@@ -257,8 +257,8 @@
   },
   "instructions": [
     "Enable Deep-Research feature in ChatGPT Enterprise",
-    "Customize the research prompt with your specific parameters",
+    "Customize the research prompt with your specific parameters", 
     "Allow sufficient time for the AI research process to complete",
-    "Download and properly name your research PDF for future phases"
+    "Download and properly name your research PDF for your project records"
   ]
 }
