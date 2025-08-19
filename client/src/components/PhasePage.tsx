@@ -370,6 +370,17 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
     try {
       if (teamId) {
         await savePhaseData(teamId, config.phase, formData);
+        
+        // Mark current phase as completed
+        try {
+          await fetch(`/api/phase-data/${teamId}/${config.phase}/complete`, {
+            method: 'PATCH',
+            credentials: 'include'
+          });
+        } catch (error) {
+          console.warn('Failed to mark phase as completed:', error);
+        }
+        
         // Update team's current phase if proceeding to next
         if (config.phase < PHASE_CONFIG.TOTAL_PHASES) {
           await updateTeamPhase(teamId, config.phase + 1);
@@ -1016,6 +1027,16 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                 try {
                   if (teamId) {
                     await savePhaseData(teamId, config.phase, formData);
+                    
+                    // Mark final phase as completed
+                    try {
+                      await fetch(`/api/phase-data/${teamId}/${config.phase}/complete`, {
+                        method: 'PATCH',
+                        credentials: 'include'
+                      });
+                    } catch (error) {
+                      console.warn('Failed to mark phase as completed:', error);
+                    }
                   } else {
                     saveToLocalStorage(config.phase, formData);
                   }
