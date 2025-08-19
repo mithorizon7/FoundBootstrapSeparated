@@ -11,7 +11,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Field } from "./Field";
 import { PromptPreview } from "./PromptPreview";
 import { SelectionCard } from "./SelectionCard";
-import { ChevronLeft, ChevronRight, ChevronDown, Info, Vote, Save, Copy, CheckCircle, Clock, FileText, Target, ArrowRight, Globe, Upload } from "lucide-react";
+import { ChevronDown, Info, Vote, Copy, CheckCircle, Clock, FileText, Target, ArrowRight, Globe, Upload } from "lucide-react";
 import { savePhaseData, getPhaseData, saveToLocalStorage, getFromLocalStorage, getAllLocalStorageData, getAllPhaseDataForTeam, updateTeamPhase } from "@/lib/db";
 import { useLocation } from "wouter";
 import { cn } from "@/lib/utils";
@@ -330,90 +330,11 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSaveAndExit = async () => {
-    setLoading(true);
-    try {
-      if (teamId) {
-        await savePhaseData(teamId, config.phase, formData);
-      } else {
-        saveToLocalStorage(config.phase, formData);
-      }
-      
-      toast({
-        title: "Progress saved",
-        description: "Your work has been saved successfully.",
-      });
-      
-      setLocation('/');
-    } catch (error) {
-      toast({
-        title: "Error saving",
-        description: "Failed to save your progress. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
 
-  const handleProceedToNext = async () => {
-    if (!validateForm()) {
-      toast({
-        title: "Please complete all required fields",
-        description: "Fill in all required information before proceeding.",
-        variant: "destructive",
-      });
-      return;
-    }
 
-    setLoading(true);
-    try {
-      if (teamId) {
-        await savePhaseData(teamId, config.phase, formData);
-        
-        // Mark current phase as completed
-        try {
-          await fetch(`/api/phase-data/${teamId}/${config.phase}/complete`, {
-            method: 'PATCH',
-            credentials: 'include'
-          });
-        } catch (error) {
-          console.warn('Failed to mark phase as completed:', error);
-        }
-        
-        // Update team's current phase if proceeding to next
-        if (config.phase < PHASE_CONFIG.TOTAL_PHASES) {
-          await updateTeamPhase(teamId, config.phase + 1);
-        }
-      } else {
-        saveToLocalStorage(config.phase, formData);
-      }
-      
-      if (onNext) {
-        onNext();
-      } else if (config.phase < PHASE_CONFIG.TOTAL_PHASES) {
-        const nextPhaseUrl = `/phase/${config.phase + 1}${teamCode ? `?team_id=${teamCode}` : ''}`;
-        setLocation(nextPhaseUrl);
-      }
-    } catch (error) {
-      toast({
-        title: "Error saving progress",
-        description: "Failed to save your progress. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
 
-  const handlePreviousPhase = () => {
-    if (onPrevious) {
-      onPrevious();
-    } else if (config.phase > 1) {
-      const prevPhaseUrl = `/phase/${config.phase - 1}${teamCode ? `?team_id=${teamCode}` : ''}`;
-      setLocation(prevPhaseUrl);
-    }
-  };
+
+
 
   // Prepare data for template compilation
   const templateData = {
@@ -991,90 +912,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
         </Alert>
       )}
 
-      {/* Navigation Footer */}
-      <div className="lg:col-span-2 mt-12 flex items-center justify-between">
-        <Button
-          variant="outline"
-          onClick={handlePreviousPhase}
-          disabled={config.phase === 1}
-          className={cn("flex items-center space-x-2 border border-neutral-300 text-neutral-600 hover:bg-neutral-50 hover:border-neutral-400 transition-colors duration-200", 
-            config.phase === 1 && "opacity-50 cursor-not-allowed"
-          )}
-        >
-          <ChevronLeft className="w-4 h-4" />
-          <span>Previous Phase</span>
-        </Button>
-        
-        <div className="flex items-center space-x-4">
-          <Button
-            variant="outline"
-            onClick={handleSaveAndExit}
-            disabled={loading}
-            className={cn(
-              "flex items-center space-x-2 border border-neutral-300 text-neutral-600 hover:bg-accent-600 hover:text-white hover:border-accent-600 transition-colors duration-200",
-              loading ? "opacity-50 cursor-not-allowed" : "opacity-100 cursor-pointer"
-            )}
-          >
-            <Save className="w-4 h-4" />
-            <span>Save & Exit</span>
-          </Button>
-          
-          {config.phase === PHASE_CONFIG.TOTAL_PHASES ? (
-            <Button
-              onClick={async () => {
-                if (hasErrors) return;
-                setLoading(true);
-                try {
-                  if (teamId) {
-                    await savePhaseData(teamId, config.phase, formData);
-                    
-                    // Mark final phase as completed
-                    try {
-                      await fetch(`/api/phase-data/${teamId}/${config.phase}/complete`, {
-                        method: 'PATCH',
-                        credentials: 'include'
-                      });
-                    } catch (error) {
-                      console.warn('Failed to mark phase as completed:', error);
-                    }
-                  } else {
-                    saveToLocalStorage(config.phase, formData);
-                  }
-                  toast({
-                    title: "🚀 Launch Complete!",
-                    description: "Your final phase data has been saved successfully.",
-                  });
-                } catch (error) {
-                  toast({
-                    title: "Error saving progress",
-                    description: "Failed to save your progress. Please try again.",
-                    variant: "destructive",
-                  });
-                } finally {
-                  setLoading(false);
-                }
-              }}
-              disabled={hasErrors || loading}
-              className={cn("flex items-center space-x-2 bg-green-600 text-white hover:bg-green-700 transition-all duration-200 ease-out transform hover:-translate-y-px shadow-sm hover:shadow-md font-semibold tracking-wide",
-                (hasErrors || loading) && "opacity-50 cursor-not-allowed"
-              )}
-            >
-              <span>🚀 Launched!</span>
-            </Button>
-          ) : (
-            <Button
-              onClick={handleProceedToNext}
-              disabled={hasErrors || loading}
-              className={cn("flex items-center space-x-2 bg-primary-500 text-white hover:bg-primary-600 transition-all duration-200 ease-out transform hover:-translate-y-px shadow-sm hover:shadow-md font-semibold tracking-wide",
-                (hasErrors || loading) && "opacity-50 cursor-not-allowed"
-              )}
-            >
-              <span>Continue to Phase {config.phase + 1}</span>
-              <ChevronRight className="w-4 h-4" />
-            </Button>
-          )}
-        </div>
-      </div>
+
     </div>
   );
 }

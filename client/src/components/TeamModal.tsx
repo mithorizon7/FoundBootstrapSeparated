@@ -145,7 +145,7 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
             <Label htmlFor="teamName">{WORKSPACE.startLabel}</Label>
             <Input
               id="teamName"
-              placeholder="Enter your name or identifier"
+              placeholder="How would you like to be known?"
               value={teamName}
               onChange={(e) => setTeamName(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleCreateTeam()}
