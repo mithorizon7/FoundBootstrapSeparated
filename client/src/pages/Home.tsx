@@ -19,28 +19,38 @@ export default function Home() {
   };
 
   const handleContinue = () => {
-    setLocation('/phase/1');
+    // Scroll to activities section
+    const activitiesSection = document.querySelector('[data-activities-section]');
+    if (activitiesSection) {
+      activitiesSection.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const handleTeamSelected = (teamCode: string) => {
-    setLocation(`/phase/1?team_id=${teamCode}`);
+    // Scroll to activities section after team selection
+    setTimeout(() => {
+      const activitiesSection = document.querySelector('[data-activities-section]');
+      if (activitiesSection) {
+        activitiesSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
   };
 
   const features = [
     {
       icon: Target,
-      title: "8 Strategic Phases",
-      description: "From market research to product launch, follow a proven framework used by successful startups."
+      title: "Modular Activities",
+      description: "Eight independent business development activities. Pick what you need, skip what you don't. Complete them in any order."
     },
     {
       icon: Users,
       title: "Team Collaboration",
-      description: "Work together with your team in real-time. All progress is automatically saved and synced."
+      description: "Work together with your team in real-time. All progress is automatically saved and synced across activities."
     },
     {
       icon: Clock,
       title: "AI-Powered Prompts",
-      description: "Generate professional-grade prompts for AI tools like ChatGPT and Gemini to accelerate your research."
+      description: "Generate professional-grade prompts for AI tools like ChatGPT and Gemini to accelerate your research and development."
     }
   ];
 
@@ -55,31 +65,53 @@ export default function Home() {
             <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center shadow-lg">
               <img 
                 src={logoSrc} 
-                alt="Found-in-Two Logo" 
+                alt="Business Development Toolkit Logo" 
                 className="w-16 h-16 object-contain"
               />
             </div>
           </div>
           
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-neutral-800 mb-8 leading-tight tracking-tight">
-            Found a Company in <span className="text-primary">Two Hours</span>
+            Business Development <span className="text-primary">Toolkit</span>
           </h1>
           
           <p className="text-lg md:text-xl text-neutral-600 mb-10 max-w-4xl mx-auto leading-relaxed font-medium">
-            A sprint that shows how a small team armed with today's generative-AI tools can do—in a single workshop—what once took weeks: scout a market, design a differentiated offer, create a full media kit, and launch a live, interactive, AI-powered website.
+            Eight independent strategic activities for entrepreneurs. Choose what you need, when you need it. Market research, competitive analysis, product design, branding, and more—each activity provides standalone value and can be completed in any order.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
-              onClick={handleGetStarted}
+              onClick={() => {
+                const activitiesSection = document.querySelector('[data-activities-section]');
+                if (activitiesSection) {
+                  activitiesSection.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                  handleGetStarted();
+                }
+              }}
               size="lg"
               className="bg-primary hover:bg-primary/90 text-white px-8 py-4 text-lg"
             >
-              Get Started
+              Browse Activities
               <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
             
-
+            <Button
+              onClick={handleGetStarted}
+              size="lg"
+              variant="outline"
+              className="border-primary text-primary hover:bg-primary hover:text-white px-8 py-4 text-lg"
+            >
+              Create/Join Team
+            </Button>
+          </div>
+          
+          <div className="mt-8 p-6 bg-blue-50 rounded-2xl border border-blue-200">
+            <h3 className="text-lg font-bold text-blue-900 mb-2 text-center">Complete Freedom to Choose</h3>
+            <p className="text-blue-800 text-center max-w-2xl mx-auto">
+              Need just market research? Start with Activity 1. Want to focus on branding? Jump to Activity 6. 
+              Each activity is self-contained and provides immediate value—no prerequisites required.
+            </p>
           </div>
         </div>
 
@@ -101,26 +133,26 @@ export default function Home() {
         </div>
 
         {/* Process Overview */}
-        <Card className="bg-white shadow-lg border-0">
+        <Card className="bg-white shadow-lg border-0" data-activities-section>
           <CardHeader className="pb-8">
-            <CardTitle className="text-2xl md:text-3xl font-bold text-center text-neutral-800 mb-4">The 8-Phase Journey</CardTitle>
+            <CardTitle className="text-2xl md:text-3xl font-bold text-center text-neutral-800 mb-4">Strategic Business Activities</CardTitle>
             <p className="text-lg text-neutral-600 text-center max-w-3xl mx-auto leading-relaxed">
-              A systematic approach to building a complete startup from market research to live deployment
+              Choose from eight independent activities designed to strengthen different aspects of your business development
             </p>
           </CardHeader>
           <CardContent className="px-8 pb-8">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
               {[
-                { phase: 1, title: "Market & Competitor Research", description: "Panoramic, data-backed view of market size, competitors, and customer pain points using AI analysis" },
-                { phase: 2, title: "Competitor Matrix Construction", description: "Transform research into quantitative competitor matrix with threat scoring and strategic gaps" },
-                { phase: 3, title: "Background Research: OpenAI Deep-Research", description: "Commission AI-powered research to compile peer-reviewed evidence validating your core benefit" },
-                { phase: 4, title: "Design & Select the Hero Offer", description: "Generate and score three product concepts to crown your single 'hero offer' for market" },
-                { phase: 5, title: "Product Design & Feature Definition", description: "Transform hero concept into detailed MVP specification with features and user experience" },
-                { phase: 6, title: "Media Kit & Brand Assets", description: "Create comprehensive brand messaging, visual guidelines, and marketing materials" },
-                { phase: 7, title: "Website & Digital Presence", description: "Build conversion-optimized website with clear value proposition and lead generation" },
-                { phase: 8, title: "Launch Strategy & Go-to-Market", description: "Comprehensive launch plan with customer acquisition, marketing channels, and success metrics" }
+                { phase: 1, title: "Market Research", description: "Gain strategic insights into market size, competitors, and customer pain points using AI-powered analysis" },
+                { phase: 2, title: "Competitor Matrix", description: "Build a quantitative competitor matrix with threat scoring to identify strategic opportunities" },
+                { phase: 3, title: "Evidence Research", description: "Compile peer-reviewed evidence and credible research to validate your business concept" },
+                { phase: 4, title: "Hero Offer Ideation", description: "Generate and evaluate product concepts to identify your strongest market opportunity" },
+                { phase: 5, title: "Concept Brief Generation", description: "Transform your best concept into a detailed strategic brief with clear positioning" },
+                { phase: 6, title: "Creative Asset Generation", description: "Develop brand messaging, visual identity, and marketing materials for your concept" },
+                { phase: 7, title: "AI Voice Agent Setup", description: "Create an intelligent voice interface to represent and communicate your brand expertise" },
+                { phase: 8, title: "Website Builder Guide", description: "Build a professional website using AI tools with comprehensive deployment guidance" }
               ].map((phase) => (
-                <div key={phase.phase} className="text-center space-y-4">
+                <div key={phase.phase} className="text-center space-y-4 hover:bg-gray-50 p-4 rounded-lg transition-colors cursor-pointer" onClick={() => setLocation(`/phase/${phase.phase}`)}>
                   <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto shadow-md">
                     <span className="text-white font-bold text-lg">{phase.phase}</span>
                   </div>
