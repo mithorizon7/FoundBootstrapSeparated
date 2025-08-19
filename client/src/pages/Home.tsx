@@ -65,14 +65,14 @@ export default function Home() {
             <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center shadow-lg">
               <img 
                 src={logoSrc} 
-                alt="Business Development Toolkit Logo" 
+                alt="Applied GenAI Lab Logo" 
                 className="w-16 h-16 object-contain"
               />
             </div>
           </div>
           
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-neutral-800 mb-8 leading-tight tracking-tight">
-            Business Development <span className="text-primary">Toolkit</span>
+            Applied <span className="text-primary">GenAI Lab</span>
           </h1>
           
           <p className="text-lg md:text-xl text-neutral-600 mb-10 max-w-4xl mx-auto leading-relaxed font-medium">
@@ -135,9 +135,9 @@ export default function Home() {
         {/* Process Overview */}
         <Card className="bg-white shadow-lg border-0" data-activities-section>
           <CardHeader className="pb-8">
-            <CardTitle className="text-2xl md:text-3xl font-bold text-center text-neutral-800 mb-4">Strategic Business Activities</CardTitle>
+            <CardTitle className="text-2xl md:text-3xl font-bold text-center text-neutral-800 mb-4">GenAI Lab Activities</CardTitle>
             <p className="text-lg text-neutral-600 text-center max-w-3xl mx-auto leading-relaxed">
-              Choose from eight independent activities designed to strengthen different aspects of your business development
+              Choose from eight independent activities designed to strengthen different aspects of your GenAI-assisted development
             </p>
           </CardHeader>
           <CardContent className="px-8 pb-8">

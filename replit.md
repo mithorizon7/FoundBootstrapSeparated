@@ -1,8 +1,8 @@
-# Startup Bootcamp Platform
+# Applied GenAI Lab Platform
 
 ## Overview
 
-This is a full-stack web application, built with Express.js (TypeScript) and React (TypeScript), designed as an interactive business development toolkit. It features eight independent activities that guide individual professionals in developing business concepts through structured stages. The platform supports individual session management, cross-device persistence, and instructor oversight. Its vision is to provide a versatile and modern toolkit for business development, supporting both individual use and cohort-based learning.
+This is a full-stack web application, built with Express.js (TypeScript) and React (TypeScript), designed as an interactive GenAI lab. It features eight independent activities that guide individual professionals in developing concepts through structured stages using AI-assisted methodologies. The platform supports individual session management, cross-device persistence, and instructor oversight. Its vision is to provide a versatile and modern lab for GenAI-assisted development, supporting both individual use and cohort-based learning.
 
 ## User Preferences
 
@@ -29,6 +29,7 @@ Preferred communication style: Simple, everyday language.
 - **Session Resumption**: Preserved easy 4-letter code access - users can still resume sessions on any device without complications
 - **Architecture Integrity**: Successfully maintained existing team-based database structure while adapting UI and security for individual use
 - **Production Quality Enhancements**: Added participant attention highlighting in admin dashboard (red highlighting for participants who haven't submitted when voting is open), completed comprehensive comment updates from team to session semantics, verified phase completion tracking functionality
+- **Branding Update**: Updated platform name from "Business Development Toolkit" to "Applied GenAI Lab" throughout the application, including navigation header, home page, modal dialogs, and documentation
 
 ## System Architecture
 

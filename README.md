@@ -1,6 +1,6 @@
-# Business Development Toolkit
+# Applied GenAI Lab
 
-A full-stack web application built with Express.js backend and React frontend, designed as an interactive business development toolkit with eight independent activities that help individual professionals develop their business concepts through structured development stages.
+A full-stack web application built with Express.js backend and React frontend, designed as an interactive GenAI lab with eight independent activities that help individual professionals develop their concepts through structured development stages using AI-assisted methodologies.
 
 ## 🚀 Quick Start
 

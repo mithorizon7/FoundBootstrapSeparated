@@ -95,7 +95,7 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
                 alt="Found-in-Two Logo" 
                 className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
               />
-              <span className="text-lg sm:text-xl font-bold text-neutral-800 hidden xs:block">Business Toolkit</span>
+              <span className="text-lg sm:text-xl font-bold text-neutral-800 hidden xs:block">GenAI Lab</span>
             </Link>
             
             {/* Session Info - Responsive */}

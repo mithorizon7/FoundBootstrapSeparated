@@ -114,9 +114,9 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
               className="w-10 h-10 object-contain"
             />
           </div>
-          <DialogTitle className="text-xl sm:text-2xl font-bold text-neutral-800">Welcome to Business Development Toolkit</DialogTitle>
+          <DialogTitle className="text-xl sm:text-2xl font-bold text-neutral-800">Welcome to Applied GenAI Lab</DialogTitle>
           <DialogDescription className="space-y-2">
-            <p>Start your session to begin working on business development activities</p>
+            <p>Start your session to begin working on GenAI-assisted development activities</p>
             <div className="text-xs text-gray-500 bg-blue-50 p-2 rounded border space-y-1">
               <p>💡 No account needed – just remember your code to come back later on any device!</p>
               <p className="text-red-600 font-medium">🔒 Keep your session code private – it's your personal access key.</p>
