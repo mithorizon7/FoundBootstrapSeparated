@@ -1,7 +1,7 @@
 {
   "phase": 7,
-  "title": "ElevenLabs Call-Agent: Give Your Brand an Expert to Talk To",
-  "intro": "Websites and videos inform, but a **live voice interaction builds trust**.\n\nIn this phase you'll **launch** a **phone concierge** powered by **ElevenLabs' Call-API** that can answer parents' questions using only the vetted sources stored in your **Notebook LM evidence hub**.\n\nWithin minutes you could **dial** a real number (or in this case talk over the website) and ask \"Is this toy safe for five-year-olds?\" and hear an **on-brand, fact-backed reply**.",
+  "title": "AI Voice Agent: Give Your Brand an Expert to Talk To",
+  "intro": "Websites and videos inform, but a **live voice interaction builds trust**.\n\nThis activity creates a **phone concierge** powered by **ElevenLabs' Call-API** that can answer customer questions using your curated knowledge base and brand personality.\n\nUsers can **call** a real number (or interact via website) and ask questions about your product to hear an **on-brand, fact-backed reply** that builds confidence and drives engagement.",
   "estimatedTime": "15 minutes",
   "fields": [
     {
@@ -56,9 +56,59 @@
       "persist": true,
       "help": "Define prohibited actions and safety constraints",
       "tooltip": "Protects your brand reputation by preventing the agent from making claims it can't support or venturing into liability areas. Essential for maintaining trust and avoiding regulatory issues."
+    },
+    {
+      "id": "company_name",
+      "label": "Company Name",
+      "type": "text",
+      "placeholder": "e.g., PlayTech Innovations",
+      "required": true,
+      "persist": true,
+      "help": "Your company or brand name",
+      "tooltip": "This will be used in the agent's persona and responses to establish brand identity and context for customer interactions."
+    },
+    {
+      "id": "concept_name",
+      "label": "Product/Service Name",
+      "type": "text",
+      "placeholder": "e.g., SMART PLAY BLOCKS",
+      "required": true,
+      "persist": true,
+      "help": "The name of your main product or service offering",
+      "tooltip": "The specific product/service the voice agent will be answering questions about. Should match your hero concept or main offering."
+    },
+    {
+      "id": "brand_adj_1",
+      "label": "Brand Adjective 1",
+      "type": "text",
+      "placeholder": "e.g., friendly",
+      "required": true,
+      "persist": true,
+      "help": "First key personality trait for your brand voice",
+      "tooltip": "Primary personality trait that defines how your voice agent should sound. This will directly influence the agent's tone and communication style."
+    },
+    {
+      "id": "brand_adj_2",
+      "label": "Brand Adjective 2", 
+      "type": "text",
+      "placeholder": "e.g., knowledgeable",
+      "required": true,
+      "persist": true,
+      "help": "Second key personality trait for your brand voice",
+      "tooltip": "Secondary personality trait that complements the first. Together these adjectives create your unique brand voice personality."
+    },
+    {
+      "id": "brand_adj_3",
+      "label": "Brand Adjective 3",
+      "type": "text",
+      "placeholder": "e.g., trustworthy",
+      "required": true,
+      "persist": true,
+      "help": "Third key personality trait for your brand voice",
+      "tooltip": "Third personality trait that rounds out your brand voice. These three adjectives will be explicitly programmed into your AI agent's responses."
     }
   ],
-  "promptTemplate": "**ELEVENLABS VOICE AGENT SYSTEM PROMPT**\n\n**AI PERSONA & ROLE:**\n{{agent_persona}}\n\n**ENVIRONMENT & CONTEXT:**\n{{conversation_context}}\n\n**CONVERSATIONAL STYLE & TONE:**\nYour tone must always be {{phase4.brand_adj_1}}, {{phase4.brand_adj_2}}, and {{phase4.brand_adj_3}}. To sound natural and engaging, occasionally use brief, appropriate affirmations like 'Okay,' 'Got it,' or 'I understand'. Use natural pauses for clarity, especially when explaining steps if necessary. Speak clearly and avoid overly technical jargon.\n\n**CORE GOAL & OBJECTIVE:**\nYour primary goal is to help users by accurately and concisely answering their questions about {{phase5.chosen_concept_code_name}}'s features, benefits, usage, and safety, based primarily on the provided information sources, ensuring they feel informed and confident.\n\n**KNOWLEDGE SOURCE HANDLING:**\n{{#if knowledge_source_handling == 'strict'}}\nYou MUST base all your answers strictly and solely on the information provided in the connected knowledge base (from Notebook LM). Do not use any external websites, general knowledge, or make assumptions beyond the provided text. If the answer to a user's question is not found in the provided knowledge base, clearly state that you do not have that specific information available and cannot answer.\n{{else}}\nStrongly prioritize using ONLY the information within the connected knowledge base (from Notebook LM) for your answers. If, and only if, the provided knowledge base does not contain the information needed to answer a direct user question about {{phase5.chosen_concept_code_name}} or closely related context, you may carefully supplement with your broader knowledge. When doing so, you must explicitly state you are using general information (e.g., 'Based on general knowledge outside the provided materials...').\n{{/if}}\n\n**BOUNDARIES & RULES:**\n{{boundaries_rules}} Regardless of knowledge source handling: Never speculate or invent answers or details not present in your sources. Do not provide medical, legal, financial, or any other form of professional advice. Avoid discussing competitors or topics unrelated to {{phase1.company_name}} and {{phase5.chosen_concept_code_name}}. If a question is outside your scope or knowledge base, politely state you cannot help with that specific query.",
+  "promptTemplate": "**ELEVENLABS VOICE AGENT SYSTEM PROMPT**\n\n**AI PERSONA & ROLE:**\n{{agent_persona}}\n\n**ENVIRONMENT & CONTEXT:**\n{{conversation_context}}\n\n**CONVERSATIONAL STYLE & TONE:**\nYour tone must always be {{brand_adj_1}}, {{brand_adj_2}}, and {{brand_adj_3}}. To sound natural and engaging, occasionally use brief, appropriate affirmations like 'Okay,' 'Got it,' or 'I understand'. Use natural pauses for clarity, especially when explaining steps if necessary. Speak clearly and avoid overly technical jargon.\n\n**CORE GOAL & OBJECTIVE:**\nYour primary goal is to help users by accurately and concisely answering their questions about {{concept_name}}'s features, benefits, usage, and safety, based primarily on the provided information sources, ensuring they feel informed and confident.\n\n**KNOWLEDGE SOURCE HANDLING:**\n{{#if knowledge_source_handling == 'strict'}}\nYou MUST base all your answers strictly and solely on the information provided in the connected knowledge base (from Notebook LM). Do not use any external websites, general knowledge, or make assumptions beyond the provided text. If the answer to a user's question is not found in the provided knowledge base, clearly state that you do not have that specific information available and cannot answer.\n{{else}}\nStrongly prioritize using ONLY the information within the connected knowledge base (from Notebook LM) for your answers. If, and only if, the provided knowledge base does not contain the information needed to answer a direct user question about {{concept_name}} or closely related context, you may carefully supplement with your broader knowledge. When doing so, you must explicitly state you are using general information (e.g., 'Based on general knowledge outside the provided materials...').\n{{/if}}\n\n**BOUNDARIES & RULES:**\n{{boundaries_rules}} Regardless of knowledge source handling: Never speculate or invent answers or details not present in your sources. Do not provide medical, legal, financial, or any other form of professional advice. Avoid discussing competitors or topics unrelated to {{company_name}} and {{concept_name}}. If a question is outside your scope or knowledge base, politely state you cannot help with that specific query.",
   "decisionBoxContent": {
     "title": "Crafting Your Optimal ElevenLabs Voice Agent Prompt",
     "subtitle": "Configure the ElevenLabs Conversational AI to act as a trustworthy, helpful, and on-brand voice concierge",
@@ -73,7 +123,7 @@
           },
           {
             "label": "Example Approach",
-            "content": "\"You are 'Alex', a friendly, knowledgeable, and patient product concierge for {{phase1.company_name}}. Your specialty is providing clear information about our new {{phase5.chosen_concept_code_name}} offering.\""
+            "content": "\"You are 'Alex', a friendly, knowledgeable, and patient product concierge for {{company_name}}. Your specialty is providing clear information about our {{concept_name}} offering.\""
           }
         ]
       },
@@ -87,7 +137,7 @@
           },
           {
             "label": "Example Approach",
-            "content": "\"You are interacting with users over the phone or on the website. The user is typically a parent interested in {{phase5.chosen_concept_code_name}}. They may be curious, potentially cautious, or sometimes multitasking. Adapt your responses to be clear, concise, and reassuring in this context.\""
+            "content": "\"You are interacting with users over the phone or on the website. The user is typically interested in {{concept_name}}. They may be curious, potentially cautious, or sometimes multitasking. Adapt your responses to be clear, concise, and reassuring in this context.\""
           }
         ]
       },
@@ -97,11 +147,11 @@
         "items": [
           {
             "label": "Use Brand Adjectives",
-            "content": "Explicitly incorporate the {{phase4.brand_adj_1}}, {{phase4.brand_adj_2}}, {{phase4.brand_adj_3}} adjectives to define the core personality."
+            "content": "Explicitly incorporate your three brand adjectives ({{brand_adj_1}}, {{brand_adj_2}}, {{brand_adj_3}}) to define the core personality."
           },
           {
             "label": "Add Naturalness",
-            "content": "Instruct the AI to use subtle conversational elements to sound less robotic. Example: \"Your tone must always be {{phase4.brand_adj_1}}, {{phase4.brand_adj_2}}, and {{phase4.brand_adj_3}}. To sound natural and engaging, occasionally use brief, appropriate affirmations like 'Okay,' 'Got it,' or 'I understand'.\""
+            "content": "Instruct the AI to use subtle conversational elements to sound less robotic. Example: \"Your tone must always be {{brand_adj_1}}, {{brand_adj_2}}, and {{brand_adj_3}}. To sound natural and engaging, occasionally use brief, appropriate affirmations like 'Okay,' 'Got it,' or 'I understand'.\""
           }
         ]
       },
@@ -129,7 +179,7 @@
           },
           {
             "label": "Safety Net",
-            "content": "Example: \"Never speculate or invent answers or details not present in your sources. Do not provide medical, legal, financial, or any other form of professional advice. Avoid discussing competitors or topics unrelated to {{phase1.company_name}} and {{phase5.chosen_concept_code_name}}.\""
+            "content": "Example: \"Never speculate or invent answers or details not present in your sources. Do not provide medical, legal, financial, or any other form of professional advice. Avoid discussing competitors or topics unrelated to {{company_name}} and {{concept_name}}.\""
           }
         ]
       }
@@ -192,7 +242,7 @@
       "step": 3,
       "action": "**Upload Knowledge Base** - Add your documents as the agent's information source",
       "details": {
-        "title": "Connect Your Vetted Information Sources",
+        "title": "Connect Your Information Sources",
         "steps": [
           {
             "number": "1",
@@ -200,11 +250,11 @@
           },
           {
             "number": "2",
-            "action": "Upload your **Science_Evidence.pdf** file (provides verified knowledge base)"
+            "action": "Upload any research documents, product information, or supporting materials about your {{concept_name}} (provides verified knowledge base)"
           },
           {
             "number": "3",
-            "action": "Upload your **Hero_Concept_Detailed_Brief.docx** file (can be offered as a \"want to learn more?\" option)"
+            "action": "Upload additional materials like concept briefs, FAQs, or detailed product information (can be offered as a \"want to learn more?\" option)"
           },
           {
             "number": "4",
@@ -221,7 +271,7 @@
         "steps": [
           {
             "number": "1",
-            "action": "**Test the AI agent** with key anticipated questions (this is fun!). Try questions like: \"Is {{phase5.chosen_concept_code_name}} safe for five-year-olds?\""
+            "action": "**Test the AI agent** with key anticipated questions (this is fun!). Try questions like: \"Is {{concept_name}} safe for five-year-olds?\" or \"How does {{concept_name}} work?\""
           },
           {
             "number": "2",
@@ -267,6 +317,6 @@
   "expectedOutput": {
     "fileCreated": "ElevenLabs widget embed code, configured voice agent",
     "whyItMatters": "Live voice interaction builds trust beyond static websites and videos. Users can ask specific questions and get on-brand, fact-backed replies that demonstrate your expertise and build confidence in your product.",
-    "nextSteps": "Your voice agent is ready to be integrated into your website as a \"Talk to an Expert\" feature, providing 24/7 customer support powered by your vetted knowledge base."
+    "nextSteps": "Your voice agent is ready to be integrated into your website as a \"Talk to an Expert\" feature, providing 24/7 customer support powered by your curated knowledge base."
   }
 }
