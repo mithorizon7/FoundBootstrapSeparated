@@ -155,7 +155,20 @@ This is a full-stack web application built with Express.js backend and React fro
 - Updated expectedOutput to emphasize standalone strategic value rather than future phase preparation
 - All cross-phase dependencies eliminated
 
-### Phases 6-8 - Remaining Work
+### Phase 6 - Media Factory: Creative Asset Generation (✓ COMPLETED)
+**Changes Made:**
+- Added concept_name field to replace {{phase5.chosen_concept_code_name}} dependency
+- Added sector field to replace {{phase1.sector}} dependency
+- Updated selected_statistic field to not assume Phase 3 source - now accepts any credible research
+- Updated title from "Media Factory: Media Generation" to "Media Factory: Creative Asset Generation"
+- Removed sequential language from intro and decision box content
+- Updated promptTemplate to use local {{concept_name}} and {{sector}} instead of cross-phase references
+- Removed dependencies on Science_Evidence.pdf, Hero_Concept_Detailed_Brief.docx, and Phase 3 research
+- Updated stepByStepFlow to generalize document uploads and remove phase-specific file references
+- Updated expectedOutput to focus on standalone value rather than Phase 7 preparation
+- All cross-phase dependencies eliminated
+
+### Phases 7-8 - Remaining Work
 **Next Steps:**
 - Phase 4: Add company_name field, update unmet need help text
 - Phase 5: Add chosen concept details fields

@@ -1,7 +1,7 @@
 {
   "phase": 6,
-  "title": "Media Factory: Media Generation (Image, Video, Music, Narration)",
-  "intro": "Your **hero concept** is only as convincing as the **sensory experience** around it.\n\nIn this phase you'll **manufacture** a **comprehensive media kit**—hero image, brand jingle, narrated voice-over, website copy, and podcast content—that will power your explainer video, website, investor teaser, and social posts.\n\nBy **running** the five generation tracks **in parallel** you can operate like an in-house creative agency, **compressing days of design into minutes**.",
+  "title": "Media Factory: Creative Asset Generation",
+  "intro": "Transform your concept into a compelling **sensory experience** with professional media assets.\n\nThis activity generates a **comprehensive media kit**—hero image, brand jingle, narrated voice-over, website copy, and podcast content—that powers your explainer videos, website, marketing materials, and social content.\n\nBy **running** the five generation tracks **in parallel** you can operate like an in-house creative agency, **compressing days of design into minutes**.",
   "estimatedTime": "20 minutes (18 min online creation running in parallel, ~2 min coordination)",
   "fields": [
     {
@@ -66,17 +66,48 @@
       "id": "selected_statistic",
       "label": "Featured Statistic",
       "type": "textarea",
-      "placeholder": "Select one jaw-dropping statistic from Section B of Science_Evidence.pdf",
+      "placeholder": "A compelling statistic that validates your solution (e.g., '73% of parents struggle to find screen-free activities that engage their children for more than 20 minutes')",
       "required": true,
       "persist": true,
-      "help": "Choose the most compelling statistic to feature in your narration",
-      "tooltip": "The most credible, impressive data point from your Phase 3 research that will grab attention and validate your solution. This becomes the hook that opens your narrated content and marketing materials."
+      "help": "Provide a compelling statistic that validates your solution and grabs attention",
+      "tooltip": "The most credible, impressive data point that will grab attention and validate your solution. This becomes the hook that opens your narrated content and marketing materials. Can come from market research, industry reports, or credible studies."
+    },
+    {
+      "id": "concept_name",
+      "label": "Hero Concept Name",
+      "type": "text",
+      "placeholder": "e.g., SMART PLAY BLOCKS",
+      "required": true,
+      "persist": true,
+      "help": "The name of your hero concept or product",
+      "tooltip": "This is the product/service name that will be featured in your media assets. Use the same name consistently across all creative materials to build brand recognition."
+    },
+    {
+      "id": "sector",
+      "label": "Business Sector",
+      "type": "select",
+      "required": true,
+      "persist": true,
+      "help": "Choose the primary business sector for your solution",
+      "tooltip": "Defines the industry context for your media messaging and helps AI generate sector-appropriate language and positioning.",
+      "options": [
+        { "value": "Consumer Products", "label": "Consumer Products" },
+        { "value": "Technology", "label": "Technology" },
+        { "value": "Health & Wellness", "label": "Health & Wellness" },
+        { "value": "Education", "label": "Education" },
+        { "value": "Financial Services", "label": "Financial Services" },
+        { "value": "B2B Services", "label": "B2B Services" },
+        { "value": "Entertainment", "label": "Entertainment" },
+        { "value": "Food & Beverage", "label": "Food & Beverage" },
+        { "value": "Retail", "label": "Retail" },
+        { "value": "Other", "label": "Other" }
+      ]
     }
   ],
-  "promptTemplate": "**PURPOSE**: Create an engaging 60-second voiceover script that introduces our company's solution in a way that builds trust, demonstrates value, and motivates action. This script should work as background narration on our website, over promotional videos, or as standalone audio content.\n\n**SCRIPT REQUIREMENTS:**\n\nWrite a 60-second narration introducing **{{phase5.chosen_concept_code_name}}**, our new {{phase1.sector}} solution.\n\n• Hook potential customers in the first line using this statistic: \"{{selected_statistic}}\"\n• Weave in this expert pull-quote for credibility: \"[Pull-quote from Science_Evidence.pdf]\"\n• Describe one key interactive feature and expected benefit in ≤ 25 words\n• End with a rousing call to action (<15 words)\n\nTone: {{voice_persona}} (warm, encouraging, trustworthy).\n\nOutput plain text only.",
+  "promptTemplate": "**PURPOSE**: Create an engaging 60-second voiceover script that introduces our solution in a way that builds trust, demonstrates value, and motivates action. This script should work as background narration on our website, over promotional videos, or as standalone audio content.\n\n**SCRIPT REQUIREMENTS:**\n\nWrite a 60-second narration introducing **{{concept_name}}**, our new {{sector}} solution.\n\n• Hook potential customers in the first line using this statistic: \"{{selected_statistic}}\"\n• Build credibility with relevant industry insights or expert perspectives\n• Describe one key feature and expected benefit in ≤ 25 words\n• End with a rousing call to action (<15 words)\n\nTone: {{voice_persona}} (warm, encouraging, trustworthy).\n\nOutput plain text only.",
   "decisionBoxContent": {
-    "title": "Phase 6 Creative Brief: Defining Your Media Strategy",
-    "subtitle": "Before you begin the Step-by-Step Workflow, your entire team must work together to define a unified creative strategy. Use the Brand Adjectives and Hero Concept you defined in the previous phases to guide your decisions below.",
+    "title": "Creative Brief: Defining Your Media Strategy",
+    "subtitle": "Define a unified creative strategy for your media assets. Consider your brand personality, target audience, and desired positioning to guide your decisions below.",
     "sections": [
       {
         "number": "1",
@@ -118,7 +149,7 @@
         "items": [
           {
             "label": "Your Task",
-            "content": "**Select the single most compelling statistic** from your `Science_Evidence.pdf` to use as a credible hook in your narration.\n\n**Pro Tip:** Look for statistics that are:\n• **Shocking or surprising**\n• **Quantifiable and specific**\n• **From credible research sources**\n• **Directly relevant to your solution**"
+            "content": "**Identify the single most compelling statistic** that validates your solution to use as a credible hook in your narration.\n\n**Pro Tip:** Look for statistics that are:\n• **Shocking or surprising**\n• **Quantifiable and specific**\n• **From credible research sources**\n• **Directly relevant to your solution**\n\n**Sources can include:** Market research reports, industry studies, survey data, government statistics, or academic research that supports your concept's value proposition."
           }
         ]
       }
@@ -216,18 +247,18 @@
         "steps": [
           {
             "number": "Strategy",
-            "action": "**Team Alignment:** Define target audience, primary message, and desired user action. Clarify brand tone using your three brand adjectives."
+            "action": "**Team Alignment:** Define target audience, primary message, and desired user action. Clarify brand tone and personality for consistent messaging."
           },
           {
             "number": "Prompt Development",
-            "action": "Write a detailed prompt for Google Gemini 2.5 Pro requesting expert copywriter persona → Specify copy elements needed (headline, sub-headline, body copy, bullet points, call-to-action) → Reference brand adjectives for tone"
-          },
-          {
-            "number": "Document Upload",
-            "action": "**Generate in Gemini:** Open Google Gemini 2.5 Pro → Upload `Hero_Concept_Detailed_Brief.docx` AND `Science_Evidence.pdf` → Submit comprehensive prompt"
+            "action": "Write a detailed prompt for Google Gemini 2.5 Pro requesting expert copywriter persona → Specify copy elements needed (headline, sub-headline, body copy, bullet points, call-to-action) → Reference your concept details and brand personality for tone"
           },
           {
             "number": "Content Generation",
+            "action": "**Generate in Gemini:** Open Google Gemini 2.5 Pro → Upload any supporting research or concept documents (if available) → Submit comprehensive prompt with your concept details"
+          },
+          {
+            "number": "Finalize Copy",
             "action": "Review generated copy for brand alignment → Request revisions if needed → Copy and paste the final version into a document and save as \"copy.docx\""
           }
         ]
@@ -245,7 +276,7 @@
           },
           {
             "number": "Source Upload",
-            "action": "**Content Integration:** Upload `Science_Evidence.pdf` → Add any additional research documents → Allow processing time for AI analysis"
+            "action": "**Content Integration:** Upload any research documents or supporting materials about your concept → Add market research or industry reports if available → Allow processing time for AI analysis"
           },
           {
             "number": "Generation",
@@ -262,6 +293,6 @@
   "expectedOutput": {
     "fileCreated": "🎯 **Complete Media Kit Assets:**\n\n• `hero.png` - Brand hero image\n• `jingle.mp3` - Custom brand music\n• `voiceover.mp3` - Professional narration\n• `copy.docx` - Website copywriting\n• `podcast.mp3` - Educational content",
     "whyItMatters": "**Asset Applications:**\n\n🎨 **Hero Image:** Website header, video thumbnails, social media posts\n🎙️ **Voiceover:** Explainer videos, website auto-play, marketing content\n🎵 **Brand Jingle:** Background music, website audio branding, social media\n📝 **Website Copy:** Homepage content, marketing materials, pitch decks\n📻 **Podcast:** Educational content, thought leadership, content marketing",
-    "nextSteps": "**Quality Check:** Verify all assets align with brand adjectives and visual identity. Your complete media kit is now ready for Phase 7's website and video production workflows."
+    "nextSteps": "**Quality Check:** Verify all assets align with your brand personality and visual identity. Your complete media kit is now ready for website implementation, video production, and marketing campaigns."
   }
 }
