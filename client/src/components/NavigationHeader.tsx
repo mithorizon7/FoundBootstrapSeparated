@@ -9,7 +9,7 @@ import { AvatarSelector } from "@/components/AvatarSelector";
 import logoSrc from "@assets/ActivityLogo2.png";
 
 
-interface Team {
+interface Participant {
   id: number;
   code: string;
   name: string;
@@ -18,7 +18,7 @@ interface Team {
 }
 
 interface NavigationHeaderProps {
-  team?: Team;
+  participant?: Participant;
 }
 
 const phases = [
@@ -32,7 +32,7 @@ const phases = [
   { number: 8, title: "Final Review", path: "/phase/8" },
 ];
 
-export function NavigationHeader({ team }: NavigationHeaderProps) {
+export function NavigationHeader({ participant }: NavigationHeaderProps) {
   const [, setLocation] = useLocation();
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -58,7 +58,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
     }
   };
 
-  const handleSwitchTeam = async () => {
+  const handleEndSession = async () => {
     try {
       const response = await fetch('/api/auth/team/logout', {
         method: 'POST',
@@ -99,19 +99,19 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
             </Link>
             
             {/* Session Info - Responsive */}
-            {team && (
+            {participant && (
               <div className="flex items-center space-x-2 text-sm text-gray-600 bg-gray-50 px-2 py-1 rounded-full">
                 <AvatarSelector 
-                  teamId={team.id}
-                  teamCode={team.code}
-                  currentAvatar={team.avatarIcon}
-                  teamName={team.name}
+                  teamId={participant.id}
+                  teamCode={participant.code}
+                  currentAvatar={participant.avatarIcon}
+                  teamName={participant.name}
                   size="md"
                 />
                 <div className="hidden sm:flex items-center space-x-2">
-                  <span className="hidden md:inline">{team.name}</span>
+                  <span className="hidden md:inline">{participant.name}</span>
                   <span className="text-xs hidden md:inline">•</span>
-                  <span>{team.code}</span>
+                  <span>{participant.code}</span>
                 </div>
               </div>
             )}
@@ -121,13 +121,13 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
           <nav className="hidden lg:flex items-center space-x-2 flex-1 justify-center mx-8">
             {phases.slice(0, 4).map((phase) => {
               const isActive = currentPhaseNumber === phase.number;
-              const isCompleted = team ? phase.number < team.currentPhase : false;
+              const isCompleted = participant ? phase.number < participant.currentPhase : false;
               const isAvailable = true; // Allow navigation to all phases
               
               return (
                 <Link
                   key={phase.number}
-                  href={phase.path + (team ? `?team_id=${team.code}` : '')}
+                  href={phase.path + (participant ? `?team_id=${participant.code}` : '')}
                   className={`flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors cursor-pointer ${
                     isActive
                       ? 'bg-primary text-white shadow-md'
@@ -168,7 +168,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
                 <DropdownMenuContent align="center" className="w-56">
                   {phases.slice(4).map((phase) => {
                     const isActive = currentPhaseNumber === phase.number;
-                    const isCompleted = team ? phase.number < team.currentPhase : false;
+                    const isCompleted = participant ? phase.number < participant.currentPhase : false;
                     const isAvailable = true; // Allow navigation to all phases
                     
                     return (
@@ -176,7 +176,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
                         key={phase.number}
                         onClick={() => {
                           if (isAvailable) {
-                            setLocation(phase.path + (team ? `?team_id=${team.code}` : ''));
+                            setLocation(phase.path + (participant ? `?team_id=${participant.code}` : ''));
                           }
                         }}
                         className={`flex items-center space-x-3 cursor-pointer ${
@@ -238,7 +238,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
                         key={phase.number}
                         onClick={() => {
                           if (isAvailable) {
-                            setLocation(phase.path + (team ? `?team_id=${team.code}` : ''));
+                            setLocation(phase.path + (participant ? `?team_id=${participant.code}` : ''));
                             setMobileMenuOpen(false);
                           }
                         }}
@@ -290,10 +290,10 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
                         Admin Dashboard
                       </DropdownMenuItem>
                     )}
-                    {team && (
-                      <DropdownMenuItem onClick={handleSwitchTeam}>
+                    {participant && (
+                      <DropdownMenuItem onClick={handleEndSession}>
                         <Users className="w-4 h-4 mr-2" />
-                        Switch Session
+                        End Session
                       </DropdownMenuItem>
                     )}
                     <DropdownMenuItem onClick={handleLogout}>

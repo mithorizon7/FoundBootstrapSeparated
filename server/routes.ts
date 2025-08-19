@@ -205,9 +205,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.patch("/api/teams/:id/phase", async (req, res) => {
+  app.patch("/api/teams/:id/phase", ensureAuthenticatedTeam, async (req, res) => {
     try {
       const teamId = parseInt(req.params.id);
+      const sessionTeamId = (req.session as any).teamId;
+      
+      // Ensure participant can only update their own data
+      if (teamId !== sessionTeamId) {
+        return res.status(403).json({ message: "Forbidden - Can only update your own session" });
+      }
+      
       const { currentPhase } = updateTeamPhaseSchema.parse(req.body);
       const team = await storage.updateTeamPhase(teamId, currentPhase);
       res.json(team);
@@ -219,9 +226,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.patch("/api/teams/:id/avatar", async (req, res) => {
+  app.patch("/api/teams/:id/avatar", ensureAuthenticatedTeam, async (req, res) => {
     try {
       const teamId = parseInt(req.params.id);
+      const sessionTeamId = (req.session as any).teamId;
+      
+      // Ensure participant can only update their own data
+      if (teamId !== sessionTeamId) {
+        return res.status(403).json({ message: "Forbidden - Can only update your own session" });
+      }
+      
       const { avatarIcon } = updateTeamAvatarSchema.parse(req.body);
       
       // Verify team exists
@@ -241,9 +255,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Phase data routes
-  app.post("/api/phase-data", async (req, res) => {
+  app.post("/api/phase-data", ensureAuthenticatedTeam, async (req, res) => {
     try {
       const phaseData = insertPhaseDataSchema.parse(req.body);
+      const sessionTeamId = (req.session as any).teamId;
+      
+      // Ensure participant can only save data to their own session
+      if (phaseData.teamId !== sessionTeamId) {
+        return res.status(403).json({ message: "Forbidden - Can only save data to your own session" });
+      }
+      
       const saved = await storage.savePhaseData(phaseData);
       res.json(saved);
     } catch (error) {
@@ -275,10 +296,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.patch("/api/phase-data/:teamId/:phaseNumber/complete", async (req, res) => {
+  app.patch("/api/phase-data/:teamId/:phaseNumber/complete", ensureAuthenticatedTeam, async (req, res) => {
     try {
       const teamId = parseInt(req.params.teamId);
       const phaseNumber = parseInt(req.params.phaseNumber);
+      const sessionTeamId = (req.session as any).teamId;
+      
+      // Ensure participant can only mark their own phases complete
+      if (teamId !== sessionTeamId) {
+        return res.status(403).json({ message: "Forbidden - Can only mark your own phases complete" });
+      }
+      
       const data = await storage.markPhaseComplete(teamId, phaseNumber);
       res.json(data);
     } catch (error) {
@@ -304,9 +332,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Website submission endpoint
-  app.patch("/api/teams/:teamId/website", async (req, res) => {
+  app.patch("/api/teams/:teamId/website", ensureAuthenticatedTeam, async (req, res) => {
     try {
       const teamId = parseInt(req.params.teamId);
+      const sessionTeamId = (req.session as any).teamId;
+      
+      // Ensure participant can only update their own data
+      if (teamId !== sessionTeamId) {
+        return res.status(403).json({ message: "Forbidden - Can only update your own session" });
+      }
       
       // Log the incoming request for debugging
       console.log(`Website submission for team ${teamId}:`, req.body);

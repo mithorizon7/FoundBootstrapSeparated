@@ -9,13 +9,13 @@ import { ArrowRight, Users, Clock, Target } from "lucide-react";
 import logoSrc from "@/assets/logo.png";
 
 export default function Home() {
-  const [teamModalOpen, setTeamModalOpen] = useState(false);
+  const [sessionModalOpen, setSessionModalOpen] = useState(false);
   const [, setLocation] = useLocation();
 
   // Removed automatic modal popup - now only opens when user clicks "Get Started"
 
   const handleGetStarted = () => {
-    setTeamModalOpen(true);
+    setSessionModalOpen(true);
   };
 
   const handleContinue = () => {
@@ -26,8 +26,8 @@ export default function Home() {
     }
   };
 
-  const handleTeamSelected = (teamCode: string) => {
-    // Scroll to activities section after team selection
+  const handleSessionSelected = (teamCode: string) => {
+    // Scroll to activities section after session selection
     setTimeout(() => {
       const activitiesSection = document.querySelector('[data-activities-section]');
       if (activitiesSection) {
@@ -166,9 +166,9 @@ export default function Home() {
       </main>
 
       <TeamModal
-        isOpen={teamModalOpen}
-        onClose={() => setTeamModalOpen(false)}
-        onTeamSelected={handleTeamSelected}
+        isOpen={sessionModalOpen}
+        onClose={() => setSessionModalOpen(false)}
+        onTeamSelected={handleSessionSelected}
       />
       
       <Footer showLinks={true} />

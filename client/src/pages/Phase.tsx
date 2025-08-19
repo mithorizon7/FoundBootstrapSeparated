@@ -30,7 +30,7 @@ interface PhaseConfig {
 
 export default function Phase() {
   const [match, params] = useRoute("/phase/:id");
-  const [teamModalOpen, setTeamModalOpen] = useState(false);
+  const [sessionModalOpen, setSessionModalOpen] = useState(false);
   
   const phaseId = params?.id ? parseInt(params.id) : 1;
   const urlParams = new URLSearchParams(window.location.search);
@@ -52,14 +52,14 @@ export default function Phase() {
     },
   });
 
-  // Show team modal if no team is selected and no local data exists
+  // Show session modal if no session is selected and no local data exists
   useEffect(() => {
     if (!teamCode && !localStorage.getItem('phase1_data')) {
-      setTeamModalOpen(true);
+      setSessionModalOpen(true);
     }
   }, [teamCode]);
 
-  const handleTeamSelected = (selectedTeamCode: string) => {
+  const handleSessionSelected = (selectedTeamCode: string) => {
     window.location.href = `/phase/${phaseId}?team_id=${selectedTeamCode}`;
   };
 
@@ -70,7 +70,7 @@ export default function Phase() {
   if (phaseId < 1 || phaseId > PHASE_CONFIG.TOTAL_PHASES) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <NavigationHeader team={team || undefined} />
+        <NavigationHeader participant={team || undefined} />
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Card className="max-w-md mx-auto">
             <CardContent className="pt-6 text-center">
@@ -89,7 +89,7 @@ export default function Phase() {
   if (configLoading || teamLoading) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <NavigationHeader team={team || undefined} />
+        <NavigationHeader participant={team || undefined} />
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex items-center justify-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
@@ -102,7 +102,7 @@ export default function Phase() {
   if (configError || !phaseConfig) {
     return (
       <div className="min-h-screen bg-gray-50">
-        <NavigationHeader team={team || undefined} />
+        <NavigationHeader participant={team || undefined} />
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <Card className="max-w-md mx-auto">
             <CardContent className="pt-6 text-center">
@@ -120,7 +120,7 @@ export default function Phase() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <NavigationHeader team={team || undefined} />
+      <NavigationHeader participant={team || undefined} />
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <PhasePage
@@ -131,9 +131,9 @@ export default function Phase() {
       </main>
 
       <TeamModal
-        isOpen={teamModalOpen}
-        onClose={() => setTeamModalOpen(false)}
-        onTeamSelected={handleTeamSelected}
+        isOpen={sessionModalOpen}
+        onClose={() => setSessionModalOpen(false)}
+        onTeamSelected={handleSessionSelected}
       />
     </div>
   );
