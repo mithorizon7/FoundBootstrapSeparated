@@ -95,7 +95,11 @@ export function clearAllStorage(): boolean {
 
 // Phase-specific storage operations
 export function savePhaseToStorage(phaseNumber: number, data: Record<string, any>): boolean {
-  if (phaseNumber < 1 || phaseNumber > PHASE_CONFIG.TOTAL_PHASES) {
+  if (!Number.isInteger(phaseNumber) || phaseNumber < 1 || phaseNumber > PHASE_CONFIG.TOTAL_PHASES) {
+    return false;
+  }
+  
+  if (!data || typeof data !== 'object' || Array.isArray(data)) {
     return false;
   }
   
@@ -104,12 +108,19 @@ export function savePhaseToStorage(phaseNumber: number, data: Record<string, any
 }
 
 export function getPhaseFromStorage(phaseNumber: number): Record<string, any> | null {
-  if (phaseNumber < 1 || phaseNumber > PHASE_CONFIG.TOTAL_PHASES) {
+  if (!Number.isInteger(phaseNumber) || phaseNumber < 1 || phaseNumber > PHASE_CONFIG.TOTAL_PHASES) {
     return null;
   }
   
   const key = getPhaseDataKey(phaseNumber);
-  return getStorageItem<Record<string, any>>(key);
+  const result = getStorageItem<Record<string, any>>(key);
+  
+  // Validate returned data is an object
+  if (result && typeof result === 'object' && !Array.isArray(result)) {
+    return result;
+  }
+  
+  return null;
 }
 
 export function getAllPhasesFromStorage(): Record<string, any> {
@@ -126,7 +137,7 @@ export function getAllPhasesFromStorage(): Record<string, any> {
 }
 
 export function removePhaseFromStorage(phaseNumber: number): boolean {
-  if (phaseNumber < 1 || phaseNumber > PHASE_CONFIG.TOTAL_PHASES) {
+  if (!Number.isInteger(phaseNumber) || phaseNumber < 1 || phaseNumber > PHASE_CONFIG.TOTAL_PHASES) {
     return false;
   }
   
@@ -169,19 +180,28 @@ export function getWorkspaceMeta(): WorkspaceMeta | null {
 
 // Storage migration and cleanup utilities
 export function migrateStorageFormat(): boolean {
+  if (!isStorageAvailable()) return false;
+  
   try {
-    // Check for old format keys and migrate if needed
-    const keys = Object.keys(localStorage);
     let migrated = false;
+    const keysToMigrate: string[] = [];
     
-    for (const key of keys) {
-      // Handle any legacy key formats here if needed
-      if (key.startsWith('phase') && !key.endsWith('_data')) {
-        const data = getStorageItem(key);
-        if (data) {
-          const phaseMatch = key.match(/phase(\d+)/);
-          if (phaseMatch) {
-            const phaseNumber = parseInt(phaseMatch[1]);
+    // Safely collect keys that need migration
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && key.startsWith('phase') && !key.endsWith('_data')) {
+        keysToMigrate.push(key);
+      }
+    }
+    
+    // Process migration for collected keys
+    for (const key of keysToMigrate) {
+      const data = getStorageItem(key);
+      if (data) {
+        const phaseMatch = key.match(/^phase(\d+)$/);
+        if (phaseMatch) {
+          const phaseNumber = parseInt(phaseMatch[1], 10);
+          if (phaseNumber >= 1 && phaseNumber <= PHASE_CONFIG.TOTAL_PHASES) {
             if (savePhaseToStorage(phaseNumber, data)) {
               removeStorageItem(key);
               migrated = true;
@@ -197,43 +217,61 @@ export function migrateStorageFormat(): boolean {
   }
 }
 
-// Get storage info for debugging
+// Get storage info for debugging and analytics
 export function getStorageInfo(): {
   available: boolean;
   phaseCount: number;
   totalKeys: number;
   storageUsed?: number;
+  phaseDetails: Array<{ phase: number; hasData: boolean; dataSize?: number }>;
 } {
   const info = {
     available: isStorageAvailable(),
     phaseCount: 0,
     totalKeys: 0,
-    storageUsed: undefined as number | undefined
+    storageUsed: undefined as number | undefined,
+    phaseDetails: [] as Array<{ phase: number; hasData: boolean; dataSize?: number }>
   };
   
   if (info.available) {
     try {
-      info.totalKeys = Object.keys(localStorage).length;
+      info.totalKeys = localStorage.length;
       
-      // Count phase data
+      // Count phase data with detailed breakdown
       for (let i = 1; i <= PHASE_CONFIG.TOTAL_PHASES; i++) {
-        if (getPhaseFromStorage(i)) {
+        const data = getPhaseFromStorage(i);
+        const hasData = !!data;
+        let dataSize: number | undefined;
+        
+        if (hasData) {
           info.phaseCount++;
+          const serialized = safeJsonStringify(data);
+          dataSize = serialized?.length;
         }
+        
+        info.phaseDetails.push({
+          phase: i,
+          hasData,
+          dataSize
+        });
       }
       
-      // Estimate storage usage
+      // Safely calculate storage usage
       let totalSize = 0;
       for (let i = 0; i < localStorage.length; i++) {
-        const key = localStorage.key(i);
-        if (key) {
-          const value = localStorage.getItem(key);
-          totalSize += key.length + (value?.length || 0);
+        try {
+          const key = localStorage.key(i);
+          if (key) {
+            const value = localStorage.getItem(key);
+            totalSize += key.length + (value?.length || 0);
+          }
+        } catch (itemError) {
+          // Skip this item if there's an error accessing it
         }
       }
       info.storageUsed = totalSize;
     } catch (error) {
-      // Error getting storage info
+      // Gracefully handle errors while gathering storage info
     }
   }
   
