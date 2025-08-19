@@ -163,15 +163,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Generate unique access token for team authentication
       const accessToken = `${validatedData.code}_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
       
-      const finalTeamData = {
+      const finalSessionData = {
         name: validatedData.name.trim(),
         code: validatedData.code.trim().toUpperCase(),
         accessToken,
         currentPhase: 1
         // avatarIcon will be auto-assigned by storage layer
+        // Note: "team" database structure used for individual session storage
       };
       
-      const team = await storage.createTeam(finalTeamData);
+      const team = await storage.createTeam(finalSessionData);
       res.json(team);
     } catch (error: any) {
       if (error instanceof z.ZodError) {
@@ -370,23 +371,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/admin/cleanup-websites", ensureAuthenticatedAdmin, async (req, res) => {
     try {
       // Find teams with invalid website URLs (empty strings or whitespace)
-      const allTeams = await storage.getAllTeams();
-      const teamsToClean = allTeams.filter(team => 
-        team.submittedWebsiteUrl !== null && 
-        (!team.submittedWebsiteUrl.trim() || team.submittedWebsiteUrl.trim() === '')
+      const allSessions = await storage.getAllTeams();
+      const sessionsToClean = allSessions.filter(session => 
+        session.submittedWebsiteUrl !== null && 
+        (!session.submittedWebsiteUrl.trim() || session.submittedWebsiteUrl.trim() === '')
       );
       
-      console.log(`Found ${teamsToClean.length} teams with invalid website URLs to clean up`);
+      console.log(`Found ${sessionsToClean.length} sessions with invalid website URLs to clean up`);
       
-      // Update these teams to have null website URLs
-      for (const team of teamsToClean) {
-        await storage.updateTeamWebsite(team.id, null);
-        console.log(`Cleaned up team ${team.name} (${team.code}) - removed empty website URL`);
+      // Update these sessions to have null website URLs
+      for (const session of sessionsToClean) {
+        await storage.updateTeamWebsite(session.id, null);
+        console.log(`Cleaned up session ${session.name} (${session.code}) - removed empty website URL`);
       }
       
       res.json({ 
-        message: `Cleaned up ${teamsToClean.length} teams with invalid website URLs`,
-        cleanedTeams: teamsToClean.map(t => ({ id: t.id, name: t.name, code: t.code }))
+        message: `Cleaned up ${sessionsToClean.length} sessions with invalid website URLs`,
+        cleanedSessions: sessionsToClean.map(s => ({ id: s.id, name: s.name, code: s.code }))
       });
     } catch (error) {
       console.error('Error cleaning up website URLs:', error);
@@ -511,11 +512,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/admin/cohorts/:cohortTag/teams", ensureAuthenticatedAdmin, async (req, res) => {
     try {
       const { teamIds } = assignTeamsSchema.parse(req.body);
-      console.log('Assigning teams:', teamIds, 'to cohort:', req.params.cohortTag);
+      console.log('Assigning participants:', teamIds, 'to cohort:', req.params.cohortTag);
       
-      const teams = await storage.assignTeamsToCohort(teamIds, req.params.cohortTag);
-      console.log('Teams assigned successfully:', teams.length);
-      res.json(teams);
+      const participants = await storage.assignTeamsToCohort(teamIds, req.params.cohortTag);
+      console.log('Participants assigned successfully:', participants.length);
+      res.json(participants);
     } catch (error: any) {
       if (error instanceof z.ZodError) {
         return res.status(400).json({ message: "Invalid request data", errors: error.errors });
@@ -530,7 +531,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { teamIds } = unassignTeamsSchema.parse(req.body);
 
       await storage.unassignTeamsFromCohort(teamIds);
-      res.status(200).json({ message: "Teams unassigned successfully" });
+      res.status(200).json({ message: "Participants unassigned successfully" });
     } catch (error) {
       if (error instanceof z.ZodError) {
         return res.status(400).json({ message: "Invalid request data", errors: error.errors });
@@ -552,7 +553,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       res.json(teamStatus);
     } catch (error) {
-      res.status(500).json({ message: "Error fetching team status" });
+      res.status(500).json({ message: "Error fetching participant status" });
     }
   });
 

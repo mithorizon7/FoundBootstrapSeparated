@@ -433,29 +433,29 @@ export default function Admin() {
                       <div className="border-l-4 border-blue-500 pl-4">
                         <h3 className="text-lg font-semibold text-gray-900 mb-2">Getting Started</h3>
                         <p className="text-gray-600">
-                          This dashboard allows you to monitor student team progress and manage cohorts for collaborative activities. 
-                          Teams automatically appear here when they begin the program.
+                          This dashboard allows you to monitor individual participant progress and manage cohorts for activities. 
+                          Participants automatically appear here when they begin their sessions.
                         </p>
                       </div>
 
                       <div className="space-y-4">
-                        <h3 className="text-lg font-semibold text-gray-900 border-b pb-2">Team Management</h3>
+                        <h3 className="text-lg font-semibold text-gray-900 border-b pb-2">Participant Management</h3>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div className="bg-blue-50 p-4 rounded-lg">
                             <h4 className="font-medium text-blue-900 mb-2">📊 Monitor Progress</h4>
                             <ul className="text-sm text-blue-800 space-y-1">
-                              <li>• View each team's current phase (1-8)</li>
+                              <li>• View each participant's current activity (1-8)</li>
                               <li>• Track completion percentage</li>
                               <li>• Monitor website submission status</li>
                               <li>• See last activity timestamps</li>
-                              <li>• Identify teams needing support</li>
+                              <li>• Identify participants needing support</li>
                             </ul>
                           </div>
                           <div className="bg-green-50 p-4 rounded-lg">
                             <h4 className="font-medium text-green-900 mb-2">📥 Export Data</h4>
                             <ul className="text-sm text-green-800 space-y-1">
-                              <li>• Click "Export CSV" to download all team data</li>
-                              <li>• Includes team names, codes, progress, submission status, and timestamps</li>
+                              <li>• Click "Export CSV" to download all participant data</li>
+                              <li>• Includes participant names, codes, progress, submission status, and timestamps</li>
                               <li>• Use for attendance tracking and assessment</li>
                               <li>• Data updates in real-time</li>
                             </ul>
@@ -630,8 +630,13 @@ export default function Admin() {
                         </tr>
                       </thead>
                       <tbody className="bg-white divide-y divide-gray-200">
-                        {participants.map((team) => (
-                          <tr key={team.id} className="hover:bg-gray-50">
+                        {participants.map((team) => {
+                          const cohort = cohorts.find(c => c.tag === team.cohortTag);
+                          const hasSubmitted = !!(team as any).submittedWebsiteUrl;
+                          const needsAttention = !hasSubmitted && cohort?.votingOpen;
+                          
+                          return (
+                          <tr key={team.id} className={`hover:bg-gray-50 ${needsAttention ? 'bg-red-50 border-l-4 border-l-red-500' : ''}`}>
                             <td className="px-6 py-4 whitespace-nowrap">
                               <div className="flex items-center space-x-3">
                                 <TeamAvatar 
@@ -686,8 +691,8 @@ export default function Admin() {
                                   </div>
                                 </div>
                               ) : (
-                                <Badge variant="secondary" className="bg-gray-100 text-gray-600">
-                                  Not Submitted
+                                <Badge variant="secondary" className={`${needsAttention ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-600'}`}>
+                                  {needsAttention ? 'Needs Submission' : 'Not Submitted'}
                                 </Badge>
                               )}
                             </td>
@@ -695,7 +700,8 @@ export default function Admin() {
                               {getTimeAgo(team.updatedAt)}
                             </td>
                           </tr>
-                        ))}
+                          );
+                        })}
                       </tbody>
                     </table>
                   </div>
