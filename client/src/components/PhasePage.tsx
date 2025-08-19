@@ -18,6 +18,7 @@ import { cn } from "@/lib/utils";
 import { PHASE_CONFIG } from "../../../shared/constants";
 import type { Team, Cohort } from "@shared/schema";
 import { parseErrorResponse } from "@/lib/errorUtils";
+import { buildUrlWithParams } from "@/lib/urlUtils";
 
 // Helper function to properly parse content with bullet points
 function parseContentWithBullets(content: string): string {
@@ -839,7 +840,10 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                   id="secure-link"
                   type="text"
                   readOnly
-                  value={`${window.location.origin}/phase/1?team_id=${teamData.code}&token=${teamData.accessToken}`}
+                  value={buildUrlWithParams('/phase/1', { 
+                    team_id: teamData.code, 
+                    token: teamData.accessToken 
+                  })}
                   className="font-mono text-sm"
                 />
               </div>

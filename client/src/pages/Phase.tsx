@@ -8,6 +8,7 @@ import { getTeamByCode } from "@/lib/db";
 import { Card, CardContent } from "@/components/ui/card";
 import { AlertTriangle } from "lucide-react";
 import { PHASE_CONFIG } from "../../../shared/constants";
+import { getUrlParam, navigateWithParams } from "@/lib/urlUtils";
 
 interface PhaseConfig {
   phase: number;
@@ -33,8 +34,7 @@ export default function Phase() {
   const [workspaceModalOpen, setWorkspaceModalOpen] = useState(false);
   
   const phaseId = params?.id ? parseInt(params.id) : 1;
-  const urlParams = new URLSearchParams(window.location.search);
-  const teamCode = urlParams.get('team_id');
+  const teamCode = getUrlParam('team_id');
 
   // Fetch phase configuration
   const { data: phaseConfig, isLoading: configLoading, error: configError } = useQuery<PhaseConfig>({
@@ -60,7 +60,7 @@ export default function Phase() {
   }, [teamCode]);
 
   const handleWorkspaceSelected = (selectedTeamCode: string) => {
-    window.location.href = `/phase/${phaseId}?team_id=${selectedTeamCode}`;
+    navigateWithParams(`/phase/${phaseId}`, { team_id: selectedTeamCode });
   };
 
   if (!match) {

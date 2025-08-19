@@ -7,6 +7,7 @@ import { AuthProvider } from "@/contexts/AuthContext";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { Footer } from "@/components/Footer";
 import { useEffect } from "react";
+import { getUrlParam, removeUrlParams } from "@/lib/urlUtils";
 import Home from "@/pages/Home";
 import Phase from "@/pages/Phase";
 import Admin from "@/pages/Admin";
@@ -22,8 +23,7 @@ function Router() {
   
   useEffect(() => {
     // Check for access token in URL parameters and establish secure session
-    const urlParams = new URLSearchParams(window.location.search);
-    const token = urlParams.get('token');
+    const token = getUrlParam('token');
     
     if (token) {
       // Attempt to login with the token
@@ -36,9 +36,7 @@ function Router() {
       .then(response => {
         if (response.ok) {
           // Remove token from URL for security
-          const newUrl = new URL(window.location.href);
-          newUrl.searchParams.delete('token');
-          window.history.replaceState({}, '', newUrl.toString());
+          removeUrlParams('token');
         }
       })
       .catch(error => {
