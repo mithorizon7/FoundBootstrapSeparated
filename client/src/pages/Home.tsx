@@ -107,12 +107,20 @@ export default function Home() {
             </Button>
           </div>
           
-          <div className="mt-8 p-6 bg-blue-50 rounded-2xl border border-blue-200">
-            <h3 className="text-lg font-bold text-blue-900 mb-2 text-center">Complete Freedom to Choose</h3>
-            <p className="text-blue-800 text-center max-w-2xl mx-auto">
-              Need just market research? Start with Activity 1. Want to focus on branding? Jump to Activity 6. 
-              Each activity is independent and provides immediate value—complete them in any order that works for you.
-            </p>
+          <div className="mt-8 relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-primary-100 via-blue-50 to-primary-100 rounded-2xl"></div>
+            <div className="relative bg-white/40 backdrop-blur-sm border border-primary-200/50 rounded-2xl p-8 shadow-lg">
+              <div className="flex items-center justify-center mb-4">
+                <div className="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center">
+                  <Target className="w-5 h-5 text-white" />
+                </div>
+              </div>
+              <h3 className="text-xl font-bold text-primary-800 mb-4 text-center">Complete Freedom to Choose</h3>
+              <p className="text-primary-700 text-center max-w-2xl mx-auto leading-relaxed font-medium">
+                Need just market research? Start with Activity 1. Want to focus on branding? Jump to Activity 6. 
+                Each activity is independent and provides immediate value—complete them in any order that works for you.
+              </p>
+            </div>
           </div>
         </div>
 

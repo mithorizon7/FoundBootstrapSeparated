@@ -207,9 +207,19 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
           </div>
           
           {/* Security Notice */}
-          <div className="text-xs text-gray-500 bg-blue-50 p-3 rounded border space-y-1">
-            <p>💡 No account needed – just remember your code to come back later on any device!</p>
-            <p className="text-red-600 font-medium">🔒 Keep your Workspace Code private – it's your personal access key.</p>
+          <div className="bg-gradient-to-r from-blue-50 to-primary-50 border border-blue-200 rounded-lg p-4 space-y-3">
+            <div className="flex items-start space-x-3">
+              <div className="w-5 h-5 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+              </div>
+              <p className="text-sm text-blue-800 font-medium">No account needed – just remember your code to come back later on any device!</p>
+            </div>
+            <div className="flex items-start space-x-3">
+              <div className="w-5 h-5 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <div className="w-2 h-2 rounded-full bg-red-500"></div>
+              </div>
+              <p className="text-sm text-red-700 font-semibold">Keep your Workspace Code private – it's your personal access key.</p>
+            </div>
           </div>
         </div>
       </DialogContent>
