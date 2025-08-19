@@ -6,7 +6,15 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function generateTeamCode(): string {
-  return Math.random().toString(36).substr(2, 4).toUpperCase();
+  // Generate cryptographically secure 4-character code
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  const array = new Uint8Array(4);
+  crypto.getRandomValues(array);
+  let result = '';
+  for (let i = 0; i < 4; i++) {
+    result += chars[array[i] % chars.length];
+  }
+  return result;
 }
 
 export function formatDate(date: Date | string): string {

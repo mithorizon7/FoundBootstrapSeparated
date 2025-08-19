@@ -1,6 +1,6 @@
-# Startup Bootcamp Platform
+# Business Development Toolkit
 
-A full-stack web application built with Express.js backend and React frontend, designed as an interactive startup bootcamp with eight independent activities that help teams develop their business concepts through structured development stages.
+A full-stack web application built with Express.js backend and React frontend, designed as an interactive business development toolkit with eight independent activities that help individual professionals develop their business concepts through structured development stages.
 
 ## 🚀 Quick Start
 
@@ -130,10 +130,10 @@ The platform contains 8 independent activities:
 
 ### Admin Features
 
-- **Cohort management** - Create and manage student groups
-- **Team tracking** - Monitor progress and submissions
+- **Cohort management** - Create and manage participant groups
+- **Participant tracking** - Monitor individual progress and submissions
 - **Competition controls** - Toggle voting and results
-- **Data export** - CSV export of team data
+- **Data export** - CSV export of participant data
 
 ## 🛠️ Development
 
@@ -162,13 +162,9 @@ node scripts/create-admin.js
 
 Follow the prompts to set username and password.
 
-### Team Management
+### Session Management
 
-Teams can be created through the admin interface or by using:
-
-```bash
-node scripts/create-team-admin.js
-```
+Individual sessions can be created through the web interface by participants themselves. Admin users can monitor all sessions through the admin dashboard.
 
 ## 🚀 Deployment
 
@@ -213,13 +209,13 @@ For deployment on other platforms, you may need to:
 
 ### Authentication Endpoints
 - `POST /api/auth/admin/login` - Admin login
-- `POST /api/auth/team/login` - Team login
+- `POST /api/auth/team/login` - Session login
 - `POST /api/auth/logout` - Logout
 
-### Team Endpoints
-- `GET /api/teams/:teamId` - Get team details
-- `PATCH /api/teams/:teamId` - Update team
-- `POST /api/teams/:teamId/submit` - Submit website
+### Session Endpoints
+- `GET /api/teams/:code` - Get session details by code (public)
+- `PATCH /api/teams/:id/phase` - Update session progress (authenticated)
+- `PATCH /api/teams/:teamId/website` - Submit website (authenticated)
 
 ### Admin Endpoints
 - `GET /api/admin/cohorts` - List cohorts
