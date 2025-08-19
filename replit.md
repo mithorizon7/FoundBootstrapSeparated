@@ -130,7 +130,19 @@ This is a full-stack web application built with Express.js backend and React fro
 - Updated expectedOutput to focus on standalone value rather than Phase 4 preparation
 - All cross-phase dependencies eliminated
 
-### Phases 4-8 - Remaining Work
+### Phase 4 - Hero Offer Ideation (✓ COMPLETED)
+**Changes Made:**
+- Added company_name field to replace phase1 dependency in prompt template
+- Updated unmet_needs field help text to not assume Phase 1 source - now accepts any customer need research
+- Updated promptTemplate to use {{company_name}} instead of {{phase1.company_name}}
+- Removed references to "highest-scoring threat competitor(s) from Excel matrix" - generalized to existing solutions
+- Updated intro to remove sequential language ("Up to now, you've diagnosed...")
+- Updated decisionBoxContent to be standalone without Phase 1/2 assumptions
+- Updated stepByStepFlow to make competitive intelligence uploads optional
+- Updated expectedOutput to focus on standalone analysis value rather than Phase 5 preparation
+- All cross-phase dependencies eliminated
+
+### Phases 5-8 - Remaining Work
 **Next Steps:**
 - Phase 4: Add company_name field, update unmet need help text
 - Phase 5: Add chosen concept details fields
