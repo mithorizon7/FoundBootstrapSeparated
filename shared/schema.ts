@@ -67,10 +67,8 @@ export const insertTeamSchema = createInsertSchema(teams).omit({
   createdAt: true,
   updatedAt: true,
 }).extend({
-  avatarIcon: z.string().optional(), // Make avatar optional since it's auto-assigned
-  accessToken: z.string().optional(), // Make access token optional since it's generated server-side
-  currentPhase: z.number().optional(), // Make current phase optional since it defaults to 1
-  cohortTag: z.string().optional(), // Make cohort tag optional
+  code: z.string().min(1),
+  name: z.string().min(1),
 });
 
 export const insertPhaseDataSchema = createInsertSchema(phaseData).omit({

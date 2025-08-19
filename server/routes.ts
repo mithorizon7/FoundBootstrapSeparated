@@ -161,11 +161,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const validatedData = insertTeamSchema.parse(req.body);
       
       // Generate unique access token for team authentication
-      const accessToken = `${validatedData.code}_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
+      const accessToken = `${(validatedData.code as string)}_${Date.now()}_${Math.random().toString(36).substring(2, 15)}`;
       
       const finalSessionData = {
-        name: validatedData.name.trim(),
-        code: validatedData.code.trim().toUpperCase(),
+        ...validatedData,
+        name: (validatedData.name as string).trim(),
+        code: (validatedData.code as string).trim().toUpperCase(),
         accessToken,
         currentPhase: 1
         // avatarIcon will be auto-assigned by storage layer
