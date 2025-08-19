@@ -1,9 +1,29 @@
 {
   "phase": 2,
   "title": "Competitor Matrix Construction",
-  "intro": "Your **Gemini report** is a rich narrative, probably about 20 pages long. However it is often helpful for decision making to have **concise, quantitative snapshots**.\n\nIn Phase 2 you'll **transform** that long PDF into a `CSV/Excel matrix` that scores each major rival on a **1-to-5 'threat scale,'** exposing exactly where you must out-maneuver and where gaps invite innovation.",
+  "intro": "Market research often produces rich narratives that are comprehensive but can be overwhelming for decision making. **Concise, quantitative snapshots** are often more actionable.\n\nThis activity helps you **transform** market research into a `CSV/Excel matrix` that scores each major rival on a **1-to-5 'threat scale,'** exposing exactly where you must out-maneuver and where gaps invite innovation.",
   "estimatedTime": "10-12 minutes",
   "fields": [
+    {
+      "id": "company_name",
+      "label": "Company Name",
+      "type": "text",
+      "placeholder": "e.g., BrightBlocks",
+      "required": true,
+      "persist": true,
+      "help": "Your company or venture name",
+      "tooltip": "The name of your company or venture that will be analyzed in the competitive matrix."
+    },
+    {
+      "id": "sector",
+      "label": "Sector / Product Domain",
+      "type": "text",
+      "placeholder": "e.g., STEM toys for ages 4-8",
+      "required": true,
+      "persist": true,
+      "help": "The market sector you're analyzing",
+      "tooltip": "Define the specific market niche where you'll be competing. This helps focus the competitive analysis on relevant players."
+    },
     {
       "id": "benefit_keyword",
       "label": "Your Chosen Core Benefit Keyword",
@@ -12,7 +32,7 @@
       "required": true,
       "persist": true,
       "help": "The single most important outcome your offer will provide.",
-      "tooltip": "Based on the 'Unmet Needs & Strategic Opportunities' section in your Phase 1 report, enter the single most promising core benefit your team will build around. This will guide all subsequent phases."
+      "tooltip": "Enter the single most promising core benefit your company will build around. This could come from market research you've conducted or strategic analysis of customer needs. This will guide your competitive positioning."
     },
     {
       "id": "company_ambition",
@@ -65,22 +85,22 @@
       "tooltip": "How much does brand recognition and customer loyalty matter? This is key for consumer brands where trust is paramount. All four weights must sum to 1.0."
     }
   ],
-  "promptTemplate": "**ROLE**\n\nYou are a strategy consultant creating a competitive threat matrix.\n\n**CONTEXT**\n\nUsing the attached Market_Competitors.pdf, create a quantitative competitor matrix for {{phase1.company_name}} in the {{phase1.sector}} market.\n\nOur ambition: {{company_ambition}}\n\n**TASK**\n\nCreate a CSV-formatted competitive matrix with these columns:\n1. Brand Name\n2. Market Share Score (1-5, where 5 = dominant player)\n3. Innovation Score (1-5, where 5 = cutting-edge technology leader)\n4. Channel Power Score (1-5, where 5 = strongest sales/distribution)\n5. Brand Score (1-5, where 5 = strongest reputation/loyalty)\n6. Weighted Threat Score (calculated using weights: Market Share {{market_share_weight}}, Innovation {{innovation_weight}}, Channel Power {{channel_power_weight}}, Brand {{brand_weight}})\n7. Core USP (one sentence)\n8. Notable Strength (key advantage)\n9. Key Vulnerability (potential weakness to exploit)\n\n**SCORING GUIDELINES**\n- Use the competitor information from the PDF to justify each 1-5 score\n- Include the top 5 competitors identified in the market research\n- Calculate weighted scores as: (Market Share × {{market_share_weight}}) + (Innovation × {{innovation_weight}}) + (Channel Power × {{channel_power_weight}}) + (Brand × {{brand_weight}})\n\n**OUTPUT FORMAT**\n\nReturn the matrix in CSV format, followed by a brief analysis of the \"Boss Rival\" (highest weighted threat score) and top 2 strategic opportunities based on competitor vulnerabilities.",
+  "promptTemplate": "**ROLE**\n\nYou are a strategy consultant creating a competitive threat matrix.\n\n**CONTEXT**\n\nCreate a quantitative competitor matrix for {{company_name}} in the {{sector}} market. Use any attached market research files or your knowledge of the industry to inform the analysis.\n\nOur ambition: {{company_ambition}}\n\n**TASK**\n\nCreate a CSV-formatted competitive matrix with these columns:\n1. Brand Name\n2. Market Share Score (1-5, where 5 = dominant player)\n3. Innovation Score (1-5, where 5 = cutting-edge technology leader)\n4. Channel Power Score (1-5, where 5 = strongest sales/distribution)\n5. Brand Score (1-5, where 5 = strongest reputation/loyalty)\n6. Weighted Threat Score (calculated using weights: Market Share {{market_share_weight}}, Innovation {{innovation_weight}}, Channel Power {{channel_power_weight}}, Brand {{brand_weight}})\n7. Core USP (one sentence)\n8. Notable Strength (key advantage)\n9. Key Vulnerability (potential weakness to exploit)\n\n**SCORING GUIDELINES**\n- Use available market research, industry knowledge, or attached files to justify each 1-5 score\n- Include the top 5 competitors in the {{sector}} market\n- Calculate weighted scores as: (Market Share × {{market_share_weight}}) + (Innovation × {{innovation_weight}}) + (Channel Power × {{channel_power_weight}}) + (Brand × {{brand_weight}})\n\n**OUTPUT FORMAT**\n\nReturn the matrix in CSV format, followed by a brief analysis of the \"Boss Rival\" (highest weighted threat score) and top 2 strategic opportunities based on competitor vulnerabilities.",
   "decisionBoxContent": {
-    "title": "Phase 2 Decisions",
-    "subtitle": "This phase has two parts. First, use your research to define your core benefit. Second, define the parameters for your competitive analysis.",
+    "title": "Competitive Analysis Decisions",
+    "subtitle": "This activity has two parts. First, define your core benefit. Second, set the parameters for your competitive threat analysis.",
     "sections": [
       {
         "number": "Part 1",
         "title": "Define Your Core Benefit",
         "items": [
           {
-            "label": "Review 'Unmet Needs & Strategic Opportunities'",
-            "content": "Carefully read this section in your Phase 1 report. Discuss with your team which customer problem represents the most compelling opportunity."
+            "label": "Identify Market Opportunities",
+            "content": "Review any market research you have conducted or your understanding of customer needs. Discuss with your team which customer problem represents the most compelling opportunity."
           },
           {
             "label": "Select Your Benefit",
-            "content": "As a team, agree on the single most promising 'Suggested Core Benefit' from the report. This will become your company's north star. Enter your final decision into the 'Your Chosen Core Benefit Keyword' field."
+            "content": "As a team, agree on the single most promising core benefit your company will deliver. This will become your company's north star. Enter your final decision into the 'Your Chosen Core Benefit Keyword' field."
           }
         ]
       },
@@ -124,29 +144,29 @@
           },
           {
             "number": "3",
-            "action": "Ensure you have your `Market_Competitors.pdf` file **ready for upload**"
+            "action": "If you have market research files (PDF, documents), have them **ready for upload** to enhance the analysis"
           }
         ]
       }
     },
     {
       "step": 2,
-      "action": "**Upload Market Research** - **Provide** your Gemini report for analysis",
+      "action": "**Upload Market Research** - **Provide** any market intelligence for analysis",
       "time": "30 seconds",
       "details": {
-        "title": "Attach Market Intelligence Data",
+        "title": "Attach Market Intelligence Data (Optional)",
         "steps": [
           {
             "number": "1",
-            "action": "**Click Upload** in the **ChatGPT interface**"
+            "action": "**If you have market research files**: Click Upload in the **ChatGPT interface**"
           },
           {
             "number": "2",
-            "action": "**Attach** `Market_Competitors.pdf` from **Phase 1**"
+            "action": "**Attach any relevant market research** (PDF, documents, or data files)"
           },
           {
             "number": "3",
-            "action": "**Wait** for upload confirmation before **proceeding**"
+            "action": "**Wait** for upload confirmation before **proceeding**, or skip if using industry knowledge only"
           }
         ]
       }
@@ -164,7 +184,7 @@
           },
           {
             "number": "2",
-            "action": "**Copy the Phase 2 Prompt** from the Prompt Preview section below and paste it into ChatGPT"
+            "action": "**Copy the Competitive Matrix Prompt** from the Prompt Preview section below and paste it into ChatGPT"
           },
           {
             "number": "3",
@@ -208,7 +228,7 @@
           },
           {
             "number": "2",
-            "action": "**Spot-check at least one competitor's numbers** for plausibility<br><strong>TIP:</strong> Do the individual scores seem generally reasonable based on what you know from Phase 1? Look for any surprising scores or vulnerabilities."
+            "action": "**Spot-check at least one competitor's numbers** for plausibility<br><strong>TIP:</strong> Do the individual scores seem generally reasonable based on your market knowledge? Look for any surprising scores or vulnerabilities."
           },
           {
             "number": "3",
@@ -272,7 +292,7 @@
           },
           {
             "number": "6",
-            "action": "**Document insights** that will inform Phase 4 product ideation"
+            "action": "**Document insights** that will inform future product strategy and positioning decisions"
           }
         ]
       }
@@ -280,7 +300,7 @@
   ],
   "expectedOutput": {
     "fileCreated": "competitor_matrix.csv",
-    "whyItMatters": "This quantified competitive landscape will directly inform your product ideation in Phase 4. Understanding your \"Boss Rival\" and competitor vulnerabilities is crucial for strategic positioning.",
-    "nextSteps": "With your competitive matrix complete and key insights identified, you're ready to proceed to Phase 3 – Market Positioning Strategy."
+    "whyItMatters": "This quantified competitive landscape provides crucial intelligence for strategic positioning. Understanding your \"Boss Rival\" and competitor vulnerabilities helps identify market opportunities and informs product strategy decisions.",
+    "nextSteps": "Review the matrix thoroughly with your team. Use the competitive insights to identify strategic gaps, understand threat levels, and inform your market positioning decisions."
   }
 }
