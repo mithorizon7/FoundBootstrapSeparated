@@ -42,7 +42,7 @@ function Router() {
         }
       })
       .catch(error => {
-        console.error('Team login failed:', error);
+        // Silently handle team login failure - user will see normal login flow
       });
     }
   }, []);
