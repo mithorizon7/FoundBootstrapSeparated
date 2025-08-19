@@ -160,35 +160,26 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
     mutationFn: async (url: string) => {
       if (!teamId) throw new Error('Team ID required');
       
-      console.log('Submitting website URL:', url, 'for team:', teamId);
-      
       const response = await fetch(`/api/teams/${teamId}/website`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ websiteUrl: url }),
       });
       
-      console.log('Response status:', response.status);
-      
       if (!response.ok) {
         const errorText = await response.text();
-        console.error('Website submission failed:', errorText);
         let errorMessage = 'Failed to submit website';
         try {
           const errorJson = JSON.parse(errorText);
           errorMessage = errorJson.message || errorMessage;
-          if (errorJson.errors) {
-            console.error('Validation errors:', errorJson.errors);
-          }
+          // Additional validation errors are handled by the error message
         } catch (e) {
-          console.error('Could not parse error response:', errorText);
+          // Use default error message if response can't be parsed
         }
         throw new Error(errorMessage);
       }
       
-      const result = await response.json();
-      console.log('Website submission successful:', result);
-      return result;
+      return await response.json();
     },
     onSuccess: () => {
       toast({
@@ -264,7 +255,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
           });
           setAllPhaseData(processedData);
         } catch (error) {
-          console.error('Error loading team data:', error);
+          // Silently handle error - user will see empty form which is acceptable
         }
       } else {
         // Load from localStorage
@@ -300,7 +291,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
           saveToLocalStorage(config.phase, formData);
         }
       } catch (error) {
-        console.error('Error saving data:', error);
+        // Silently handle save errors - data is auto-saved frequently so single failures are acceptable
       }
     };
 

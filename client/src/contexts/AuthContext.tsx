@@ -38,7 +38,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         }
       }
     } catch (error) {
-      console.error("Auth check failed:", error);
+      // Silently handle auth check failure - default to unauthenticated state
       setIsAuthenticated(false);
       setUser(null);
     } finally {
@@ -58,7 +58,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         credentials: "include",
       });
     } catch (error) {
-      console.error("Logout failed:", error);
+      // Silently handle logout failure - still clear local state
     } finally {
       setIsAuthenticated(false);
       setUser(null);
