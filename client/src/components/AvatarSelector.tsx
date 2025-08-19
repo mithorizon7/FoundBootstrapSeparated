@@ -5,6 +5,7 @@ import { TeamAvatar } from "@/components/TeamAvatar";
 import { useToast } from "@/hooks/use-toast";
 import { TEAM_AVATAR_ICONS } from "@shared/avatars";
 import { apiRequest } from "@/lib/queryClient";
+import { parseErrorResponse } from "@/lib/errorUtils";
 
 interface AvatarSelectorProps {
   teamId: number;
@@ -31,7 +32,8 @@ export function AvatarSelector({ teamId, teamCode, currentAvatar, teamName, size
       });
       
       if (!response.ok) {
-        throw new Error('Failed to update avatar');
+        const errorMessage = await parseErrorResponse(response, 'Failed to update avatar');
+        throw new Error(errorMessage);
       }
       
       return response.json();

@@ -17,18 +17,7 @@ import { useLocation } from "wouter";
 import { cn } from "@/lib/utils";
 import { PHASE_CONFIG } from "../../../shared/constants";
 import type { Team, Cohort } from "@shared/schema";
-
-// Standardized error response parser
-async function parseErrorResponse(response: Response, defaultMessage: string): Promise<string> {
-  try {
-    const errorText = await response.text();
-    const errorJson = JSON.parse(errorText);
-    return errorJson.message || defaultMessage;
-  } catch (e) {
-    // If JSON parsing fails, return default message
-    return defaultMessage;
-  }
-}
+import { parseErrorResponse } from "@/lib/errorUtils";
 
 // Helper function to properly parse content with bullet points
 function parseContentWithBullets(content: string): string {

@@ -8,6 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { AvatarSelector } from "@/components/AvatarSelector";
 import logoSrc from "@assets/ActivityLogo2.png";
 import { WORKSPACE } from "@/lib/copy";
+import { parseErrorResponse } from "@/lib/errorUtils";
 
 
 interface Participant {
@@ -73,7 +74,8 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
         });
         setLocation("/");
       } else {
-        throw new Error('Failed to logout session');
+        const errorMessage = await parseErrorResponse(response, 'Failed to logout session');
+        throw new Error(errorMessage);
       }
     } catch (error) {
       toast({
