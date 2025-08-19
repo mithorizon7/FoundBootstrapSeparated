@@ -1,7 +1,7 @@
 {
   "phase": 1,
   "title": "Market & Competitor Research",
-  "intro": "Before we design anything we need a **panoramic, data-backed view** of the market: how big it is, who already dominates, where customers still feel pain, and which macro forces may shift demand.\n\n**Google's Gemini—Deep Research mode** will be our virtual McKinsey analyst, delivering comprehensive market intelligence that forms the foundation of your strategy.",
+  "intro": "Gain a **panoramic, data-backed view** of your market: understand market size, identify key players, discover customer pain points, and analyze macro forces that may shift demand.\n\n**Google's Gemini—Deep Research mode** serves as your virtual McKinsey analyst, delivering comprehensive market intelligence to inform strategic decisions.",
   "estimatedTime": "12 minutes",
   "fields": [
     {
@@ -12,7 +12,7 @@
       "required": true,
       "persist": true,
       "help": "A short, memorable brand name",
-      "tooltip": "This is the official name for your venture that will be used throughout all AI prompts and research. Choose something memorable and brandable as it becomes central to your identity across all phases."
+      "tooltip": "This is the official name for your venture that will be used in AI prompts and research. Choose something memorable and brandable that represents your business identity."
     },
     {
       "id": "sector",
@@ -21,8 +21,8 @@
       "placeholder": "e.g., STEM toys for ages 4-8",
       "required": true,
       "persist": true,
-      "help": "The slice of the market you will attack",
-      "tooltip": "Define the specific market niche you're entering. This helps Gemini Deep Research focus on relevant competitors, market size, and industry trends for your exact domain."
+      "help": "The slice of the market you want to analyze",
+      "tooltip": "Define the specific market niche you're researching. This helps Gemini Deep Research focus on relevant competitors, market size, and industry trends for your exact domain."
     },
 
     {
@@ -31,8 +31,8 @@
       "type": "select",
       "required": true,
       "persist": true,
-      "help": "Primary geography for your launch",
-      "tooltip": "Your initial market focus affects regulatory considerations, competitive landscape, and market sizing data that Gemini will research. Start focused rather than global.",
+      "help": "Primary geography for market analysis",
+      "tooltip": "Your geographic focus affects regulatory considerations, competitive landscape, and market sizing data that Gemini will research. Choose the region most relevant to your analysis.",
       "options": [
         { "value": "North America", "label": "North America" },
         { "value": "Europe", "label": "Europe" },
@@ -49,7 +49,7 @@
       "required": true,
       "persist": true,
       "help": "Primary hex color for your brand",
-      "tooltip": "Your main brand color that will appear in all marketing materials and website designs generated in later phases. Choose a color that reflects your brand personality and stands out in your market sector."
+      "tooltip": "Your main brand color that reflects your brand personality and stands out in your market sector. This will be used consistently across any brand materials you create."
     },
     {
       "id": "secondary_color",
@@ -58,13 +58,13 @@
       "required": true,
       "persist": true,
       "help": "Secondary hex color for your brand",
-      "tooltip": "A complementary color that works with your primary color for visual hierarchy and design variety. This will be used for accents, buttons, and secondary elements in your brand materials."
+      "tooltip": "A complementary color that works with your primary color for visual hierarchy and design variety. This provides flexibility for accents and secondary elements in brand materials."
     }
   ],
   "promptTemplate": "ROLE\n\nYou are a senior market-intelligence analyst and product strategist at a global consulting firm.\n\nCONTEXT\n\nWe are evaluating the {{sector}} market in {{target_region}} for a new entrant called {{company_name}}. Our primary goal is to analyze the landscape to identify the most promising core benefit for this new venture to build around.\n\nTASK\n\nProduce a structured report designed to guide a strategic decision on the company's core benefit. The report must contain the following five sections:\n\n1. Market Sizing & Growth\n\nCurrent‐year (e.g., Projected 2025) TAM and SAM in USD.\nRecent or Projected Market CAGR (specify timeframe, e.g., 2023-2028).\nMinimum one, preferably two, independent sources per figure (link or full citation). Prioritize reputable sources.\nBriefly outline key factors or common methodologies used to estimate potential SOM in this sector.\n2. Competitive Landscape: Strengths & Weaknesses\n\nIdentify the Top 5 competitors based on perceived market influence in the {{sector}}.\nFor each competitor, create a table with the following columns:\nBrand\nCore Offer\nKey Strengths (1-2 bullets)\nPerceived Weakness / Market Gap (1-2 bullets - e.g., high price, poor user experience, missing feature, underserved niche).\nMention any significant funding or M&A events in the last 18-24 months.\n3. Unmet Needs & Strategic Opportunities\n\nBased on your research, identify a minimum of three distinct Unmet Needs.\nFor each Unmet Need, present it as a strategic opportunity in a table with the following columns:\nIdentified Unmet Need: State the customer problem clearly and concisely.\nSupporting Evidence: Cite the specific data point, quote, or finding from your research that validates this need.\nStrategic Context: In 1-2 sentences, explain why this is a strong opportunity (e.g., \"This need is amplified by the macro trend of [Trend Name] and is a known weakness of Competitor X.\").\nSuggested Core Benefit: Propose a concise benefit that directly solves the Unmet Need (e.g., \"Effortless Meal Planning,\" \"Guilt-Free Creative Screen Time,\" \"Verifiable Skills for a Modern Workforce\").\n4. Macro & Regulatory Trends\n\nIdentify three trends (e.g., Technological, Regulatory, Economic, Social) most likely to significantly reshape this category within the next 3 years.\nPair each with a referenced statistic or forecast.\nFor each trend, briefly state its potential impact (opportunity or threat) on {{company_name}}.\n5. Synthesized Recommendation\n\nConclude the report with a brief summary (1-2 paragraphs).\nBased on the entire analysis, recommend which Suggested Core Benefit from Section 3 offers the most promising strategic path for {{company_name}}.\nJustify your recommendation by synthesizing insights from the competitive weaknesses, the scale of the unmet need, and alignment with macro trends.\nFORMAT\n\nReturn the content in GitHub-flavored Markdown with clear H2 headers for the numbered sections. Structure tables and lists cleanly for executive presentation. Finish with a consolidated APA reference list for all cited sources.",
   "decisionBoxContent": {
     "title": "Market Research Foundation",
-    "subtitle": "Mapping the Battlefield - Understanding your market landscape before designing anything",
+    "subtitle": "Mapping the Battlefield - Understanding your market landscape for strategic insights",
     "sections": [
       {
         "number": "1",
@@ -72,11 +72,11 @@
         "items": [
           {
             "label": "Company Name",
-            "content": "Choose a short, memorable brand name that will represent your startup throughout the entire bootcamp process."
+            "content": "Choose a short, memorable brand name that will represent your startup in market research and analysis."
           },
           {
             "label": "Sector Definition",
-            "content": "Define the specific slice of the market you will attack - be precise about your product domain and target demographics."
+            "content": "Define the specific slice of the market you want to analyze - be precise about your product domain and target demographics."
           }
         ]
       },
@@ -86,11 +86,11 @@
         "items": [
           {
             "label": "Target Region",
-            "content": "Select your primary geography for launch - this will focus your market research and competitive analysis on the most relevant data."
+            "content": "Select your primary geography for analysis - this will focus your market research and competitive analysis on the most relevant data."
           },
           {
             "label": "Brand Colors",
-            "content": "Choose primary and secondary brand colors early - these will be used consistently across all materials and phases."
+            "content": "Choose primary and secondary brand colors that reflect your brand personality - these create visual consistency across materials."
           }
         ]
       }
@@ -98,10 +98,10 @@
     "action": {
       "title": "Research Preparation",
       "items": [
-        "Define your company name and sector",
+        "Define your company name and sector for analysis",
         "Select target region and brand colors",
         "Prepare to conduct parallel research while AI runs analysis",
-        "Set up for 12 minutes of intensive market intelligence gathering"
+        "Set up for 12 minutes of market intelligence gathering"
       ]
     }
   },
@@ -141,7 +141,7 @@
           },
           {
             "number": "2",
-            "action": "**Copy the Phase 1 Prompt** from the Prompt Preview section below and paste it into Gemini<br><strong>TIP:</strong> This is your market research, make sure you're getting what you want from it."
+            "action": "**Copy the Market Research Prompt** from the Prompt Preview section below and paste it into Gemini<br><strong>TIP:</strong> This is your market research, make sure you're getting what you want from it."
           },
           {
             "number": "3",
@@ -277,7 +277,7 @@
   ],
   "expectedOutput": {
     "fileCreated": "Market_Competitors.pdf",
-    "whyItMatters": "Many future projects will pull data directly from this report. This will be our base truth.",
-    "nextSteps": "When you've come up with your own answers, spent a little time with the report & infographic, and your PDF is saved you are ready to proceed to Phase 2 – Competitor Matrix Construction."
+    "whyItMatters": "This comprehensive market research report provides strategic insights into your competitive landscape, market opportunities, and customer needs that can inform business decisions.",
+    "nextSteps": "Review the report and infographic thoroughly. Save the PDF for future reference. Use the insights to guide strategic decisions about your market positioning and value proposition."
   }
 }
