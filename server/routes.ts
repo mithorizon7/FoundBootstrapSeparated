@@ -176,13 +176,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const team = await storage.createTeam(finalSessionData);
       res.json(team);
     } catch (error: any) {
+      console.error("Team creation error:", error);
       if (error instanceof z.ZodError) {
         return res.status(400).json({ message: "Invalid request data", errors: error.errors });
       }
       if (error.message?.includes('duplicate') || error.code === '23505') {
         return res.status(409).json({ message: "Team code already exists" });
       }
-      res.status(500).json({ message: "Error creating team" });
+      res.status(500).json({ message: "Error creating team", details: error.message });
     }
   });
 

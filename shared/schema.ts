@@ -66,9 +66,6 @@ export const insertTeamSchema = createInsertSchema(teams).omit({
   id: true,
   createdAt: true,
   updatedAt: true,
-}).extend({
-  code: z.string().min(1),
-  name: z.string().min(1),
 });
 
 export const insertPhaseDataSchema = createInsertSchema(phaseData).omit({
@@ -182,13 +179,16 @@ export const phaseDataRelations = relations(phaseData, ({ one }) => ({
   }),
 }));
 
-export type InsertTeam = z.infer<typeof insertTeamSchema>;
+// Type exports
 export type Team = typeof teams.$inferSelect;
-export type InsertPhaseData = z.infer<typeof insertPhaseDataSchema>;
 export type PhaseData = typeof phaseData.$inferSelect;
-export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
-export type InsertCohort = z.infer<typeof insertCohortSchema>;
 export type Cohort = typeof cohorts.$inferSelect;
-export type InsertVote = z.infer<typeof insertVoteSchema>;
 export type Vote = typeof votes.$inferSelect;
+
+// Insert types
+export type InsertTeam = z.infer<typeof insertTeamSchema>;
+export type InsertPhaseData = z.infer<typeof insertPhaseDataSchema>;
+export type InsertUser = z.infer<typeof insertUserSchema>;
+export type InsertCohort = z.infer<typeof insertCohortSchema>;
+export type InsertVote = z.infer<typeof insertVoteSchema>;

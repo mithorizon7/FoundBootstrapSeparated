@@ -77,10 +77,14 @@ export class DatabaseStorage implements IStorage {
     const recentAvatars = recentTeams.map(team => team.avatarIcon);
     const selectedAvatar = selectRandomAvatar(recentAvatars);
     
-    const teamWithTokenAndAvatar: InsertTeam = {
-      ...insertTeam,
+    const teamWithTokenAndAvatar = {
+      code: insertTeam.code,
+      name: insertTeam.name,
+      currentPhase: insertTeam.currentPhase || 1,
       accessToken: insertTeam.accessToken || randomUUID(),
       avatarIcon: insertTeam.avatarIcon || selectedAvatar,
+      cohortTag: insertTeam.cohortTag || null,
+      submittedWebsiteUrl: insertTeam.submittedWebsiteUrl || null,
     };
     
     const [team] = await db
