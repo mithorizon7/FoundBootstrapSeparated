@@ -135,6 +135,7 @@ export default function Phase() {
         isOpen={workspaceModalOpen}
         onClose={() => setWorkspaceModalOpen(false)}
         onTeamSelected={handleWorkspaceSelected}
+        initialPhase={phaseId}
       />
     </div>
   );

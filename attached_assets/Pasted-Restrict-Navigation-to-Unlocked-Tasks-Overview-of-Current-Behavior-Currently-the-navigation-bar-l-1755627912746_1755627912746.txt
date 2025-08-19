@@ -1,0 +1,89 @@
+Restrict Navigation to Unlocked Tasks
+
+Overview of Current Behavior
+
+Currently, the navigation bar lists all 8 phase pages for every user’s workspace. This is hardcoded by mapping through a phases array of all tasks, with isAvailable forced true for each phase ￼. In other words, every phase link is visible and enabled regardless of whether the user’s workspace has accessed that phase yet. For example, in NavigationHeader.tsx the code below shows that all tasks 1–8 are rendered (first 4 directly, remaining under “More”) with no access restrictions:
+
+{/* Phase Navigation - Center */}
+<nav className="hidden lg:flex ...">
+  {phases.slice(0, 4).map((phase) => {
+    const isActive = currentPhaseNumber === phase.number;
+    const isCompleted = participant ? phase.number < participant.currentPhase : false;
+    const isAvailable = true; // All activities are independent and accessible
+    return (
+      <Link key={phase.number} href={phase.path + (participant ? `?team_id=${participant.code}` : '')} ...>
+        {/* ...phase link content... */}
+      </Link>
+    );
+  })}
+  {/* More Phases Dropdown for phases[4..] */}
+</nav>
+
+￼ ￼
+
+Goal
+
+We want each user to see only the phase pages they’ve unlocked (visited). Initially, a new user sees nothing (or only the phase they were given a link to). As they visit additional phase URLs (either via instructor link or direct URL knowledge), those phases become available in their nav menu. They should not see or jump to phases they haven’t accessed yet. This must be achieved without a full user login system, leveraging the existing “workspace” (team code) mechanism for tracking a user’s progress.
+
+Implementation Plan
+
+1. Track Visited Phases Per Workspace
+
+We need a way to record when a team/workspace has accessed a given phase. The simplest solution is to leverage the existing phaseData storage (which records phase inputs) to mark a phase as “visited” as soon as the page is opened. This avoids adding new database fields. Specifically:
+	•	On Phase Load: In the PhasePage component, after loading the phase config and team data, insert a check to create an empty phase entry if none exists for that team-phase. The code around loading phase data (in PhasePage.tsx) is a good place for this. For example:
+
+// After fetching current phase data...
+const currentData = await getPhaseData(teamId, config.phase);
+if (!currentData) {
+    // No record yet – create an empty one to mark this phase as visited
+    await savePhaseData(teamId, config.phase, {}); 
+}
+// Then fetch all phase data for this team
+const allData = await getAllPhaseDataForTeam(teamId);
+// ...
+
+Insert the above logic in the useEffect that loads data for the phase. In the code around PhasePage.tsx ￼, add the savePhaseData call (with an empty data object) when getPhaseData returns null. This way, simply visiting a phase page guarantees a phaseData record is stored for that team and phase. (If the user later provides input, this record will be updated; if they leave immediately, the empty record still flags it as accessed.)
+
+	•	No Duplicate Records: The savePhaseData utility already handles avoiding duplicates (it updates existing records if found) ￼, so calling it on first visit is safe.
+
+By doing this, every time a user’s workspace opens a new phase URL, that phase gets recorded in the database as accessed. We can use these records to determine nav visibility.
+
+2. Filter Navigation Menu by Unlocked Phases
+
+Next, modify the NavigationHeader component to display only the phases the user (workspace) has accessed. This involves dynamically filtering the phases array instead of showing all 8 unconditionally. Steps to implement:
+	•	Fetch User’s Visited Phases: In NavigationHeader.tsx, use the team (participant) info to retrieve which phases are unlocked. One approach is to call the API that returns all phase data for the team. For example, utilize the existing endpoint GET /api/phase-data/:teamId (and the getAllPhaseDataForTeam(teamId) helper ￼) to fetch an array of phase entries for the current team. You can trigger this fetch inside a React effect or React Query when the participant prop is present. Extract the list of phase numbers from the response.
+	•	Alternative: If you prefer not to make an extra request, note that the Phase page already loaded allPhaseData in the previous step. If the NavigationHeader can be informed of this list (e.g. via context or by passing it down as a prop), that would avoid another fetch. However, for simplicity and separation of concerns, a small fetch in NavigationHeader is fine since it’s just a list of up to 8 records.
+	•	Filter the Phases Array: Once you have the set of unlocked phase numbers (let’s call it unlockedPhases), filter the phases list before rendering. For example:
+
+const unlockedPhases = ... // e.g. [3, 5] if phases 3 and 5 visited
+const visiblePhases = phases.filter(p => 
+    participant && unlockedPhases.includes(p.number)
+);
+
+Use visiblePhases (instead of the full phases) when mapping out the nav links. Specifically, replace occurrences of phases.slice(...) with visiblePhases.slice(...). For instance, in the center nav menu mapping ￼, do:
+
+{visiblePhases.slice(0, 4).map((phase) => { ... })}
+
+and similarly use visiblePhases.slice(4) for the dropdown. On mobile (where it currently iterates all phases ￼), iterate over visiblePhases instead. This ensures only unlocked phase links are rendered as navigation options.
+
+	•	Disable/Hide Unavailable Links: In practice, because we filter out locked phases entirely, you don’t need to disable links – they simply won’t appear. The isAvailable check can be simplified or removed (or set based on whether the phase is in unlockedPhases). The end result is that a user will see, for example, “Phase 3” and “Phase 5” buttons in their nav if those are the only pages they’ve ever visited. All other phase buttons will be hidden from the menu until unlocked.
+	•	Optional – Update Completed Styling: The nav code marks earlier phases as “completed” (grayed out) if their number is less than participant.currentPhase ￼. With non-sequential access, this logic may not reflect reality (e.g. if a user’s currentPhase is 5 but they skipped phase 2, phase 2 would incorrectly appear as completed). As a refinement, you might adjust the isCompleted calculation to rely on actual completion data (e.g. completedAt timestamp in the phaseData) or remove the completed styling altogether for simplicity. This is optional, but it can prevent confusion in the UI.
+
+3. Preserve Phase Access on First Visit
+
+Currently, when a new user creates a workspace from a direct phase link, the app redirects them to Phase 1 by default. We should change this behavior so that an instructor’s direct link to a later phase truly lands the user on that phase (and unlocks it). To do this:
+	•	Adjust Team Creation Flow: In TeamModal.tsx, the handleCreateTeam function ends by calling setLocation("/phase/1?team_id=...") unconditionally ￼. Remove or modify this hard-coded redirect. Instead, navigate to the phase the user intended to access. We can achieve this by using the current route’s phase ID: for example, pass the desired phaseId into the TeamModal as a prop when it’s opened. In Phase.tsx, you know the phaseId from useRoute ￼, so provide it to <TeamModal> (e.g. <TeamModal initialPhase={phaseId} ... />). Then use that in handleCreateTeam to redirect:
+
+// After creating team and getting code:
+const targetPhase = props.initialPhase || 1;
+setLocation(`/phase/${targetPhase}?team_id=${code}`);
+
+This way, if the instructor sent a link to “/phase/3”, a new user’s workspace will be created and then directed to Phase 3 (with their new team code in the URL) rather than always starting at Phase 1. The onTeamSelected callback in Phase will also update accordingly, but the key is to ensure we don’t override it with a default. Similarly, you may update the “Continue Anonymously” flow to honor the current phase (though in practice you might force phase 1 for anonymous sessions).
+
+	•	Joining an Existing Workspace: For completeness, note that handleJoinTeam already redirects to the team’s currentPhase by design ￼. That means if a returning user enters their code, they go to wherever they left off. This is okay to leave as is. (If needed, an instructor link plus code could also be handled by allowing a query param to override the destination, but that’s an edge case.)
+
+By implementing the above changes, the navigation will automatically grow as the user accesses new phases, and instructors can safely provide direct links to any phase without exposing the others. This solution is lightweight (leveraging existing data models) and transparent to users – they simply see a nav menu of “tasks” that starts small and expands with their experience, which meets the goal of a seamless, intuitive progression.
+
+Summary
+
+In summary, limit the nav menu to phases recorded in the user’s workspace data. Each time a user visits a phase page, record it (via an empty save or flag), and filter the navigation to include only those phases going forward. Adjust the workspace creation flow to respect deep links so the first visited phase is correctly recorded and shown. These changes ensure users only navigate to pages they’ve been given access to, without introducing complex new authentication systems. The result will be a cleaner UI and controlled progression through the tasks, with minimal development effort.

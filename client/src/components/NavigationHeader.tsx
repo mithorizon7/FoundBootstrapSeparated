@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Menu, Users, ChartLine, UserCircle, ChevronDown, LogIn, LogOut, Shield } from "lucide-react";
@@ -9,6 +9,8 @@ import { AvatarSelector } from "@/components/AvatarSelector";
 import logoSrc from "@assets/ActivityLogo2.png";
 import { WORKSPACE } from "@/lib/copy";
 import { parseErrorResponse } from "@/lib/errorUtils";
+import { getAllPhaseDataForTeam } from "@/lib/db";
+import { getAllPhasesFromStorage } from "@/lib/storageUtils";
 
 
 interface Participant {
@@ -38,10 +40,44 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
   const [, setLocation] = useLocation();
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [unlockedPhases, setUnlockedPhases] = useState<number[]>([]);
   const { isAuthenticated, user, logout } = useAuth();
   const { toast } = useToast();
 
   const currentPhaseNumber = parseInt(location.split('/')[2]) || 0;
+
+  // Fetch unlocked phases for the participant
+  useEffect(() => {
+    const fetchUnlockedPhases = async () => {
+      if (participant) {
+        try {
+          // Fetch all phase data for this team to determine unlocked phases
+          const allData = await getAllPhaseDataForTeam(participant.id);
+          const unlocked = allData.map(data => data.phaseNumber).sort((a, b) => a - b);
+          setUnlockedPhases(unlocked);
+        } catch (error) {
+          // Silently handle error - user will see limited navigation
+          setUnlockedPhases([]);
+        }
+      } else {
+        // For anonymous users, check local storage
+        const localData = getAllPhasesFromStorage();
+        const unlocked = Object.keys(localData)
+          .filter(key => key.startsWith('phase'))
+          .map(key => parseInt(key.replace('phase', '')))
+          .filter(num => !isNaN(num))
+          .sort((a, b) => a - b);
+        setUnlockedPhases(unlocked);
+      }
+    };
+
+    fetchUnlockedPhases();
+  }, [participant]);
+
+  // Filter phases to show only unlocked ones
+  const visiblePhases = phases.filter(phase => 
+    unlockedPhases.includes(phase.number)
+  );
 
   const handleLogout = async () => {
     try {
@@ -125,10 +161,10 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
 
           {/* Phase Navigation - Center */}
           <nav className="hidden lg:flex items-center space-x-2 flex-1 justify-center mx-8">
-            {phases.slice(0, 4).map((phase) => {
+            {visiblePhases.slice(0, 4).map((phase) => {
               const isActive = currentPhaseNumber === phase.number;
               const isCompleted = participant ? phase.number < participant.currentPhase : false;
-              const isAvailable = true; // All activities are independent and accessible
+              const isAvailable = unlockedPhases.includes(phase.number);
               
               return (
                 <Link
@@ -159,7 +195,7 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
             })}
             
             {/* More Phases Dropdown */}
-            {phases.length > 4 && (
+            {visiblePhases.length > 4 && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
@@ -172,10 +208,10 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="center" className="w-56">
-                  {phases.slice(4).map((phase) => {
+                  {visiblePhases.slice(4).map((phase) => {
                     const isActive = currentPhaseNumber === phase.number;
                     const isCompleted = participant ? phase.number < participant.currentPhase : false;
-                    const isAvailable = true; // Allow navigation to all phases
+                    const isAvailable = unlockedPhases.includes(phase.number);
                     
                     return (
                       <DropdownMenuItem
@@ -235,9 +271,9 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
               <DropdownMenuContent align="end" className="w-64">
                 <div className="px-2 py-2">
                   <div className="text-sm font-semibold text-gray-700 mb-2">Navigate to Activity</div>
-                  {phases.map((phase) => {
+                  {visiblePhases.map((phase) => {
                     const isActive = currentPhaseNumber === phase.number;
-                    const isAvailable = true;
+                    const isAvailable = unlockedPhases.includes(phase.number);
                     
                     return (
                       <DropdownMenuItem

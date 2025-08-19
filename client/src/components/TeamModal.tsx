@@ -16,9 +16,10 @@ interface TeamModalProps {
   isOpen: boolean;
   onClose: () => void;
   onTeamSelected: (teamCode: string) => void;
+  initialPhase?: number;
 }
 
-export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
+export function TeamModal({ isOpen, onClose, onTeamSelected, initialPhase }: TeamModalProps) {
   const [teamName, setTeamName] = useState("");
   const [joinCode, setJoinCode] = useState("");
   const [loading, setLoading] = useState(false);
@@ -65,7 +66,8 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
       
       onTeamSelected(code);
       onClose();
-      setLocation(`/phase/1?team_id=${code}`);
+      const targetPhase = initialPhase || 1;
+      setLocation(`/phase/${targetPhase}?team_id=${code}`);
     } catch (error) {
       toast({
         title: "Error creating workspace",
@@ -122,7 +124,8 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
     // Perform storage migration if needed before continuing
     migrateStorageFormat();
     onClose();
-    setLocation('/phase/1');
+    const targetPhase = initialPhase || 1;
+    setLocation(`/phase/${targetPhase}`);
   };
 
   return (

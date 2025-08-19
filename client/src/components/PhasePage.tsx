@@ -238,7 +238,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
     }
   };
 
-  // Load existing data on mount
+  // Load existing data on mount and track phase access
   useEffect(() => {
     const loadData = async () => {
       if (teamId) {
@@ -247,6 +247,9 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
           const currentData = await getPhaseData(teamId, config.phase);
           if (currentData) {
             setFormData(currentData.data);
+          } else {
+            // No record yet - create an empty one to mark this phase as visited
+            await savePhaseData(teamId, config.phase, {});
           }
           
           // Load all phase data for cross-phase templating
@@ -264,6 +267,15 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
         const currentData = getFromLocalStorage(config.phase);
         if (currentData) {
           setFormData(currentData);
+        } else {
+          // Mark phase as visited in local storage for anonymous users
+          const saveSuccess = saveToLocalStorage(config.phase, {});
+          if (saveSuccess) {
+            saveWorkspaceMeta({ 
+              lastPhase: config.phase,
+              firstVisited: new Date().toISOString()
+            });
+          }
         }
         
         const allData = getAllLocalStorageData();
