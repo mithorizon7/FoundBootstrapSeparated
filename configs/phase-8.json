@@ -10,7 +10,7 @@
       "type": "select",
       "required": true,
       "persist": true,
-      "help": "Choose how detailed you want to be with Replit AI instructions",
+      "help": "Choose how detailed you want to be with AI website builder instructions",
       "tooltip": "Detailed gives you specific control over layout and sections, ideal if you have clear website requirements. Vibey leverages brand personality for creative interpretation, better for exploring design possibilities.",
       "options": [
         { "value": "detailed", "label": "Detailed - Specify exact sections and layout" },
@@ -19,12 +19,12 @@
     },
     {
       "id": "website_brief",
-      "label": "Website Brief for Replit AI",
+      "label": "Website Brief for AI Builder",
       "type": "textarea",
       "placeholder": "Detailed: Briefly describe the desired sections (e.g., 'Hero section with image and value prop, podcast player section, section to embed voice agent, simple footer')\n\nVibey: Describe the feeling using your brand adjectives (e.g., 'Create a [Adj1], [Adj2], [Adj3] website for [Company] introducing [Concept]. Focus on [core value proposition]')",
       "required": true,
       "persist": true,
-      "help": "Instructions for Replit AI on how to build your website",
+      "help": "Instructions for the AI builder on how to build your website",
       "tooltip": "The core instruction that determines your website structure and personality. Include key elements like hero sections, product features, media integration, and any specific functionality you need."
     },
     {
@@ -33,7 +33,7 @@
       "type": "select",
       "required": true,
       "persist": true,
-      "help": "Choose what to work on while Replit builds your website (~10 minutes)",
+      "help": "Choose what to work on while the AI builder creates your website (~10 minutes)",
       "tooltip": "Maximizes productivity during AI build time. Launch announcements prepare marketing, FAQs improve customer experience, elevator pitches help with networking and investor conversations.",
       "options": [
         { "value": "launch_announcement", "label": "Draft Launch Announcement for social media" },
@@ -247,7 +247,7 @@
           },
           {
             "number": "2",
-            "action": "**Don't just wait!** Use this time effectively by working on your chosen productive task<br><strong>TIP:</strong> Maximize productivity during AI build time by completing launch announcements, FAQs, or elevator pitch refinements."
+            "action": "**Use build time productively!** Work effectively on your chosen task while the AI builds your website<br><strong>TIP:</strong> Maximize productivity during AI build time by completing launch announcements, FAQs, or elevator pitch refinements."
           },
           {
             "number": "A",
