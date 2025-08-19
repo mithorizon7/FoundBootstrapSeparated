@@ -74,9 +74,9 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
     fetchUnlockedPhases();
   }, [participant]);
 
-  // Filter phases to show only unlocked ones
+  // Filter phases to show only unlocked ones, but always include current phase
   const visiblePhases = phases.filter(phase => 
-    unlockedPhases.includes(phase.number)
+    unlockedPhases.includes(phase.number) || phase.number === currentPhaseNumber
   );
 
   const handleLogout = async () => {
@@ -164,7 +164,7 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
             {visiblePhases.slice(0, 4).map((phase) => {
               const isActive = currentPhaseNumber === phase.number;
               const isCompleted = participant ? phase.number < participant.currentPhase : false;
-              const isAvailable = unlockedPhases.includes(phase.number);
+              const isAvailable = unlockedPhases.includes(phase.number) || phase.number === currentPhaseNumber;
               
               return (
                 <Link
@@ -211,7 +211,7 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
                   {visiblePhases.slice(4).map((phase) => {
                     const isActive = currentPhaseNumber === phase.number;
                     const isCompleted = participant ? phase.number < participant.currentPhase : false;
-                    const isAvailable = unlockedPhases.includes(phase.number);
+                    const isAvailable = unlockedPhases.includes(phase.number) || phase.number === currentPhaseNumber;
                     
                     return (
                       <DropdownMenuItem
@@ -273,7 +273,7 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
                   <div className="text-sm font-semibold text-gray-700 mb-2">Navigate to Activity</div>
                   {visiblePhases.map((phase) => {
                     const isActive = currentPhaseNumber === phase.number;
-                    const isAvailable = unlockedPhases.includes(phase.number);
+                    const isAvailable = unlockedPhases.includes(phase.number) || phase.number === currentPhaseNumber;
                     
                     return (
                       <DropdownMenuItem

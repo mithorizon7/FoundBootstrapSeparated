@@ -249,7 +249,11 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
             setFormData(currentData.data);
           } else {
             // No record yet - create an empty one to mark this phase as visited
-            await savePhaseData(teamId, config.phase, {});
+            try {
+              await savePhaseData(teamId, config.phase, {});
+            } catch (error) {
+              // Silently handle save error - phase will still be accessible via currentPhase logic
+            }
           }
           
           // Load all phase data for cross-phase templating
