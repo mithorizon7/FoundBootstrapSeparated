@@ -64,26 +64,9 @@ export async function updateTeamPhase(teamId: number, currentPhase: number): Pro
   return response.json();
 }
 
-export function saveToLocalStorage(phaseNumber: number, data: Record<string, any>): void {
-  const key = `phase${phaseNumber}_data`;
-  localStorage.setItem(key, JSON.stringify(data));
-}
-
-export function getFromLocalStorage(phaseNumber: number): Record<string, any> | null {
-  const key = `phase${phaseNumber}_data`;
-  const data = localStorage.getItem(key);
-  return data ? JSON.parse(data) : null;
-}
-
-export function getAllLocalStorageData(): Record<string, any> {
-  const allData: Record<string, any> = {};
-  
-  for (let i = 1; i <= PHASE_CONFIG.TOTAL_PHASES; i++) {
-    const data = getFromLocalStorage(i);
-    if (data) {
-      allData[`phase${i}`] = data;
-    }
-  }
-  
-  return allData;
-}
+// Re-export storage utilities for backward compatibility
+export { 
+  savePhaseToStorage as saveToLocalStorage,
+  getPhaseFromStorage as getFromLocalStorage,
+  getAllPhasesFromStorage as getAllLocalStorageData
+} from './storageUtils';

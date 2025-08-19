@@ -10,6 +10,7 @@ import { createTeam, getTeamByCode } from "@/lib/db";
 import { useLocation } from "wouter";
 import logoSrc from "@/assets/logo.png";
 import { WORKSPACE } from "@/lib/copy";
+import { getStorageInfo, clearAllStorage, migrateStorageFormat } from "@/lib/storageUtils";
 
 interface TeamModalProps {
   isOpen: boolean;
@@ -118,6 +119,8 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
   };
 
   const handleContinueAnonymously = () => {
+    // Perform storage migration if needed before continuing
+    migrateStorageFormat();
     onClose();
     setLocation('/phase/1');
   };

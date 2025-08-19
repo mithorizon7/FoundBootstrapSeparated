@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { AlertTriangle } from "lucide-react";
 import { PHASE_CONFIG } from "../../../shared/constants";
 import { getUrlParam, navigateWithParams } from "@/lib/urlUtils";
+import { hasAnyPhaseData } from "@/lib/storageUtils";
 
 interface PhaseConfig {
   phase: number;
@@ -54,7 +55,7 @@ export default function Phase() {
 
   // Show workspace modal if no workspace is selected and no local data exists
   useEffect(() => {
-    if (!teamCode && !localStorage.getItem('phase1_data')) {
+    if (!teamCode && !hasAnyPhaseData()) {
       setWorkspaceModalOpen(true);
     }
   }, [teamCode]);

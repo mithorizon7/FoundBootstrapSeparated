@@ -13,6 +13,7 @@ import { PromptPreview } from "./PromptPreview";
 import { SelectionCard } from "./SelectionCard";
 import { ChevronDown, Info, Vote, Copy, CheckCircle, Clock, FileText, Target, ArrowRight, Globe, Upload } from "lucide-react";
 import { savePhaseData, getPhaseData, saveToLocalStorage, getFromLocalStorage, getAllLocalStorageData, getAllPhaseDataForTeam, updateTeamPhase } from "@/lib/db";
+import { saveWorkspaceMeta } from "@/lib/storageUtils";
 import { useLocation } from "wouter";
 import { cn } from "@/lib/utils";
 import { PHASE_CONFIG } from "../../../shared/constants";
@@ -259,7 +260,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
           // Silently handle error - user will see empty form which is acceptable
         }
       } else {
-        // Load from localStorage
+        // Load from centralized storage utilities
         const currentData = getFromLocalStorage(config.phase);
         if (currentData) {
           setFormData(currentData);
@@ -289,7 +290,14 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
         if (teamId) {
           await savePhaseData(teamId, config.phase, formData);
         } else {
-          saveToLocalStorage(config.phase, formData);
+          const saveSuccess = saveToLocalStorage(config.phase, formData);
+          if (saveSuccess) {
+            // Update workspace metadata on successful save
+            saveWorkspaceMeta({ 
+              lastPhase: config.phase,
+              lastSaved: new Date().toISOString()
+            });
+          }
         }
       } catch (error) {
         // Silently handle save errors - data is auto-saved frequently so single failures are acceptable
@@ -344,7 +352,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
       };
     });
   } else if (allPhaseData && typeof allPhaseData === 'object') {
-    // localStorage format: already organized by phase keys (phase1, phase2, etc.)
+    // Storage format: centralized phase data management with error handling
     Object.keys(allPhaseData).forEach(phaseKey => {
       if (phaseKey.startsWith('phase') && (allPhaseData as any)[phaseKey]) {
         templateData[phaseKey] = { 
