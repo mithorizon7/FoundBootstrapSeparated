@@ -18,6 +18,18 @@ import { cn } from "@/lib/utils";
 import { PHASE_CONFIG } from "../../../shared/constants";
 import type { Team, Cohort } from "@shared/schema";
 
+// Standardized error response parser
+async function parseErrorResponse(response: Response, defaultMessage: string): Promise<string> {
+  try {
+    const errorText = await response.text();
+    const errorJson = JSON.parse(errorText);
+    return errorJson.message || defaultMessage;
+  } catch (e) {
+    // If JSON parsing fails, return default message
+    return defaultMessage;
+  }
+}
+
 // Helper function to properly parse content with bullet points
 function parseContentWithBullets(content: string): string {
   // Split content into lines
@@ -137,7 +149,10 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
     queryFn: async () => {
       if (!teamCode) return null;
       const response = await fetch(`/api/teams/${teamCode}`);
-      if (!response.ok) throw new Error('Failed to fetch team');
+      if (!response.ok) {
+        const errorMessage = await parseErrorResponse(response, 'Failed to fetch workspace data');
+        throw new Error(errorMessage);
+      }
       return response.json();
     },
     enabled: !!teamCode,
@@ -149,7 +164,10 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
     queryFn: async () => {
       if (!teamData?.cohortTag) return null;
       const response = await fetch(`/api/cohorts/${teamData.cohortTag}`);
-      if (!response.ok) return null;
+      if (!response.ok) {
+        const errorMessage = await parseErrorResponse(response, 'Failed to fetch cohort data');
+        throw new Error(errorMessage);
+      }
       return response.json();
     },
     enabled: !!teamData?.cohortTag,
@@ -167,15 +185,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
       });
       
       if (!response.ok) {
-        const errorText = await response.text();
-        let errorMessage = 'Failed to submit website';
-        try {
-          const errorJson = JSON.parse(errorText);
-          errorMessage = errorJson.message || errorMessage;
-          // Additional validation errors are handled by the error message
-        } catch (e) {
-          // Use default error message if response can't be parsed
-        }
+        const errorMessage = await parseErrorResponse(response, 'Failed to submit website');
         throw new Error(errorMessage);
       }
       
@@ -220,7 +230,8 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
       });
 
       if (!response.ok) {
-        throw new Error('Failed to authenticate team session');
+        const errorMessage = await parseErrorResponse(response, 'Failed to authenticate team session');
+        throw new Error(errorMessage);
       }
 
       // Navigate to showcase after successful authentication
