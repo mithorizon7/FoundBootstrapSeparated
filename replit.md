@@ -49,6 +49,11 @@ This is a full-stack web application built with Express.js backend and React fro
 - Common types and schemas shared between frontend and backend
 - Located in `shared/` directory for type consistency across the stack
 
+### Documentation System
+- **`docs/atomization-guide.md`**: Comprehensive reference guide for phase atomization methodology
+- **`configs/README.md`**: Phase configuration documentation and atomization reminders
+- **`replit.md`**: Main project documentation and architecture overview
+
 ### UI Components
 - Comprehensive component library using shadcn/ui
 - Radix UI primitives for accessibility
@@ -94,6 +99,8 @@ This is a full-stack web application built with Express.js backend and React fro
 - Autoscale deployment target configured
 
 ## Atomization Plan & Progress
+
+⚠️ **IMPORTANT FOR DEVELOPERS**: Always reference `docs/atomization-guide.md` before starting any phase atomization work. This comprehensive guide contains all methodology, patterns, and checklists needed for consistent atomization.
 
 ### Phase 1 - Market Research (✓ COMPLETED)
 **Changes Made:**
