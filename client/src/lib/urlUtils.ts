@@ -26,35 +26,55 @@ export function getMultipleUrlParams(...names: string[]): Record<string, string 
 
 // Remove specific parameters from current URL and update browser history
 export function removeUrlParams(...paramNames: string[]): void {
-  const url = new URL(window.location.href);
-  
-  for (const paramName of paramNames) {
-    url.searchParams.delete(paramName);
+  try {
+    const url = new URL(window.location.href);
+    
+    for (const paramName of paramNames) {
+      if (paramName) {
+        url.searchParams.delete(paramName);
+      }
+    }
+    
+    window.history.replaceState({}, '', url.toString());
+  } catch (error) {
+    // Silently fail if URL manipulation is not possible
   }
-  
-  window.history.replaceState({}, '', url.toString());
 }
 
 // Add or update URL parameters and navigate to new URL
 export function navigateWithParams(basePath: string, params: Record<string, string | number>): void {
-  const url = new URL(basePath, window.location.origin);
-  
-  for (const [key, value] of Object.entries(params)) {
-    url.searchParams.set(key, String(value));
+  try {
+    const url = new URL(basePath, window.location.origin);
+    
+    for (const [key, value] of Object.entries(params)) {
+      if (key && value !== undefined && value !== null) {
+        url.searchParams.set(key, String(value));
+      }
+    }
+    
+    window.location.href = url.toString();
+  } catch (error) {
+    // Fallback to basic navigation if URL construction fails
+    window.location.href = basePath;
   }
-  
-  window.location.href = url.toString();
 }
 
 // Construct URL with parameters (useful for sharing links)
 export function buildUrlWithParams(basePath: string, params: Record<string, string | number>): string {
-  const url = new URL(basePath, window.location.origin);
-  
-  for (const [key, value] of Object.entries(params)) {
-    url.searchParams.set(key, String(value));
+  try {
+    const url = new URL(basePath, window.location.origin);
+    
+    for (const [key, value] of Object.entries(params)) {
+      if (key && value !== undefined && value !== null) {
+        url.searchParams.set(key, String(value));
+      }
+    }
+    
+    return url.toString();
+  } catch (error) {
+    // Fallback to base path if URL construction fails
+    return basePath.startsWith('http') ? basePath : `${window.location.origin}${basePath}`;
   }
-  
-  return url.toString();
 }
 
 // Get current origin for URL construction
