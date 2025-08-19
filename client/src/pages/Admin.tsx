@@ -469,27 +469,27 @@ export default function Admin() {
                           <h4 className="font-medium text-blue-900 mb-4">📋 Complete Administration Guide</h4>
                           <div className="space-y-4">
                             <div>
-                              <h5 className="font-semibold text-blue-900 mb-2">Phase 1-7: Team Progress Monitoring</h5>
+                              <h5 className="font-semibold text-blue-900 mb-2">Phase 1-7: Participant Progress Monitoring</h5>
                               <div className="space-y-2">
                                 <div className="flex items-start space-x-3">
                                   <span className="bg-blue-200 text-blue-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">1</span>
                                   <div>
-                                    <h6 className="font-medium text-blue-900">Monitor Team Progress</h6>
-                                    <p className="text-sm text-blue-800">Track teams through phases 1-8. Teams use secure access tokens for authentication and phase data persistence.</p>
+                                    <h6 className="font-medium text-blue-900">Monitor Participant Progress</h6>
+                                    <p className="text-sm text-blue-800">Track individual participants through phases 1-8. Participants use secure access tokens for authentication and phase data persistence.</p>
                                   </div>
                                 </div>
                                 <div className="flex items-start space-x-3">
                                   <span className="bg-blue-200 text-blue-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">2</span>
                                   <div>
                                     <h6 className="font-medium text-blue-900">Create Cohorts</h6>
-                                    <p className="text-sm text-blue-800">Create cohorts to group teams together to be able share and see each others websites for the final showcase and voting.</p>
+                                    <p className="text-sm text-blue-800">Create cohorts to group participants together to share and see each other's websites for the final showcase and voting.</p>
                                   </div>
                                 </div>
                                 <div className="flex items-start space-x-3">
                                   <span className="bg-blue-200 text-blue-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">3</span>
                                   <div>
-                                    <h6 className="font-medium text-blue-900">Assign Teams to Cohorts</h6>
-                                    <p className="text-sm text-blue-800">Use "Assign Teams" to select cohort, choose teams, and group them together for voting phase.</p>
+                                    <h6 className="font-medium text-blue-900">Assign Participants to Cohorts</h6>
+                                    <p className="text-sm text-blue-800">Use "Assign Participants" to select cohort, choose participants, and group them together for voting phase.</p>
                                   </div>
                                 </div>
                               </div>
@@ -502,14 +502,14 @@ export default function Admin() {
                                   <span className="bg-green-200 text-green-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">4</span>
                                   <div>
                                     <h6 className="font-medium text-green-900">Open Voting</h6>
-                                    <p className="text-sm text-green-800">Once all teams have submitted, toggle "Voting Open" to enable secure team voting for top 3 favorites. Make sure results are closed until all voting is complete.</p>
+                                    <p className="text-sm text-green-800">Once all participants have submitted, toggle "Voting Open" to enable secure participant voting for top 3 favorites. Make sure results are closed until all voting is complete.</p>
                                   </div>
                                 </div>
                                 <div className="flex items-start space-x-3">
                                   <span className="bg-green-200 text-green-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">5</span>
                                   <div>
                                     <h6 className="font-medium text-green-900">Reveal Results</h6>
-                                    <p className="text-sm text-green-800">Toggle "Results Visible" to simultaneously allow all teams to see the results of the voting at the same time.</p>
+                                    <p className="text-sm text-green-800">Toggle "Results Visible" to simultaneously allow all participants to see the results of the voting at the same time.</p>
                                   </div>
                                 </div>
                               </div>
@@ -568,7 +568,7 @@ export default function Admin() {
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Export comprehensive team data including phase progress, cohort assignments, website submission status and timestamps for backup and analysis</p>
+                    <p>Export comprehensive participant data including phase progress, cohort assignments, website submission status and timestamps for backup and analysis</p>
                   </TooltipContent>
                 </Tooltip>
               </div>
@@ -1073,7 +1073,7 @@ export default function Admin() {
                                         <Info className="w-3 h-3 text-gray-400 cursor-help" />
                                       </TooltipTrigger>
                                       <TooltipContent>
-                                        <p>Master toggle for all competition features. When OFF, teams see a simple showcase without voting or competitive elements. When ON, enables voting and results features.</p>
+                                        <p>Master toggle for all competition features. When OFF, participants see a simple showcase without voting or competitive elements. When ON, enables voting and results features.</p>
                                       </TooltipContent>
                                     </Tooltip>
                                   </div>

@@ -122,7 +122,7 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
             {phases.slice(0, 4).map((phase) => {
               const isActive = currentPhaseNumber === phase.number;
               const isCompleted = participant ? phase.number < participant.currentPhase : false;
-              const isAvailable = true; // Allow navigation to all phases
+              const isAvailable = true; // All activities are independent and accessible
               
               return (
                 <Link

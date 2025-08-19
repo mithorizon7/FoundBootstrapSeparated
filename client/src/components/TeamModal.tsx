@@ -115,8 +115,11 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
             />
           </div>
           <DialogTitle className="text-xl sm:text-2xl font-bold text-neutral-800">Welcome to Business Development Toolkit</DialogTitle>
-          <DialogDescription>
-            Start your session to begin working on business development activities
+          <DialogDescription className="space-y-2">
+            <p>Start your session to begin working on business development activities</p>
+            <p className="text-xs text-gray-500 bg-blue-50 p-2 rounded border">
+              💡 No account needed – just remember your code to come back later on any device!
+            </p>
           </DialogDescription>
         </DialogHeader>
 

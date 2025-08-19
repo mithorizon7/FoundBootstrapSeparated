@@ -44,8 +44,8 @@ export default function Home() {
     },
     {
       icon: Users,
-      title: "Team Collaboration",
-      description: "Work together with your team in real-time. All progress is automatically saved and synced across activities."
+      title: "Cross-Device Access",
+      description: "Resume your work from any device using your session code. All progress is automatically saved and synced across activities."
     },
     {
       icon: Clock,
@@ -110,7 +110,7 @@ export default function Home() {
             <h3 className="text-lg font-bold text-blue-900 mb-2 text-center">Complete Freedom to Choose</h3>
             <p className="text-blue-800 text-center max-w-2xl mx-auto">
               Need just market research? Start with Activity 1. Want to focus on branding? Jump to Activity 6. 
-              Each activity is self-contained and provides immediate value—no prerequisites required.
+              Each activity is independent and provides immediate value—complete them in any order that works for you.
             </p>
           </div>
         </div>
