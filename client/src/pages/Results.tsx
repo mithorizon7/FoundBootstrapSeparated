@@ -216,8 +216,8 @@ export default function Results() {
     );
   }
 
-  // Check if results are visible
-  if (!cohort?.resultsVisible) {
+  // Check if competition is enabled and results are visible
+  if (!(cohort as any)?.competitionEnabled || !cohort?.resultsVisible) {
     return (
       <div className="min-h-screen bg-gray-50">
         <NavigationHeader />
@@ -237,9 +237,14 @@ export default function Results() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m0 0v2m0-2h2m-2 0H10m2-9a3 3 0 100-6 3 3 0 000 6z" />
                 </svg>
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">Results Not Yet Available</h3>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                {!(cohort as any)?.competitionEnabled ? "Competition Not Enabled" : "Results Not Yet Available"}
+              </h3>
               <p className="text-gray-600 max-w-md mx-auto">
-                The final votes are being tallied. Please check back later!
+                {!(cohort as any)?.competitionEnabled 
+                  ? "This cohort is running in showcase mode without competition features."
+                  : "The final votes are being tallied. Please check back later!"
+                }
               </p>
             </CardContent>
           </Card>

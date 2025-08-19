@@ -707,7 +707,7 @@ export default function Admin() {
                   <div className="flex justify-between items-center">
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900">Cohort Management</h3>
-                      <p className="text-sm text-gray-600">Create and manage cohorts for team collaboration and voting</p>
+                      <p className="text-sm text-gray-600">Create and manage cohorts for team showcase. Competition features (voting/results) are optional and disabled by default.</p>
                     </div>
                     <div className="flex space-x-3">
                       <Button
@@ -1063,60 +1063,112 @@ export default function Admin() {
                                     </span>
                                   </div>
                                 </div>
-                                <div className="flex items-center justify-between">
-                                  <span className="text-sm font-medium text-gray-700">Voting</span>
+                                
+                                {/* Primary Competition Toggle */}
+                                <div className="flex items-center justify-between py-2 border-t border-gray-100">
+                                  <div className="flex items-center space-x-2">
+                                    <span className="text-sm font-medium text-gray-900">Competition Mode</span>
+                                    <Tooltip>
+                                      <TooltipTrigger asChild>
+                                        <Info className="w-3 h-3 text-gray-400 cursor-help" />
+                                      </TooltipTrigger>
+                                      <TooltipContent>
+                                        <p>Master toggle for all competition features. When OFF, teams see a simple showcase without voting or competitive elements. When ON, enables voting and results features.</p>
+                                      </TooltipContent>
+                                    </Tooltip>
+                                  </div>
                                   <div className="flex items-center space-x-3">
-                                    <span className={`text-xs font-medium ${cohort.votingOpen ? 'text-green-700' : 'text-gray-500'}`}>
-                                      {cohort.votingOpen ? "Open" : "Closed"}
+                                    <span className={`text-xs font-medium ${(cohort as any).competitionEnabled ? 'text-blue-700' : 'text-gray-500'}`}>
+                                      {(cohort as any).competitionEnabled ? "Enabled" : "Disabled"}
                                     </span>
                                     {!showArchived && (
                                       <Tooltip>
                                         <TooltipTrigger asChild>
                                           <Switch
-                                            key={`voting-${cohort.tag}`}
-                                            checked={cohort.votingOpen}
+                                            key={`competition-${cohort.tag}`}
+                                            checked={(cohort as any).competitionEnabled || false}
                                             onCheckedChange={(checked) => updateCohortMutation.mutate({
                                               tag: cohort.tag,
-                                              updates: { votingOpen: checked }
+                                              updates: { competitionEnabled: checked }
                                             })}
                                             disabled={updateCohortMutation.isPending}
-                                            className="data-[state=checked]:bg-green-600 data-[state=unchecked]:bg-gray-400 border-2 border-gray-300 data-[state=checked]:border-green-600"
+                                            className="data-[state=checked]:bg-blue-600 data-[state=unchecked]:bg-gray-400 border-2 border-gray-300 data-[state=checked]:border-blue-600"
                                           />
                                         </TooltipTrigger>
                                         <TooltipContent>
-                                          <p>Opens secure voting for teams to rank their top 3 favorite projects (3-2-1 points). Enable only after all submissions are complete.</p>
+                                          <p>Enable or disable competition features for this cohort. Default is OFF - most cohorts run without competition.</p>
                                         </TooltipContent>
                                       </Tooltip>
                                     )}
                                   </div>
                                 </div>
-                                <div className="flex items-center justify-between">
-                                  <span className="text-sm font-medium text-gray-700">Results</span>
-                                  <div className="flex items-center space-x-3">
-                                    <span className={`text-xs font-medium ${cohort.resultsVisible ? 'text-green-700' : 'text-gray-500'}`}>
-                                      {cohort.resultsVisible ? "Visible" : "Hidden"}
-                                    </span>
-                                    {!showArchived && (
-                                      <Tooltip>
-                                        <TooltipTrigger asChild>
-                                          <Switch
-                                            key={`results-${cohort.tag}`}
-                                            checked={cohort.resultsVisible}
-                                            onCheckedChange={(checked) => updateCohortMutation.mutate({
-                                              tag: cohort.tag,
-                                              updates: { resultsVisible: checked }
-                                            })}
-                                            disabled={updateCohortMutation.isPending}
-                                            className="data-[state=checked]:bg-green-600 data-[state=unchecked]:bg-gray-400 border-2 border-gray-300 data-[state=checked]:border-green-600"
-                                          />
-                                        </TooltipTrigger>
-                                        <TooltipContent>
-                                          <p>Controls when teams can see the celebratory results experience with animated podium, confetti, and rankings. Keep hidden until ready for synchronized reveal.</p>
-                                        </TooltipContent>
-                                      </Tooltip>
-                                    )}
+
+                                {/* Competition Sub-features (only shown when competition enabled) */}
+                                {(cohort as any).competitionEnabled && (
+                                  <>
+                                    <div className="flex items-center justify-between pl-4 border-l-2 border-blue-200">
+                                      <span className="text-sm font-medium text-gray-700">Voting</span>
+                                      <div className="flex items-center space-x-3">
+                                        <span className={`text-xs font-medium ${cohort.votingOpen ? 'text-green-700' : 'text-gray-500'}`}>
+                                          {cohort.votingOpen ? "Open" : "Closed"}
+                                        </span>
+                                        {!showArchived && (
+                                          <Tooltip>
+                                            <TooltipTrigger asChild>
+                                              <Switch
+                                                key={`voting-${cohort.tag}`}
+                                                checked={cohort.votingOpen}
+                                                onCheckedChange={(checked) => updateCohortMutation.mutate({
+                                                  tag: cohort.tag,
+                                                  updates: { votingOpen: checked }
+                                                })}
+                                                disabled={updateCohortMutation.isPending}
+                                                className="data-[state=checked]:bg-green-600 data-[state=unchecked]:bg-gray-400 border-2 border-gray-300 data-[state=checked]:border-green-600"
+                                              />
+                                            </TooltipTrigger>
+                                            <TooltipContent>
+                                              <p>Opens secure voting for teams to rank their top 3 favorite projects (3-2-1 points). Enable only after all submissions are complete.</p>
+                                            </TooltipContent>
+                                          </Tooltip>
+                                        )}
+                                      </div>
+                                    </div>
+                                    <div className="flex items-center justify-between pl-4 border-l-2 border-blue-200">
+                                      <span className="text-sm font-medium text-gray-700">Results</span>
+                                      <div className="flex items-center space-x-3">
+                                        <span className={`text-xs font-medium ${cohort.resultsVisible ? 'text-green-700' : 'text-gray-500'}`}>
+                                          {cohort.resultsVisible ? "Visible" : "Hidden"}
+                                        </span>
+                                        {!showArchived && (
+                                          <Tooltip>
+                                            <TooltipTrigger asChild>
+                                              <Switch
+                                                key={`results-${cohort.tag}`}
+                                                checked={cohort.resultsVisible}
+                                                onCheckedChange={(checked) => updateCohortMutation.mutate({
+                                                  tag: cohort.tag,
+                                                  updates: { resultsVisible: checked }
+                                                })}
+                                                disabled={updateCohortMutation.isPending}
+                                                className="data-[state=checked]:bg-green-600 data-[state=unchecked]:bg-gray-400 border-2 border-gray-300 data-[state=checked]:border-green-600"
+                                              />
+                                            </TooltipTrigger>
+                                            <TooltipContent>
+                                              <p>Controls when teams can see the celebratory results experience with animated podium, confetti, and rankings. Keep hidden until ready for synchronized reveal.</p>
+                                            </TooltipContent>
+                                          </Tooltip>
+                                        )}
+                                      </div>
+                                    </div>
+                                  </>
+                                )}
+
+                                {/* Message when competition is disabled */}
+                                {!(cohort as any).competitionEnabled && (
+                                  <div className="pl-4 py-2 text-xs text-gray-500 bg-gray-50 rounded border-l-2 border-gray-300">
+                                    Competition features disabled - teams will see a simple showcase without voting
                                   </div>
-                                </div>
+                                )}
                               </div>
                               <div className="space-y-2">
                                 {(() => {

@@ -370,6 +370,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         name: validatedData.name.trim(),
         description: validatedData.description?.trim() || null,
         submissionsOpen: true,
+        competitionEnabled: false, // Default to OFF - no competition unless explicitly enabled
         votingOpen: false,
         resultsVisible: false
       };
@@ -515,12 +516,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { votes } = submitVotesSchema.parse(req.body);
       const voting_team_id = (req.session as any).teamId; // Get from secure session
       
-      // Validate cohort exists (voting is always open)
+      // Validate cohort exists and has competition enabled
       const cohort = await storage.getCohortByTag(req.params.cohortTag);
       if (!cohort) {
         return res.status(404).json({ message: "Cohort not found" });
       }
-      // Voting is always open - removed check
+      
+      // Check if competition is enabled for this cohort
+      if (!cohort.competitionEnabled) {
+        return res.status(403).json({ message: "Competition is not enabled for this cohort" });
+      }
+      
+      // Check if voting is open
+      if (!cohort.votingOpen) {
+        return res.status(403).json({ message: "Voting is not currently open for this cohort" });
+      }
       
       // Validate voting team is in cohort
       const votingTeam = await storage.getTeamById(voting_team_id);
@@ -633,7 +643,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ message: "Cohort not found" });
       }
       
-      // Results are always visible - removed check
+      // Check if competition is enabled for this cohort
+      if (!cohort.competitionEnabled) {
+        return res.status(403).json({ message: "Competition is not enabled for this cohort" });
+      }
+      
+      // Check if results are visible
+      if (!cohort.resultsVisible) {
+        return res.status(403).json({ message: "Results are not yet visible for this cohort" });
+      }
       
       const results = await storage.getVotingResults(req.params.cohortTag);
       res.json(results);

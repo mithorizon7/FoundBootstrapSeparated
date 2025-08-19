@@ -204,7 +204,7 @@ export default function Showcase() {
             Team Name: {votingTeam?.name || 'None'}
           </div>
           
-          {cohort?.votingOpen && !hasAlreadyVoted && votingTeamId && (
+          {(cohort as any)?.competitionEnabled && cohort?.votingOpen && !hasAlreadyVoted && votingTeamId && (
             votingTeam?.submittedWebsiteUrl ? (
               <div className="mt-4 p-4 bg-blue-50 rounded-lg border border-blue-200">
                 <div className="flex items-center space-x-2">
@@ -235,7 +235,7 @@ export default function Showcase() {
             )
           )}
           
-          {!votingTeamId && cohort?.votingOpen && (
+          {(cohort as any)?.competitionEnabled && !votingTeamId && cohort?.votingOpen && (
             <div className="mt-4 p-4 bg-red-50 rounded-lg border border-red-200">
               <div className="flex items-center space-x-2">
                 <Vote className="w-5 h-5 text-red-600" />
@@ -247,7 +247,7 @@ export default function Showcase() {
             </div>
           )}
 
-          {!cohort?.votingOpen && votingTeamId && votingTeam?.submittedWebsiteUrl && (
+          {(cohort as any)?.competitionEnabled && !cohort?.votingOpen && votingTeamId && votingTeam?.submittedWebsiteUrl && (
             <div className="mt-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
               <div className="flex items-center space-x-2">
                 <Trophy className="w-5 h-5 text-yellow-600" />
@@ -338,7 +338,7 @@ export default function Showcase() {
                           <span>Visit Website</span>
                         </a>
                         
-                        {cohort?.votingOpen && !hasAlreadyVoted && votingTeamId && votingTeam?.submittedWebsiteUrl && team.id !== votingTeamId && (
+                        {(cohort as any)?.competitionEnabled && cohort?.votingOpen && !hasAlreadyVoted && votingTeamId && votingTeam?.submittedWebsiteUrl && team.id !== votingTeamId && (
                           <div className="flex space-x-2">
                             {Array.from({ length: maxVotes }, (_, i) => i + 1).map((rank) => (
                               <Button
@@ -366,7 +366,7 @@ export default function Showcase() {
               })}
             </div>
 
-            {cohort?.votingOpen && !hasAlreadyVoted && votingTeamId && votingTeam?.submittedWebsiteUrl && (
+            {(cohort as any)?.competitionEnabled && cohort?.votingOpen && !hasAlreadyVoted && votingTeamId && votingTeam?.submittedWebsiteUrl && (
               <div className="flex justify-center">
                 <Button
                   onClick={() => submitVotesMutation.mutate(selectedVotes)}
