@@ -75,9 +75,12 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
   }, [participant]);
 
   // Filter phases to show only unlocked ones, but always include current phase
-  const visiblePhases = phases.filter(phase => 
-    unlockedPhases.includes(phase.number) || phase.number === currentPhaseNumber
-  );
+  // Admin users can see all phases regardless of unlock status
+  const visiblePhases = (isAuthenticated && user?.role === 'admin') 
+    ? phases 
+    : phases.filter(phase => 
+        unlockedPhases.includes(phase.number) || phase.number === currentPhaseNumber
+      );
 
   const handleLogout = async () => {
     try {
@@ -164,7 +167,7 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
             {visiblePhases.slice(0, 4).map((phase) => {
               const isActive = currentPhaseNumber === phase.number;
               const isCompleted = participant ? phase.number < participant.currentPhase : false;
-              const isAvailable = unlockedPhases.includes(phase.number) || phase.number === currentPhaseNumber;
+              const isAvailable = (isAuthenticated && user?.role === 'admin') || unlockedPhases.includes(phase.number) || phase.number === currentPhaseNumber;
               
               return (
                 <Link
@@ -211,7 +214,7 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
                   {visiblePhases.slice(4).map((phase) => {
                     const isActive = currentPhaseNumber === phase.number;
                     const isCompleted = participant ? phase.number < participant.currentPhase : false;
-                    const isAvailable = unlockedPhases.includes(phase.number) || phase.number === currentPhaseNumber;
+                    const isAvailable = (isAuthenticated && user?.role === 'admin') || unlockedPhases.includes(phase.number) || phase.number === currentPhaseNumber;
                     
                     return (
                       <DropdownMenuItem
@@ -273,7 +276,7 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
                   <div className="text-sm font-semibold text-gray-700 mb-2">Navigate to Activity</div>
                   {visiblePhases.map((phase) => {
                     const isActive = currentPhaseNumber === phase.number;
-                    const isAvailable = unlockedPhases.includes(phase.number) || phase.number === currentPhaseNumber;
+                    const isAvailable = (isAuthenticated && user?.role === 'admin') || unlockedPhases.includes(phase.number) || phase.number === currentPhaseNumber;
                     
                     return (
                       <DropdownMenuItem
