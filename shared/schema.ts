@@ -66,6 +66,13 @@ export const insertTeamSchema = createInsertSchema(teams).omit({
   id: true,
   createdAt: true,
   updatedAt: true,
+}).extend({
+  // Make optional fields actually optional for API requests
+  accessToken: z.string().optional(),
+  avatarIcon: z.string().optional(),
+  cohortTag: z.string().optional(),
+  currentPhase: z.number().optional(),
+  submittedWebsiteUrl: z.string().optional(),
 });
 
 export const insertPhaseDataSchema = createInsertSchema(phaseData).omit({
