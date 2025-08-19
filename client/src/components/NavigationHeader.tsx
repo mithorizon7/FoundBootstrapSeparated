@@ -67,17 +67,17 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
       
       if (response.ok) {
         toast({
-          title: "Team session ended",
-          description: "You can now enter a new team code or use a secure link.",
+          title: "Session ended",
+          description: "You can now start a new session or resume an existing one.",
         });
         setLocation("/");
       } else {
-        throw new Error('Failed to logout team session');
+        throw new Error('Failed to logout session');
       }
     } catch (error) {
       toast({
-        title: "Switch team failed",
-        description: "Failed to end team session. Please try again.",
+        title: "Switch session failed",
+        description: "Failed to end current session. Please try again.",
         variant: "destructive",
       });
     }
@@ -95,10 +95,10 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
                 alt="Found-in-Two Logo" 
                 className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
               />
-              <span className="text-lg sm:text-xl font-bold text-neutral-800 hidden xs:block">Found-in-Two</span>
+              <span className="text-lg sm:text-xl font-bold text-neutral-800 hidden xs:block">Business Toolkit</span>
             </Link>
             
-            {/* Team Info - Responsive */}
+            {/* Session Info - Responsive */}
             {team && (
               <div className="flex items-center space-x-2 text-sm text-gray-600 bg-gray-50 px-2 py-1 rounded-full">
                 <AvatarSelector 
@@ -228,7 +228,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-64">
                 <div className="px-2 py-2">
-                  <div className="text-sm font-semibold text-gray-700 mb-2">Navigate to Phase</div>
+                  <div className="text-sm font-semibold text-gray-700 mb-2">Navigate to Activity</div>
                   {phases.map((phase) => {
                     const isActive = currentPhaseNumber === phase.number;
                     const isAvailable = true;
@@ -293,7 +293,7 @@ export function NavigationHeader({ team }: NavigationHeaderProps) {
                     {team && (
                       <DropdownMenuItem onClick={handleSwitchTeam}>
                         <Users className="w-4 h-4 mr-2" />
-                        Switch Team
+                        Switch Session
                       </DropdownMenuItem>
                     )}
                     <DropdownMenuItem onClick={handleLogout}>

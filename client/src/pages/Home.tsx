@@ -102,7 +102,7 @@ export default function Home() {
               variant="outline"
               className="border-primary text-primary hover:bg-primary hover:text-white px-8 py-4 text-lg"
             >
-              Create/Join Team
+              Start Session
             </Button>
           </div>
           

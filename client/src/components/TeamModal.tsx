@@ -26,8 +26,8 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
   const handleCreateTeam = async () => {
     if (!teamName.trim()) {
       toast({
-        title: "Team name required",
-        description: "Please enter a name for your team.",
+        title: "Name required",
+        description: "Please enter your name or an identifier for your session.",
         variant: "destructive",
       });
       return;
@@ -39,8 +39,8 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
       await createTeam(teamName.trim(), code);
       
       toast({
-        title: "Team created!",
-        description: `Your team code is: ${code}`,
+        title: "Session started!",
+        description: `Your session code is: ${code}. Save this to resume later on any device.`,
       });
       
       onTeamSelected(code);
@@ -48,8 +48,8 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
       setLocation(`/phase/1?team_id=${code}`);
     } catch (error) {
       toast({
-        title: "Error creating team",
-        description: "Failed to create team. Please try again.",
+        title: "Error starting session",
+        description: "Failed to start session. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -60,8 +60,8 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
   const handleJoinTeam = async () => {
     if (!joinCode.trim()) {
       toast({
-        title: "Team code required",
-        description: "Please enter a team code to join.",
+        title: "Session code required",
+        description: "Please enter your session code to resume.",
         variant: "destructive",
       });
       return;
@@ -72,16 +72,16 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
       const team = await getTeamByCode(joinCode.trim().toUpperCase());
       if (!team) {
         toast({
-          title: "Team not found",
-          description: "No team found with that code. Please check and try again.",
+          title: "Session not found",
+          description: "No session found with that code. Please check and try again.",
           variant: "destructive",
         });
         return;
       }
 
       toast({
-        title: "Joined team!",
-        description: `Welcome to ${team.name}`,
+        title: "Session resumed!",
+        description: `Welcome back, ${team.name}`,
       });
       
       onTeamSelected(team.code);
@@ -89,8 +89,8 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
       setLocation(`/phase/${team.currentPhase}?team_id=${team.code}`);
     } catch (error) {
       toast({
-        title: "Error joining team",
-        description: "Failed to join team. Please try again.",
+        title: "Error resuming session",
+        description: "Failed to resume session. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -114,19 +114,19 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
               className="w-10 h-10 object-contain"
             />
           </div>
-          <DialogTitle className="text-xl sm:text-2xl font-bold text-neutral-800">Welcome to Found-in-Two</DialogTitle>
+          <DialogTitle className="text-xl sm:text-2xl font-bold text-neutral-800">Welcome to Business Development Toolkit</DialogTitle>
           <DialogDescription>
-            Create or join a team to get started with your startup journey
+            Start your session to begin working on business development activities
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-6">
-          {/* Create Team Section */}
+          {/* Create Session Section */}
           <div className="space-y-3">
-            <Label htmlFor="teamName">Create New Team</Label>
+            <Label htmlFor="teamName">Start New Session</Label>
             <Input
               id="teamName"
-              placeholder="Enter team name"
+              placeholder="Enter your name or identifier"
               value={teamName}
               onChange={(e) => setTeamName(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleCreateTeam()}
@@ -137,7 +137,7 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
               className="w-full bg-primary text-white hover:bg-primary/90 flex items-center justify-center space-x-2"
             >
               <Plus className="w-4 h-4" />
-              <span>Create New Team</span>
+              <span>Start New Session</span>
             </Button>
           </div>
 
@@ -151,12 +151,12 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
             </div>
           </div>
 
-          {/* Join Team Section */}
+          {/* Resume Session Section */}
           <div className="space-y-3">
-            <Label htmlFor="joinCode">Join Existing Team</Label>
+            <Label htmlFor="joinCode">Resume Existing Session</Label>
             <Input
               id="joinCode"
-              placeholder="Enter team code (e.g., ZX1Q)"
+              placeholder="Enter session code (e.g., ZX1Q)"
               value={joinCode}
               onChange={(e) => setJoinCode(e.target.value.toUpperCase())}
               onKeyPress={(e) => e.key === 'Enter' && handleJoinTeam()}
@@ -169,7 +169,7 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
               variant="outline"
               className="w-full"
             >
-              Join Existing Team
+              Resume Session
             </Button>
           </div>
 
@@ -180,7 +180,7 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
               variant="ghost"
               className="w-full text-gray-500 hover:text-gray-700"
             >
-              Continue without a team (data won't be shared)
+              Browse activities (progress won't be saved)
             </Button>
           </div>
         </div>

@@ -41,12 +41,12 @@ export default function Admin() {
   
   // State for cohort management
   const [newCohortOpen, setNewCohortOpen] = useState(false);
-  const [assignTeamsOpen, setAssignTeamsOpen] = useState(false);
-  const [unassignTeamsOpen, setUnassignTeamsOpen] = useState(false);
+  const [assignParticipantsOpen, setAssignParticipantsOpen] = useState(false);
+  const [unassignParticipantsOpen, setUnassignParticipantsOpen] = useState(false);
   const [selectedCohort, setSelectedCohort] = useState<string>("");
-  const [selectedTeams, setSelectedTeams] = useState<number[]>([]);
+  const [selectedParticipants, setSelectedParticipants] = useState<number[]>([]);
   const [selectedUnassignCohort, setSelectedUnassignCohort] = useState<string>("");
-  const [selectedUnassignTeams, setSelectedUnassignTeams] = useState<number[]>([]);
+  const [selectedUnassignParticipants, setSelectedUnassignParticipants] = useState<number[]>([]);
   const [helpOpen, setHelpOpen] = useState(false);
   const [showArchived, setShowArchived] = useState(false);
   const [newCohort, setNewCohort] = useState({
@@ -55,7 +55,7 @@ export default function Admin() {
     description: "",
   });
   
-  const { data: teams = [], isLoading: teamsLoading } = useQuery<TeamWithProgress[]>({
+  const { data: participants = [], isLoading: participantsLoading } = useQuery<TeamWithProgress[]>({
     queryKey: ['/api/teams'],
   });
 
@@ -186,17 +186,17 @@ export default function Admin() {
     },
     onSuccess: () => {
       toast({
-        title: "Teams assigned successfully",
-        description: "Selected teams have been assigned to the cohort.",
+        title: "Participants assigned successfully",
+        description: "Selected participants have been assigned to the cohort.",
       });
-      setAssignTeamsOpen(false);
-      setSelectedTeams([]);
+      setAssignParticipantsOpen(false);
+      setSelectedParticipants([]);
       setSelectedCohort("");
       queryClient.invalidateQueries({ queryKey: ['/api/teams'] });
     },
     onError: (error: Error) => {
       toast({
-        title: "Failed to assign teams",
+        title: "Failed to assign participants",
         description: error.message,
         variant: "destructive",
       });
@@ -219,17 +219,17 @@ export default function Admin() {
     },
     onSuccess: () => {
       toast({
-        title: "Teams unassigned successfully",
-        description: "Selected teams have been removed from the cohort.",
+        title: "Participants unassigned successfully",
+        description: "Selected participants have been removed from the cohort.",
       });
-      setUnassignTeamsOpen(false);
-      setSelectedUnassignTeams([]);
+      setUnassignParticipantsOpen(false);
+      setSelectedUnassignParticipants([]);
       setSelectedUnassignCohort("");
       queryClient.invalidateQueries({ queryKey: ['/api/teams'] });
     },
     onError: (error: Error) => {
       toast({
-        title: "Failed to unassign teams",
+        title: "Failed to unassign participants",
         description: error.message,
         variant: "destructive",
       });
@@ -390,7 +390,7 @@ export default function Admin() {
     );
   }
 
-  if (teamsLoading || cohortsLoading) {
+  if (participantsLoading || cohortsLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
@@ -412,7 +412,7 @@ export default function Admin() {
             <div className="flex items-center justify-between">
               <div>
                 <CardTitle className="text-2xl">Instructor Dashboard</CardTitle>
-                <p className="text-gray-600 mt-1">Monitor team progress, manage cohorts, and export data</p>
+                <p className="text-gray-600 mt-1">Monitor participant progress, manage cohorts, and export data</p>
               </div>
               <div className="flex items-center space-x-3">
                 <Dialog open={helpOpen} onOpenChange={setHelpOpen}>
@@ -583,7 +583,7 @@ export default function Admin() {
                   className="flex items-center space-x-2 data-[state=active]:bg-white data-[state=active]:shadow-sm data-[state=active]:text-primary font-medium transition-all"
                 >
                   <Users className="w-4 h-4" />
-                  <span>Teams</span>
+                  <span>Participants</span>
                 </TabsTrigger>
                 <TabsTrigger 
                   value="cohorts" 
@@ -595,17 +595,17 @@ export default function Admin() {
               </TabsList>
 
               <TabsContent value="teams" className="p-0">
-                {teamsLoading ? (
+                {participantsLoading ? (
                   <div className="text-center py-12">
                     <Loader2 className="w-8 h-8 text-gray-400 mx-auto mb-4 animate-spin" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">Loading teams...</h3>
-                    <p className="text-gray-600">Please wait while we fetch team data.</p>
+                    <h3 className="text-lg font-medium text-gray-900 mb-2">Loading participants...</h3>
+                    <p className="text-gray-600">Please wait while we fetch participant data.</p>
                   </div>
-                ) : teams.length === 0 ? (
+                ) : participants.length === 0 ? (
                   <div className="text-center py-12">
                     <Users className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">No teams yet</h3>
-                    <p className="text-gray-600">Teams will appear here once they start the program.</p>
+                    <h3 className="text-lg font-medium text-gray-900 mb-2">No participants yet</h3>
+                    <p className="text-gray-600">Participants will appear here once they start sessions.</p>
                   </div>
                 ) : (
                   <div className="overflow-x-auto">
@@ -613,10 +613,10 @@ export default function Admin() {
                       <thead className="bg-gray-50">
                         <tr>
                           <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Team
+                            Participant
                           </th>
                           <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
-                            Current Phase
+                            Current Activity
                           </th>
                           <th className="text-left px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Progress
@@ -630,7 +630,7 @@ export default function Admin() {
                         </tr>
                       </thead>
                       <tbody className="bg-white divide-y divide-gray-200">
-                        {teams.map((team) => (
+                        {participants.map((team) => (
                           <tr key={team.id} className="hover:bg-gray-50">
                             <td className="px-6 py-4 whitespace-nowrap">
                               <div className="flex items-center space-x-3">
@@ -658,7 +658,7 @@ export default function Admin() {
                                   variant="secondary" 
                                   className="bg-blue-100 text-blue-800"
                                 >
-                                  Phase {team.currentPhase}
+                                  Activity {team.currentPhase}
                                 </Badge>
                                 <span className="text-sm text-gray-600">
                                   {getPhaseTitle(team.currentPhase)}
@@ -707,7 +707,7 @@ export default function Admin() {
                   <div className="flex justify-between items-center">
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900">Cohort Management</h3>
-                      <p className="text-sm text-gray-600">Create and manage cohorts for team showcase. Competition features (voting/results) are optional and disabled by default.</p>
+                      <p className="text-sm text-gray-600">Create and manage cohorts for participant showcase. Competition features (voting/results) are optional and disabled by default.</p>
                     </div>
                     <div className="flex space-x-3">
                       <Button
@@ -718,10 +718,10 @@ export default function Admin() {
                         <Archive className="w-4 h-4" />
                         <span>{showArchived ? "Show Active" : "Show Archived"}</span>
                       </Button>
-                      <Dialog open={assignTeamsOpen} onOpenChange={(open) => {
-                        setAssignTeamsOpen(open);
+                      <Dialog open={assignParticipantsOpen} onOpenChange={(open) => {
+                        setAssignParticipantsOpen(open);
                         if (!open) {
-                          setSelectedTeams([]);
+                          setSelectedParticipants([]);
                           setSelectedCohort("");
                         }
                       }}>
@@ -730,17 +730,17 @@ export default function Admin() {
                             <DialogTrigger asChild>
                               <Button variant="outline" className="flex items-center space-x-2">
                                 <Users className="w-4 h-4" />
-                                <span>Assign Teams</span>
+                                <span>Assign Participants</span>
                               </Button>
                             </DialogTrigger>
                           </TooltipTrigger>
                           <TooltipContent>
-                            <p>Assign teams to cohorts for showcase and voting phases. Teams can only belong to one cohort at a time.</p>
+                            <p>Assign participants to cohorts for showcase and voting phases. Participants can only belong to one cohort at a time.</p>
                           </TooltipContent>
                         </Tooltip>
                         <DialogContent className="max-w-2xl">
                           <DialogHeader>
-                            <DialogTitle>Assign Teams to Cohort</DialogTitle>
+                            <DialogTitle>Assign Participants to Cohort</DialogTitle>
                           </DialogHeader>
                           <div className="space-y-4">
                             <div>
@@ -759,18 +759,18 @@ export default function Admin() {
                               </Select>
                             </div>
                             <div>
-                              <Label>Select Teams</Label>
+                              <Label>Select Participants</Label>
                               <div className="mt-2 space-y-2 max-h-60 overflow-y-auto">
-                                {teams.map((team) => (
+                                {participants.map((team) => (
                                   <div key={team.id} className="flex items-center space-x-2">
                                     <Checkbox
                                       id={`team-${team.id}`}
-                                      checked={selectedTeams.includes(team.id)}
+                                      checked={selectedParticipants.includes(team.id)}
                                       onCheckedChange={(checked) => {
                                         if (checked) {
-                                          setSelectedTeams([...selectedTeams, team.id]);
+                                          setSelectedParticipants([...selectedParticipants, team.id]);
                                         } else {
-                                          setSelectedTeams(selectedTeams.filter(id => id !== team.id));
+                                          setSelectedParticipants(selectedParticipants.filter(id => id !== team.id));
                                         }
                                       }}
                                     />
@@ -783,27 +783,27 @@ export default function Admin() {
                             </div>
                             <div className="flex justify-end space-x-3 pt-4">
                               <Button variant="outline" onClick={() => {
-                                setAssignTeamsOpen(false);
-                                setSelectedTeams([]);
+                                setAssignParticipantsOpen(false);
+                                setSelectedParticipants([]);
                                 setSelectedCohort("");
                               }}>
                                 Cancel
                               </Button>
                               <Button
-                                onClick={() => assignTeamsMutation.mutate({ cohortTag: selectedCohort, teamIds: selectedTeams })}
-                                disabled={!selectedCohort || selectedTeams.length === 0 || assignTeamsMutation.isPending}
+                                onClick={() => assignTeamsMutation.mutate({ cohortTag: selectedCohort, teamIds: selectedParticipants })}
+                                disabled={!selectedCohort || selectedParticipants.length === 0 || assignTeamsMutation.isPending}
                               >
-                                {assignTeamsMutation.isPending ? "Assigning..." : "Assign Teams"}
+                                {assignTeamsMutation.isPending ? "Assigning..." : "Assign Participants"}
                               </Button>
                             </div>
                           </div>
                         </DialogContent>
                       </Dialog>
 
-                      <Dialog open={unassignTeamsOpen} onOpenChange={(open) => {
-                        setUnassignTeamsOpen(open);
+                      <Dialog open={unassignParticipantsOpen} onOpenChange={(open) => {
+                        setUnassignParticipantsOpen(open);
                         if (!open) {
-                          setSelectedUnassignTeams([]);
+                          setSelectedUnassignParticipants([]);
                           setSelectedUnassignCohort("");
                         }
                       }}>
@@ -812,24 +812,24 @@ export default function Admin() {
                             <DialogTrigger asChild>
                               <Button variant="outline" className="flex items-center space-x-2">
                                 <Users className="w-4 h-4" />
-                                <span>Unassign Teams</span>
+                                <span>Unassign Participants</span>
                               </Button>
                             </DialogTrigger>
                           </TooltipTrigger>
                           <TooltipContent>
-                            <p>Remove teams from their current cohort assignments. Teams will no longer be part of any cohort.</p>
+                            <p>Remove participants from their current cohort assignments. Participants will no longer be part of any cohort.</p>
                           </TooltipContent>
                         </Tooltip>
                         <DialogContent className="max-w-2xl">
                           <DialogHeader>
-                            <DialogTitle>Unassign Teams from Cohort</DialogTitle>
+                            <DialogTitle>Unassign Participants from Cohort</DialogTitle>
                           </DialogHeader>
                           <div className="space-y-4">
                             <div>
                               <Label htmlFor="unassign-cohort-select">Select Cohort</Label>
                               <Select value={selectedUnassignCohort} onValueChange={setSelectedUnassignCohort}>
                                 <SelectTrigger>
-                                  <SelectValue placeholder="Choose a cohort to view its teams" />
+                                  <SelectValue placeholder="Choose a cohort to view its participants" />
                                 </SelectTrigger>
                                 <SelectContent>
                                   {cohorts.map((cohort) => (
@@ -842,20 +842,20 @@ export default function Admin() {
                             </div>
                             {selectedUnassignCohort && (
                               <div>
-                                <Label>Select Teams to Unassign</Label>
+                                <Label>Select Participants to Unassign</Label>
                                 <div className="mt-2 space-y-2 max-h-60 overflow-y-auto">
-                                  {teams
+                                  {participants
                                     .filter(team => team.cohortTag === selectedUnassignCohort)
                                     .map((team) => (
                                       <div key={team.id} className="flex items-center space-x-2">
                                         <Checkbox
                                           id={`unassign-team-${team.id}`}
-                                          checked={selectedUnassignTeams.includes(team.id)}
+                                          checked={selectedUnassignParticipants.includes(team.id)}
                                           onCheckedChange={(checked) => {
                                             if (checked) {
-                                              setSelectedUnassignTeams([...selectedUnassignTeams, team.id]);
+                                              setSelectedUnassignParticipants([...selectedUnassignParticipants, team.id]);
                                             } else {
-                                              setSelectedUnassignTeams(selectedUnassignTeams.filter(id => id !== team.id));
+                                              setSelectedUnassignParticipants(selectedUnassignParticipants.filter(id => id !== team.id));
                                             }
                                           }}
                                         />
@@ -864,25 +864,25 @@ export default function Admin() {
                                         </Label>
                                       </div>
                                     ))}
-                                  {teams.filter(team => team.cohortTag === selectedUnassignCohort).length === 0 && (
-                                    <p className="text-sm text-gray-500 py-4">No teams are currently assigned to this cohort.</p>
+                                  {participants.filter(team => team.cohortTag === selectedUnassignCohort).length === 0 && (
+                                    <p className="text-sm text-gray-500 py-4">No participants are currently assigned to this cohort.</p>
                                   )}
                                 </div>
                               </div>
                             )}
                             <div className="flex justify-end space-x-3 pt-4">
                               <Button variant="outline" onClick={() => {
-                                setUnassignTeamsOpen(false);
-                                setSelectedUnassignTeams([]);
+                                setUnassignParticipantsOpen(false);
+                                setSelectedUnassignParticipants([]);
                                 setSelectedUnassignCohort("");
                               }}>
                                 Cancel
                               </Button>
                               <Button
-                                onClick={() => unassignTeamsMutation.mutate({ teamIds: selectedUnassignTeams })}
-                                disabled={selectedUnassignTeams.length === 0 || unassignTeamsMutation.isPending}
+                                onClick={() => unassignTeamsMutation.mutate({ teamIds: selectedUnassignParticipants })}
+                                disabled={selectedUnassignParticipants.length === 0 || unassignTeamsMutation.isPending}
                               >
-                                {unassignTeamsMutation.isPending ? "Unassigning..." : "Unassign Teams"}
+                                {unassignTeamsMutation.isPending ? "Unassigning..." : "Unassign Participants"}
                               </Button>
                             </div>
                           </div>
@@ -1154,7 +1154,7 @@ export default function Admin() {
                                               />
                                             </TooltipTrigger>
                                             <TooltipContent>
-                                              <p>Controls when teams can see the celebratory results experience with animated podium, confetti, and rankings. Keep hidden until ready for synchronized reveal.</p>
+                                              <p>Controls when participants can see the celebratory results experience with animated podium, confetti, and rankings. Keep hidden until ready for synchronized reveal.</p>
                                             </TooltipContent>
                                           </Tooltip>
                                         )}
@@ -1166,25 +1166,25 @@ export default function Admin() {
                                 {/* Message when competition is disabled */}
                                 {!(cohort as any).competitionEnabled && (
                                   <div className="pl-4 py-2 text-xs text-gray-500 bg-gray-50 rounded border-l-2 border-gray-300">
-                                    Competition features disabled - teams will see a simple showcase without voting
+                                    Competition features disabled - participants will see a simple showcase without voting
                                   </div>
                                 )}
                               </div>
                               <div className="space-y-2">
                                 {(() => {
-                                  const cohortTeams = teams.filter(team => team.cohortTag === cohort.tag);
-                                  const submittedTeams = cohortTeams.filter(team => (team as any).submittedWebsiteUrl);
+                                  const cohortParticipants = participants.filter(team => team.cohortTag === cohort.tag);
+                                  const submittedParticipants = cohortParticipants.filter(team => (team as any).submittedWebsiteUrl);
                                   return (
                                     <>
                                       <p className="text-sm text-gray-600">
-                                        <span className="font-medium">Teams:</span> {cohortTeams.length}
+                                        <span className="font-medium">Participants:</span> {cohortParticipants.length}
                                       </p>
                                       <p className="text-sm text-gray-600">
                                         <span className="font-medium">Submissions:</span> 
-                                        <span className={`ml-1 ${submittedTeams.length === cohortTeams.length && cohortTeams.length > 0 ? 'text-green-600 font-medium' : ''}`}>
-                                          {submittedTeams.length}/{cohortTeams.length}
+                                        <span className={`ml-1 ${submittedParticipants.length === cohortParticipants.length && cohortParticipants.length > 0 ? 'text-green-600 font-medium' : ''}`}>
+                                          {submittedParticipants.length}/{cohortParticipants.length}
                                         </span>
-                                        {submittedTeams.length === cohortTeams.length && cohortTeams.length > 0 && (
+                                        {submittedParticipants.length === cohortParticipants.length && cohortParticipants.length > 0 && (
                                           <span className="ml-1 text-xs text-green-600">✓ Complete</span>
                                         )}
                                       </p>

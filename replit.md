@@ -2,239 +2,54 @@
 
 ## Overview
 
-This is a full-stack web application built with Express.js backend and React frontend, using TypeScript throughout. The platform is designed as an interactive startup bootcamp with eight distinct activities that help teams develop their business concepts through structured development stages. It features a modern stack with authentication, database integration, and a component-based UI built with shadcn/ui components.
-
-## Current Project Status: Atomization in Progress
-
-**Objective**: Transform the eight interconnected bootcamp activities into standalone, independent modules that can be completed in any order without dependencies on previous phases.
-
-**Progress**: Phase 1 & 2 atomization completed (January 19, 2025)
-
-## System Architecture
-
-### Frontend Architecture
-- **React 18** with TypeScript for the client-side application
-- **Vite** as the build tool and development server
-- **TailwindCSS** for styling with custom design system
-- **shadcn/ui** component library for consistent UI components
-- **TanStack Query** for server state management and data fetching
-- **React Hook Form** with Zod resolvers for form validation
-
-### Backend Architecture
-- **Express.js** server with TypeScript
-- **Session-based authentication** using express-session
-- **bcrypt** for password hashing
-- **Drizzle ORM** for database operations with PostgreSQL dialect
-- RESTful API architecture
-
-### Database
-- **PostgreSQL** database (configured for Neon serverless)
-- **Drizzle ORM** for type-safe database operations
-- Database schema defined in `shared/schema.ts`
-- Migrations managed through Drizzle Kit
-
-## Key Components
-
-### Authentication System
-- Session-based authentication with secure session management
-- Password hashing using bcrypt
-- Session secret configured via environment variables
-
-### Team Icon System
-- Rich collection of 30+ alien-themed SVG icons located in `team_icons/`
-- Icons include various alien characters, spaceships, space equipment, and sci-fi themed elements
-- Organized for team identification and visual appeal
-
-### Shared Type System
-- Common types and schemas shared between frontend and backend
-- Located in `shared/` directory for type consistency across the stack
-
-### Documentation System
-- **`docs/atomization-guide.md`**: Comprehensive reference guide for phase atomization methodology
-- **`configs/README.md`**: Phase configuration documentation and atomization reminders
-- **`replit.md`**: Main project documentation and architecture overview
-
-### UI Components
-- Comprehensive component library using shadcn/ui
-- Radix UI primitives for accessibility
-- Custom styling with TailwindCSS
-- Responsive design with mobile-first approach
-
-## Data Flow
-
-1. **Client Requests**: React frontend makes API calls using TanStack Query
-2. **Authentication**: Express middleware validates sessions
-3. **Database Operations**: Drizzle ORM handles type-safe database queries
-4. **Response Handling**: Structured JSON responses with proper error handling
-5. **State Management**: TanStack Query manages server state caching and synchronization
-
-## External Dependencies
-
-### Core Dependencies
-- **@neondatabase/serverless**: Serverless PostgreSQL database driver
-- **@tanstack/react-query**: Server state management
-- **@hookform/resolvers**: Form validation integration
-- **canvas-confetti**: UI enhancement effects
-
-### Development Tools
-- **Drizzle Kit**: Database migration and schema management
-- **esbuild**: Server-side bundling for production
-- **tsx**: TypeScript execution for development
-
-## Deployment Strategy
-
-### Development Environment
-- Replit-based development with integrated PostgreSQL
-- Hot reload enabled for both client and server
-- Development server runs on port 5000
-
-### Production Build
-- **Frontend**: Vite builds optimized React bundle to `dist/public`
-- **Backend**: esbuild compiles TypeScript server to `dist/index.js`
-- **Database**: Drizzle migrations applied via `npm run db:push`
-
-### Environment Configuration
-- Session secrets and database URLs configured via environment variables
-- Replit-specific configurations for deployment and scaling
-- Autoscale deployment target configured
-
-## Atomization Plan & Progress
-
-⚠️ **IMPORTANT FOR DEVELOPERS**: Always reference `docs/atomization-guide.md` before starting any phase atomization work. This comprehensive guide contains all methodology, patterns, and checklists needed for consistent atomization.
-
-### Phase 1 - Market Research (✓ COMPLETED)
-**Changes Made:**
-- Removed sequential language from intro, tooltips, and decision box content
-- Updated language from "before we design" to "gain strategic insights"
-- Removed references to "foundation of your strategy" and "forms the basis"
-- Updated help text to focus on analysis rather than launch preparation
-- Modified expectedOutput to emphasize standalone value rather than Phase 2 preparation
-- All cross-phase dependencies eliminated
-
-### Phase 2 - Competitor Matrix Construction (✓ COMPLETED)
-**Changes Made:**
-- Added company_name and sector fields to replace phase1 dependencies
-- Updated promptTemplate to use local {{company_name}} and {{sector}} instead of phase1 references
-- Made market research file upload optional instead of requiring Phase 1 PDF
-- Removed sequential language from intro, decision box, and step-by-step flow
-- Updated expectedOutput to be standalone without Phase 3 references
-- Generalized all Phase 1 specific references to be more generic
-
-### Phase 3 - Background Research (✓ COMPLETED)
-**Changes Made:**
-- Added company_name, sector, target_region, and core_benefit fields to replace cross-phase dependencies
-- Updated promptTemplate to use local fields instead of phase1/phase2 references
-- Removed sequential language from intro and step-by-step flow
-- Updated step references from "Phase 1 details" to "company details and core benefit"
-- Changed "proceed to Phase 4" to "continue with other activities"
-- Updated expectedOutput to focus on standalone value rather than Phase 4 preparation
-- All cross-phase dependencies eliminated
-
-### Phase 4 - Hero Offer Ideation (✓ COMPLETED)
-**Changes Made:**
-- Added company_name field to replace phase1 dependency in prompt template
-- Updated unmet_needs field help text to not assume Phase 1 source - now accepts any customer need research
-- Updated promptTemplate to use {{company_name}} instead of {{phase1.company_name}}
-- Removed references to "highest-scoring threat competitor(s) from Excel matrix" - generalized to existing solutions
-- Updated intro to remove sequential language ("Up to now, you've diagnosed...")
-- Updated decisionBoxContent to be standalone without Phase 1/2 assumptions
-- Updated stepByStepFlow to make competitive intelligence uploads optional
-- Updated expectedOutput to focus on standalone analysis value rather than Phase 5 preparation
-- All cross-phase dependencies eliminated
-
-### Phase 5 - Hero Concept Brief Generation (✓ COMPLETED)
-**Changes Made:**
-- Added brand_adj_1, brand_adj_2, brand_adj_3 fields to replace {{phase4.brand_adjX}} dependencies
-- Updated title from "Phase 5: Hero Offer Selection & Blueprint" to "Hero Concept Brief Generation"
-- Removed sequential language from intro ("You have now received..." → standalone objectives)
-- Updated field help text to not assume Phase 4 concept source - now accepts any concept input
-- Updated promptTemplate to use local {{brand_adj_X}} instead of {{phase4.brand_adj_X}} references
-- Removed dependencies on Phase_4_Offer_Concepts.docx and Market_Competitors.pdf files
-- Updated decisionBoxContent to focus on standalone concept definition rather than Phase 4 selection
-- Updated stepByStepFlow to generalize document uploads and remove phase-specific references
-- Updated expectedOutput to emphasize standalone strategic value rather than future phase preparation
-- All cross-phase dependencies eliminated
-
-### Phase 6 - Media Factory: Creative Asset Generation (✓ COMPLETED)
-**Changes Made:**
-- Added concept_name field to replace {{phase5.chosen_concept_code_name}} dependency
-- Added sector field to replace {{phase1.sector}} dependency
-- Updated selected_statistic field to not assume Phase 3 source - now accepts any credible research
-- Updated title from "Media Factory: Media Generation" to "Media Factory: Creative Asset Generation"
-- Removed sequential language from intro and decision box content
-- Updated promptTemplate to use local {{concept_name}} and {{sector}} instead of cross-phase references
-- Removed dependencies on Science_Evidence.pdf, Hero_Concept_Detailed_Brief.docx, and Phase 3 research
-- Updated stepByStepFlow to generalize document uploads and remove phase-specific file references
-- Updated expectedOutput to focus on standalone value rather than Phase 7 preparation
-- All cross-phase dependencies eliminated
-
-### Phase 7 - AI Voice Agent: Give Your Brand an Expert to Talk To (✓ COMPLETED)
-**Changes Made:**
-- Added company_name field to replace {{phase1.company_name}} dependency
-- Added concept_name field to replace {{phase5.chosen_concept_code_name}} dependency
-- Added brand_adj_1, brand_adj_2, brand_adj_3 fields to replace {{phase4.brand_adjX}} dependencies
-- Updated title from "ElevenLabs Call-Agent" to "AI Voice Agent" for broader applicability
-- Removed sequential language from intro ("In this phase" → "This activity")
-- Updated promptTemplate to use local fields instead of all cross-phase references
-- Removed file dependencies on Science_Evidence.pdf and Hero_Concept_Detailed_Brief.docx
-- Updated stepByStepFlow to generalize document uploads and remove phase-specific file references
-- Updated decision box content to use local field references instead of cross-phase
-- Updated expectedOutput to focus on standalone value and remove "vetted" assumptions
-- All cross-phase dependencies eliminated
-
-### Phase 8 - AI Website Builder: Launch a Live, Professional Website (✅ COMPLETED)
-**Changes Made:**
-- Added company_name field to replace {{phase1.company_name}} dependency
-- Added concept_name field to replace {{phase5.chosen_concept_code_name}} dependency
-- Added brand_adj_1, brand_adj_2, brand_adj_3 fields to replace {{phase4.brand_adjX}} dependencies
-- Added target_audience field to replace {{phase5.concept_target_audience}} dependency
-- Added key_problem_solved field to replace {{phase5.chosen_concept_unmet_need}} dependency
-- Updated title from "Replit AI Builder" to "AI Website Builder" for broader platform compatibility
-- Removed sequential language from intro ("You're ready to build" → "Transform your concept")
-- Updated promptTemplate to use local fields instead of all cross-phase references
-- Removed file dependencies on hero.png, copy.docx, jingle.mp3, voiceover.mp3, podcast.mp3
-- Updated decisionBoxContent to generalize asset requirements instead of phase-specific files
-- Updated stepByStepFlow to work with any AI website builder platform, not just Replit
-- Generalized asset checklist to work with any brand materials rather than phase-generated files
-- All cross-phase dependencies eliminated
-
-## ✅ ATOMIZATION PROJECT - COMPLETE!
-All 8 phases have been successfully atomized and are now completely independent modules that can be completed in any order without cross-dependencies.
-
-## ✅ COMPETITION TOGGLE SYSTEM - COMPLETE!
-**Implementation Date:** August 19, 2025
-
-### Overview
-Implemented a comprehensive cohort-level competition toggle system that allows administrators to enable or disable competitive features (voting and results) on a per-cohort basis. Competition features are **disabled by default** to support non-competitive showcase use cases.
-
-### Key Features
-- **Master Competition Toggle**: Controls access to all competitive features
-- **Hierarchical Controls**: Voting and Results toggles only appear when Competition Mode is enabled
-- **Default OFF**: New cohorts start with competition disabled for simple showcase mode
-- **Backend Validation**: Prevents enabling voting/results without competition enabled
-- **Frontend Protection**: All voting UI hidden when competition disabled
-- **Database Consistency**: Automatically maintains proper state relationships
-
-### Technical Implementation
-- **Database**: Added `competitionEnabled` field with default `false`
-- **Backend API**: Hierarchical validation in PATCH endpoints
-- **Admin UI**: Master toggle with nested sub-controls
-- **Showcase Page**: All voting features wrapped with competition checks
-- **Results Page**: Shows appropriate messaging when competition disabled
-- **Type Safety**: Full TypeScript coverage with proper type checking
-
-### Navigation Updates Required
-- Remove progress indicators and sequential language from UI
-- Ensure all phase links are accessible regardless of progress
-- Update button text from "Phase X of Y" to "Activity X"
-
-## Changelog
-
-- August 19, 2025: Competition Toggle System completed - implemented cohort-level competition controls with hierarchical validation
-- August 19, 2025: Repository deployment readiness assessment completed - created comprehensive README.md and .env.example for GitHub deployment
-- January 19, 2025: Phase 1 atomization completed - removed all sequential dependencies  
-- June 25, 2025: Initial setup
+This is a full-stack web application, built with Express.js (TypeScript) and React (TypeScript), designed as an interactive business development toolkit. It features eight independent activities that guide individual professionals in developing business concepts through structured stages. The platform supports individual session management, cross-device persistence, and instructor oversight. Its vision is to provide a versatile and modern toolkit for business development, supporting both individual use and cohort-based learning.
 
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
+
+## System Architecture
+
+### Frontend Architecture
+- **React 18** with TypeScript
+- **Vite** for building and development
+- **TailwindCSS** for styling
+- **shadcn/ui** for consistent UI components
+- **TanStack Query** for server state management
+- **React Hook Form** with Zod for form validation
+
+### Backend Architecture
+- **Express.js** with TypeScript
+- **Session-based authentication**
+- **bcrypt** for password hashing
+- **Drizzle ORM** for PostgreSQL database operations
+- RESTful API design
+
+### Database
+- **PostgreSQL** (configured for Neon serverless)
+- **Drizzle ORM** for type-safe operations
+- Schema defined in `shared/schema.ts`
+
+### Key Components
+- **Authentication System**: Secure session-based authentication.
+- **Session Icon System**: 30+ alien-themed SVG icons for session identification.
+- **Shared Type System**: Common types and schemas in `shared/` for consistency.
+- **UI Components**: Comprehensive shadcn/ui library with Radix UI primitives and responsive TailwindCSS styling.
+
+### System Design Choices
+- **Atomized Activities**: All eight bootcamp activities are designed as standalone, independent modules, completable in any order without dependencies.
+- **Individual Session Management**: Transformed from team-based to individual professional session management, supporting solo work, cross-device persistence via session codes, and maintaining administrative oversight. UI language and internal variable names reflect this individual paradigm.
+- **Competition Toggle System**: Implemented a cohort-level system allowing administrators to enable/disable competitive features (voting, results) per cohort. Defaults to disabled for non-competitive showcase use cases.
+
+## External Dependencies
+
+### Core Dependencies
+- **@neondatabase/serverless**: Serverless PostgreSQL database driver.
+- **@tanstack/react-query**: Server state management.
+- **@hookform/resolvers**: Form validation integration.
+- **canvas-confetti**: UI enhancement effects.
+
+### Development Tools
+- **Drizzle Kit**: Database migration and schema management.
+- **esbuild**: Server-side bundling.
+- **tsx**: TypeScript execution for development.
