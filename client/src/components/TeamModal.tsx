@@ -67,8 +67,8 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
       setLocation(`/phase/1?team_id=${code}`);
     } catch (error) {
       toast({
-        title: "Error starting session",
-        description: "Failed to start session. Please try again.",
+        title: "Error creating workspace",
+        description: "Failed to create workspace. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -108,8 +108,8 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
       setLocation(`/phase/${team.currentPhase}?team_id=${team.code}`);
     } catch (error) {
       toast({
-        title: "Error resuming session",
-        description: "Failed to resume session. Please try again.",
+        title: "Error opening workspace",
+        description: "Failed to open workspace. Please try again.",
         variant: "destructive",
       });
     } finally {
@@ -134,12 +134,8 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
             />
           </div>
           <DialogTitle className="text-xl sm:text-2xl font-bold text-neutral-800">Welcome to Applied GenAI Lab</DialogTitle>
-          <DialogDescription className="space-y-2">
-            <p>{WORKSPACE.explainer}</p>
-            <div className="text-xs text-gray-500 bg-blue-50 p-2 rounded border space-y-1">
-              <p>💡 No account needed – just remember your code to come back later on any device!</p>
-              <p className="text-red-600 font-medium">🔒 Keep your Workspace Code private – it's your personal access key.</p>
-            </div>
+          <DialogDescription>
+            Start your workspace to begin working on GenAI-assisted development activities
           </DialogDescription>
         </DialogHeader>
 
@@ -162,6 +158,7 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
               <Plus className="w-4 h-4" />
               <span>{WORKSPACE.startLabel}</span>
             </Button>
+            <p className="text-sm text-muted-foreground">{WORKSPACE.explainer}</p>
           </div>
 
           {/* Divider */}
@@ -194,6 +191,7 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
             >
               {WORKSPACE.resumeLabel}
             </Button>
+            <p className="text-sm text-muted-foreground">{WORKSPACE.explainer}</p>
           </div>
 
           {/* Anonymous Option */}
@@ -205,6 +203,13 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
             >
               Try without saving
             </Button>
+            <p className="text-xs text-muted-foreground text-center mt-2">{WORKSPACE.practiceNote}</p>
+          </div>
+          
+          {/* Security Notice */}
+          <div className="text-xs text-gray-500 bg-blue-50 p-3 rounded border space-y-1">
+            <p>💡 No account needed – just remember your code to come back later on any device!</p>
+            <p className="text-red-600 font-medium">🔒 Keep your Workspace Code private – it's your personal access key.</p>
           </div>
         </div>
       </DialogContent>

@@ -109,11 +109,13 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
                   teamName={participant.name}
                   size="md"
                 />
-                <div className="hidden sm:flex items-center space-x-2">
-                  <span className="hidden md:inline font-medium">Workspace: {participant.name}</span>
-                  <span className="text-xs hidden md:inline">•</span>
-                  <span className="font-mono">Code: {participant.code}</span>
-                  <span className="text-xs text-gray-400 hidden lg:inline">• {WORKSPACE.bannerActive}</span>
+                <div className="hidden sm:flex items-center space-x-1">
+                  <span className="font-medium">Workspace:</span>
+                  <span className="font-semibold">{participant.name}</span>
+                  <span>•</span>
+                  <span>Code:</span>
+                  <code className="font-mono font-bold">{participant.code}</code>
+                  <span className="text-xs text-gray-400 hidden lg:inline">({WORKSPACE.bannerActive})</span>
                 </div>
               </div>
             )}
