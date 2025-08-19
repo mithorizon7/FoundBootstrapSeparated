@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Copy } from "lucide-react";
+import { Plus, Copy, ArrowRight } from "lucide-react";
 import { generateTeamCode } from "@/lib/utils";
 import { createTeam, getTeamByCode } from "@/lib/db";
 import { useLocation } from "wouter";
@@ -141,24 +141,30 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
 
         <div className="space-y-6">
           {/* Create Workspace Section */}
-          <div className="space-y-3">
-            <Label htmlFor="teamName">{WORKSPACE.startLabel}</Label>
+          <div className="bg-gradient-to-br from-primary-50 to-primary-100 border-2 border-primary-200 rounded-xl p-6 space-y-4 shadow-sm">
+            <div className="flex items-center space-x-2 mb-2">
+              <div className="w-6 h-6 bg-primary-500 rounded-lg flex items-center justify-center">
+                <Plus className="w-4 h-4 text-white" />
+              </div>
+              <Label htmlFor="teamName" className="text-lg font-semibold text-primary-800">{WORKSPACE.startLabel}</Label>
+            </div>
             <Input
               id="teamName"
               placeholder="How would you like to be known?"
               value={teamName}
               onChange={(e) => setTeamName(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleCreateTeam()}
+              className="border-primary-300 focus:border-primary-500 focus:ring-primary-500"
             />
             <Button
               onClick={handleCreateTeam}
               disabled={loading}
-              className="w-full bg-primary text-white hover:bg-primary/90 flex items-center justify-center space-x-2"
+              className="w-full bg-primary-600 text-white hover:bg-primary-700 font-semibold py-3 shadow-md hover:shadow-lg transition-all duration-200"
             >
-              <Plus className="w-4 h-4" />
+              <Plus className="w-5 h-5 mr-2" />
               <span>{WORKSPACE.startLabel}</span>
             </Button>
-            <p className="text-sm text-muted-foreground">{WORKSPACE.explainer}</p>
+            <p className="text-sm text-primary-700 font-medium">{WORKSPACE.explainer}</p>
           </div>
 
           {/* Divider */}
@@ -167,43 +173,35 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
               <div className="w-full border-t border-gray-300"></div>
             </div>
             <div className="relative flex justify-center text-sm">
-              <span className="px-3 bg-white text-gray-500">or</span>
+              <span className="px-4 py-1 bg-white text-gray-500 rounded-full border border-gray-200">or</span>
             </div>
           </div>
 
           {/* Resume Workspace Section */}
-          <div className="space-y-3">
-            <Label htmlFor="joinCode">{WORKSPACE.resumeLabel}</Label>
+          <div className="bg-gradient-to-br from-blue-50 to-slate-50 border-2 border-slate-200 rounded-xl p-6 space-y-4 shadow-sm">
+            <div className="flex items-center space-x-2 mb-2">
+              <div className="w-6 h-6 bg-slate-600 rounded-lg flex items-center justify-center">
+                <ArrowRight className="w-4 h-4 text-white" />
+              </div>
+              <Label htmlFor="joinCode" className="text-lg font-semibold text-slate-800">{WORKSPACE.resumeLabel}</Label>
+            </div>
             <Input
               id="joinCode"
               placeholder={WORKSPACE.codePlaceholder}
               value={joinCode}
               onChange={(e) => setJoinCode(e.target.value.toUpperCase())}
               onKeyPress={(e) => e.key === 'Enter' && handleJoinTeam()}
-              className="text-center font-mono text-lg tracking-wider"
+              className="text-center font-mono text-lg tracking-wider border-slate-300 focus:border-slate-500 focus:ring-slate-500"
               maxLength={4}
             />
             <Button
               onClick={handleJoinTeam}
               disabled={loading}
-              variant="outline"
-              className="w-full"
+              className="w-full bg-slate-600 text-white hover:bg-slate-700 font-semibold py-3 shadow-md hover:shadow-lg transition-all duration-200"
             >
               {WORKSPACE.resumeLabel}
             </Button>
-            <p className="text-sm text-muted-foreground">{WORKSPACE.explainer}</p>
-          </div>
-
-          {/* Anonymous Option */}
-          <div className="pt-4 border-t border-gray-200">
-            <Button
-              onClick={handleContinueAnonymously}
-              variant="ghost"
-              className="w-full text-gray-500 hover:text-gray-700"
-            >
-              Try without saving
-            </Button>
-            <p className="text-xs text-muted-foreground text-center mt-2">{WORKSPACE.practiceNote}</p>
+            <p className="text-sm text-slate-700 font-medium">{WORKSPACE.explainer}</p>
           </div>
           
           {/* Security Notice */}
@@ -220,6 +218,19 @@ export function TeamModal({ isOpen, onClose, onTeamSelected }: TeamModalProps) {
               </div>
               <p className="text-sm text-red-700 font-semibold">Keep your Workspace Code private – it's your personal access key.</p>
             </div>
+          </div>
+
+          {/* Anonymous Option - Now at bottom */}
+          <div className="pt-4 border-t border-gray-200 text-center">
+            <Button
+              onClick={handleContinueAnonymously}
+              variant="ghost"
+              size="sm"
+              className="text-gray-500 hover:text-gray-700 font-normal"
+            >
+              Try without saving
+            </Button>
+            <p className="text-xs text-muted-foreground mt-1">{WORKSPACE.practiceNote}</p>
           </div>
         </div>
       </DialogContent>
