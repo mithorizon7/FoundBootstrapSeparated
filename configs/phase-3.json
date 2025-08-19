@@ -1,9 +1,56 @@
 {
   "phase": 3,
   "title": "Background Research: OpenAI Deep-Research",
-  "intro": "Compelling strategy needs **credible proof**. Investors & customers will ask \"Why should customers believe your claim?\"\n\nIn this phase you'll **commission** **OpenAI's Deep-Research engine** to compile a tightly-sourced dossier of peer-reviewed findings that validate your **core benefit** (e.g., play-driven learning, AI-assisted wellness).\n\nThe resulting `PDF` will:\n\n• **Fuel** the authority of your marketing copy, podcast, and voice agent\n• **Supply** headline statistics and inform the creation of other communications assets\n• **Provide** citations savvy stakeholders can audit",
+  "intro": "Compelling strategy needs **credible proof**. Investors & customers will ask \"Why should customers believe your claim?\"\n\nThis activity helps you **commission** **OpenAI's Deep-Research engine** to compile a tightly-sourced dossier of peer-reviewed findings that validate your **core benefit** (e.g., play-driven learning, AI-assisted wellness).\n\nThe resulting `PDF` will:\n\n• **Fuel** the authority of your marketing copy, podcast, and voice agent\n• **Supply** headline statistics and inform the creation of communications assets\n• **Provide** citations savvy stakeholders can audit",
   "estimatedTime": "15 minutes",
   "fields": [
+    {
+      "id": "company_name",
+      "label": "Company Name",
+      "type": "text",
+      "placeholder": "e.g., BrightBlocks",
+      "required": true,
+      "persist": true,
+      "help": "Your company or venture name",
+      "tooltip": "The name of your company or venture that will be referenced in the research context."
+    },
+    {
+      "id": "sector",
+      "label": "Sector / Product Domain",
+      "type": "text",
+      "placeholder": "e.g., STEM toys for ages 4-8",
+      "required": true,
+      "persist": true,
+      "help": "The market sector you're operating in",
+      "tooltip": "Define the specific market sector where your company operates. This helps focus the research on industry-relevant studies."
+    },
+    {
+      "id": "target_region",
+      "label": "Target Geographic Region",
+      "type": "select",
+      "options": [
+        { "value": "north_america", "label": "North America" },
+        { "value": "europe", "label": "Europe" },
+        { "value": "asia_pacific", "label": "Asia-Pacific" },
+        { "value": "latin_america", "label": "Latin America" },
+        { "value": "middle_east_africa", "label": "Middle East & Africa" },
+        { "value": "global", "label": "Global" }
+      ],
+      "required": true,
+      "persist": true,
+      "help": "Your primary geographic market",
+      "tooltip": "Select your primary target market region. This helps ensure the research includes geographically relevant studies and data."
+    },
+    {
+      "id": "core_benefit",
+      "label": "Core Benefit Keyword",
+      "type": "text",
+      "placeholder": "e.g., Guilt-Free Creative Screen Time",
+      "required": true,
+      "persist": true,
+      "help": "The key benefit your product/service delivers",
+      "tooltip": "Enter the central value proposition or benefit that your product delivers. This will be the focus of the evidence research to validate your claims."
+    },
     {
       "id": "evidence_horizon",
       "label": "Evidence Horizon",
@@ -46,7 +93,7 @@
       "tooltip": "Additional angles for the AI to explore beyond your core benefit. This helps create a more comprehensive evidence base and may uncover unexpected supporting research for your marketing materials."
     }
   ],
-  "promptTemplate": "**ROLE**\n\nYou are an expert research librarian curating peer-reviewed evidence for venture pitch decks, leveraging advanced research capabilities.\n\n**CONTEXT**\n\nWe are launching {{phase1.company_name}}, operating in {{phase1.sector}} within {{phase1.target_region}}.\nOur core benefit promise is **\"{{phase2.benefit_keyword}}.\"\n\n**EVIDENCE HORIZON**\n\nOnly cite studies published in the last {{evidence_horizon}} years. Prioritize high-quality research sources (e.g., reputable journals, systematic reviews, highly-cited studies).\n\n**TASK**\n\nCompile an evidence dossier validating the efficacy, mechanism, or established need related to **\"{{phase2.benefit_keyword}}\"**, with four clearly headed sections:\n\nA. **Key Findings**\n   * Five numbered findings **demonstrating key aspects (e.g., efficacy, mechanism, need)** related to `{{phase2.benefit_keyword}}` (≤ 60 words each).\n   * Each must cite at least one peer-reviewed source (APA in-line).\n   * Where readily identifiable, briefly note the study type (e.g., meta-analysis, RCT, survey) alongside the citation.\n\nB. **Marketing-Ready Statistics**\n   * Three statistics **quantifying the impact or relevance** of `{{phase2.benefit_keyword}}`, ideal for consumer-facing copy.\n   * Use {{statistic_style}} format.\n   * Include sample size, study source, **and study type if available**.\n   * **Preferably draw from or cite peer-reviewed research**; clearly state source type if non-peer-reviewed but highly credible (e.g., major governmental report).\n\nC. **Expert Pull-quotes**\n   * Two quotes (≤ 25 words) reflecting the `{{tone_preference}}` tone, **discussing the value or potential** of `{{phase2.benefit_keyword}}`.\n   * From recognized researchers **or leading practitioners (if sourcing for practitioner tone)**.\n   * Provide full attribution (name, institution, year). **Prioritize experts whose work appears in or cites peer-reviewed literature.**\n\nD. **Reference List**\n   * Full APA citations for all sources mentioned, alphabetized.\n\n**FORMAT**\n\nReturn as GitHub-flavored .docx file with H2 section headers.",
+  "promptTemplate": "**ROLE**\n\nYou are an expert research librarian curating peer-reviewed evidence for venture pitch decks, leveraging advanced research capabilities.\n\n**CONTEXT**\n\nWe are launching {{company_name}}, operating in {{sector}} within {{target_region}}.\nOur core benefit promise is **\"{{core_benefit}}.\"\n\n**EVIDENCE HORIZON**\n\nOnly cite studies published in the last {{evidence_horizon}} years. Prioritize high-quality research sources (e.g., reputable journals, systematic reviews, highly-cited studies).\n\n**TASK**\n\nCompile an evidence dossier validating the efficacy, mechanism, or established need related to **\"{{core_benefit}}\"**, with four clearly headed sections:\n\nA. **Key Findings**\n   * Five numbered findings **demonstrating key aspects (e.g., efficacy, mechanism, need)** related to `{{core_benefit}}` (≤ 60 words each).\n   * Each must cite at least one peer-reviewed source (APA in-line).\n   * Where readily identifiable, briefly note the study type (e.g., meta-analysis, RCT, survey) alongside the citation.\n\nB. **Marketing-Ready Statistics**\n   * Three statistics **quantifying the impact or relevance** of `{{core_benefit}}`, ideal for consumer-facing copy.\n   * Use {{statistic_style}} format.\n   * Include sample size, study source, **and study type if available**.\n   * **Preferably draw from or cite peer-reviewed research**; clearly state source type if non-peer-reviewed but highly credible (e.g., major governmental report).\n\nC. **Expert Pull-quotes**\n   * Two quotes (≤ 25 words) reflecting the `{{tone_preference}}` tone, **discussing the value or potential** of `{{core_benefit}}`.\n   * From recognized researchers **or leading practitioners (if sourcing for practitioner tone)**.\n   * Provide full attribution (name, institution, year). **Prioritize experts whose work appears in or cites peer-reviewed literature.**\n\nD. **Reference List**\n   * Full APA citations for all sources mentioned, alphabetized.\n\n**FORMAT**\n\nReturn as GitHub-flavored .docx file with H2 section headers.",
   "decisionBoxContent": {
     "title": "Pre-prompt Choices",
     "subtitle": "Before commissioning your deep research, make these three strategic decisions that will shape the quality and usefulness of your evidence.",
@@ -125,7 +172,7 @@
           },
           {
             "number": "2",
-            "action": "**Verify** that your company details from Phase 1 are correctly shown in the prompt preview"
+            "action": "**Verify** that your company details and core benefit are correctly shown in the prompt preview"
           },
           {
             "number": "3",
@@ -163,7 +210,7 @@
           },
           {
             "number": "5",
-            "action": "**Proceed immediately to Phase 4** - The AI research will run for **7-8 minutes**. You can **start Phase 4** now and return later to **download** your completed research"
+            "action": "**Continue with other activities** - The AI research will run for **7-8 minutes**. You can **work on other activities** now and return later to **download** your completed research"
           }
         ]
       }
@@ -193,7 +240,7 @@
           },
           {
             "number": "5",
-            "action": "**Save as Science_Evidence.pdf** for use in future phases"
+            "action": "**Save as Science_Evidence.pdf** to your project folder for reference and future marketing materials"
           },
           {
             "number": "6",
@@ -205,8 +252,8 @@
   ],
   "expectedOutput": {
     "fileCreated": "Science_Evidence.pdf",
-    "whyItMatters": "This research dossier will provide the credible foundation for all your marketing claims, investor presentations, and customer communications. The peer-reviewed evidence will differentiate your startup from competitors making unsupported claims.",
-    "nextSteps": "With Science_Evidence.pdf complete, you're ready to turn your research into creativity and development in Phase 4: Hero Offer Ideation."
+    "whyItMatters": "This research dossier provides the credible foundation for all your marketing claims, investor presentations, and customer communications. The peer-reviewed evidence differentiates your startup from competitors making unsupported claims.",
+    "nextSteps": "Review the evidence dossier with your team. Use the key findings, statistics, and expert quotes to strengthen your marketing materials, pitch decks, and customer communications with credible, peer-reviewed support."
   },
   "instructions": [
     "Enable Deep-Research feature in ChatGPT Enterprise",
