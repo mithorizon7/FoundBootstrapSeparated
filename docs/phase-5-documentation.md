@@ -1,0 +1,180 @@
+# Phase 5: Hero Concept Brief Generation
+
+**Estimated Time:** 15 minutes
+
+## Introduction
+
+This activity helps you create a comprehensive **Hero Concept Detailed Brief** for your chosen product or service concept. Whether you've generated concepts through previous analysis or have an existing idea, this process will develop a strategic blueprint.
+
+Your objectives are to:
+
+1. **Define** your chosen concept's key details and strategic positioning
+2. **Specify** target audience and brand identity elements
+3. **Generate** a comprehensive detailed brief that serves as your strategic foundation
+
+## Form Fields
+
+### Your Chosen Hero Concept Code-Name
+- **Label:** Your Chosen Hero Concept Code-Name
+- **Placeholder:** e.g., SMART PLAY BLOCKS
+- **Help:** Create or specify the code-name for your chosen hero concept
+- **Tooltip:** This becomes your product's working title throughout development. Use a memorable, descriptive name that captures the essence of your concept. This will be referenced consistently across all marketing materials and development phases.
+- **Required:** Yes
+
+### Primary Unmet Need it Addresses
+- **Label:** Primary Unmet Need it Addresses
+- **Placeholder:** The specific unmet need statement that your chosen Hero Concept most effectively solves
+- **Help:** Describe the primary customer problem or unmet need that your concept addresses
+- **Tooltip:** Defines the core problem your product solves. This drives all marketing messaging and helps the AI create focused briefs that address real customer pain points rather than generic benefits. Be specific about the customer pain point your concept uniquely addresses.
+- **Required:** Yes
+
+### Specific Target Audience Description
+- **Label:** Specific Target Audience Description
+- **Placeholder:** Parents of children aged 4-6 who prioritize screen-free, collaborative play and are looking to build their child's creative problem-solving skills.
+- **Help:** **1-2 sentence description** of the specific target audience for your chosen **Hero Concept** (make it so specific you could easily cast them in a movie)
+- **Tooltip:** Be highly specific about demographics, psychographics, and behaviors. This precision helps the AI generate marketing copy, features, and positioning that resonates with your exact customer rather than a generic audience.
+- **Required:** Yes
+
+### Price Tier for this Concept
+- **Label:** Price Tier for this Concept
+- **Placeholder:** e.g., Mid-Range
+- **Help:** State the **price tier** for this concept
+- **Tooltip:** Establishes pricing context for all marketing messaging and competitive positioning. This affects how the AI frames value propositions, feature priorities, and customer expectations in your brief.
+- **Required:** Yes
+
+### Brand Adjective 1
+- **Label:** Brand Adjective 1
+- **Placeholder:** e.g., Curious
+- **Help:** First adjective that describes your brand personality
+- **Tooltip:** Influences how AI designs your concept brief. 'Curious' leads to exploration-focused messaging, 'Trustworthy' emphasizes security and reliability. Choose words that reflect your target customer values.
+- **Required:** Yes
+
+### Brand Adjective 2
+- **Label:** Brand Adjective 2
+- **Placeholder:** e.g., Trustworthy
+- **Help:** Second adjective that describes your brand personality
+- **Tooltip:** Adds depth to your brand personality. Combining 'Trustworthy' with 'Playful' creates different messaging than 'Trustworthy' with 'Premium'. These guide content tone and positioning.
+- **Required:** Yes
+
+### Brand Adjective 3
+- **Label:** Brand Adjective 3
+- **Placeholder:** e.g., Playful
+- **Help:** Third adjective that describes your brand personality
+- **Tooltip:** Completes your brand personality trinity. These three adjectives work together to ensure your concept brief feels authentically aligned with your intended brand experience and customer expectations.
+- **Required:** Yes
+
+## Decision Box Content
+
+### Title: Define Your Hero Concept
+**Subtitle:** Specify the strategic details for your chosen product or service concept to generate a comprehensive brief.
+
+#### Section 1: Concept Definition
+
+**Your Task**
+Define your **Hero Concept** with specific details including its code-name, the primary customer problem it solves, and your target audience. Whether you've developed concepts through previous analysis or have an existing idea, this process will create a strategic foundation.
+
+#### Section 2: Strategic Details
+
+**Target Audience Specificity**
+Make your target audience description so specific you could easily cast them in a movie. For instance: "Parents of children aged 4-6 who prioritize screen-free, collaborative play and are looking to build their child's creative problem-solving skills."
+
+**Brand Personality**
+Define three brand adjectives that will guide the tone, messaging, and creative direction of your concept brief. These should reflect how you want customers to perceive your brand.
+
+**Complete Form Fields**
+**Fill out all the fields** in the form below with the specific details for your Hero Concept to ensure the AI generates a comprehensive, strategically aligned brief.
+
+### Action: Complete Strategic Input
+- **Define** your concept's core details and strategic positioning
+- **Specify** target audience with precision and clarity
+- **Choose** brand adjectives that reflect your desired customer perception
+
+## Step-by-Step Flow
+
+### Step 1: Define Your Hero Concept
+**Action:** As a team, **finalize** the details of your **Hero Concept** - its code-name, target audience, and the specific customer problem it solves.
+**Time:** 8 minutes
+
+### Step 2: Complete Strategic Form
+**Action:** **Fill out** all the fields above with your Hero Concept details, including brand adjectives that will guide tone and messaging.
+**Time:** 5 minutes
+
+### Step 3: Setup ChatGPT
+**Action:** **Open** a new ChatGPT chat. If you have supporting documents (concept analyses, market research), **upload** them to enhance the brief quality.
+
+**Guidance:** Consider using **o3 model** for superior analysis quality - takes 1-2 minutes but provides comprehensive output.
+**Time:** 1 minute
+
+### Step 4: Generate the Detailed Brief
+**Action:** **Copy** the Hero Concept prompt from the preview section, which now includes all your strategic decisions, and **submit** it to ChatGPT.
+**Time:** 2 minutes
+
+### Step 5: Save Your Strategic Blueprint
+**Action:** **Review** the AI-generated **Hero Concept Detailed Brief** and **save** it as `Hero_Concept_Detailed_Brief.docx`.
+
+**Guidance:** **Verify** that all your strategic decisions are properly reflected and the brief provides actionable guidance for development and marketing.
+**Time:** 4 minutes
+
+## Expected Output
+
+**File Created:** Hero_Concept_Detailed_Brief.docx
+
+**Why It Matters:** This comprehensive brief serves as your **strategic foundation and creative blueprint**. It provides clear direction for brand messaging, creative asset development, content creation, and marketing positioning, ensuring all future efforts are aligned with your core concept.
+
+**Next Steps:** Use this detailed brief to guide creative asset production, content development, and marketing strategy. The strategic insights and creative direction will inform website copy, visual design, and customer communication approaches.
+
+## AI Prompt Template
+
+**Your Role & Mission: Lead Product & Marketing Strategist**
+
+We need you to step into the role of our Lead Product & Marketing Strategist. Your mission is to synthesize our team's core strategic decisions for our chosen Hero Concept to create a comprehensive and highly actionable 'Hero Concept Detailed Brief'.
+
+**The Critical Importance of This Brief:**
+
+This brief is not just a summary; it's a foundational blueprint. The insights, messaging, and creative starters you generate will directly fuel and shape all our subsequent development and marketing efforts, including creative asset production, content creation, website copy, and go-to-market messaging.
+
+Therefore, we are relying on your expertise to make this brief exceptionally insightful, strategically aligned with our brand, and packed with practical, concrete ideas and content starters that will be immediately usable by our team. Every section of your output should be crafted with these critical downstream applications in mind, maximizing its utility and impact.
+
+**Our Team's Key Strategic Decisions for the Chosen Hero Concept:**
+
+1. Our Chosen Hero Concept Code-Name is: {{chosen_concept_code_name}}
+2. The Primary Unmet Need this Concept Addresses is: {{chosen_concept_unmet_need}}
+3. Our Specific Target Audience for this Concept is: {{concept_target_audience}}
+4. Our Company's Brand Adjectives are: {{brand_adj_1}}, {{brand_adj_2}}, {{brand_adj_3}}
+5. The Price Tier for this Concept is: {{concept_price_tier}}
+
+**Your Detailed Task:**
+
+Using our team's strategic decisions above as primary inputs, construct the 'Hero Concept Detailed Brief' Document with the following clearly headed sections:
+
+**1. Hero Concept Deep Dive** (for {{chosen_concept_code_name}}):
+• Code-name: {{chosen_concept_code_name}}
+• Value Proposition: Create a compelling value proposition based on the unmet need and target audience
+• Detailed Description: Expand into a compelling paragraph (approx. 75-100 words). Describe the concept, how it works/is experienced, and primary user benefits for the {{concept_target_audience}}.
+
+**2. Problem-Solution Fit & Target Impact:**
+• Unmet Need Addressed: {{chosen_concept_unmet_need}}
+• Our Solution Explained: In 2-3 sentences, articulate how {{chosen_concept_code_name}} effectively solves the {{chosen_concept_unmet_need}} for the {{concept_target_audience}}.
+• Target Impact: Describe the specific positive impact this solution will have on the target audience's life or work.
+
+**3. Brand Identity & Desired User Perception:**
+• Embodying Our Brand ({{brand_adj_1}}, {{brand_adj_2}}, {{brand_adj_3}}): Explain (1-2 sentences) how {{chosen_concept_code_name}} reflects our brand adjectives.
+• Core Customer Feeling/Takeaway: What single most important feeling or key takeaway should the {{concept_target_audience}} have from {{chosen_concept_code_name}}?
+
+**4. Creative Inspiration for Media Production:**
+• Visual Identity Keywords & Concepts: Suggest 3-5 keywords and 1-2 core visual concepts for {{chosen_concept_code_name}} aligning with {{brand_adj_1}}, {{brand_adj_2}}, {{brand_adj_3}} and the {{concept_target_audience}}.
+• Audio/Music Mood & Style: Describe an ideal mood and 1-2 musical styles for {{chosen_concept_code_name}}, reflecting {{brand_adj_1}}, {{brand_adj_2}}, {{brand_adj_3}}.
+• Key Message for a Brief Explainer: What is the single most compelling message about {{chosen_concept_code_name}} that should be communicated in a 30-second explainer?
+
+**5. Core Content Elements for Website & Marketing:**
+• Compelling Product/Service Page Headline: Propose a headline for {{chosen_concept_code_name}}.
+• Engaging Elevator Pitch (2-3 sentences): Craft a pitch for {{chosen_concept_code_name}} based on the value proposition and target audience needs.
+• Benefit-Driven Feature List (3-5 Bullets): Articulate the primary benefits for the {{concept_target_audience}} based on the concept's core value.
+
+**6. Anticipated Customer Questions & Talking Points:**
+• Based on {{chosen_concept_code_name}}, {{chosen_concept_unmet_need}}, {{concept_target_audience}}, and {{concept_price_tier}}, generate 3-4 insightful FAQs.
+• For each FAQ, provide key talking points or a concise answer (1-2 sentences) aligned with {{brand_adj_1}}, {{brand_adj_2}}, {{brand_adj_3}}.
+
+**OUTPUT FORMAT:**
+Document (.docx) with all sections clearly headed and formatted for easy reference.
+Title the document: "Hero_Concept_Detailed_Brief.docx"
