@@ -742,19 +742,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
             </CardContent>
           </Card>
 
-          {/* Phase Progress Card */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Overall Progress</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="flex items-center justify-between text-sm mb-2">
-                <span className="text-gray-600">Phases completed</span>
-                <span className="font-medium">{config.phase - 1} of {PHASE_CONFIG.TOTAL_PHASES}</span>
-              </div>
-              <Progress value={((config.phase - 1) / PHASE_CONFIG.TOTAL_PHASES) * 100} />
-            </CardContent>
-          </Card>
+
         </div>
 
         {/* Right Column: Prompt Preview */}

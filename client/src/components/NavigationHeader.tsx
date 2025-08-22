@@ -193,7 +193,7 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
                   }`}>
                     {(() => {
                       const PhaseIcon = getPhaseIcon(phase.number);
-                      return PhaseIcon ? <PhaseIcon className="w-3 h-3" /> : phase.number;
+                      return PhaseIcon ? <PhaseIcon className="w-3 h-3" /> : <span className="text-xs font-bold">{phase.number}</span>;
                     })()}
                   </span>
                   <span className="hidden lg:inline whitespace-nowrap">{phase.title}</span>
@@ -243,7 +243,7 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
                         }`}>
                           {(() => {
                             const PhaseIcon = getPhaseIcon(phase.number);
-                            return PhaseIcon ? <PhaseIcon className="w-3 h-3" /> : phase.number;
+                            return PhaseIcon ? <PhaseIcon className="w-3 h-3" /> : <span className="text-xs font-bold">{phase.number}</span>;
                           })()}
                         </span>
                         <span>{phase.title}</span>
@@ -305,7 +305,7 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
                         }`}>
                           {(() => {
                             const PhaseIcon = getPhaseIcon(phase.number);
-                            return PhaseIcon ? <PhaseIcon className="w-3 h-3" /> : phase.number;
+                            return PhaseIcon ? <PhaseIcon className="w-3 h-3" /> : <span className="text-xs font-bold">{phase.number}</span>;
                           })()}
                         </span>
                         <span>{phase.title}</span>
