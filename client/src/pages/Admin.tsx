@@ -469,7 +469,7 @@ export default function Admin() {
                           <h4 className="font-medium text-blue-900 mb-4">📋 Complete Administration Guide</h4>
                           <div className="space-y-4">
                             <div>
-                              <h5 className="font-semibold text-blue-900 mb-2">Phase 1-7: Participant Progress Monitoring</h5>
+                              <h5 className="font-semibold text-blue-900 mb-2">Activities 1-7: Participant Progress Monitoring</h5>
                               <div className="space-y-2">
                                 <div className="flex items-start space-x-3">
                                   <span className="bg-blue-200 text-blue-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">1</span>
@@ -496,7 +496,7 @@ export default function Admin() {
                             </div>
 
                             <div className="border-t pt-4">
-                              <h5 className="font-semibold text-green-900 mb-2">Phase 8: Showcase & Voting Phase</h5>
+                              <h5 className="font-semibold text-green-900 mb-2">Website Builder: Showcase & Voting Activity</h5>
                               <div className="space-y-2">
                                 <div className="flex items-start space-x-3">
                                   <span className="bg-green-200 text-green-800 w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold">4</span>
@@ -545,7 +545,7 @@ export default function Admin() {
                       <div className="bg-gray-100 p-4 rounded-lg">
                         <h4 className="font-medium text-gray-900 mb-2">🎯 Best Practices</h4>
                         <ul className="text-sm text-gray-700 space-y-1">
-                          <li>• Create cohorts when teams reach Phase 4-5 for optimal timing</li>
+                          <li>• Create cohorts when teams reach activities 4-5 for optimal timing</li>
                           <li>• Use descriptive cohort names and tags for easy identification</li>
                           <li>• Enable submissions before opening voting to ensure all teams participate</li>
                           <li>• Keep results hidden until you're ready for the celebration reveal</li>
@@ -906,7 +906,7 @@ export default function Admin() {
                             </DialogTrigger>
                           </TooltipTrigger>
                           <TooltipContent>
-                            <p>Create a new cohort to group teams for Phase 8 showcase and voting. Best created when teams reach Phase 4-5 for optimal timing.</p>
+                            <p>Create a new cohort to group teams for Website Builder showcase and voting. Best created when teams reach activities 4-5 for optimal timing.</p>
                           </TooltipContent>
                         </Tooltip>
                         <DialogContent>

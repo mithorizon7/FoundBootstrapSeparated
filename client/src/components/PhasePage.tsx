@@ -137,7 +137,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
-  // Check if current phase is the final phase (Phase 8)
+  // Check if current activity is the final activity (Website Builder)
   const isFinalPhase = config.phase === PHASE_CONFIG.TOTAL_PHASES;
 
   // Fetch team data to check cohort membership
@@ -431,14 +431,14 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
           <CardHeader className="pb-6">
             <CardTitle className="flex items-center space-x-3 text-neutral-800 font-bold tracking-tight text-xl md:text-2xl mb-3">
               <Vote className="w-6 h-6 text-primary" />
-              <span>Phase {config.phase} Decision Box: {config.decisionBoxContent.title}</span>
+              <span>Activity Decision Box: {config.decisionBoxContent.title}</span>
             </CardTitle>
             <p className="text-lg text-neutral-600 font-medium leading-relaxed">
               {config.decisionBoxContent.subtitle}
             </p>
           </CardHeader>
           <CardContent className="space-y-6">
-            {/* Phase 4 PDF Download Button */}
+            {/* Hero Offer Ideation PDF Download Button */}
             {config.phase === 4 && (
               <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-accent/5 rounded-xl p-6 sm:p-8 border-2 border-primary/30 shadow-lg hover:shadow-xl transition-all duration-300">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
@@ -669,7 +669,7 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
             <CardContent>
               <div className="space-y-6">
                 {config.fields.map((field) => {
-                  // Use SelectionCard for visual_style and voice_persona in Phase 6
+                  // Use SelectionCard for visual_style and voice_persona in Media Factory
                   if (config.phase === 6 && (field.id === 'visual_style' || field.id === 'voice_persona')) {
                     return (
                       <div key={field.id} className="space-y-4">

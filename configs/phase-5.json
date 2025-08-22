@@ -12,7 +12,7 @@
       "required": true,
       "persist": true,
       "help": "Create or specify the code-name for your chosen hero concept",
-      "tooltip": "This becomes your product's working title throughout development. Use a memorable, descriptive name that captures the essence of your concept. This will be referenced consistently across all marketing materials and development phases."
+      "tooltip": "This becomes your product's working title throughout development. Use a memorable, descriptive name that captures the essence of your concept. This will be referenced consistently across all marketing materials and development activities."
     },
     {
       "id": "chosen_concept_unmet_need",

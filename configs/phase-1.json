@@ -232,7 +232,7 @@
     },
     {
       "step": 6,
-      "action": "**Export Market Intelligence** - Save research for future phases",
+      "action": "**Export Market Intelligence** - Save research for future activities",
       "time": "30 seconds",
       "details": {
         "title": "Preserve Market Research Assets",
@@ -251,7 +251,7 @@
           },
           {
             "number": "4",
-            "action": "**Download as PDF** - this becomes your base truth document for all future phases"
+            "action": "**Download as PDF** - this becomes your base truth document for all future activities"
           }
         ]
       }

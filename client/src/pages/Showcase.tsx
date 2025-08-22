@@ -229,7 +229,7 @@ export default function Showcase() {
                   <span className="font-medium text-orange-900">Submit Required to Vote</span>
                 </div>
                 <p className="text-orange-700 mt-2">
-                  You must submit your team's website before you can vote for other teams. Complete your Phase 8 submission first.
+                  You must submit your team's website before you can vote for other teams. Complete your Website Builder submission first.
                 </p>
               </div>
             )
@@ -242,7 +242,7 @@ export default function Showcase() {
                 <span className="font-medium text-red-900">Team Session Required</span>
               </div>
               <p className="text-red-700 mt-2">
-                You need to be logged in as a team to vote. Please go back to your team's Phase 8 page and use the "Go to Showcase & Vote" button to establish a secure session.
+                You need to be logged in as a team to vote. Please go back to your team's Website Builder activity and use the "Go to Showcase & Vote" button to establish a secure session.
               </p>
             </div>
           )}
@@ -282,7 +282,7 @@ export default function Showcase() {
                 You must submit your team's website before you can view other team submissions. This ensures fair competition and prevents idea copying.
               </p>
               <p className="text-sm text-gray-500">
-                Complete your Phase 8 submission, then return here to see all submissions and vote.
+                Complete your Website Builder submission, then return here to see all submissions and vote.
               </p>
             </CardContent>
           </Card>
