@@ -432,31 +432,42 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
           <CardContent className="space-y-6">
             {/* Phase 4 PDF Download Button */}
             {config.phase === 4 && (
-              <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg p-6 border-2 border-primary/20 shadow-md">
-                <div className="flex items-center justify-between">
+              <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg p-4 sm:p-6 border-2 border-primary/20 shadow-md">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                   <div className="flex-1">
                     <h3 className="text-lg font-bold text-neutral-800 mb-2 flex items-center space-x-2">
                       <FileText className="w-5 h-5 text-primary" />
                       <span>U.S. STEM Toys Market Analysis</span>
                     </h3>
-                    <p className="text-sm text-neutral-600 mb-4">
+                    <p className="text-sm text-neutral-600 mb-4 sm:mb-0">
                       Download this market research PDF and upload it to ChatGPT for AI-powered analysis.
                     </p>
                   </div>
                   <Button 
                     onClick={() => {
-                      const link = document.createElement('a');
-                      link.href = '/US_STEM_Toys_Market_Analysis.pdf';
-                      link.download = 'US_STEM_Toys_Market_Analysis.pdf';
-                      document.body.appendChild(link);
-                      link.click();
-                      document.body.removeChild(link);
-                      toast({
-                        title: "Download Started",
-                        description: "The STEM toys market analysis PDF is downloading. Upload it to ChatGPT in Step 2.",
-                      });
+                      try {
+                        const link = document.createElement('a');
+                        link.href = '/US_STEM_Toys_Market_Analysis.pdf';
+                        link.download = 'US_STEM_Toys_Market_Analysis.pdf';
+                        link.setAttribute('aria-label', 'Download STEM toys market analysis PDF');
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        toast({
+                          title: "Download Started",
+                          description: "The STEM toys market analysis PDF is downloading. Upload it to ChatGPT in Step 2.",
+                        });
+                      } catch (error) {
+                        console.error('Download failed:', error);
+                        toast({
+                          title: "Download Failed",
+                          description: "Unable to download the PDF. Please try refreshing the page.",
+                          variant: "destructive",
+                        });
+                      }
                     }}
-                    className="bg-primary hover:bg-primary/90 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center space-x-2"
+                    className="bg-primary hover:bg-primary/90 text-white font-semibold px-4 py-3 sm:px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center space-x-2 min-w-fit"
+                    aria-label="Download STEM toys market analysis PDF"
                   >
                     <Download className="w-5 h-5" />
                     <span>Download PDF</span>
