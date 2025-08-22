@@ -11,7 +11,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Field } from "./Field";
 import { PromptPreview } from "./PromptPreview";
 import { SelectionCard } from "./SelectionCard";
-import { ChevronDown, Info, Vote, Copy, CheckCircle, Clock, FileText, Target, ArrowRight, Globe, Upload } from "lucide-react";
+import { ChevronDown, Info, Vote, Copy, CheckCircle, Clock, FileText, Target, ArrowRight, Globe, Upload, Download } from "lucide-react";
 import { savePhaseData, getPhaseData, saveToLocalStorage, getFromLocalStorage, getAllLocalStorageData, getAllPhaseDataForTeam, updateTeamPhase } from "@/lib/db";
 import { saveWorkspaceMeta } from "@/lib/storageUtils";
 import { useLocation } from "wouter";
@@ -430,6 +430,41 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
             </p>
           </CardHeader>
           <CardContent className="space-y-6">
+            {/* Phase 4 PDF Download Button */}
+            {config.phase === 4 && (
+              <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg p-6 border-2 border-primary/20 shadow-md">
+                <div className="flex items-center justify-between">
+                  <div className="flex-1">
+                    <h3 className="text-lg font-bold text-neutral-800 mb-2 flex items-center space-x-2">
+                      <FileText className="w-5 h-5 text-primary" />
+                      <span>U.S. STEM Toys Market Analysis</span>
+                    </h3>
+                    <p className="text-sm text-neutral-600 mb-4">
+                      Download this market research PDF and upload it to ChatGPT for AI-powered analysis.
+                    </p>
+                  </div>
+                  <Button 
+                    onClick={() => {
+                      const link = document.createElement('a');
+                      link.href = '/US_STEM_Toys_Market_Analysis.pdf';
+                      link.download = 'US_STEM_Toys_Market_Analysis.pdf';
+                      document.body.appendChild(link);
+                      link.click();
+                      document.body.removeChild(link);
+                      toast({
+                        title: "Download Started",
+                        description: "The STEM toys market analysis PDF is downloading. Upload it to ChatGPT in Step 2.",
+                      });
+                    }}
+                    className="bg-primary hover:bg-primary/90 text-white font-semibold px-6 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center space-x-2"
+                  >
+                    <Download className="w-5 h-5" />
+                    <span>Download PDF</span>
+                  </Button>
+                </div>
+              </div>
+            )}
+            
             {config.decisionBoxContent.sections.map((section, index) => (
               <div key={index} className="bg-white rounded-lg p-8 border border-neutral-300 shadow-sm hover:shadow-md transition-all duration-200 ease-out hover:-translate-y-px">
                 <h3 className="text-xl md:text-2xl font-bold text-neutral-800 mb-6 flex items-center space-x-4">
