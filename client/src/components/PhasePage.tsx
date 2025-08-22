@@ -22,7 +22,7 @@ import type { Team, Cohort } from "@shared/schema";
 import { parseErrorResponse } from "@/lib/errorUtils";
 import { buildUrlWithParams } from "@/lib/urlUtils";
 
-// Helper function to properly parse content with bullet points
+// Enhanced helper function for rich typography and visual hierarchy
 function parseContentWithBullets(content: string): string {
   // Split content into lines
   const lines = content.split('\n');
@@ -32,27 +32,32 @@ function parseContentWithBullets(content: string): string {
     const trimmedLine = line.trim();
     
     if (trimmedLine.startsWith('• ')) {
-      // This is a bullet point line
+      // Enhanced bullet point styling with better hierarchy
       const bulletContent = trimmedLine.substring(2); // Remove '• '
       const processedBulletContent = bulletContent
-        .replace(/\*\*(.*?)\*\*/g, '<strong class="text-neutral-800 font-bold">$1</strong>')
-        .replace(/\*(.*?)\*/g, '<em class="text-primary font-semibold">$1</em>')
-        .replace(/`([^`]+)`/g, '<code class="bg-neutral-100 text-neutral-800 px-2 py-1 rounded text-sm font-mono border">$1</code>');
+        .replace(/\*\*(.*?)\*\*/g, '<strong class="text-neutral-900 font-extrabold tracking-tight">$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em class="text-primary-700 font-bold italic">$1</em>')
+        .replace(/`([^`]+)`/g, '<code class="bg-primary-50 text-primary-800 px-2 py-1 rounded text-sm font-mono border border-primary-200 font-semibold">$1</code>');
       
       processedLines.push(
-        `<div class="flex items-start gap-3 my-2"><span class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></span><span>${processedBulletContent}</span></div>`
+        `<div class="flex items-start gap-4 my-3 group"><span class="w-2.5 h-2.5 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full mt-2.5 flex-shrink-0 shadow-sm group-hover:scale-110 transition-transform duration-200"></span><span class="text-neutral-700 font-medium leading-relaxed">${processedBulletContent}</span></div>`
       );
     } else if (trimmedLine === '') {
-      // Empty line - add spacing
-      processedLines.push('<div class="my-4"></div>');
+      // Enhanced spacing for better visual breathing room
+      processedLines.push('<div class="my-5"></div>');
     } else {
-      // Regular line
+      // Enhanced regular text with better typography hierarchy
       const processedContent = trimmedLine
-        .replace(/\*\*(.*?)\*\*/g, '<strong class="text-neutral-800 font-bold">$1</strong>')
-        .replace(/\*(.*?)\*/g, '<em class="text-primary font-semibold">$1</em>')
-        .replace(/`([^`]+)`/g, '<code class="bg-neutral-100 text-neutral-800 px-2 py-1 rounded text-sm font-mono border">$1</code>');
+        .replace(/\*\*(.*?)\*\*/g, '<strong class="text-neutral-900 font-extrabold tracking-tight">$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em class="text-primary-700 font-bold italic">$1</em>')
+        .replace(/`([^`]+)`/g, '<code class="bg-primary-50 text-primary-800 px-2 py-1 rounded text-sm font-mono border border-primary-200 font-semibold">$1</code>');
       
-      processedLines.push(`<p class="my-2">${processedContent}</p>`);
+      // Check if this looks like a heading (short line with strong formatting)
+      if (processedContent.includes('<strong') && trimmedLine.length < 80 && !processedContent.includes('.')) {
+        processedLines.push(`<h3 class="text-xl font-extrabold text-neutral-900 mt-6 mb-3 tracking-tight leading-tight">${processedContent}</h3>`);
+      } else {
+        processedLines.push(`<p class="my-3 text-neutral-700 font-medium leading-relaxed text-base">${processedContent}</p>`);
+      }
     }
   }
   
@@ -410,8 +415,8 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
           {/* Decorative Element - replacing progress bar */}
           <div className="w-full h-2 bg-gradient-to-r from-primary/20 via-primary/40 to-primary/20 rounded-full shadow-sm"></div>
           
-          <div className="mt-6">
-            <div className="text-lg md:text-xl text-neutral-700 leading-relaxed font-medium max-w-5xl">
+          <div className="mt-8">
+            <div className="text-lg md:text-xl text-neutral-800 leading-relaxed max-w-5xl">
               <div dangerouslySetInnerHTML={{ 
                 __html: parseContentWithBullets(config.intro)
               }} />
@@ -435,15 +440,17 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
           <CardContent className="space-y-6">
             {/* Phase 4 PDF Download Button */}
             {config.phase === 4 && (
-              <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg p-4 sm:p-6 border-2 border-primary/20 shadow-md">
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="bg-gradient-to-r from-primary/10 via-primary/5 to-accent/5 rounded-xl p-6 sm:p-8 border-2 border-primary/30 shadow-lg hover:shadow-xl transition-all duration-300">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
                   <div className="flex-1">
-                    <h3 className="text-lg font-bold text-neutral-800 mb-2 flex items-center space-x-2">
-                      <FileText className="w-5 h-5 text-primary" />
+                    <h3 className="text-xl font-extrabold text-neutral-900 mb-3 flex items-center space-x-3 tracking-tight">
+                      <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center shadow-md">
+                        <FileText className="w-5 h-5 text-white" />
+                      </div>
                       <span>U.S. STEM Toys Market Analysis</span>
                     </h3>
-                    <p className="text-sm text-neutral-600 mb-4 sm:mb-0">
-                      Download this market research PDF and upload it to ChatGPT for AI-powered analysis.
+                    <p className="text-base text-neutral-700 font-medium leading-relaxed mb-4 sm:mb-0">
+                      Download this <em className="text-primary-700 font-bold">real market research PDF</em> and upload it to ChatGPT for <strong className="text-neutral-900 font-extrabold">AI-powered analysis</strong>.
                     </p>
                   </div>
                   <Button 
@@ -469,11 +476,11 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                         });
                       }
                     }}
-                    className="bg-primary hover:bg-primary/90 text-white font-semibold px-4 py-3 sm:px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-200 flex items-center space-x-2 min-w-fit"
+                    className="bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white font-bold px-6 py-4 sm:px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center space-x-3 min-w-fit group transform hover:scale-105"
                     aria-label="Download STEM toys market analysis PDF"
                   >
-                    <Download className="w-5 h-5" />
-                    <span>Download PDF</span>
+                    <Download className="w-6 h-6 group-hover:scale-110 transition-transform duration-200" />
+                    <span className="text-lg font-extrabold tracking-tight">Download PDF</span>
                   </Button>
                 </div>
               </div>
@@ -481,18 +488,18 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
             
             {config.decisionBoxContent.sections.map((section, index) => (
               <div key={index} className="bg-white rounded-lg p-8 border border-neutral-300 shadow-sm hover:shadow-md transition-all duration-200 ease-out hover:-translate-y-px">
-                <h3 className="text-xl md:text-2xl font-bold text-neutral-800 mb-6 flex items-center space-x-4">
-                  <div className="min-w-10 h-10 px-3 bg-primary rounded-full flex items-center justify-center text-white font-bold text-base whitespace-nowrap shadow-md">
+                <h3 className="text-xl md:text-2xl font-extrabold text-neutral-900 mb-6 flex items-center space-x-4 tracking-tight">
+                  <div className="min-w-12 h-12 px-3 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center text-white font-extrabold text-lg whitespace-nowrap shadow-lg">
                     {section.number}
                   </div>
-                  <span>{section.title}</span>
+                  <span className="leading-tight">{section.title}</span>
                 </h3>
                 <div className="space-y-6">
                   {section.items.map((item, itemIndex) => (
-                    <div key={itemIndex} className="border-l-4 border-primary/30 pl-6 py-2">
-                      <h4 className="font-bold text-lg text-neutral-800 mb-3">{item.label}:</h4>
+                    <div key={itemIndex} className="border-l-4 border-gradient-to-b from-primary-400 to-primary-600 pl-8 py-3 hover:bg-gradient-to-r hover:from-primary-50/50 hover:to-transparent transition-all duration-300 rounded-r-lg">
+                      <h4 className="font-extrabold text-lg text-neutral-900 mb-4 tracking-tight">{item.label}:</h4>
                       <div 
-                        className="text-base text-neutral-700 leading-relaxed font-medium"
+                        className="text-base text-neutral-700 leading-relaxed"
                         dangerouslySetInnerHTML={{ 
                           __html: parseContentWithBullets(item.content)
                         }} 
@@ -504,23 +511,25 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
             ))}
             
             {/* Action Section */}
-            <div className="bg-primary/10 rounded-lg p-6 border border-primary/30">
-              <h3 className="text-lg font-semibold text-primary mb-3 flex items-center space-x-2">
-                <ArrowRight className="w-5 h-5" />
+            <div className="bg-gradient-to-r from-primary/15 to-accent/10 rounded-xl p-8 border-2 border-primary/40 shadow-lg">
+              <h3 className="text-xl font-extrabold text-primary-800 mb-4 flex items-center space-x-3 tracking-tight">
+                <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center shadow-md">
+                  <ArrowRight className="w-5 h-5 text-white" />
+                </div>
                 <span>{config.decisionBoxContent.action.title}</span>
               </h3>
-              <p className="text-neutral-800 mb-3 font-medium">Once decided, write down:</p>
+              <p className="text-neutral-800 mb-5 font-bold text-lg">Once decided, write down:</p>
               <div className="space-y-3">
                 {config.decisionBoxContent.action.items.map((item, index) => (
-                  <div key={index} className="flex items-start gap-3">
-                    <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                  <div key={index} className="flex items-start gap-4 group">
+                    <div className="w-3 h-3 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full mt-2 flex-shrink-0 shadow-sm group-hover:scale-110 transition-transform duration-200"></div>
                     <div 
-                      className="text-neutral-700 font-medium leading-relaxed"
+                      className="text-neutral-700 font-semibold leading-relaxed text-base"
                       dangerouslySetInnerHTML={{ 
                         __html: item
-                          .replace(/\*\*(.*?)\*\*/g, '<strong class="text-neutral-800 font-semibold">$1</strong>')
-                          .replace(/\*(.*?)\*/g, '<em class="text-primary font-medium">$1</em>')
-                          .replace(/\{\{(.*?)\}\}/g, '<strong class="text-neutral-800 font-semibold">$1</strong>') 
+                          .replace(/\*\*(.*?)\*\*/g, '<strong class="text-neutral-900 font-extrabold tracking-tight">$1</strong>')
+                          .replace(/\*(.*?)\*/g, '<em class="text-primary-700 font-bold italic">$1</em>')
+                          .replace(/\{\{(.*?)\}\}/g, '<strong class="text-neutral-900 font-extrabold">$1</strong>') 
                       }} 
                     />
                   </div>
@@ -560,11 +569,11 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                             </div>
                             <div className="flex-1">
                               <div 
-                                className="text-base md:text-lg text-neutral-700 font-medium leading-relaxed group-hover:text-neutral-800 transition-colors duration-200"
+                                className="text-base md:text-lg text-neutral-700 font-semibold leading-relaxed group-hover:text-neutral-800 transition-colors duration-200"
                                 dangerouslySetInnerHTML={{
                                   __html: step.action
-                                    .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-bold text-neutral-800">$1</strong>')
-                                    .replace(/\*([^*]+)\*/g, '<em class="font-semibold text-primary">$1</em>')
+                                    .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-extrabold text-neutral-900 tracking-tight">$1</strong>')
+                                    .replace(/\*([^*]+)\*/g, '<em class="font-bold text-primary-700 italic">$1</em>')
                                 }}
                               />
                             </div>
@@ -607,25 +616,25 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
                       <div className="p-6">
                         <div className="flex items-start space-x-4">
                           <div className="flex-shrink-0">
-                            <div className="w-10 h-10 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center font-bold text-lg text-white shadow-md">
+                            <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center font-extrabold text-lg text-white shadow-lg">
                               {step.step}
                             </div>
                           </div>
                           <div className="flex-1">
                             <div 
-                              className="text-neutral-700 font-medium leading-relaxed group-hover:text-neutral-800 transition-colors duration-200"
+                              className="text-base md:text-lg text-neutral-700 font-semibold leading-relaxed mb-3 group-hover:text-neutral-800 transition-colors duration-200"
                               dangerouslySetInnerHTML={{
                                 __html: step.action
-                                  .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-semibold text-neutral-800">$1</strong>')
-                                  .replace(/\*([^*]+)\*/g, '<em class="italic text-primary font-medium">$1</em>')
+                                  .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-extrabold text-neutral-900 tracking-tight">$1</strong>')
+                                  .replace(/\*([^*]+)\*/g, '<em class="font-bold text-primary-700 italic">$1</em>')
                                   .replace(/(https?:\/\/[^\s\)]+)/g, '<a href="$1" target="_blank" rel="noopener noreferrer" class="text-primary hover:text-primary-600 underline font-medium">$1</a>')
                               }}
                             />
                           </div>
                           {step.time && (
-                            <div className="flex-shrink-0 flex items-center space-x-1 text-sm text-neutral-500">
-                              <Clock className="w-4 h-4" />
-                              <span className="font-medium">{step.time}</span>
+                            <div className="flex-shrink-0 flex items-center space-x-2">
+                              <Clock className="w-4 h-4 text-primary-600" />
+                              <span className="text-sm text-primary-700 font-bold tracking-wide">{step.time}</span>
                             </div>
                           )}
                         </div>
