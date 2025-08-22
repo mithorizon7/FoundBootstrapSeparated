@@ -1,0 +1,21 @@
+Welcome to Phase 4: Hero Offer Ideation. In this 15-minute sprint you’ll use ChatGPT (free) to turn a real market context into three sharply distinct product/service concepts, then see how an AI can score them against simple criteria and recommend a direction. You don’t need to read the market report yourself—you’ll upload it to ChatGPT so the model can ground its thinking while you focus on clear inputs and good decisions.
+
+The scenario you’re working in: STEM Toys for Ages 4–8
+
+You’re designing for families with children ages 4–8 in the U.S. STEM toys space. Think building sets, simple robotics, math & science kits, cause-and-effect toys, and playful learning accessories
+
+Phase 4 · Hero Offer Ideation — STEM Toys (Ages 4–8)
+
+You’re stepping into the roles of a brand-new STEM toy company’s core team (product, design, operations, and marketing hats). Your job in the next 15 minutes is to use ChatGPT (free) to turn a real market context into three sharply distinct “hero offer” concepts—flagship ideas that could define the brand—then see how AI scores and recommends a direction using simple decision lenses.
+
+The scenario (what market you’re designing for)
+
+You’re operating in the U.S. STEM toys market for children ages 4–8: building sets, beginner robotics, math & science kits, cause-and-effect play, and learning accessories. Buyers want hands-on learning that’s clearly explained, low-fuss setup (under 5 minutes, mess-light), and durable, reusable value at the price point they choose. Competition is crowded (including screens), so new offers need a clear “why us”. Safety and inclusion for young children are non-negotiable.
+
+Download & Upload: Get the U.S. STEM Toys (Ages 4–8) Market Analysis PDF from this page. You’ll upload it to ChatGPT so the AI can ground its suggestions; you don’t need to read the report yourself.
+
+Market Unmet-Needs Brief (read this, then choose your focus)
+
+Parents of 4–8-year-olds want hands-on, screen-light play that clearly builds early math and science skills—they’re skeptical of vague “STEM” claims and look for plain-language learning outcomes they can trust. A big barrier is adult friction: many kits are fussy to set up, messy, or assume the grown-up is a science teacher; families signal strong demand for start-in-under-5-minutes, repeatable activities, and step-by-step prompts that make non-expert adults feel confident. Value matters: buyers expect durability and reusability at their chosen price tier, and they respond well to progression paths (level-up challenges) that extend play without constant new purchases. Because the shelf is crowded—and screens compete for attention—new offers must present a clear “why us” (memorable benefit, safer experience, or easier routine) without sacrificing fun. Finally, because this audience is young, safety and inclusion (materials, small-parts risks, age-appropriate complexity, representation in instructions) are baseline expectations, not extras.
+
+Your task now: From that brief, choose one unmet need to target (e.g., authentic learning with clear outcomes, low-fuss setup with parent confidence, or durable/reusable kits with level-up progression). Paste your choice into the prompt as UNMET_NEEDS, then proceed with the activity.

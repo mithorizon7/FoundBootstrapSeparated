@@ -1,28 +1,28 @@
 {
   "phase": 4,
   "title": "Hero Offer Ideation",
-  "intro": "Drawing on market insights, competitive intelligence, and strategic research, this activity is where **insight becomes invention**: you will **generate** three concrete product or service concepts and understand their strategic potential.\n\nYour goal is to **create** comprehensive concept options with detailed scoring, features, and strategic positioning. Each concept will be evaluated to help you identify the most promising direction for your venture.",
+  "intro": "Welcome to Phase 4: Hero Offer Ideation. In this **15-minute sprint** you'll use ChatGPT (free) to turn a real market context into three sharply distinct product/service concepts, then see how an AI can score them against simple criteria and recommend a direction. You don't need to read the market report yourself—you'll upload it to ChatGPT so the model can ground its thinking while you focus on clear inputs and good decisions.\n\n**The scenario you're working in: STEM Toys for Ages 4–8**\n\nYou're stepping into the roles of a brand-new STEM toy company's core team (product, design, operations, and marketing hats). Your job is to use ChatGPT to turn real market context into three distinct \"hero offer\" concepts—flagship ideas that could define the brand—then see how AI scores and recommends a direction using simple decision criteria.",
   "estimatedTime": "15 minutes",
   "fields": [
     {
       "id": "company_name",
-      "label": "Company Name",
+      "label": "STEM Toy Company Name",
       "type": "text",
-      "placeholder": "e.g., BrightBlocks",
+      "placeholder": "e.g., Kidwins",
       "required": true,
       "persist": true,
-      "help": "Your company or venture name",
-      "tooltip": "The name of your company or venture that will be referenced in the concept development."
+      "help": "Your STEM toy company name for this exercise",
+      "tooltip": "Choose a name for your new STEM toy company. This will be used throughout the AI analysis. You can use 'Kidwins' from the market report or create your own."
     },
     {
       "id": "unmet_needs",
-      "label": "Key Unmet Need(s) to Address",
+      "label": "Chosen Unmet Need from STEM Toy Market",
       "type": "textarea",
-      "placeholder": "e.g., Parents struggle with complex tech toys and need simpler, more supportive solutions that genuinely deliver educational value without overwhelming complexity.",
+      "placeholder": "e.g., Parents want hands-on, screen-light play that clearly builds early math and science skills but are skeptical of vague 'STEM' claims and need plain-language learning outcomes they can trust.",
       "required": true,
       "persist": true,
-      "help": "Enter a significant unmet customer need that your product will address.",
-      "tooltip": "Describe a key customer problem or unmet need that your product concepts will solve. This could come from market research, customer interviews, or strategic analysis. Focus on needs that represent genuine market opportunities."
+      "help": "Choose one specific unmet need from the STEM toy market brief to focus your concepts on.",
+      "tooltip": "Select one key customer problem from the STEM toy market context: authentic learning with clear outcomes, low-fuss setup with parent confidence, or durable/reusable kits with level-up progression. This will focus your product concepts."
     },
     {
       "id": "feasibility_weight",
@@ -32,7 +32,7 @@
       "required": true,
       "persist": true,
       "help": "How easy/complex will it be to develop and launch? (must total 100% with other weights)",
-      "tooltip": "Higher weights favor simpler concepts you can launch quickly. Tech startups often weight this 30-40%, while deep-tech ventures may lower it to prioritize breakthrough innovation over speed to market."
+      "tooltip": "Higher weights favor simpler STEM toy concepts you can launch quickly. Consider manufacturing complexity, safety testing requirements, and supply chain for physical toys."
     },
     {
       "id": "differentiation_weight",
@@ -41,8 +41,8 @@
       "placeholder": "e.g., 35",
       "required": true,
       "persist": true,
-      "help": "How unique compared to existing market offerings?",
-      "tooltip": "Values uniqueness and competitive advantage. Crowded markets need higher differentiation weights (40%+), while blue ocean opportunities can focus more on execution and feasibility."
+      "help": "How unique compared to existing STEM toy offerings?",
+      "tooltip": "Values uniqueness in the competitive STEM toy landscape. The market analysis shows many similar building sets and kits, so differentiation through unique learning approaches or parent experience could be crucial."
     },
     {
       "id": "margin_weight",
@@ -51,8 +51,8 @@
       "placeholder": "e.g., 25",
       "required": true,
       "persist": true,
-      "help": "How strong is the profit potential? (total must equal 100%)",
-      "tooltip": "Evaluates revenue potential and pricing power. SaaS and digital products can weight this higher (30%+), while physical products with complex supply chains may weight feasibility higher."
+      "help": "How strong is the profit potential for this STEM toy? (total must equal 100%)",
+      "tooltip": "Evaluates revenue potential and pricing power in the STEM toy market. Consider manufacturing costs, retail margins, and parent willingness to pay premium for educational value."
     },
     {
       "id": "brand_adj_1",
@@ -85,113 +85,102 @@
       "tooltip": "Completes your brand personality trinity. These three adjectives work together to ensure AI-generated concepts feel authentically aligned with your intended brand experience and customer expectations."
     }
   ],
-  "promptTemplate": "**ROLE**\nYou are the lead innovation architect for {{company_name}}, tasked with designing a breakout offering.\n\n**INPUT CONTEXT**\n* Competitive intelligence: Use any available competitor data or market research to inform positioning\n* Customer insights: UNMET_NEEDS\n\nUNMET_NEEDS\n{{unmet_needs}}\n\n**SCORING WEIGHTS**\nFeasibility {{feasibility_weight}}%, Differentiation {{differentiation_weight}}%, Margin Potential {{margin_weight}}% (total 100%).\n\n**CONSTRAINTS**\n* Price Tier: Mid-Range.\n* Must address competitive gaps and offer clear advantages over existing market solutions.\n* Align concepts with these brand adjectives: **{{brand_adj_1}}, {{brand_adj_2}}, {{brand_adj_3}}**. (This should influence code-names, value proposition language, and feature descriptions where applicable).\n* Maintain competitive pricing within the chosen tier.\n\n---\n\n**TASK**\n\n1.  **Need Analysis**\n    * Analyze the `UNMET_NEEDS` provided to identify the highest strategic opportunity for {{company_name}}. Explain the strategic potential in ≤ 50 words, considering market gaps and relevant macro trends.\n\n2.  **Generate Three Concepts**\n    * **Based on the need analysis above, generate three distinct concepts.** For *each* concept, output in a table:\n        * Code-name (≤ 4 words, all caps)\n        * One-sentence value prop (start with a power verb)\n        * Key Features / Attributes (≤ 25 words)\n        * Primary materials/components\n        * Estimated BOM cost (USD, round to nearest dollar, respecting constraint)\n        * Competitive Advantage vs. existing solutions (≤ 15 words)\n\n3.  **Define Scoring Rubrics**\n    * Define and state clearly a 1-5 scoring rubric for Feasibility, Differentiation, and Margin Potential. Base definitions on standard business considerations and the context provided (e.g., Feasibility: 5=Uses existing tech/easy supply chain, 1=Requires new R&D/complex sourcing; Differentiation: 5=Highly unique/protected, 1=Me-too/easily copied; Margin Potential: 5=High perceived value/low BOM relative to price, 1=Price sensitive/high BOM relative to price).\n\n4.  **Score & Visualize** \n    * Using the rubrics above, score each concept (1-5) on Feasibility, Differentiation, and Margin Potential.\n    * Apply the `SCORING WEIGHTS` to calculate a final weighted score for each concept.\n    * Present results in two parts: a) Summary Rankings - List concepts in order by weighted score with brief rationale b) Detailed Scoring Matrix - Full breakdown table showing all scores and calculations.*\n\n5.  **Recommendation** \n    * Recommend ONE concept to advance based on the scoring and strategic fit. Justify in ≤ 60 words.\n    * List three on-brand hashtags for the winning concept.\n    * End with a blank line, then output the winning concept's row from the table in Step 2 again for easy copy/paste.\n\n---\n\n## OUTPUT FORMAT\n1️⃣ Need Analysis section → 2️⃣ Table of three concepts → 3️⃣ Scoring Rubrics section → 4️⃣ **Rankings & Scoring** → 5️⃣ Recommendation",
+  "promptTemplate": "**ROLE**\nYou are the lead product strategist for {{company_name}}, a new STEM toy company targeting children ages 4-8.\n\n**CONTEXT**\nAnalyze the uploaded U.S. STEM Toys Market Analysis to understand the competitive landscape, market trends, and opportunities. Use this market intelligence to inform your concept development.\n\n**TARGET UNMET NEED**\n{{unmet_needs}}\n\n**SCORING WEIGHTS**\nFeasibility {{feasibility_weight}}%, Differentiation {{differentiation_weight}}%, Margin Potential {{margin_weight}}% (total 100%).\n\n**STEM TOY CONSTRAINTS**\n* Safety requirements for ages 4-8 (no small parts, non-toxic materials)\n* Educational value must be clearly communicated to parents\n* Setup time under 5 minutes for parent confidence\n* Align with brand personality: **{{brand_adj_1}}, {{brand_adj_2}}, {{brand_adj_3}}**\n* Competitive with existing STEM toy pricing expectations\n\n---\n\n**TASK**\n\n1.  **Market-Informed Need Analysis**\n    * Using the uploaded market analysis, explain how the target unmet need represents a strategic opportunity for {{company_name}} in the STEM toy space. Reference specific market insights in ≤ 75 words.\n\n2.  **Generate Three STEM Toy Concepts**\n    * Create three distinct STEM toy concepts for ages 4-8. For each concept, provide:\n        * Code-name (≤ 4 words, all caps)\n        * One-sentence value prop (focus on learning outcome)\n        * Key Features (≤ 25 words, emphasize educational benefits)\n        * Primary materials (child-safe, age-appropriate)\n        * Estimated manufacturing cost (USD, realistic for toy industry)\n        * Competitive advantage vs. existing STEM toys (≤ 15 words)\n\n3.  **STEM Toy Scoring Rubrics**\n    * Define 1-5 scoring rubrics specific to STEM toys:\n        * Feasibility: Manufacturing complexity, safety compliance, supply chain\n        * Differentiation: Unique learning approach, parent appeal, market gaps\n        * Margin Potential: Educational premium, cost structure, pricing power\n\n4.  **Score & Compare** \n    * Score each concept using the rubrics and apply the scoring weights\n    * Present: a) Summary Rankings with educational rationale b) Detailed scoring matrix\n\n5.  **Strategic Recommendation** \n    * Recommend the best STEM toy concept based on scoring and market fit\n    * Justify choice in ≤ 60 words focusing on educational impact and market opportunity\n    * Provide three hashtags suitable for STEM toy marketing\n\n---\n\n## OUTPUT FORMAT\n1️⃣ Need Analysis section → 2️⃣ Table of three concepts → 3️⃣ Scoring Rubrics section → 4️⃣ **Rankings & Scoring** → 5️⃣ Recommendation",
   "decisionBoxContent": {
-    "title": "Concept Development Decisions",
-    "subtitle": "Strategic choices to guide your product concept generation",
+    "title": "STEM Toy Market Context & Decisions",
+    "subtitle": "Understanding the market and making strategic choices for your STEM toy concepts",
     "sections": [
       {
         "number": "1",
-        "title": "Define Your Target Unmet Need",
+        "title": "Market Context: STEM Toys for Ages 4-8",
         "items": [
           {
-            "label": "Your Goal",
-            "content": "Identify the single most strategic unmet customer need that your product concepts will address. This should align with your core value proposition and market opportunity."
+            "label": "Your Operating Context",
+            "content": "You're designing for families with children ages 4–8 in the U.S. STEM toys space. Think building sets, simple robotics, math & science kits, cause-and-effect toys, and playful learning accessories."
           },
           {
-            "label": "Sources for Unmet Needs",
-            "content": "Draw from market research, customer interviews, competitive analysis, or strategic insights you've gathered. Look for problems that represent genuine market opportunities with clear customer pain points."
+            "label": "Download & Upload the Market Analysis",
+            "content": "**IMPORTANT**: Download the U.S. STEM Toys Market Analysis PDF from this page. You'll upload it to ChatGPT so the AI can ground its suggestions in real market data. You don't need to read the report yourself—the AI will analyze it."
           },
           {
-            "label": "How to Choose Your Unmet Need",
-            "content": "As a team, consider which customer problem offers the highest strategic potential. Evaluate:\n\n• **Market Size**: How many customers face this problem?\n• **Strategic Fit**: Does solving this align with your company's capabilities and vision?\n• **Competitive Gap**: Are existing solutions inadequate or missing?\n• **Customer Pain**: How significant is this problem for potential customers?"
+            "label": "Market Unmet-Needs Brief",
+            "content": "Parents of 4–8-year-olds want hands-on, screen-light play that clearly builds early math and science skills—they're skeptical of vague \"STEM\" claims and look for plain-language learning outcomes they can trust. A big barrier is adult friction: many kits are fussy to set up, messy, or assume the grown-up is a science teacher; families signal strong demand for start-in-under-5-minutes, repeatable activities, and step-by-step prompts that make non-expert adults feel confident."
           },
           {
-            "label": "Action: Prepare Your Unmet Need Statement",
-            "content": "Craft a clear, concise statement of the customer problem your concepts will solve.\n\n**Example format:**\n\nParents struggle with complex tech toys and need simpler, more supportive solutions that genuinely deliver educational value without overwhelming complexity.\n\nPrepare your unmet need statement for the form field above."
+            "label": "Choose Your Focus",
+            "content": "From the brief above, choose one unmet need to target:\n\n• **Authentic learning with clear outcomes** (skeptical of vague claims)\n• **Low-fuss setup with parent confidence** (under 5 minutes, non-expert friendly)\n• **Durable/reusable kits with level-up progression** (repeatable, advancing difficulty)\n\nPaste your choice into the form field as your target unmet need."
           }
         ]
       },
       {
         "number": "2",
-        "title": "Set Your Concept Scoring Weights",
+        "title": "Set Your STEM Toy Concept Scoring Weights",
         "items": [
           {
             "label": "Your Goal",
-            "content": "To decide how the AI should prioritize three critical factors when it evaluates the new product/service concepts it generates. These factors are:\n\n• **Feasibility**: How easy or complex will it be to realistically develop and launch this concept? *(Considers technology, resources, supply chain)*\n• **Differentiation**: How unique or distinct is this concept compared to what's already on the market? Does it offer a clear, novel advantage?\n• **Margin Potential**: How strong is the potential for this concept to be profitable? *(Considers perceived value, pricing, and estimated cost of goods)*"
+            "content": "Decide how the AI should prioritize three critical factors when evaluating STEM toy concepts:\n\n• **Feasibility**: How easy will it be to develop and launch? *(Manufacturing complexity, safety testing, supply chain)*\n• **Differentiation**: How unique compared to existing STEM toys? *(Novel learning approach, parent experience, competitive advantage)*\n• **Margin Potential**: How profitable could this STEM toy be? *(Premium educational value, manufacturing costs, retail pricing)*"
           },
           {
-            "label": "Your Task",
-            "content": "Decide on a percentage weight for each of these three factors. **The three percentages must add up to 100%.**"
-          },
-          {
-            "label": "Deciding Your Weights – Key Questions",
-            "content": "What's your venture's top priority right now?\n\n• Quickly launching a viable product? *(Consider higher % for Feasibility)*\n• Standing out with a truly novel offering? *(Consider higher % for Differentiation)*\n• Ensuring strong profitability early on? *(Consider higher % for Margin Potential)*"
-          },
-          {
-            "label": "How AI Uses These Weights",
-            "content": "The AI will calculate a weighted score for each concept based on your percentages, helping you pick the most strategically aligned idea."
+            "label": "STEM Toy Context",
+            "content": "The market analysis shows crowded competition in basic building sets. Success often comes from clear educational outcomes, parent confidence, and differentiated learning approaches."
           },
           {
             "label": "Action",
-            "content": "Record your team's chosen percentages for Feasibility, Differentiation, and Margin Potential in the form fields above *(remember, they should equal 100%)*."
+            "content": "Assign percentage weights (must total 100%) based on your strategic priorities for this new STEM toy company."
           }
         ]
       },
       {
         "number": "3",
-        "title": "Choose Brand Adjectives",
+        "title": "Choose Brand Adjectives for Your STEM Toy Company",
         "items": [
           {
-            "label": "Selection Criteria",
-            "content": "Select **three (3) adjectives** that best capture the desired tone and feel for the new product/service concepts. These will help guide creative aspects like code-names and value propositions."
-          },
-          {
-            "label": "Examples",
-            "content": "• Curious, Lively, Trustworthy\n• Bold, Simple, Efficient\n• Playful, Educational, Safe\n• Premium, Discreet, Effective"
+            "label": "STEM Toy Brand Examples",
+            "content": "• Curious, Educational, Safe\n• Innovative, Trustworthy, Fun\n• Simple, Engaging, Reliable\n• Creative, Supportive, Quality"
           },
           {
             "label": "Action",
-            "content": "Choose the three specific adjectives you want to use in the form fields above."
+            "content": "Choose three adjectives that capture how you want parents and children to perceive your STEM toy brand."
           }
         ]
       }
     ],
     "action": {
-      "title": "Complete Form Fields",
+      "title": "Complete Setup",
       "items": [
-        "Define your target unmet customer need",
+        "Download the U.S. STEM Toys Market Analysis PDF from this page",
+        "Choose your target unmet need from the market brief above",
         "Set your scoring weight percentages (must total 100%)",
-        "Choose your three brand adjectives",
-        "Fill in all form fields above before proceeding to the concept generation process"
+        "Choose three brand adjectives for your STEM toy company",
+        "Fill in all form fields before proceeding to ChatGPT"
       ]
     }
   },
   "stepByStepFlow": [
     {
       "step": 1,
-      "action": "**Setup ChatGPT**: **Open** a new ChatGPT chat. If you have competitive intelligence files (CSV, reports), **upload** them to enhance the analysis.",
-      "time": "1 minute"
+      "action": "**Download the Market PDF**: **Download** the U.S. STEM Toys Market Analysis PDF from this page to your computer for upload to ChatGPT.",
+      "time": "30 seconds"
     },
     {
       "step": 2,
-      "action": "**Submit Concept Generation Prompt**: **Copy** the Hero Offer Prompt from the preview, verify your company details and strategic parameters are correct, and **send** it to the AI.",
+      "action": "**Setup ChatGPT**: **Open** ChatGPT (free version works fine). **Upload** the U.S. STEM Toys Market Analysis PDF so the AI can analyze real market data.",
       "time": "1 minute"
     },
     {
       "step": 3,
-      "action": "**Generate & Review Concepts**: While the AI works (~3 min), your team can **discuss** potential directions. When the AI returns the concept document, **review** the **three options** for clarity, feasibility, and strategic alignment.",
-      "time": "5 minutes"
+      "action": "**Submit STEM Toy Prompt**: **Copy** the STEM Toy Ideation Prompt from the preview below, verify your company details and parameters are filled in, and **send** it to ChatGPT.",
+      "time": "1 minute"
     },
     {
       "step": 4,
-      "action": "**Review the Output**: **Review** the generated analysis for clarity, feasibility, and strategic alignment. Use the insights to inform your product development strategy.",
-      "time": "30 seconds"
+      "action": "**AI Analysis & Review**: ChatGPT will analyze the market data and generate three STEM toy concepts with scoring. **Review** the concepts for clarity and strategic fit with your chosen unmet need.",
+      "time": "10+ minutes"
     }
   ],
   "expectedOutput": {
-    "fileCreated": "Strategic concept analysis with scoring matrix and recommendations",
-    "whyItMatters": "These three comprehensive concept options provide strategic alternatives with detailed scoring, features, and positioning. This analysis gives you data-driven insights to evaluate different product directions and select the most promising approach.",
-    "nextSteps": "Review the concept analysis with your team. Use the scoring matrix and strategic insights to discuss trade-offs between feasibility, differentiation, and margin potential. This analysis will inform your product development strategy and positioning decisions."
+    "fileCreated": "Three STEM toy concepts with market-informed scoring and strategic recommendation",
+    "whyItMatters": "This exercise demonstrates how AI can rapidly transform market research into actionable product concepts. You'll see how AI processes real market data, applies strategic criteria, and provides data-driven recommendations—a powerful approach for ideation and strategic planning.",
+    "nextSteps": "Compare the AI's analysis with your own instincts. Notice how market data influenced the concepts and scoring. This methodology can be applied to any ideation challenge where you need to balance multiple strategic factors and generate evidence-based recommendations."
   }
 }
