@@ -155,13 +155,13 @@ Choose the three specific adjectives you want to use in the form fields above.
 **Action:** While the AI works (~3 min), your team can **discuss** potential directions. When the AI returns the concept document, **review** the **three options** for clarity, feasibility, and strategic alignment.
 **Time:** 5 minutes
 
-### Step 4: Save the Output
-**Action:** **Download** the generated document and **save** it as `Hero_Offer_Concepts.docx` to your project folder for future reference and decision-making.
+### Step 4: Review the Output
+**Action:** **Review** the generated analysis for clarity, feasibility, and strategic alignment. Use the insights to inform your product development strategy.
 **Time:** 30 seconds
 
 ## Expected Output
 
-**File Created:** Hero_Offer_Concepts.docx
+**File Created:** Strategic concept analysis with scoring matrix and recommendations
 
 **Why It Matters:** These three comprehensive concept options provide strategic alternatives with detailed scoring, features, and positioning. This analysis gives you data-driven insights to evaluate different product directions and select the most promising approach.
 
@@ -220,7 +220,4 @@ Feasibility {{feasibility_weight}}%, Differentiation {{differentiation_weight}}%
 ---
 
 ## OUTPUT FORMAT
-Document (.docx) in this order:
-1️⃣ Need Analysis paragraph → 2️⃣ Table of three concepts → 3️⃣ Scoring Rubrics paragraph → 4️⃣ **Rankings & Scoring** → 5️⃣ Recommendation paragraph
-
-Also give me the entire output as a downloadable .docx file titled: "Hero_Offer_Concepts.docx"
+1️⃣ Need Analysis section → 2️⃣ Table of three concepts → 3️⃣ Scoring Rubrics section → 4️⃣ **Rankings & Scoring** → 5️⃣ Recommendation
