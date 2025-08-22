@@ -12,6 +12,7 @@ import { Field } from "./Field";
 import { PromptPreview } from "./PromptPreview";
 import { SelectionCard } from "./SelectionCard";
 import { ChevronDown, Info, Vote, Copy, CheckCircle, Clock, FileText, Target, ArrowRight, Globe, Upload, Download } from "lucide-react";
+import { getPhaseIcon } from "@shared/phaseIcons";
 import { savePhaseData, getPhaseData, saveToLocalStorage, getFromLocalStorage, getAllLocalStorageData, getAllPhaseDataForTeam, updateTeamPhase } from "@/lib/db";
 import { saveWorkspaceMeta } from "@/lib/storageUtils";
 import { useLocation } from "wouter";
@@ -387,6 +388,8 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
   );
   const hasErrors = Object.keys(errors).length > 0 || hasRequiredFieldsEmpty;
 
+  const PhaseIcon = getPhaseIcon(config.phase);
+
   return (
     <div className="space-y-8">
       {/* Phase Header */}
@@ -394,18 +397,18 @@ export function PhasePage({ config, teamId, teamCode, onNext, onPrevious }: Phas
         <CardHeader className="pb-6">
           <div className="flex items-center space-x-6 mb-6">
             <div className="w-16 h-16 bg-primary rounded-xl flex items-center justify-center shadow-md">
-              <span className="text-white font-bold text-xl">{config.phase}</span>
+              {PhaseIcon && <PhaseIcon className="w-8 h-8 text-white" />}
             </div>
             <div className="flex-1">
               <CardTitle className="text-2xl md:text-3xl font-extrabold text-neutral-800 leading-tight tracking-tight mb-2">{config.title}</CardTitle>
               <p className="text-base text-neutral-600 font-semibold">
-                Phase {config.phase} of {PHASE_CONFIG.TOTAL_PHASES}
-                {config.estimatedTime && ` • ${config.estimatedTime}`}
+                {config.estimatedTime && `${config.estimatedTime}`}
               </p>
             </div>
           </div>
           
-          <Progress value={progressPercentage} className="mb-4" />
+          {/* Decorative Element - replacing progress bar */}
+          <div className="w-full h-2 bg-gradient-to-r from-primary/20 via-primary/40 to-primary/20 rounded-full shadow-sm"></div>
           
           <div className="mt-6">
             <div className="text-lg md:text-xl text-neutral-700 leading-relaxed font-medium max-w-5xl">

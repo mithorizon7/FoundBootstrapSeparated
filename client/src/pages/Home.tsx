@@ -6,6 +6,7 @@ import { TeamModal } from "@/components/TeamModal";
 import { NavigationHeader } from "@/components/NavigationHeader";
 import { Footer } from "@/components/Footer";
 import { ArrowRight, Users, Clock, Target } from "lucide-react";
+import { getPhaseIcon } from "@shared/phaseIcons";
 import logoSrc from "@/assets/logo.png";
 import { WORKSPACE } from "@/lib/copy";
 
@@ -163,7 +164,10 @@ export default function Home() {
               ].map((phase) => (
                 <div key={phase.phase} className="text-center space-y-4 hover:bg-gray-50 p-4 rounded-lg transition-colors cursor-pointer" onClick={() => setLocation(`/phase/${phase.phase}`)}>
                   <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto shadow-md">
-                    <span className="text-white font-bold text-lg">{phase.phase}</span>
+                    {(() => {
+                      const PhaseIcon = getPhaseIcon(phase.phase);
+                      return PhaseIcon ? <PhaseIcon className="w-6 h-6 text-white" /> : <span className="text-white font-bold text-lg">{phase.phase}</span>;
+                    })()}
                   </div>
                   <h3 className="font-bold text-lg text-neutral-800 leading-tight">{phase.title}</h3>
                   <p className="text-sm text-neutral-600 leading-relaxed font-medium">{phase.description}</p>

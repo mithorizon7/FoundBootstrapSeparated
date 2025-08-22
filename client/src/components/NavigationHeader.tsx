@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Menu, Users, ChartLine, UserCircle, ChevronDown, LogIn, LogOut, Shield } from "lucide-react";
+import { getPhaseIcon } from "@shared/phaseIcons";
 import { useAuth } from "@/contexts/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { AvatarSelector } from "@/components/AvatarSelector";
@@ -181,7 +182,7 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
                       : 'text-gray-400 cursor-not-allowed pointer-events-none'
                   }`}
                 >
-                  <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 ${
+                  <span className={`w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 ${
                     isActive
                       ? 'bg-white bg-opacity-20 text-white'
                       : isCompleted
@@ -190,7 +191,10 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
                       ? 'bg-neutral-200 text-neutral-700'
                       : 'bg-neutral-100'
                   }`}>
-                    {phase.number}
+                    {(() => {
+                      const PhaseIcon = getPhaseIcon(phase.number);
+                      return PhaseIcon ? <PhaseIcon className="w-3 h-3" /> : phase.number;
+                    })()}
                   </span>
                   <span className="hidden lg:inline whitespace-nowrap">{phase.title}</span>
                 </Link>
@@ -228,7 +232,7 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
                           isActive ? 'bg-primary text-white' : ''
                         } ${!isAvailable ? 'opacity-50 cursor-not-allowed pointer-events-none' : ''}`}
                       >
-                        <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
+                        <span className={`w-6 h-6 rounded-full flex items-center justify-center ${
                           isActive
                             ? 'bg-white bg-opacity-20 text-white'
                             : isCompleted
@@ -237,7 +241,10 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
                             ? 'bg-neutral-200 text-neutral-700'
                             : 'bg-neutral-100'
                         }`}>
-                          {phase.number}
+                          {(() => {
+                            const PhaseIcon = getPhaseIcon(phase.number);
+                            return PhaseIcon ? <PhaseIcon className="w-3 h-3" /> : phase.number;
+                          })()}
                         </span>
                         <span>{phase.title}</span>
                       </DropdownMenuItem>
@@ -291,12 +298,15 @@ export function NavigationHeader({ participant }: NavigationHeaderProps) {
                           isActive ? 'bg-primary text-white' : ''
                         }`}
                       >
-                        <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
+                        <span className={`w-6 h-6 rounded-full flex items-center justify-center ${
                           isActive
                             ? 'bg-white bg-opacity-20 text-white'
                             : 'bg-neutral-200 text-neutral-700'
                         }`}>
-                          {phase.number}
+                          {(() => {
+                            const PhaseIcon = getPhaseIcon(phase.number);
+                            return PhaseIcon ? <PhaseIcon className="w-3 h-3" /> : phase.number;
+                          })()}
                         </span>
                         <span>{phase.title}</span>
                       </DropdownMenuItem>
